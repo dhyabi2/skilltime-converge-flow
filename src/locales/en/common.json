@@ -2,7 +2,7 @@
 {
   "app": {
     "name": "SkillTime",
-    "tagline": "Where skills meet and opportunities flow"
+    "tagline": "Connect, Learn, Excel Together"
   },
   "navigation": {
     "home": "Home",
@@ -10,48 +10,31 @@
     "bookings": "Bookings",
     "profile": "Profile"
   },
-  "buttons": {
-    "search": "Search",
-    "filter": "Filter",
-    "book_now": "Book Now",
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try again",
     "cancel": "Cancel",
     "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
     "back": "Back",
-    "try_again": "Try Again",
-    "view_more": "View More",
-    "install_app": "Install App",
-    "refresh": "Refresh"
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "open": "Open"
   },
-  "labels": {
-    "loading": "Loading...",
-    "search_placeholder": "Search for skills...",
-    "price": "Price",
-    "duration": "Duration",
-    "location": "Location",
-    "rating": "Rating",
-    "reviews": "Reviews",
-    "skills": "skill",
-    "skills_plural": "skills"
-  },
-  "status": {
-    "online": "Online",
-    "offline": "Offline",
-    "loading": "Loading",
-    "error": "Error",
-    "success": "Success"
-  },
-  "offline": {
-    "title": "You're offline",
-    "description": "Please check your internet connection and try again.",
-    "indicator": "You're currently offline. Some features may be limited."
-  },
-  "install": {
-    "title": "Install SkillTime",
-    "description": "Get the full app experience"
-  },
-  "language": {
-    "toggle": "Toggle Language",
-    "arabic": "Arabic",
-    "english": "English"
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No notifications yet",
+    "mark_all_read": "Mark all read",
+    "view_all": "View all notifications",
+    "marked_read": "Notification marked as read",
+    "marked_read_desc": "The notification has been marked as read",
+    "all_marked_read": "All notifications marked as read",
+    "all_marked_read_desc": "All your notifications have been marked as read"
   }
 }

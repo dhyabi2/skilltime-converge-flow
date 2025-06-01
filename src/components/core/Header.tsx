@@ -1,8 +1,9 @@
 
 import React from 'react';
-import { Search, Bell, Languages } from 'lucide-react';
+import { Search, Languages } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Switch } from "@/components/ui/switch";
+import NotificationPanel from '../notifications/NotificationPanel';
 
 const Header = () => {
   const { t, i18n } = useTranslation('common');
@@ -13,6 +14,9 @@ const Header = () => {
   };
 
   const isArabic = i18n.language === 'ar';
+  
+  // Mock user ID - in a real app, this would come from auth context
+  const userId = 'user-1';
   
   return (
     <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-4 py-3 sticky top-0 z-50">
@@ -42,10 +46,8 @@ const Header = () => {
           <button className="p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors border border-white/30">
             <Search className="w-5 h-5 text-slate-700" />
           </button>
-          <button className="p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors relative border border-white/30">
-            <Bell className="w-5 h-5 text-slate-700" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-mint-400 to-mint-500 rounded-full border border-white"></div>
-          </button>
+          
+          <NotificationPanel userId={userId} />
         </div>
       </div>
     </header>
