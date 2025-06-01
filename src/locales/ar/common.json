@@ -1,0 +1,50 @@
+
+{
+  "app": {
+    "name": "SkillTime",
+    "tagline": "حيث تلتقي المهارات وتتدفق الفرص"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "browse": "تصفح",
+    "bookings": "الحجوزات",
+    "profile": "الملف الشخصي"
+  },
+  "buttons": {
+    "search": "بحث",
+    "filter": "تصفية",
+    "book_now": "احجز الآن",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "back": "العودة",
+    "try_again": "حاول مرة أخرى",
+    "view_more": "عرض المزيد",
+    "install_app": "تثبيت التطبيق",
+    "refresh": "تحديث"
+  },
+  "labels": {
+    "loading": "جاري التحميل...",
+    "search_placeholder": "ابحث عن المهارات...",
+    "price": "السعر",
+    "duration": "المدة",
+    "location": "الموقع",
+    "rating": "التقييم",
+    "reviews": "المراجعات"
+  },
+  "status": {
+    "online": "متصل",
+    "offline": "غير متصل",
+    "loading": "جاري التحميل",
+    "error": "خطأ",
+    "success": "نجح"
+  },
+  "offline": {
+    "title": "أنت غير متصل",
+    "description": "يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.",
+    "indicator": "أنت حاليًا غير متصل. قد تكون بعض الميزات محدودة."
+  },
+  "install": {
+    "title": "تثبيت SkillTime",
+    "description": "احصل على تجربة التطبيق الكاملة"
+  }
+}

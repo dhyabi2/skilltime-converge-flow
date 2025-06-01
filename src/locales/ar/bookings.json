@@ -1,0 +1,35 @@
+
+{
+  "title": "حجوزاتي",
+  "tabs": {
+    "upcoming": "القادمة",
+    "completed": "المكتملة"
+  },
+  "status": {
+    "loading": "جاري تحميل حجوزاتك...",
+    "no_upcoming": "لا توجد حجوزات قادمة",
+    "no_upcoming_desc": "ليس لديك أي حجوزات قادمة حتى الآن",
+    "no_completed": "لا توجد حجوزات مكتملة",
+    "no_completed_desc": "لم تكمل أي حجوزات حتى الآن",
+    "completed": "مكتمل"
+  },
+  "actions": {
+    "cancel": "إلغاء",
+    "reschedule": "إعادة جدولة"
+  },
+  "confirmation": {
+    "title": "تم تأكيد الحجز!",
+    "subtitle": "تم حجز جلستك بنجاح",
+    "details_title": "تفاصيل الحجز",
+    "upcoming_session": "الجلسة القادمة",
+    "payment_confirmed": "تم تأكيد الدفع",
+    "next_steps": "ما التالي؟",
+    "email_confirmation": "ستتلقى بريدًا إلكترونيًا للتأكيد مع تفاصيل الجلسة",
+    "meeting_link": "سيتم مشاركة رابط الاجتماع قبل 15 دقيقة من الجلسة",
+    "reschedule_info": "يمكنك إعادة الجدولة أو الإلغاء حتى 24 ساعة قبل الموعد",
+    "view_bookings": "عرض حجوزاتي",
+    "back_home": "العودة للرئيسية",
+    "loading": "جاري تأكيد حجزك...",
+    "failed": "فشل الحجز"
+  }
+}

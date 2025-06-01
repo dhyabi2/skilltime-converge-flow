@@ -2,19 +2,21 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, Calendar, User, Search } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { gsap } from 'gsap';
 
 const BottomNavigation = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation('common');
   const navRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
-    { icon: Home, label: 'Home', path: '/' },
-    { icon: Search, label: 'Browse', path: '/browse' },
-    { icon: Calendar, label: 'Bookings', path: '/bookings' },
-    { icon: User, label: 'Profile', path: '/profile' },
+    { icon: Home, label: t('navigation.home'), path: '/' },
+    { icon: Search, label: t('navigation.browse'), path: '/browse' },
+    { icon: Calendar, label: t('navigation.bookings'), path: '/bookings' },
+    { icon: User, label: t('navigation.profile'), path: '/profile' },
   ];
 
   useEffect(() => {

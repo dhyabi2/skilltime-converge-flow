@@ -1,0 +1,31 @@
+
+{
+  "discovery": {
+    "title": "اكتشف مهارات مذهلة",
+    "subtitle": "تواصل مع المحترفين الموهوبين وتعلم مهارات جديدة",
+    "browse_categories": "تصفح الفئات",
+    "top_rated": "الأعلى تقييمًا",
+    "all_skills": "جميع المهارات",
+    "search_results": "نتائج البحث عن"
+  },
+  "categories": {
+    "all": "جميع الفئات"
+  },
+  "details": {
+    "about": "حول هذه المهارة",
+    "expertise": "الخبرات تشمل:",
+    "available_slots": "الأوقات المتاحة",
+    "select_time": "اختر وقتًا",
+    "per_hour": "في الساعة"
+  },
+  "filters": {
+    "category": "تصفية حسب الفئة"
+  },
+  "status": {
+    "loading": "جاري البحث عن المهارات...",
+    "not_found": "لم توجد مهارات",
+    "not_found_desc": "حاول تعديل مصطلحات البحث أو مرشحات الفئة",
+    "skills_found": "مهارة موجودة",
+    "skill_not_found": "المهارة غير موجودة"
+  }
+}
