@@ -14,7 +14,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   title, 
   icon, 
   skillCount, 
-  gradient,
   onClick 
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -51,12 +50,12 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     <div
       ref={cardRef}
       onClick={handleClick}
-      className={`${gradient} rounded-2xl p-4 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 min-h-[120px] flex flex-col justify-between`}
+      className="bg-black text-white rounded-2xl p-4 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 min-h-[120px] flex flex-col justify-between border border-gray-800"
     >
       <div className="text-3xl mb-2">{icon}</div>
       <div>
         <h3 className="font-bold text-lg mb-1">{title}</h3>
-        <p className="text-sm opacity-90">{skillCount} skills</p>
+        <p className="text-sm text-gray-300">{skillCount} skills</p>
       </div>
     </div>
   );

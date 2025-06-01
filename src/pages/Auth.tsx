@@ -65,17 +65,17 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div
         ref={containerRef}
-        className="w-full max-w-md bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20"
+        className="w-full max-w-md bg-white rounded-3xl p-8 shadow-xl"
       >
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold text-black mb-2">
             Welcome to SkillTime
           </h1>
-          <p className="text-white/80">
+          <p className="text-gray-600">
             Where Skills Converge & Opportunities Flow
           </p>
         </div>
@@ -83,13 +83,13 @@ const Auth = () => {
         {/* User Type Selection (only for signup) */}
         {!isLogin && (
           <div className="mb-6">
-            <h3 className="text-white font-semibold mb-3">I want to:</h3>
+            <h3 className="text-black font-semibold mb-3">I want to:</h3>
             <div className="grid grid-cols-2 gap-3">
               <button
                 className={`user-type-btn p-4 rounded-2xl border-2 transition-all ${
                   userType === 'seeker'
-                    ? 'border-white bg-white/20 text-white'
-                    : 'border-white/30 text-white/70 hover:border-white/50'
+                    ? 'border-black bg-black text-white'
+                    : 'border-gray-300 text-gray-600 hover:border-gray-400'
                 }`}
                 onClick={() => handleUserTypeSelect('seeker')}
               >
@@ -99,8 +99,8 @@ const Auth = () => {
               <button
                 className={`user-type-btn p-4 rounded-2xl border-2 transition-all ${
                   userType === 'provider'
-                    ? 'border-white bg-white/20 text-white'
-                    : 'border-white/30 text-white/70 hover:border-white/50'
+                    ? 'border-black bg-black text-white'
+                    : 'border-gray-300 text-gray-600 hover:border-gray-400'
                 }`}
                 onClick={() => handleUserTypeSelect('provider')}
               >
@@ -117,33 +117,33 @@ const Auth = () => {
             <Input
               type="text"
               placeholder="Full Name"
-              className="bg-white/10 border-white/30 text-white placeholder-white/60 rounded-2xl py-3"
+              className="border-gray-300 rounded-2xl py-3"
             />
           )}
           
           <Input
             type="email"
             placeholder="Email Address"
-            className="bg-white/10 border-white/30 text-white placeholder-white/60 rounded-2xl py-3"
+            className="border-gray-300 rounded-2xl py-3"
           />
           
           <Input
             type="password"
             placeholder="Password"
-            className="bg-white/10 border-white/30 text-white placeholder-white/60 rounded-2xl py-3"
+            className="border-gray-300 rounded-2xl py-3"
           />
 
           {!isLogin && (
             <Input
               type="password"
               placeholder="Confirm Password"
-              className="bg-white/10 border-white/30 text-white placeholder-white/60 rounded-2xl py-3"
+              className="border-gray-300 rounded-2xl py-3"
             />
           )}
 
           <Button
             type="submit"
-            className="submit-btn w-full py-4 text-lg font-semibold bg-white text-purple-600 hover:bg-white/90 rounded-2xl flex items-center justify-center space-x-2"
+            className="submit-btn w-full py-4 text-lg font-semibold bg-black text-white hover:bg-gray-800 rounded-2xl flex items-center justify-center space-x-2"
           >
             <span>{isLogin ? 'Sign In' : 'Create Account'}</span>
             <ArrowRight className="w-5 h-5" />
@@ -154,7 +154,7 @@ const Auth = () => {
         <div className="text-center mt-6">
           <button
             onClick={handleFormSwitch}
-            className="text-white/80 hover:text-white transition-colors"
+            className="text-gray-600 hover:text-black transition-colors"
           >
             {isLogin 
               ? "Don't have an account? Sign up" 
@@ -165,12 +165,12 @@ const Auth = () => {
 
         {/* Social Login */}
         <div className="text-center mt-6">
-          <p className="text-white/60 text-sm mb-3">Or continue with</p>
+          <p className="text-gray-500 text-sm mb-3">Or continue with</p>
           <div className="flex space-x-3">
-            <button className="flex-1 py-3 bg-white/10 border border-white/30 rounded-2xl text-white hover:bg-white/20 transition-colors">
+            <button className="flex-1 py-3 border border-gray-300 rounded-2xl text-gray-600 hover:bg-gray-50 transition-colors">
               Google
             </button>
-            <button className="flex-1 py-3 bg-white/10 border border-white/30 rounded-2xl text-white hover:bg-white/20 transition-colors">
+            <button className="flex-1 py-3 border border-gray-300 rounded-2xl text-gray-600 hover:bg-gray-50 transition-colors">
               Apple
             </button>
           </div>

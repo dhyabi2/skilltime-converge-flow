@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
@@ -15,37 +14,37 @@ const Home = () => {
       title: 'Design',
       icon: '🎨',
       skillCount: 124,
-      gradient: 'bg-gradient-to-br from-purple-500 to-pink-500'
+      gradient: 'bg-black'
     },
     {
       title: 'Development',
       icon: '💻',
       skillCount: 89,
-      gradient: 'bg-gradient-to-br from-blue-500 to-cyan-500'
+      gradient: 'bg-black'
     },
     {
       title: 'Marketing',
       icon: '📈',
       skillCount: 67,
-      gradient: 'bg-gradient-to-br from-green-500 to-emerald-500'
+      gradient: 'bg-black'
     },
     {
       title: 'Writing',
       icon: '✍️',
       skillCount: 45,
-      gradient: 'bg-gradient-to-br from-orange-500 to-red-500'
+      gradient: 'bg-black'
     },
     {
       title: 'Music',
       icon: '🎵',
       skillCount: 38,
-      gradient: 'bg-gradient-to-br from-indigo-500 to-purple-500'
+      gradient: 'bg-black'
     },
     {
       title: 'Photography',
       icon: '📸',
       skillCount: 52,
-      gradient: 'bg-gradient-to-br from-yellow-500 to-orange-500'
+      gradient: 'bg-black'
     }
   ];
 
@@ -119,13 +118,13 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <SearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
       
       <div ref={containerRef} className="px-4 space-y-6">
         {/* Welcome Section */}
         <div className="text-center py-4">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-2xl font-bold text-black mb-2">
             Discover Amazing Skills
           </h2>
           <p className="text-gray-600">
@@ -135,7 +134,7 @@ const Home = () => {
 
         {/* Categories */}
         <section>
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Browse Categories</h3>
+          <h3 className="text-xl font-bold text-black mb-4">Browse Categories</h3>
           <div className="grid grid-cols-2 gap-4">
             {categories.map((category) => (
               <CategoryCard
@@ -152,7 +151,7 @@ const Home = () => {
 
         {/* Top Rated Skills */}
         <section>
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Top Rated Skills</h3>
+          <h3 className="text-xl font-bold text-black mb-4">Top Rated Skills</h3>
           <div className="space-y-4">
             {topSkills.map((skill) => (
               <SkillCard

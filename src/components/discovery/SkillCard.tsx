@@ -68,10 +68,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
     <div
       ref={cardRef}
       onClick={handleClick}
-      className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer relative"
+      className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer relative"
     >
       {isTopRated && (
-        <div className="absolute top-3 left-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold z-10">
+        <div className="absolute top-3 left-3 bg-black text-white px-2 py-1 rounded-full text-xs font-bold z-10">
           Top Rated
         </div>
       )}
@@ -95,7 +95,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
               key={i}
               className={`w-4 h-4 ${
                 i < rating 
-                  ? 'text-yellow-400 fill-current' 
+                  ? 'text-black fill-current' 
                   : 'text-gray-300'
               }`}
             />
@@ -115,7 +115,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         </div>
         
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-purple-600">${price}</span>
+          <span className="text-2xl font-bold text-black">${price}</span>
           <span className="text-sm text-gray-500">per hour</span>
         </div>
       </div>

@@ -54,8 +54,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilterClick }) => {
     <form onSubmit={handleSubmit} className="px-4 mb-4">
       <div
         ref={searchRef}
-        className={`flex items-center bg-white rounded-2xl shadow-md transition-all duration-300 ${
-          isFocused ? 'shadow-lg ring-2 ring-purple-200' : ''
+        className={`flex items-center bg-white border-2 border-gray-200 rounded-2xl shadow-sm transition-all duration-300 ${
+          isFocused ? 'border-black shadow-md' : ''
         }`}
       >
         <div className="flex-1 flex items-center px-4 py-3">
@@ -74,7 +74,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilterClick }) => {
         <button
           type="button"
           onClick={onFilterClick}
-          className="p-3 border-l border-gray-200 text-gray-400 hover:text-purple-600 transition-colors"
+          className="p-3 border-l border-gray-200 text-gray-400 hover:text-black transition-colors"
         >
           <Filter className="w-5 h-5" />
         </button>
