@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -51,7 +52,6 @@ const Home = () => {
     try {
       const results = await searchAPI.searchSkills(query);
       console.log('Search results:', results);
-      // Navigate to browse page with search results
       navigate(`/browse?search=${encodeURIComponent(query)}`);
     } catch (error) {
       console.error('Search error:', error);
@@ -60,11 +60,14 @@ const Home = () => {
 
   const handleFilterClick = () => {
     console.log('Opening filters');
-    // Implement filter modal
   };
 
   const handleCategoryClick = (categoryKey: string) => {
     navigate(`/browse?category=${categoryKey}`);
+  };
+
+  const handleSubcategoryClick = (categoryKey: string, subcategoryKey: string) => {
+    navigate(`/browse?category=${categoryKey}&subcategory=${subcategoryKey}`);
   };
 
   const handleSkillClick = (skillId: string) => {
@@ -102,7 +105,7 @@ const Home = () => {
         {/* Categories */}
         <section>
           <h3 className="text-xl font-bold text-slate-800 mb-4 font-cairo">{t('discovery.browse_categories')}</h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {categories.map((category) => (
               <CategoryCard
                 key={category.id}
@@ -110,7 +113,9 @@ const Home = () => {
                 iconType={category.iconType}
                 skillCount={category.skillCount}
                 gradient={category.gradient}
+                subcategories={category.subcategories}
                 onClick={() => handleCategoryClick(category.title)}
+                onSubcategoryClick={(subcategory) => handleSubcategoryClick(category.title, subcategory)}
               />
             ))}
           </div>

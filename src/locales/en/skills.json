@@ -18,9 +18,37 @@
     "music": "Music",
     "photography": "Photography"
   },
+  "subcategories": {
+    "ui_ux": "UI/UX Design",
+    "graphic_design": "Graphic Design",
+    "logo_design": "Logo Design",
+    "web_design": "Web Design",
+    "frontend": "Frontend Development",
+    "backend": "Backend Development",
+    "mobile_apps": "Mobile Apps",
+    "fullstack": "Full Stack",
+    "digital_marketing": "Digital Marketing",
+    "social_media": "Social Media",
+    "seo": "SEO",
+    "content_marketing": "Content Marketing",
+    "copywriting": "Copywriting",
+    "content_writing": "Content Writing",
+    "technical_writing": "Technical Writing",
+    "creative_writing": "Creative Writing",
+    "music_production": "Music Production",
+    "mixing_mastering": "Mixing & Mastering",
+    "sound_design": "Sound Design",
+    "music_theory": "Music Theory",
+    "portrait": "Portrait Photography",
+    "product_photography": "Product Photography",
+    "event_photography": "Event Photography",
+    "photo_editing": "Photo Editing"
+  },
   "labels": {
     "top_rated": "Top Rated",
-    "by": "by"
+    "by": "by",
+    "skills": "skills",
+    "subcategories": "Subcategories"
   },
   "sections": {
     "top_rated": "Top Rated",
@@ -39,7 +67,10 @@
     "see_use_cases": "See what you can achieve"
   },
   "filters": {
-    "category": "Filter by category"
+    "category": "Filter by category",
+    "subcategory": "Filter by subcategory",
+    "show_subcategories": "Show subcategories",
+    "hide_subcategories": "Hide subcategories"
   },
   "status": {
     "loading": "Searching for skills...",

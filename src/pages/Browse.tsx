@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SkillCard from '../components/discovery/SkillCard';
 import SearchBar from '../components/discovery/SearchBar';
+import CategoryBreadcrumb from '../components/discovery/CategoryBreadcrumb';
 import { skillsAPI, searchAPI, categoriesAPI } from '../services';
 
 const Browse = () => {
@@ -13,14 +14,19 @@ const Browse = () => {
   const { t } = useTranslation('skills');
   const [skills, setSkills] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
+  const [selectedSubcategory, setSelectedSubcategory] = useState(searchParams.get('subcategory') || '');
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
 
   useEffect(() => {
     fetchSkills();
     fetchCategories();
-  }, [selectedCategory, searchQuery]);
+    if (selectedCategory) {
+      fetchSubcategories();
+    }
+  }, [selectedCategory, selectedSubcategory, searchQuery]);
 
   const fetchSkills = async () => {
     try {
@@ -29,11 +35,13 @@ const Browse = () => {
       
       if (searchQuery) {
         results = await searchAPI.searchSkills(searchQuery, { 
-          category: selectedCategory 
+          category: selectedCategory,
+          subcategory: selectedSubcategory
         });
       } else {
         results = await skillsAPI.getAll({ 
-          category: selectedCategory 
+          category: selectedCategory,
+          subcategory: selectedSubcategory
         });
       }
       
@@ -54,26 +62,65 @@ const Browse = () => {
     }
   };
 
+  const fetchSubcategories = async () => {
+    try {
+      const categoryData = categories.find(cat => cat.title === selectedCategory);
+      if (categoryData && categoryData.subcategories) {
+        setSubcategories(categoryData.subcategories);
+      }
+    } catch (error) {
+      console.error('Error fetching subcategories:', error);
+    }
+  };
+
   const handleSearch = async (query: string) => {
     setSearchQuery(query);
-    // Update URL params
-    const params = new URLSearchParams();
-    if (query) params.set('search', query);
-    if (selectedCategory) params.set('category', selectedCategory);
-    navigate(`/browse?${params.toString()}`, { replace: true });
+    updateURLParams({ search: query });
   };
 
   const handleCategoryFilter = (category: string) => {
     setSelectedCategory(category);
-    // Update URL params
+    setSelectedSubcategory(''); // Reset subcategory when changing category
+    updateURLParams({ category, subcategory: '' });
+  };
+
+  const handleSubcategoryFilter = (subcategory: string) => {
+    setSelectedSubcategory(subcategory);
+    updateURLParams({ subcategory });
+  };
+
+  const updateURLParams = (updates: { [key: string]: string }) => {
     const params = new URLSearchParams();
-    if (searchQuery) params.set('search', searchQuery);
-    if (category) params.set('category', category);
+    if (updates.search !== undefined ? updates.search : searchQuery) {
+      params.set('search', updates.search !== undefined ? updates.search : searchQuery);
+    }
+    if (updates.category !== undefined ? updates.category : selectedCategory) {
+      params.set('category', updates.category !== undefined ? updates.category : selectedCategory);
+    }
+    if (updates.subcategory !== undefined ? updates.subcategory : selectedSubcategory) {
+      params.set('subcategory', updates.subcategory !== undefined ? updates.subcategory : selectedSubcategory);
+    }
     navigate(`/browse?${params.toString()}`, { replace: true });
   };
 
   const handleSkillClick = (skillId: string) => {
     navigate(`/skill/${skillId}`);
+  };
+
+  const handleBreadcrumbNavigation = () => {
+    if (selectedSubcategory) {
+      setSelectedSubcategory('');
+      updateURLParams({ subcategory: '' });
+    } else if (selectedCategory) {
+      setSelectedCategory('');
+      updateURLParams({ category: '' });
+    } else {
+      navigate('/');
+    }
+  };
+
+  const handleHomeClick = () => {
+    navigate('/');
   };
 
   // Helper function to get emoji for category
@@ -109,6 +156,14 @@ const Browse = () => {
       />
       
       <div className="px-4 py-6 space-y-6">
+        {/* Breadcrumb Navigation */}
+        <CategoryBreadcrumb
+          category={selectedCategory}
+          subcategory={selectedSubcategory}
+          onCategoryClick={handleBreadcrumbNavigation}
+          onHomeClick={handleHomeClick}
+        />
+
         {/* Category Filters */}
         <section>
           <h3 className="text-lg font-bold text-slate-800 mb-3">{t('filters.category')}</h3>
@@ -140,11 +195,46 @@ const Browse = () => {
           </div>
         </section>
 
+        {/* Subcategory Filters */}
+        {selectedCategory && subcategories.length > 0 && (
+          <section>
+            <h3 className="text-lg font-bold text-slate-800 mb-3">{t('filters.subcategory')}</h3>
+            <div className="flex overflow-x-auto space-x-3 rtl:space-x-reverse pb-2">
+              <button
+                onClick={() => handleSubcategoryFilter('')}
+                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                  selectedSubcategory === '' 
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' 
+                    : 'bg-white/70 backdrop-blur-sm text-slate-700 border border-purple-200 hover:bg-white/90'
+                }`}
+              >
+                {t('categories.all')}
+              </button>
+              {subcategories.map((subcategory) => (
+                <button
+                  key={subcategory.id}
+                  onClick={() => handleSubcategoryFilter(subcategory.title)}
+                  className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                    selectedSubcategory === subcategory.title 
+                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' 
+                      : 'bg-white/70 backdrop-blur-sm text-slate-700 border border-purple-200 hover:bg-white/90'
+                  }`}
+                >
+                  {t(`subcategories.${subcategory.title}`)} ({subcategory.skillCount})
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Results */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-slate-800">
-              {searchQuery ? `${t('discovery.search_results')} "${searchQuery}"` : t('discovery.all_skills')}
+              {searchQuery ? `${t('discovery.search_results')} "${searchQuery}"` : 
+               selectedSubcategory ? t(`subcategories.${selectedSubcategory}`) :
+               selectedCategory ? t(`categories.${selectedCategory}`) :
+               t('discovery.all_skills')}
             </h3>
             <span className="text-sm text-slate-600">
               {skills.length} {t('status.skills_found')}

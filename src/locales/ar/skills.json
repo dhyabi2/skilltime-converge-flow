@@ -18,9 +18,37 @@
     "music": "الموسيقى",
     "photography": "التصوير"
   },
+  "subcategories": {
+    "ui_ux": "تصميم واجهات المستخدم",
+    "graphic_design": "التصميم الجرافيكي",
+    "logo_design": "تصميم الشعارات",
+    "web_design": "تصميم المواقع",
+    "frontend": "البرمجة الأمامية",
+    "backend": "البرمجة الخلفية",
+    "mobile_apps": "تطبيقات الهاتف",
+    "fullstack": "البرمجة الشاملة",
+    "digital_marketing": "التسويق الرقمي",
+    "social_media": "وسائل التواصل الاجتماعي",
+    "seo": "تحسين محركات البحث",
+    "content_marketing": "تسويق المحتوى",
+    "copywriting": "كتابة النصوص الإعلانية",
+    "content_writing": "كتابة المحتوى",
+    "technical_writing": "الكتابة التقنية",
+    "creative_writing": "الكتابة الإبداعية",
+    "music_production": "إنتاج الموسيقى",
+    "mixing_mastering": "المزج والإتقان",
+    "sound_design": "تصميم الصوت",
+    "music_theory": "نظرية الموسيقى",
+    "portrait": "التصوير الشخصي",
+    "product_photography": "تصوير المنتجات",
+    "event_photography": "تصوير الفعاليات",
+    "photo_editing": "تحرير الصور"
+  },
   "labels": {
     "top_rated": "الأعلى تقييمًا",
-    "by": "من قبل"
+    "by": "من قبل",
+    "skills": "مهارة",
+    "subcategories": "الفئات الفرعية"
   },
   "sections": {
     "top_rated": "الأعلى تقييمًا",
@@ -39,7 +67,10 @@
     "see_use_cases": "اكتشف ما يمكنك تحقيقه"
   },
   "filters": {
-    "category": "تصفية حسب الفئة"
+    "category": "تصفية حسب الفئة",
+    "subcategory": "تصفية حسب الفئة الفرعية",
+    "show_subcategories": "إظهار الفئات الفرعية",
+    "hide_subcategories": "إخفاء الفئات الفرعية"
   },
   "status": {
     "loading": "جاري البحث عن المهارات...",

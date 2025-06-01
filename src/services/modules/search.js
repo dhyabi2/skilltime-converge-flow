@@ -1,4 +1,3 @@
-
 // Search API module
 export const searchAPI = {
   searchSkills: async (query, filters = {}) => {
@@ -14,10 +13,13 @@ export const searchAPI = {
       
       const matchesCategory = !filters.category || 
         skill.category.toLowerCase() === filters.category.toLowerCase();
+
+      const matchesSubcategory = !filters.subcategory || 
+        skill.subcategory.toLowerCase() === filters.subcategory.toLowerCase();
       
       const matchesPrice = !filters.maxPrice || skill.price <= filters.maxPrice;
       
-      return matchesQuery && matchesCategory && matchesPrice;
+      return matchesQuery && matchesCategory && matchesSubcategory && matchesPrice;
     });
   },
 
@@ -71,6 +73,14 @@ export const searchAPI = {
     
     return {
       categories: ['Design', 'Development', 'Writing', 'Marketing', 'Photography'],
+      subcategories: {
+        'design': ['ui_ux', 'graphic_design', 'logo_design', 'web_design'],
+        'development': ['frontend', 'backend', 'mobile_apps', 'fullstack'],
+        'marketing': ['digital_marketing', 'social_media', 'seo', 'content_marketing'],
+        'writing': ['copywriting', 'content_writing', 'technical_writing', 'creative_writing'],
+        'music': ['music_production', 'mixing_mastering', 'sound_design', 'music_theory'],
+        'photography': ['portrait', 'product_photography', 'event_photography', 'photo_editing']
+      },
       priceRanges: [
         { label: 'Under $50', min: 0, max: 50 },
         { label: '$50 - $100', min: 50, max: 100 },

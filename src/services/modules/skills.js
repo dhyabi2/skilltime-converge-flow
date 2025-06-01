@@ -21,7 +21,8 @@ export const skillsAPI = {
         location: 'Remote',
         image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800',
         isTopRated: true,
-        category: 'Design',
+        category: 'design',
+        subcategory: 'ui_ux',
         description: 'Get expert guidance on your UI/UX design projects.',
         expertise: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems'],
         publishedDate: '2024-05-01',
@@ -49,7 +50,8 @@ export const skillsAPI = {
         duration: '2 hours',
         location: 'Remote',
         image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
-        category: 'Development',
+        category: 'development',
+        subcategory: 'frontend',
         description: 'Build modern web applications with React.',
         expertise: ['React', 'JavaScript', 'TypeScript', 'Node.js'],
         publishedDate: '2024-05-15',
@@ -78,7 +80,8 @@ export const skillsAPI = {
         location: 'Remote',
         image: 'https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=800',
         isTopRated: true,
-        category: 'Writing',
+        category: 'writing',
+        subcategory: 'content_writing',
         description: 'Create compelling content for your business.',
         expertise: ['Copywriting', 'Blog Posts', 'SEO', 'Social Media'],
         publishedDate: '2024-04-20',
@@ -106,7 +109,8 @@ export const skillsAPI = {
         duration: '1.5 hours',
         location: 'Remote',
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
-        category: 'Marketing',
+        category: 'marketing',
+        subcategory: 'digital_marketing',
         description: 'Boost your online presence with proven strategies.',
         expertise: ['SEO', 'Social Media', 'PPC', 'Analytics'],
         publishedDate: '2024-04-10',
@@ -117,6 +121,35 @@ export const skillsAPI = {
           'Build a social media presence that generates leads',
           'Create a comprehensive SEO strategy for long-term growth'
         ]
+      },
+      {
+        id: '5',
+        providerName: 'Lisa Park',
+        providerImage: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200',
+        providerBadge: { emoji: '🎨', label: 'Creative Pro' },
+        providerIntro: {
+          type: 'text',
+          content: 'Graphic designer with a passion for creating memorable brand identities that tell your story.'
+        },
+        skillTitle: 'Logo & Brand Design',
+        rating: 4.9,
+        reviewCount: 42,
+        price: 95,
+        duration: '2 hours',
+        location: 'Remote',
+        image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800',
+        category: 'design',
+        subcategory: 'logo_design',
+        description: 'Create distinctive logos and brand identities.',
+        expertise: ['Logo Design', 'Brand Identity', 'Typography', 'Color Theory'],
+        publishedDate: '2024-04-15',
+        weeklyExchanges: 18,
+        useCases: [
+          'Design a complete brand identity for your startup',
+          'Refresh your existing logo for modern appeal',
+          'Create consistent brand guidelines for your team',
+          'Develop packaging design that stands out on shelves'
+        ]
       }
     ];
 
@@ -126,6 +159,12 @@ export const skillsAPI = {
     if (filters.category) {
       filteredSkills = filteredSkills.filter(skill => 
         skill.category.toLowerCase() === filters.category.toLowerCase()
+      );
+    }
+
+    if (filters.subcategory) {
+      filteredSkills = filteredSkills.filter(skill => 
+        skill.subcategory.toLowerCase() === filters.subcategory.toLowerCase()
       );
     }
     
