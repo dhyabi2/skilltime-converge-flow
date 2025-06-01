@@ -104,31 +104,63 @@
     font-weight: 600;
   }
 
-  /* Cinematic font styling for all text */
-  * {
-    font-family: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif;
-    font-weight: 600;
+  /* Cinematic font styling for all text including API content */
+  *, 
+  *::before, 
+  *::after,
+  p, 
+  span, 
+  div, 
+  article, 
+  section,
+  .dynamic-content {
+    font-family: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif !important;
+    font-weight: 600 !important;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Bebas Neue', 'Oswald', 'Arial Black', sans-serif;
-    font-weight: 700;
+    font-family: 'Bebas Neue', 'Oswald', 'Arial Black', sans-serif !important;
+    font-weight: 700 !important;
     letter-spacing: 0.05em;
   }
 
+  /* Specific styling for API-loaded content */
+  [data-api-content], 
+  .skill-title,
+  .provider-name,
+  .skill-description,
+  .booking-info {
+    font-family: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif !important;
+    font-weight: 600 !important;
+  }
+
   /* Arabic font styling with cinematic feel */
-  [dir="rtl"] * {
-    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Oswald', 'Arial Black', sans-serif;
-    font-weight: 700;
+  [dir="rtl"] *, 
+  [dir="rtl"] *::before, 
+  [dir="rtl"] *::after,
+  [dir="rtl"] p, 
+  [dir="rtl"] span, 
+  [dir="rtl"] div {
+    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Oswald', 'Arial Black', sans-serif !important;
+    font-weight: 700 !important;
   }
 
   [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
-    font-weight: 800;
+    font-weight: 800 !important;
     letter-spacing: 0.05em;
   }
 
   /* Ensure proper text color for Arabic content */
   [dir="rtl"] {
     color: #000000;
+  }
+
+  /* Force font on input and form elements */
+  input, 
+  textarea, 
+  select, 
+  button {
+    font-family: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif !important;
+    font-weight: 600 !important;
   }
 }
