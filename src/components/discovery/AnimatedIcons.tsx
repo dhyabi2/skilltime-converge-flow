@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 
@@ -63,22 +64,23 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
   }, [containerRef]);
 
   const getAnimatedIcon = (iconType: string) => {
-    // Map Arabic category titles to their corresponding animated icons
+    // Map both Arabic and English category titles to their corresponding animated icons
     const getIconByType = (type: string) => {
       const iconMap: { [key: string]: string } = {
+        // English mappings (primary)
+        'design': '🎨',
+        'development': '💻',
+        'marketing': '📈',
+        'writing': '✍️',
+        'music': '🎵',
+        'photography': '📸',
+        // Arabic mappings (fallback)
         'التصميم': '🎨',
         'البرمجة': '💻', 
         'التسويق': '📈',
         'الكتابة': '✍️',
         'الموسيقى': '🎵',
-        'التصوير': '📸',
-        // Keep English mappings for fallback
-        'Design': '🎨',
-        'Development': '💻',
-        'Marketing': '📈', 
-        'Writing': '✍️',
-        'Music': '🎵',
-        'Photography': '📸'
+        'التصوير': '📸'
       };
       
       return iconMap[type] || type;
@@ -87,7 +89,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
     const mappedIcon = getIconByType(iconType);
 
     switch (mappedIcon) {
-      case '🎨': // Design / التصميم
+      case '🎨': // Design
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
@@ -116,7 +118,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '💻': // Development / البرمجة
+      case '💻': // Development
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <rect
@@ -152,7 +154,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '📈': // Marketing / التسويق
+      case '📈': // Marketing
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
@@ -190,7 +192,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '✍️': // Writing / الكتابة
+      case '✍️': // Writing
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
@@ -220,7 +222,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '🎵': // Music / الموسيقى
+      case '🎵': // Music
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
@@ -264,7 +266,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '📸': // Photography / التصوير
+      case '📸': // Photography
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <rect

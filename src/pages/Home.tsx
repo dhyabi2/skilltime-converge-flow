@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -69,8 +70,8 @@ const Home = () => {
     // Implement filter modal
   };
 
-  const handleCategoryClick = (category: string) => {
-    navigate(`/browse?category=${category.toLowerCase()}`);
+  const handleCategoryClick = (categoryKey: string) => {
+    navigate(`/browse?category=${categoryKey}`);
   };
 
   const handleSkillClick = (skillId: string) => {

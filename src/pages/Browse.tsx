@@ -76,6 +76,19 @@ const Browse = () => {
     navigate(`/skill/${skillId}`);
   };
 
+  // Helper function to get emoji for category
+  const getCategoryEmoji = (iconType: string) => {
+    const emojiMap: { [key: string]: string } = {
+      'design': '🎨',
+      'development': '💻',
+      'marketing': '📈',
+      'writing': '✍️',
+      'music': '🎵',
+      'photography': '📸'
+    };
+    return emojiMap[iconType] || '🎨';
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -120,13 +133,8 @@ const Browse = () => {
                     : 'bg-white text-gray-700 border border-gray-300'
                 }`}
               >
-                <span className="text-lg">{category.iconType === 'التصميم' ? '🎨' : 
-                                          category.iconType === 'البرمجة' ? '💻' :
-                                          category.iconType === 'التسويق' ? '📈' :
-                                          category.iconType === 'الكتابة' ? '✍️' :
-                                          category.iconType === 'الموسيقى' ? '🎵' :
-                                          category.iconType === 'التصوير' ? '📸' : '🎨'}</span>
-                <span>{category.title}</span>
+                <span className="text-lg">{getCategoryEmoji(category.iconType)}</span>
+                <span>{t(`categories.${category.title}`)}</span>
               </button>
             ))}
           </div>

@@ -22,7 +22,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   gradient,
   onClick
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('skills');
   const cardRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<HTMLDivElement>(null);
 
@@ -68,7 +68,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         <div ref={iconRef} className="mb-2">
           <AnimatedIcon iconType={iconType} containerRef={iconRef} />
         </div>
-        <h3 className="font-bold text-lg mb-1 text-black font-arabic">{title}</h3>
+        <h3 className="font-bold text-lg mb-1 text-black font-arabic">{t(`categories.${title}`)}</h3>
         <p className="text-sm opacity-90 text-black font-arabic">
           {skillCount} {t('labels.skills', { count: skillCount })}
         </p>

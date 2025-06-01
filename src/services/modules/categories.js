@@ -7,43 +7,43 @@ export const categoriesAPI = {
     return [
       {
         id: '1',
-        title: 'التصميم',
-        iconType: 'التصميم', // This will be used by AnimatedIcon component
+        title: 'design', // Changed to translation key
+        iconType: 'design', // Changed to English key
         skillCount: 124,
         gradient: 'bg-gradient-to-br from-purple-500 to-pink-500'
       },
       {
         id: '2',
-        title: 'البرمجة',
-        iconType: 'البرمجة',
+        title: 'development', // Changed to translation key
+        iconType: 'development',
         skillCount: 89,
         gradient: 'bg-gradient-to-br from-blue-500 to-cyan-500'
       },
       {
         id: '3',
-        title: 'التسويق',
-        iconType: 'التسويق',
+        title: 'marketing', // Changed to translation key
+        iconType: 'marketing',
         skillCount: 67,
         gradient: 'bg-gradient-to-br from-green-500 to-emerald-500'
       },
       {
         id: '4',
-        title: 'الكتابة',
-        iconType: 'الكتابة',
+        title: 'writing', // Changed to translation key
+        iconType: 'writing',
         skillCount: 45,
         gradient: 'bg-gradient-to-br from-orange-500 to-red-500'
       },
       {
         id: '5',
-        title: 'الموسيقى',
-        iconType: 'الموسيقى',
+        title: 'music', // Changed to translation key
+        iconType: 'music',
         skillCount: 38,
         gradient: 'bg-gradient-to-br from-violet-500 to-purple-500'
       },
       {
         id: '6',
-        title: 'التصوير',
-        iconType: 'التصوير',
+        title: 'photography', // Changed to translation key
+        iconType: 'photography',
         skillCount: 52,
         gradient: 'bg-gradient-to-br from-teal-500 to-blue-500'
       }
