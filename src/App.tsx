@@ -1,42 +1,58 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import { QueryClient } from 'react-query';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AppShell from "./components/core/AppShell";
-import Home from "./pages/Home";
-import Browse from "./pages/Browse";
-import Bookings from "./pages/Bookings";
-import Profile from "./pages/Profile";
-import SkillDetail from "./pages/SkillDetail";
-import BookingConfirmation from "./pages/BookingConfirmation";
-import Auth from "./pages/Auth";
-import NotFound from "./pages/NotFound";
+import Index from './pages/Index';
+import AppShell from './components/core/AppShell';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import SkillList from './pages/SkillList';
+import SkillDetails from './pages/SkillDetails';
+import BookingList from './pages/BookingList';
+import BookingDetails from './pages/BookingDetails';
+import CreateSkill from './pages/CreateSkill';
+import EditSkill from './pages/EditSkill';
+import NotFound from './pages/NotFound';
+import Unauthorized from './pages/Unauthorized';
+import InstallPrompt from './components/pwa/InstallPrompt';
+import OfflineIndicator from './components/pwa/OfflineIndicator';
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/" element={<AppShell />}>
-            <Route index element={<Home />} />
-            <Route path="browse" element={<Browse />} />
-            <Route path="bookings" element={<Bookings />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="skill/:id" element={<SkillDetail />} />
-            <Route path="booking/:id" element={<BookingConfirmation />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <QueryClient>
+      <div className="min-h-screen bg-background font-sans antialiased">
+        <Toaster />
+        <OfflineIndicator />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AppShell />}>
+              <Route index element={<Index />} />
+              <Route path="skills" element={<SkillList />} />
+              <Route path="skills/:id" element={<SkillDetails />} />
+              <Route path="bookings" element={<BookingList />} />
+              <Route path="bookings/:id" element={<BookingDetails />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="create-skill" element={<CreateSkill />} />
+              <Route path="edit-skill/:id" element={<EditSkill />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/401" element={<Unauthorized />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+        <InstallPrompt />
+      </div>
+    </QueryClient>
+  );
+}
 
 export default App;
