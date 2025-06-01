@@ -62,7 +62,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     <div
       ref={cardRef}
       onClick={handleClick}
-      className={`${gradient} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-all duration-300 text-black relative overflow-hidden`}
+      className={`${gradient} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-all duration-300 text-black relative overflow-hidden border-2 border-white/30 hover:border-white/50 shadow-md`}
     >
       <div className="relative z-10">
         <div ref={iconRef} className="mb-2">
@@ -77,6 +77,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       {/* Decorative background pattern */}
       <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/10 rounded-full" />
       <div className="absolute -bottom-2 -left-2 w-12 h-12 bg-white/5 rounded-full" />
+      
+      {/* Inner border for extra elegance */}
+      <div className="absolute inset-1 rounded-xl border border-white/20 pointer-events-none" />
     </div>
   );
 };
