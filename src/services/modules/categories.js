@@ -7,42 +7,42 @@ export const categoriesAPI = {
     return [
       {
         id: '1',
-        title: 'Design',
+        title: 'التصميم',
         icon: '🎨',
         skillCount: 124,
         gradient: 'bg-gradient-to-br from-purple-500 to-pink-500'
       },
       {
         id: '2',
-        title: 'Development',
+        title: 'البرمجة',
         icon: '💻',
         skillCount: 89,
         gradient: 'bg-gradient-to-br from-blue-500 to-cyan-500'
       },
       {
         id: '3',
-        title: 'Marketing',
+        title: 'التسويق',
         icon: '📈',
         skillCount: 67,
         gradient: 'bg-gradient-to-br from-green-500 to-emerald-500'
       },
       {
         id: '4',
-        title: 'Writing',
+        title: 'الكتابة',
         icon: '✍️',
         skillCount: 45,
         gradient: 'bg-gradient-to-br from-orange-500 to-red-500'
       },
       {
         id: '5',
-        title: 'Music',
+        title: 'الموسيقى',
         icon: '🎵',
         skillCount: 38,
         gradient: 'bg-gradient-to-br from-violet-500 to-purple-500'
       },
       {
         id: '6',
-        title: 'Photography',
+        title: 'التصوير',
         icon: '📸',
         skillCount: 52,
         gradient: 'bg-gradient-to-br from-teal-500 to-blue-500'

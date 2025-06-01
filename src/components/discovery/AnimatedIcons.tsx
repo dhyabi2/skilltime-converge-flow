@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 
@@ -64,8 +63,31 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
   }, [containerRef]);
 
   const getAnimatedIcon = (iconType: string) => {
-    switch (iconType) {
-      case '🎨': // Design
+    // Map Arabic category titles to their corresponding animated icons
+    const getIconByType = (type: string) => {
+      const iconMap: { [key: string]: string } = {
+        'التصميم': '🎨',
+        'البرمجة': '💻', 
+        'التسويق': '📈',
+        'الكتابة': '✍️',
+        'الموسيقى': '🎵',
+        'التصوير': '📸',
+        // Keep English mappings for fallback
+        'Design': '🎨',
+        'Development': '💻',
+        'Marketing': '📈', 
+        'Writing': '✍️',
+        'Music': '🎵',
+        'Photography': '📸'
+      };
+      
+      return iconMap[type] || type;
+    };
+
+    const mappedIcon = getIconByType(iconType);
+
+    switch (mappedIcon) {
+      case '🎨': // Design / التصميم
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
@@ -94,7 +116,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '💻': // Development
+      case '💻': // Development / البرمجة
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <rect
@@ -130,7 +152,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '📈': // Marketing
+      case '📈': // Marketing / التسويق
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
@@ -168,7 +190,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '✍️': // Writing
+      case '✍️': // Writing / الكتابة
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
@@ -198,7 +220,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '🎵': // Music
+      case '🎵': // Music / الموسيقى
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
@@ -242,7 +264,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
           </svg>
         );
       
-      case '📸': // Photography
+      case '📸': // Photography / التصوير
         return (
           <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <rect

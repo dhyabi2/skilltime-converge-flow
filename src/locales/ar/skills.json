@@ -9,7 +9,13 @@
     "search_results": "نتائج البحث عن"
   },
   "categories": {
-    "all": "جميع الفئات"
+    "all": "جميع الفئات",
+    "design": "التصميم",
+    "development": "البرمجة",
+    "marketing": "التسويق",
+    "writing": "الكتابة",
+    "music": "الموسيقى",
+    "photography": "التصوير"
   },
   "labels": {
     "top_rated": "الأعلى تقييمًا",
