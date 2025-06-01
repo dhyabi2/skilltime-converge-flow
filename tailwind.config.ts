@@ -20,8 +20,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        'arabic': ['Cairo', 'Tajawal', 'Amiri', 'Arial', 'sans-serif'],
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'cinematic': ['Bebas Neue', 'Oswald', 'Arial Black', 'sans-serif'],
+        'arabic': ['Cairo', 'Tajawal', 'Amiri', 'Oswald', 'Arial Black', 'sans-serif'],
+        'sans': ['Oswald', 'Bebas Neue', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

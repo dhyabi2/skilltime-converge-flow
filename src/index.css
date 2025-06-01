@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Bebas+Neue&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,16 +100,31 @@
 
   body {
     @apply bg-background text-foreground;
-  }
-
-  /* Arabic font styling */
-  [dir="rtl"] * {
-    font-family: 'Cairo', 'Tajawal', 'Amiri', Arial, sans-serif;
+    font-family: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif;
     font-weight: 600;
   }
 
-  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+  /* Cinematic font styling for all text */
+  * {
+    font-family: 'Oswald', 'Bebas Neue', 'Arial Black', sans-serif;
+    font-weight: 600;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue', 'Oswald', 'Arial Black', sans-serif;
     font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* Arabic font styling with cinematic feel */
+  [dir="rtl"] * {
+    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Oswald', 'Arial Black', sans-serif;
+    font-weight: 700;
+  }
+
+  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+    font-weight: 800;
+    letter-spacing: 0.05em;
   }
 
   /* Ensure proper text color for Arabic content */
