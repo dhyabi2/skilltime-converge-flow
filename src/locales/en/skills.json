@@ -1,3 +1,4 @@
+
 {
   "discovery": {
     "title": "Discover Amazing Skills",
@@ -20,6 +21,12 @@
   "labels": {
     "top_rated": "Top Rated",
     "by": "by"
+  },
+  "sections": {
+    "top_rated": "Top Rated",
+    "first_published": "First Skill Published",
+    "top_week": "Top Rating This Week",
+    "most_exchanges": "Most Exchanges in 7 Days"
   },
   "details": {
     "about": "About this skill",

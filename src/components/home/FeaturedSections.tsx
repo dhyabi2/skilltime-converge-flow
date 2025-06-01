@@ -13,10 +13,10 @@ const FeaturedSections = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
 
   const sections = [
-    { key: 'top_rated', label: 'Top Rated' },
-    { key: 'first_published', label: 'First Skill Published' },
-    { key: 'top_week', label: 'Top Rating This Week' },
-    { key: 'most_exchanges', label: 'Most Exchanges in 7 Days' }
+    { key: 'top_rated', label: t('sections.top_rated') },
+    { key: 'first_published', label: t('sections.first_published') },
+    { key: 'top_week', label: t('sections.top_week') },
+    { key: 'most_exchanges', label: t('sections.most_exchanges') }
   ];
 
   useEffect(() => {
