@@ -62,14 +62,14 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     <div
       ref={cardRef}
       onClick={handleClick}
-      className={`${gradient} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-all duration-300 text-white relative overflow-hidden`}
+      className={`${gradient} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-all duration-300 text-black relative overflow-hidden`}
     >
       <div className="relative z-10">
         <div ref={iconRef} className="mb-2">
           <AnimatedIcon iconType={iconType} containerRef={iconRef} />
         </div>
-        <h3 className="font-bold text-lg mb-1">{title}</h3>
-        <p className="text-sm opacity-90">
+        <h3 className="font-bold text-lg mb-1 text-black font-arabic">{title}</h3>
+        <p className="text-sm opacity-90 text-black font-arabic">
           {skillCount} {t('labels.skills', { count: skillCount })}
         </p>
       </div>

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,5 +98,20 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Arabic font styling */
+  [dir="rtl"] * {
+    font-family: 'Cairo', 'Tajawal', 'Amiri', Arial, sans-serif;
+    font-weight: 600;
+  }
+
+  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+    font-weight: 700;
+  }
+
+  /* Ensure proper text color for Arabic content */
+  [dir="rtl"] {
+    color: #000000;
   }
 }
