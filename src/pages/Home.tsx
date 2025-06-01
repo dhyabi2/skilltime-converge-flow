@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { gsap } from 'gsap';
 import SearchBar from '../components/discovery/SearchBar';
 import CategoryCard from '../components/discovery/CategoryCard';
@@ -9,6 +10,7 @@ import { categoriesAPI, skillsAPI, searchAPI } from '../services';
 
 const Home = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation('skills');
   const containerRef = useRef<HTMLDivElement>(null);
   const [categories, setCategories] = useState([]);
   const [topSkills, setTopSkills] = useState([]);
@@ -81,7 +83,7 @@ const Home = () => {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading amazing skills...</p>
+          <p className="text-gray-600">{t('status.loading')}</p>
         </div>
       </div>
     );
@@ -95,16 +97,16 @@ const Home = () => {
         {/* Welcome Section */}
         <div className="text-center py-4">
           <h2 className="text-2xl font-bold text-black mb-2">
-            Discover Amazing Skills
+            {t('discovery.title')}
           </h2>
           <p className="text-gray-700">
-            Connect with talented professionals and learn new skills
+            {t('discovery.subtitle')}
           </p>
         </div>
 
         {/* Categories */}
         <section>
-          <h3 className="text-xl font-bold text-black mb-4">Browse Categories</h3>
+          <h3 className="text-xl font-bold text-black mb-4">{t('discovery.browse_categories')}</h3>
           <div className="grid grid-cols-2 gap-4">
             {categories.map((category) => (
               <CategoryCard
@@ -121,7 +123,7 @@ const Home = () => {
 
         {/* Top Rated Skills */}
         <section>
-          <h3 className="text-xl font-bold text-black mb-4">Top Rated Skills</h3>
+          <h3 className="text-xl font-bold text-black mb-4">{t('discovery.top_rated')}</h3>
           <div className="space-y-4">
             {topSkills.map((skill) => (
               <SkillCard

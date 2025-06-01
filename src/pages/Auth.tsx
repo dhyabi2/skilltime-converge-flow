@@ -2,12 +2,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { User, Building, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [userType, setUserType] = useState<'seeker' | 'provider'>('seeker');
+  const { t } = useTranslation('auth');
   const containerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -73,17 +75,17 @@ const Auth = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-black mb-2">
-            Welcome to SkillTime
+            {t('welcome.title')}
           </h1>
           <p className="text-gray-600">
-            Where Skills Converge & Opportunities Flow
+            {t('welcome.subtitle')}
           </p>
         </div>
 
         {/* User Type Selection (only for signup) */}
         {!isLogin && (
           <div className="mb-6">
-            <h3 className="text-black font-semibold mb-3">I want to:</h3>
+            <h3 className="text-black font-semibold mb-3">{t('user_type.title')}</h3>
             <div className="grid grid-cols-2 gap-3">
               <button
                 className={`user-type-btn p-4 rounded-2xl border-2 transition-all ${
@@ -94,7 +96,7 @@ const Auth = () => {
                 onClick={() => handleUserTypeSelect('seeker')}
               >
                 <User className="w-6 h-6 mx-auto mb-2" />
-                <span className="text-sm font-medium">Find Skills</span>
+                <span className="text-sm font-medium">{t('user_type.find_skills')}</span>
               </button>
               <button
                 className={`user-type-btn p-4 rounded-2xl border-2 transition-all ${
@@ -105,7 +107,7 @@ const Auth = () => {
                 onClick={() => handleUserTypeSelect('provider')}
               >
                 <Building className="w-6 h-6 mx-auto mb-2" />
-                <span className="text-sm font-medium">Offer Skills</span>
+                <span className="text-sm font-medium">{t('user_type.offer_skills')}</span>
               </button>
             </div>
           </div>
@@ -116,36 +118,36 @@ const Auth = () => {
           {!isLogin && (
             <Input
               type="text"
-              placeholder="Full Name"
+              placeholder={t('forms.full_name')}
               className="border-gray-300 rounded-2xl py-3"
             />
           )}
           
           <Input
             type="email"
-            placeholder="Email Address"
+            placeholder={t('forms.email')}
             className="border-gray-300 rounded-2xl py-3"
           />
           
           <Input
             type="password"
-            placeholder="Password"
+            placeholder={t('forms.password')}
             className="border-gray-300 rounded-2xl py-3"
           />
 
           {!isLogin && (
             <Input
               type="password"
-              placeholder="Confirm Password"
+              placeholder={t('forms.confirm_password')}
               className="border-gray-300 rounded-2xl py-3"
             />
           )}
 
           <Button
             type="submit"
-            className="submit-btn w-full py-4 text-lg font-semibold bg-black text-white hover:bg-gray-800 rounded-2xl flex items-center justify-center space-x-2"
+            className="submit-btn w-full py-4 text-lg font-semibold bg-black text-white hover:bg-gray-800 rounded-2xl flex items-center justify-center space-x-2 rtl:space-x-reverse"
           >
-            <span>{isLogin ? 'Sign In' : 'Create Account'}</span>
+            <span>{isLogin ? t('buttons.sign_in') : t('buttons.create_account')}</span>
             <ArrowRight className="w-5 h-5" />
           </Button>
         </form>
@@ -157,21 +159,21 @@ const Auth = () => {
             className="text-gray-600 hover:text-black transition-colors"
           >
             {isLogin 
-              ? "Don't have an account? Sign up" 
-              : "Already have an account? Sign in"
+              ? t('links.no_account')
+              : t('links.have_account')
             }
           </button>
         </div>
 
         {/* Social Login */}
         <div className="text-center mt-6">
-          <p className="text-gray-500 text-sm mb-3">Or continue with</p>
-          <div className="flex space-x-3">
+          <p className="text-gray-500 text-sm mb-3">{t('social.continue_with')}</p>
+          <div className="flex space-x-3 rtl:space-x-reverse">
             <button className="flex-1 py-3 border border-gray-300 rounded-2xl text-gray-600 hover:bg-gray-50 transition-colors">
-              Google
+              {t('social.google')}
             </button>
             <button className="flex-1 py-3 border border-gray-300 rounded-2xl text-gray-600 hover:bg-gray-50 transition-colors">
-              Apple
+              {t('social.apple')}
             </button>
           </div>
         </div>

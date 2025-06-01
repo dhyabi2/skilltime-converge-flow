@@ -1,7 +1,9 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Star, Clock, MapPin, Calendar, User } from 'lucide-react';
 import { gsap } from 'gsap';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { skillsAPI } from '../services';
 
@@ -28,6 +30,8 @@ interface Skill {
 const SkillDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation('skills');
+  const { t: tCommon } = useTranslation('common');
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>('');
   const [skill, setSkill] = useState<Skill | null>(null);
   const [loading, setLoading] = useState(true);
@@ -116,7 +120,7 @@ const SkillDetail = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading skill details...</p>
+          <p className="text-gray-600">{tCommon('labels.loading')}</p>
         </div>
       </div>
     );
@@ -126,8 +130,8 @@ const SkillDetail = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-black mb-4">Skill not found</h1>
-          <Button onClick={handleBack}>Go Back</Button>
+          <h1 className="text-2xl font-bold text-black mb-4">{t('status.skill_not_found')}</h1>
+          <Button onClick={handleBack}>{tCommon('buttons.back')}</Button>
         </div>
       </div>
     );
@@ -142,7 +146,7 @@ const SkillDetail = () => {
       >
         <button
           onClick={handleBack}
-          className="absolute top-4 left-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white z-10"
+          className="absolute top-4 left-4 rtl:left-auto rtl:right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white z-10"
         >
           <ArrowLeft className="w-6 h-6" />
         </button>
@@ -156,13 +160,13 @@ const SkillDetail = () => {
         
         <div className="absolute bottom-4 left-4 right-4 text-white">
           <h1 className="text-2xl font-bold mb-2">{skill.skillTitle}</h1>
-          <div className="flex items-center space-x-4 text-sm">
+          <div className="flex items-center space-x-4 rtl:space-x-reverse text-sm">
             <div className="flex items-center">
-              <Clock className="w-4 h-4 mr-1" />
+              <Clock className="w-4 h-4 mr-1 rtl:mr-0 rtl:ml-1" />
               <span>{skill.duration}</span>
             </div>
             <div className="flex items-center">
-              <MapPin className="w-4 h-4 mr-1" />
+              <MapPin className="w-4 h-4 mr-1 rtl:mr-0 rtl:ml-1" />
               <span>{skill.location}</span>
             </div>
           </div>
@@ -173,7 +177,7 @@ const SkillDetail = () => {
       <div ref={contentRef} className="px-4 py-6 space-y-6">
         {/* Provider Info */}
         <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 rtl:space-x-reverse">
             <img
               src={skill.providerImage}
               alt={skill.providerName}
@@ -181,8 +185,8 @@ const SkillDetail = () => {
             />
             <div className="flex-1">
               <h3 className="font-bold text-lg text-gray-800">{skill.providerName}</h3>
-              <div className="flex items-center space-x-2">
-                <div className="flex items-center space-x-1">
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <div className="flex items-center space-x-1 rtl:space-x-reverse">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
@@ -194,22 +198,22 @@ const SkillDetail = () => {
                     />
                   ))}
                 </div>
-                <span className="text-sm text-gray-600">({skill.reviewCount} reviews)</span>
+                <span className="text-sm text-gray-600">({skill.reviewCount} {tCommon('labels.reviews')})</span>
               </div>
             </div>
-            <div className="text-right">
+            <div className="text-right rtl:text-left">
               <div className="text-2xl font-bold text-purple-600">${skill.price}</div>
-              <div className="text-sm text-gray-500">per hour</div>
+              <div className="text-sm text-gray-500">{t('details.per_hour')}</div>
             </div>
           </div>
         </div>
 
         {/* Description */}
         <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="font-bold text-lg text-gray-800 mb-3">About this skill</h3>
+          <h3 className="font-bold text-lg text-gray-800 mb-3">{t('details.about')}</h3>
           <p className="text-gray-600 leading-relaxed mb-4">{skill.description}</p>
           
-          <h4 className="font-semibold text-gray-800 mb-2">Expertise includes:</h4>
+          <h4 className="font-semibold text-gray-800 mb-2">{t('details.expertise')}</h4>
           <div className="flex flex-wrap gap-2">
             {skill.expertise?.map((item) => (
               <span
@@ -225,8 +229,8 @@ const SkillDetail = () => {
         {/* Available Time Slots */}
         <div className="bg-white rounded-2xl p-4 shadow-sm">
           <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
-            <Calendar className="w-5 h-5 mr-2" />
-            Available Time Slots
+            <Calendar className="w-5 h-5 mr-2 rtl:mr-0 rtl:ml-2" />
+            {t('details.available_slots')}
           </h3>
           
           <div className="space-y-3">
@@ -239,7 +243,7 @@ const SkillDetail = () => {
             ).map(([date, slots]) => (
               <div key={date}>
                 <h4 className="font-medium text-gray-700 mb-2">
-                  {new Date(date).toLocaleDateString('en-US', { 
+                  {new Date(date).toLocaleDateString('ar-SA', { 
                     weekday: 'long', 
                     month: 'short', 
                     day: 'numeric' 
@@ -276,7 +280,7 @@ const SkillDetail = () => {
             disabled={!selectedTimeSlot}
             className="book-button w-full py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-400 rounded-2xl shadow-lg"
           >
-            {selectedTimeSlot ? 'Book Now' : 'Select a time slot'}
+            {selectedTimeSlot ? tCommon('buttons.book_now') : t('details.select_time')}
           </Button>
         </div>
       </div>

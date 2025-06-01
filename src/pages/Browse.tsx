@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import SkillCard from '../components/discovery/SkillCard';
 import SearchBar from '../components/discovery/SearchBar';
 import { skillsAPI, searchAPI, categoriesAPI } from '../services';
@@ -9,6 +10,7 @@ import { skillsAPI, searchAPI, categoriesAPI } from '../services';
 const Browse = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { t } = useTranslation('skills');
   const [skills, setSkills] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,7 +81,7 @@ const Browse = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-gray-600">Finding skills...</p>
+          <p className="text-gray-600">{t('status.loading')}</p>
         </div>
       </div>
     );
@@ -96,8 +98,8 @@ const Browse = () => {
       <div className="px-4 py-6 space-y-6">
         {/* Category Filters */}
         <section>
-          <h3 className="text-lg font-bold text-black mb-3">Filter by Category</h3>
-          <div className="flex overflow-x-auto space-x-3 pb-2">
+          <h3 className="text-lg font-bold text-black mb-3">{t('filters.category')}</h3>
+          <div className="flex overflow-x-auto space-x-3 rtl:space-x-reverse pb-2">
             <button
               onClick={() => handleCategoryFilter('')}
               className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
@@ -106,7 +108,7 @@ const Browse = () => {
                   : 'bg-white text-gray-700 border border-gray-300'
               }`}
             >
-              All Categories
+              {t('categories.all')}
             </button>
             {categories.map((category) => (
               <button
@@ -128,10 +130,10 @@ const Browse = () => {
         <section>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-black">
-              {searchQuery ? `Search results for "${searchQuery}"` : 'All Skills'}
+              {searchQuery ? `${t('discovery.search_results')} "${searchQuery}"` : t('discovery.all_skills')}
             </h3>
             <span className="text-sm text-gray-600">
-              {skills.length} skill{skills.length !== 1 ? 's' : ''} found
+              {skills.length} {t('status.skills_found')}
             </span>
           </div>
           
@@ -148,9 +150,9 @@ const Browse = () => {
           ) : (
             <div className="text-center py-12">
               <div className="text-4xl mb-4">🔍</div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-2">No skills found</h4>
+              <h4 className="text-lg font-semibold text-gray-800 mb-2">{t('status.not_found')}</h4>
               <p className="text-gray-600">
-                Try adjusting your search terms or category filters
+                {t('status.not_found_desc')}
               </p>
             </div>
           )}
