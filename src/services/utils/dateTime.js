@@ -1,59 +1,78 @@
 
-// Date and Time utility functions
+// DateTime utility functions
 export const dateTimeUtils = {
   formatDate: (date) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      weekday: 'long',
+    return new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
-    });
+    }).format(new Date(date));
   },
 
   formatTime: (time) => {
-    return new Date(`2000-01-01 ${time}`).toLocaleTimeString('en-US', {
+    return new Intl.DateTimeFormat('en-US', {
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
-    });
+    }).format(new Date(`2024-01-01T${time}`));
   },
 
-  isSlotAvailable: (slot, bookedSlots = []) => {
-    const slotDateTime = new Date(`${slot.date} ${slot.time}`);
+  formatDateTime: (dateTime) => {
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    }).format(new Date(dateTime));
+  },
+
+  getRelativeTime: (date) => {
     const now = new Date();
+    const past = new Date(date);
+    const diffInSeconds = Math.floor((now - past) / 1000);
     
-    // Check if slot is in the past
-    if (slotDateTime < now) return false;
+    if (diffInSeconds < 60) return 'Just now';
+    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+    if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} days ago`;
     
-    // Check if slot is already booked
-    return !bookedSlots.some(booked => 
-      booked.date === slot.date && booked.time === slot.time
-    );
+    return dateTimeUtils.formatDate(date);
   },
 
-  generateTimeSlots: (startHour = 9, endHour = 17, intervalMinutes = 60) => {
-    const slots = [];
-    
-    for (let hour = startHour; hour < endHour; hour++) {
-      for (let minute = 0; minute < 60; minute += intervalMinutes) {
-        const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-        slots.push(time);
-      }
-    }
-    
-    return slots;
-  },
-
-  getAvailableDates: (daysAhead = 30) => {
-    const dates = [];
+  isToday: (date) => {
     const today = new Date();
-    
-    for (let i = 1; i <= daysAhead; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
-      dates.push(date.toISOString().split('T')[0]);
+    const checkDate = new Date(date);
+    return today.toDateString() === checkDate.toDateString();
+  },
+
+  isTomorrow: (date) => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const checkDate = new Date(date);
+    return tomorrow.toDateString() === checkDate.toDateString();
+  },
+
+  addDays: (date, days) => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  },
+
+  getWeekStart: (date) => {
+    const d = new Date(date);
+    const day = d.getDay();
+    const diff = d.getDate() - day;
+    return new Date(d.setDate(diff));
+  },
+
+  getTimeSlots: (startHour = 9, endHour = 17, intervalMinutes = 60) => {
+    const slots = [];
+    for (let hour = startHour; hour < endHour; hour += intervalMinutes / 60) {
+      const time = `${hour.toString().padStart(2, '0')}:00`;
+      slots.push(time);
     }
-    
-    return dates;
+    return slots;
   }
 };

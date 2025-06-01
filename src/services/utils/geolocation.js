@@ -1,10 +1,10 @@
 
 // Geolocation utility functions
 export const geolocationAPI = {
-  getCurrentLocation: async () => {
+  getCurrentPosition: async () => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error('Geolocation is not supported by this browser'));
+        reject(new Error('Geolocation is not supported'));
         return;
       }
 
@@ -17,39 +17,51 @@ export const geolocationAPI = {
           });
         },
         (error) => {
-          reject(new Error(`Geolocation error: ${error.message}`));
+          reject(new Error(error.message));
         },
         {
           enableHighAccuracy: true,
           timeout: 10000,
-          maximumAge: 300000 // 5 minutes
+          maximumAge: 600000
         }
       );
     });
   },
 
-  searchNearbySkills: async (latitude, longitude, radius = 10) => {
+  calculateDistance: (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Earth's radius in kilometers
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  },
+
+  getNearbySkills: async (latitude, longitude, radius = 10) => {
     await new Promise(resolve => setTimeout(resolve, 800));
     
-    // Mock nearby skills data
+    // Mock nearby skills
     return [
       {
         id: '1',
         skillTitle: 'Photography Workshop',
-        providerName: 'Alex Thompson',
+        providerName: 'Alex Photo',
         distance: 2.5,
-        location: 'Downtown Studio',
-        price: 60,
-        rating: 4.8
+        latitude: latitude + 0.01,
+        longitude: longitude + 0.01,
+        price: 60
       },
       {
         id: '2',
-        skillTitle: 'Guitar Lessons',
-        providerName: 'Maria Garcia',
+        skillTitle: 'Cooking Class',
+        providerName: 'Chef Maria',
         distance: 5.1,
-        location: 'Music Center',
-        price: 40,
-        rating: 4.9
+        latitude: latitude + 0.02,
+        longitude: longitude - 0.01,
+        price: 80
       }
     ];
   },
@@ -61,10 +73,23 @@ export const geolocationAPI = {
     return {
       latitude: 37.7749,
       longitude: -122.4194,
-      formatted_address: address,
+      formattedAddress: 'San Francisco, CA, USA',
       city: 'San Francisco',
       state: 'CA',
-      country: 'USA'
+      country: 'USA',
+      zipCode: '94102'
+    };
+  },
+
+  reverseGeocode: async (latitude, longitude) => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return {
+      formattedAddress: 'San Francisco, CA, USA',
+      city: 'San Francisco',
+      state: 'CA',
+      country: 'USA',
+      zipCode: '94102'
     };
   }
 };

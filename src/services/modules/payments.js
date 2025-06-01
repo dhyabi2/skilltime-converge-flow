@@ -4,19 +4,80 @@ export const paymentsAPI = {
   processPayment: async (paymentData) => {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
+    // Simulate payment processing
+    if (paymentData.amount > 0) {
+      return {
+        success: true,
+        transactionId: `txn_${Date.now()}`,
+        amount: paymentData.amount,
+        currency: 'USD',
+        status: 'completed',
+        receiptUrl: 'https://example.com/receipt/123'
+      };
+    }
+    
+    throw new Error('Invalid payment amount');
+  },
+
+  getPaymentHistory: async (userId) => {
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    return [
+      {
+        id: 'txn_1',
+        amount: 75,
+        currency: 'USD',
+        description: 'UI/UX Design Consultation',
+        date: '2024-05-25T14:30:00Z',
+        status: 'completed',
+        receiptUrl: 'https://example.com/receipt/1'
+      },
+      {
+        id: 'txn_2',
+        amount: 150,
+        currency: 'USD',
+        description: 'React Development Session',
+        date: '2024-05-20T10:15:00Z',
+        status: 'completed',
+        receiptUrl: 'https://example.com/receipt/2'
+      }
+    ];
+  },
+
+  createPaymentIntent: async (amount, currency = 'USD') => {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    return {
+      clientSecret: `pi_${Date.now()}_secret`,
+      paymentIntentId: `pi_${Date.now()}`,
+      amount,
+      currency
+    };
+  },
+
+  confirmPayment: async (paymentIntentId) => {
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     return {
       success: true,
-      transactionId: `txn_${Date.now()}`,
-      amount: paymentData.amount,
-      currency: 'USD',
-      status: 'completed',
-      method: paymentData.method || 'card',
-      createdAt: new Date().toISOString()
+      status: 'succeeded',
+      transactionId: paymentIntentId
+    };
+  },
+
+  refundPayment: async (transactionId, amount) => {
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    
+    return {
+      success: true,
+      refundId: `ref_${Date.now()}`,
+      amount,
+      status: 'completed'
     };
   },
 
   getPaymentMethods: async (userId) => {
-    await new Promise(resolve => setTimeout(resolve, 600));
+    await new Promise(resolve => setTimeout(resolve, 400));
     
     return [
       {
@@ -24,17 +85,13 @@ export const paymentsAPI = {
         type: 'card',
         last4: '4242',
         brand: 'visa',
-        expiryMonth: 12,
-        expiryYear: 2025,
         isDefault: true
       },
       {
         id: 'pm_2',
         type: 'card',
-        last4: '0000',
+        last4: '5555',
         brand: 'mastercard',
-        expiryMonth: 6,
-        expiryYear: 2026,
         isDefault: false
       }
     ];
@@ -47,9 +104,17 @@ export const paymentsAPI = {
       success: true,
       paymentMethod: {
         id: `pm_${Date.now()}`,
-        ...paymentMethodData,
-        createdAt: new Date().toISOString()
+        ...paymentMethodData
       }
+    };
+  },
+
+  removePaymentMethod: async (paymentMethodId) => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return {
+      success: true,
+      message: 'Payment method removed successfully'
     };
   }
 };

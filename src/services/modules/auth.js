@@ -1,21 +1,19 @@
 
-// Authentication API module
+// Auth API module
 export const authAPI = {
   login: async (email, password) => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 1500));
     
-    if (email === 'admin@skilltime.com' && password === 'password') {
+    if (email === 'demo@example.com' && password === 'demo123') {
       return {
         success: true,
         user: {
           id: '1',
-          name: 'John Doe',
-          email: 'admin@skilltime.com',
-          type: 'provider',
-          avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200'
+          email: 'demo@example.com',
+          name: 'Demo User',
+          avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400'
         },
-        token: 'mock-jwt-token-123'
+        token: 'demo_token_12345'
       };
     }
     
@@ -23,16 +21,16 @@ export const authAPI = {
   },
 
   register: async (userData) => {
-    await new Promise(resolve => setTimeout(resolve, 1200));
+    await new Promise(resolve => setTimeout(resolve, 2000));
     
     return {
       success: true,
       user: {
         id: Date.now().toString(),
         ...userData,
-        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200'
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400'
       },
-      token: 'mock-jwt-token-' + Date.now()
+      token: `token_${Date.now()}`
     };
   },
 
@@ -41,27 +39,49 @@ export const authAPI = {
     return { success: true };
   },
 
-  refreshToken: async (token) => {
-    await new Promise(resolve => setTimeout(resolve, 600));
+  getCurrentUser: async () => {
+    await new Promise(resolve => setTimeout(resolve, 300));
     
     return {
-      success: true,
-      token: 'mock-jwt-token-refreshed-' + Date.now(),
-      expiresIn: 3600
+      id: '1',
+      email: 'demo@example.com',
+      name: 'Demo User',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
+      phone: '+1234567890',
+      location: 'San Francisco, CA'
     };
   },
 
-  resetPassword: async (email) => {
-    await new Promise(resolve => setTimeout(resolve, 800));
+  updateProfile: async (userData) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
     return {
       success: true,
-      message: 'Password reset email sent successfully'
+      user: { ...userData, id: '1' }
+    };
+  },
+
+  changePassword: async (oldPassword, newPassword) => {
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    
+    if (oldPassword === 'demo123') {
+      return { success: true, message: 'Password updated successfully' };
+    }
+    
+    throw new Error('Current password is incorrect');
+  },
+
+  forgotPassword: async (email) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    return {
+      success: true,
+      message: 'Password reset email sent'
     };
   },
 
   verifyEmail: async (token) => {
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 800));
     
     return {
       success: true,

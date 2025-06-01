@@ -1,41 +1,82 @@
 
 // Reviews API module
 export const reviewsAPI = {
-  getForSkill: async (skillId) => {
+  getBySkill: async (skillId) => {
     await new Promise(resolve => setTimeout(resolve, 600));
     
     return [
       {
         id: '1',
-        userId: 'user1',
-        userName: 'Alice Johnson',
-        userAvatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100',
+        userId: '3',
+        userName: 'Alice Cooper',
+        userAvatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200',
         rating: 5,
-        comment: 'Amazing session! Really helped me understand UI/UX principles.',
-        createdAt: '2024-05-25T10:00:00Z',
+        comment: 'Amazing session! Sarah really helped me understand design principles.',
+        date: '2024-05-25T14:30:00Z',
+        skillId,
         helpful: 12
       },
       {
         id: '2',
-        userId: 'user2',
-        userName: 'Bob Smith',
-        userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100',
-        rating: 4,
-        comment: 'Great expertise and very patient teaching style.',
-        createdAt: '2024-05-20T14:30:00Z',
+        userId: '4',
+        userName: 'Bob Wilson',
+        userAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200',
+        rating: 5,
+        comment: 'Excellent teaching style and very patient with questions.',
+        date: '2024-05-20T10:15:00Z',
+        skillId,
         helpful: 8
       }
     ];
   },
 
+  getByUser: async (userId) => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return [
+      {
+        id: '1',
+        skillTitle: 'UI/UX Design Consultation',
+        providerName: 'Sarah Johnson',
+        rating: 5,
+        comment: 'Great session!',
+        date: '2024-05-25T14:30:00Z'
+      }
+    ];
+  },
+
   create: async (reviewData) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 800));
     
     return {
-      id: Date.now().toString(),
-      ...reviewData,
-      createdAt: new Date().toISOString(),
-      helpful: 0
+      success: true,
+      review: {
+        id: Date.now().toString(),
+        ...reviewData,
+        date: new Date().toISOString(),
+        helpful: 0
+      }
+    };
+  },
+
+  update: async (reviewId, updateData) => {
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    return {
+      success: true,
+      review: {
+        id: reviewId,
+        ...updateData
+      }
+    };
+  },
+
+  delete: async (reviewId) => {
+    await new Promise(resolve => setTimeout(resolve, 400));
+    
+    return {
+      success: true,
+      message: 'Review deleted successfully'
     };
   },
 
@@ -45,6 +86,31 @@ export const reviewsAPI = {
     return {
       success: true,
       message: 'Review marked as helpful'
+    };
+  },
+
+  reportReview: async (reviewId, reason) => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return {
+      success: true,
+      message: 'Review reported successfully'
+    };
+  },
+
+  getStats: async (skillId) => {
+    await new Promise(resolve => setTimeout(resolve, 400));
+    
+    return {
+      averageRating: 4.8,
+      totalReviews: 47,
+      ratingDistribution: {
+        5: 35,
+        4: 8,
+        3: 3,
+        2: 1,
+        1: 0
+      }
     };
   }
 };
