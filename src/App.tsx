@@ -13,6 +13,9 @@ import SkillDetail from "./pages/SkillDetail";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import Offline from "./pages/Offline";
+import { InstallPrompt } from "./components/pwa/InstallPrompt";
+import { OfflineIndicator } from "./components/pwa/OfflineIndicator";
 
 const queryClient = new QueryClient();
 
@@ -21,9 +24,12 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <OfflineIndicator />
+      <InstallPrompt />
       <BrowserRouter>
         <Routes>
           <Route path="/auth" element={<Auth />} />
+          <Route path="/offline" element={<Offline />} />
           <Route path="/" element={<AppShell />}>
             <Route index element={<Home />} />
             <Route path="browse" element={<Browse />} />
