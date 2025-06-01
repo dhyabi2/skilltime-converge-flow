@@ -19,7 +19,6 @@ import NotFound from "./pages/NotFound";
 import Offline from "./pages/Offline";
 import { InstallPrompt } from "./components/pwa/InstallPrompt";
 import { OfflineIndicator } from "./components/pwa/OfflineIndicator";
-import "./i18n/config";
 
 const queryClient = new QueryClient();
 
