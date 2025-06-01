@@ -1,7 +1,10 @@
 
 import React, { useRef, useEffect } from 'react';
-import { AnimatedIcon } from './AnimatedIcons';
-import { setupCardAnimations, setupClickAnimation } from './CategoryCardAnimations';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTranslation } from 'react-i18next';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface CategoryCardProps {
   title: string;
@@ -11,52 +14,65 @@ interface CategoryCardProps {
   onClick: () => void;
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ 
-  title, 
-  icon, 
-  skillCount, 
-  onClick 
+const CategoryCard: React.FC<CategoryCardProps> = ({
+  title,
+  icon,
+  skillCount,
+  gradient,
+  onClick
 }) => {
+  const { t } = useTranslation('common');
   const cardRef = useRef<HTMLDivElement>(null);
-  const iconContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const cleanup = setupCardAnimations(cardRef, iconContainerRef);
-    return cleanup;
+    if (cardRef.current) {
+      gsap.fromTo(cardRef.current,
+        { scale: 0.9, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: cardRef.current,
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
   }, []);
 
   const handleClick = () => {
-    setupClickAnimation(cardRef, iconContainerRef, onClick);
+    if (cardRef.current) {
+      gsap.to(cardRef.current, {
+        scale: 0.95,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1,
+        ease: "power2.inOut"
+      });
+    }
+    setTimeout(onClick, 200);
   };
 
   return (
     <div
       ref={cardRef}
       onClick={handleClick}
-      className="bg-white text-black rounded-2xl p-4 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 min-h-[120px] flex flex-col justify-between border border-gray-200 overflow-hidden relative"
+      className={`${gradient} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-all duration-300 text-white relative overflow-hidden`}
     >
-      {/* Animated background particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-2 right-2 w-1 h-1 bg-black/10 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-4 left-2 w-0.5 h-0.5 bg-black/5 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-        <div className="absolute top-1/2 right-1/4 w-0.5 h-0.5 bg-black/8 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-      </div>
-      
-      <div 
-        ref={iconContainerRef}
-        className="mb-2 transform-gpu relative z-10 flex justify-center"
-        style={{ 
-          filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.1))',
-          transformStyle: 'preserve-3d'
-        }}
-      >
-        <AnimatedIcon iconType={icon} containerRef={iconContainerRef} />
-      </div>
-      
       <div className="relative z-10">
+        <div className="text-3xl mb-2">{icon}</div>
         <h3 className="font-bold text-lg mb-1">{title}</h3>
-        <p className="text-sm text-gray-600">{skillCount} skills</p>
+        <p className="text-sm opacity-90">
+          {skillCount} {t('labels.skills', { count: skillCount })}
+        </p>
       </div>
+      
+      {/* Decorative background pattern */}
+      <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/10 rounded-full" />
+      <div className="absolute -bottom-2 -left-2 w-12 h-12 bg-white/5 rounded-full" />
     </div>
   );
 };

@@ -29,7 +29,9 @@
     "duration": "المدة",
     "location": "الموقع",
     "rating": "التقييم",
-    "reviews": "المراجعات"
+    "reviews": "المراجعات",
+    "skills": "مهارة",
+    "skills_plural": "مهارات"
   },
   "status": {
     "online": "متصل",

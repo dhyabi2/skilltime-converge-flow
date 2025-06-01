@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import { Star, Clock, MapPin } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTranslation } from 'react-i18next';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +31,8 @@ const SkillCard: React.FC<SkillCardProps> = ({
   isTopRated,
   onClick
 }) => {
+  const { t } = useTranslation('common');
+  const { t: tSkills } = useTranslation('skills');
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -71,8 +74,8 @@ const SkillCard: React.FC<SkillCardProps> = ({
       className="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer relative"
     >
       {isTopRated && (
-        <div className="absolute top-3 left-3 bg-black text-white px-2 py-1 rounded-full text-xs font-bold z-10">
-          Top Rated
+        <div className="absolute top-3 left-3 rtl:left-auto rtl:right-3 bg-black text-white px-2 py-1 rounded-full text-xs font-bold z-10">
+          {tSkills('labels.top_rated')}
         </div>
       )}
       
@@ -87,9 +90,9 @@ const SkillCard: React.FC<SkillCardProps> = ({
       
       <div className="p-4">
         <h3 className="font-bold text-lg text-gray-800 mb-1">{skillTitle}</h3>
-        <p className="text-sm text-gray-600 mb-2">by {providerName}</p>
+        <p className="text-sm text-gray-600 mb-2">{tSkills('labels.by')} {providerName}</p>
         
-        <div className="flex items-center space-x-1 mb-2">
+        <div className="flex items-center space-x-1 rtl:space-x-reverse mb-2">
           {[...Array(5)].map((_, i) => (
             <Star
               key={i}
@@ -100,23 +103,23 @@ const SkillCard: React.FC<SkillCardProps> = ({
               }`}
             />
           ))}
-          <span className="text-sm text-gray-600 ml-1">({rating})</span>
+          <span className="text-sm text-gray-600 ml-1 rtl:ml-0 rtl:mr-1">({rating})</span>
         </div>
         
         <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
           <div className="flex items-center">
-            <Clock className="w-4 h-4 mr-1" />
+            <Clock className="w-4 h-4 mr-1 rtl:mr-0 rtl:ml-1" />
             <span>{duration}</span>
           </div>
           <div className="flex items-center">
-            <MapPin className="w-4 h-4 mr-1" />
+            <MapPin className="w-4 h-4 mr-1 rtl:mr-0 rtl:ml-1" />
             <span>{location}</span>
           </div>
         </div>
         
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-black">${price}</span>
-          <span className="text-sm text-gray-500">per hour</span>
+          <span className="text-sm text-gray-500">{tSkills('details.per_hour')}</span>
         </div>
       </div>
     </div>
