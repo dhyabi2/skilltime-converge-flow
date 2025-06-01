@@ -21,10 +21,10 @@ const Header = () => {
           <h1 className="text-2xl font-bold text-slate-800">
             {t('app.name')}
           </h1>
-          {/* Enhanced tagline with gradient background */}
-          <div className="bg-gradient-to-r from-white/30 to-mint-100/40 backdrop-blur-sm rounded-lg px-3 py-1 mt-1 border border-white/20 shadow-sm">
-            <p className="text-sm text-slate-700 font-medium">{t('app.tagline')}</p>
-          </div>
+          {/* Elegant tagline without box structure */}
+          <p className="text-sm text-slate-700/80 font-medium mt-1 italic">
+            {t('app.tagline')}
+          </p>
         </div>
         <div className="flex items-center space-x-3 rtl:space-x-reverse">
           {/* Language Toggle */}
