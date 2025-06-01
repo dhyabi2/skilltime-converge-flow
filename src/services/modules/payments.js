@@ -10,7 +10,7 @@ export const paymentsAPI = {
         success: true,
         transactionId: `txn_${Date.now()}`,
         amount: paymentData.amount,
-        currency: 'USD',
+        currency: 'OMR',
         status: 'completed',
         receiptUrl: 'https://example.com/receipt/123'
       };
@@ -25,8 +25,8 @@ export const paymentsAPI = {
     return [
       {
         id: 'txn_1',
-        amount: 75,
-        currency: 'USD',
+        amount: 29,
+        currency: 'OMR',
         description: 'UI/UX Design Consultation',
         date: '2024-05-25T14:30:00Z',
         status: 'completed',
@@ -34,8 +34,8 @@ export const paymentsAPI = {
       },
       {
         id: 'txn_2',
-        amount: 150,
-        currency: 'USD',
+        amount: 58,
+        currency: 'OMR',
         description: 'React Development Session',
         date: '2024-05-20T10:15:00Z',
         status: 'completed',
@@ -44,7 +44,7 @@ export const paymentsAPI = {
     ];
   },
 
-  createPaymentIntent: async (amount, currency = 'USD') => {
+  createPaymentIntent: async (amount, currency = 'OMR') => {
     await new Promise(resolve => setTimeout(resolve, 800));
     
     return {

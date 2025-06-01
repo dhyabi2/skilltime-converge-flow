@@ -118,7 +118,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         </div>
         
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-black">${price}</span>
+          <span className="text-2xl font-bold text-black">{price} ر.ع</span>
           <span className="text-sm text-gray-500">{tSkills('details.per_hour')}</span>
         </div>
       </div>

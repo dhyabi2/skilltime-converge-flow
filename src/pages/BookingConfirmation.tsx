@@ -178,7 +178,7 @@ const BookingConfirmation = () => {
                   <CreditCard className="w-5 h-5 text-black" />
                 </div>
                 <div>
-                  <p className="font-medium text-black">${booking.price}</p>
+                  <p className="font-medium text-black">{booking.price} ر.ع</p>
                   <p className="text-sm text-gray-600">Payment confirmed</p>
                 </div>
               </div>

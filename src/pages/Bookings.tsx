@@ -118,7 +118,7 @@ const Bookings = () => {
                     </div>
                     
                     <div className="flex items-center justify-between mt-4">
-                      <span className="text-lg font-bold text-black">${booking.price}</span>
+                      <span className="text-lg font-bold text-black">{booking.price} ر.ع</span>
                       {booking.status === 'upcoming' && (
                         <div className="flex space-x-2 rtl:space-x-reverse">
                           <Button

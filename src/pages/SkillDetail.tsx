@@ -202,7 +202,7 @@ const SkillDetail = () => {
               </div>
             </div>
             <div className="text-right rtl:text-left">
-              <div className="text-2xl font-bold text-purple-600">${skill.price}</div>
+              <div className="text-2xl font-bold text-purple-600">{skill.price} ر.ع</div>
               <div className="text-sm text-gray-500">{t('details.per_hour')}</div>
             </div>
           </div>
