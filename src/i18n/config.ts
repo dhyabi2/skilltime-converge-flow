@@ -3,54 +3,19 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Translation imports
+// Arabic translation imports
 import commonAr from '../locales/ar/common.json';
 import authAr from '../locales/ar/auth.json';
 import skillsAr from '../locales/ar/skills.json';
 import bookingsAr from '../locales/ar/bookings.json';
 import profileAr from '../locales/ar/profile.json';
 
-// English translations (basic fallback)
-const commonEn = {
-  app: {
-    name: "SkillTime",
-    tagline: "Where skills meet and opportunities flow"
-  },
-  navigation: {
-    home: "Home",
-    browse: "Browse",
-    bookings: "Bookings",
-    profile: "Profile"
-  },
-  buttons: {
-    search: "Search",
-    filter: "Filter",
-    book_now: "Book Now",
-    cancel: "Cancel",
-    save: "Save",
-    back: "Back",
-    try_again: "Try Again",
-    view_more: "View More",
-    install_app: "Install App",
-    refresh: "Refresh"
-  },
-  labels: {
-    loading: "Loading...",
-    search_placeholder: "Search for skills...",
-    price: "Price",
-    duration: "Duration",
-    location: "Location",
-    rating: "Rating",
-    reviews: "Reviews",
-    skills: "skill",
-    skills_plural: "skills"
-  },
-  language: {
-    toggle: "Toggle Language",
-    arabic: "Arabic",
-    english: "English"
-  }
-};
+// English translation imports
+import commonEn from '../locales/en/common.json';
+import authEn from '../locales/en/auth.json';
+import skillsEn from '../locales/en/skills.json';
+import bookingsEn from '../locales/en/bookings.json';
+import profileEn from '../locales/en/profile.json';
 
 const resources = {
   ar: {
@@ -62,6 +27,10 @@ const resources = {
   },
   en: {
     common: commonEn,
+    auth: authEn,
+    skills: skillsEn,
+    bookings: bookingsEn,
+    profile: profileEn,
   },
 };
 
@@ -71,7 +40,7 @@ i18n
   .init({
     resources,
     lng: 'ar', // Default language is Arabic
-    fallbackLng: 'ar',
+    fallbackLng: 'en', // Changed fallback to English
     debug: false,
     
     // Configure namespaces

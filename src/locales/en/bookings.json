@@ -1,0 +1,35 @@
+
+{
+  "title": "My Bookings",
+  "tabs": {
+    "upcoming": "Upcoming",
+    "completed": "Completed"
+  },
+  "status": {
+    "loading": "Loading your bookings...",
+    "no_upcoming": "No upcoming bookings",
+    "no_upcoming_desc": "You don't have any upcoming bookings yet",
+    "no_completed": "No completed bookings",
+    "no_completed_desc": "You haven't completed any bookings yet",
+    "completed": "Completed"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "reschedule": "Reschedule"
+  },
+  "confirmation": {
+    "title": "Booking Confirmed!",
+    "subtitle": "Your session has been successfully booked",
+    "details_title": "Booking Details",
+    "upcoming_session": "Upcoming Session",
+    "payment_confirmed": "Payment Confirmed",
+    "next_steps": "What's next?",
+    "email_confirmation": "You'll receive a confirmation email with session details",
+    "meeting_link": "Meeting link will be shared 15 minutes before the session",
+    "reschedule_info": "You can reschedule or cancel up to 24 hours before the appointment",
+    "view_bookings": "View My Bookings",
+    "back_home": "Back to Home",
+    "loading": "Confirming your booking...",
+    "failed": "Booking failed"
+  }
+}

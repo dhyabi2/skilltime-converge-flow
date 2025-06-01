@@ -1,0 +1,41 @@
+
+{
+  "discovery": {
+    "title": "Discover Amazing Skills",
+    "subtitle": "Connect with talented professionals and learn new skills",
+    "browse_categories": "Browse Categories",
+    "top_rated": "Top Rated",
+    "all_skills": "All Skills",
+    "search_results": "Search results for"
+  },
+  "categories": {
+    "all": "All Categories",
+    "design": "Design",
+    "development": "Development",
+    "marketing": "Marketing",
+    "writing": "Writing",
+    "music": "Music",
+    "photography": "Photography"
+  },
+  "labels": {
+    "top_rated": "Top Rated",
+    "by": "by"
+  },
+  "details": {
+    "about": "About this skill",
+    "expertise": "Expertise includes:",
+    "available_slots": "Available Time Slots",
+    "select_time": "Select a time",
+    "per_hour": "per hour"
+  },
+  "filters": {
+    "category": "Filter by category"
+  },
+  "status": {
+    "loading": "Searching for skills...",
+    "not_found": "No skills found",
+    "not_found_desc": "Try adjusting your search terms or category filters",
+    "skills_found": "skills found",
+    "skill_not_found": "Skill not found"
+  }
+}
