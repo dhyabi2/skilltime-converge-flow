@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SkillTime Converge Flow</title>
-    <meta name="description" content="A platform for sharing and learning skills" />
+    <meta name="description" content="A platform for sharing and learning skills - works offline" />
     <meta name="author" content="Lovable" />
 
     <!-- PWA Meta Tags -->
@@ -14,17 +14,24 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="SkillTime" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#1a73e8" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- iOS specific PWA tags -->
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <link rel="apple-touch-startup-image" href="/icons/icon-512x512.png" />
     
     <!-- Favicon -->
     <link rel="icon" href="/icons/icon-192x192.png" type="image/png">
     <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="mask-icon" href="/icons/icon-192x192.png" color="#1a73e8">
     
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json" />
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="SkillTime Converge Flow" />
-    <meta property="og:description" content="A platform for sharing and learning skills" />
+    <meta property="og:description" content="A platform for sharing and learning skills - works offline" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
@@ -39,19 +46,58 @@
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Service Worker Registration -->
+    <!-- Enhanced Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
-            })
-            .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
+        window.addEventListener('load', async () => {
+          try {
+            const registration = await navigator.serviceWorker.register('/sw.js', {
+              scope: '/'
             });
+            
+            console.log('SW registered: ', registration);
+            
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed') {
+                    if (navigator.serviceWorker.controller) {
+                      console.log('New content is available; please refresh.');
+                      // Dispatch custom event for update available
+                      window.dispatchEvent(new CustomEvent('sw-update-available'));
+                    } else {
+                      console.log('Content is cached for offline use.');
+                    }
+                  }
+                });
+              }
+            });
+            
+            // Handle messages from service worker
+            navigator.serviceWorker.addEventListener('message', (event) => {
+              if (event.data && event.data.type === 'SKIP_WAITING') {
+                window.location.reload();
+              }
+            });
+            
+          } catch (registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          }
         });
       }
+
+      // Handle offline/online events
+      window.addEventListener('online', () => {
+        console.log('App is online');
+        document.body.classList.remove('offline');
+      });
+
+      window.addEventListener('offline', () => {
+        console.log('App is offline');
+        document.body.classList.add('offline');
+      });
     </script>
   </body>
 </html>
