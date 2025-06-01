@@ -91,12 +91,18 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
     switch (mappedIcon) {
       case '🎨': // Design
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-soft-blue-500">
+            <defs>
+              <linearGradient id="designGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#0ea5e9" />
+                <stop offset="100%" stopColor="#14b8a6" />
+              </linearGradient>
+            </defs>
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M20 5 L35 15 L35 25 L20 35 L5 25 L5 15 Z"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#designGradient)"
               strokeWidth="2"
               className="icon-path-1"
             />
@@ -105,7 +111,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               cx="20"
               cy="20"
               r="8"
-              fill="currentColor"
+              fill="url(#designGradient)"
               className="icon-circle-1"
             />
             <path
@@ -120,7 +126,13 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
       
       case '💻': // Development
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-soft-blue-600">
+            <defs>
+              <linearGradient id="devGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#0284c7" />
+                <stop offset="100%" stopColor="#0d9488" />
+              </linearGradient>
+            </defs>
             <rect
               ref={el => el && gsap.set(el, { scaleX: 0 })}
               x="5"
@@ -129,7 +141,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               height="20"
               rx="2"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#devGradient)"
               strokeWidth="2"
               className="icon-rect-1"
             />
@@ -137,7 +149,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M12 18 L16 22 L12 26"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#devGradient)"
               strokeWidth="2"
               className="icon-path-1"
             />
@@ -147,7 +159,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               y1="24"
               x2="28"
               y2="24"
-              stroke="currentColor"
+              stroke="url(#devGradient)"
               strokeWidth="2"
               className="icon-line-1"
             />
@@ -156,12 +168,18 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
       
       case '📈': // Marketing
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-mint-500">
+            <defs>
+              <linearGradient id="marketingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#14b8a6" />
+                <stop offset="100%" stopColor="#0ea5e9" />
+              </linearGradient>
+            </defs>
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M5 30 L15 20 L25 25 L35 10"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#marketingGradient)"
               strokeWidth="3"
               className="icon-path-1"
             />
@@ -170,7 +188,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               cx="15"
               cy="20"
               r="3"
-              fill="currentColor"
+              fill="url(#marketingGradient)"
               className="icon-circle-1"
             />
             <circle
@@ -178,7 +196,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               cx="25"
               cy="25"
               r="3"
-              fill="currentColor"
+              fill="url(#marketingGradient)"
               className="icon-circle-2"
             />
             <circle
@@ -186,7 +204,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               cx="35"
               cy="10"
               r="3"
-              fill="currentColor"
+              fill="url(#marketingGradient)"
               className="icon-circle-3"
             />
           </svg>
@@ -194,19 +212,25 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
       
       case '✍️': // Writing
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-soft-blue-400">
+            <defs>
+              <linearGradient id="writingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#38bdf8" />
+                <stop offset="100%" stopColor="#2dd4bf" />
+              </linearGradient>
+            </defs>
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M8 32 L32 8 L35 11 L11 35 Z"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#writingGradient)"
               strokeWidth="2"
               className="icon-path-1"
             />
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M28 12 L32 8 L35 11 L31 15"
-              fill="currentColor"
+              fill="url(#writingGradient)"
               className="icon-path-2"
             />
             <line
@@ -215,7 +239,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               y1="32"
               x2="12"
               y2="28"
-              stroke="currentColor"
+              stroke="url(#writingGradient)"
               strokeWidth="2"
               className="icon-line-1"
             />
@@ -224,18 +248,24 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
       
       case '🎵': // Music
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-mint-400">
+            <defs>
+              <linearGradient id="musicGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#5eead4" />
+                <stop offset="100%" stopColor="#7dd3fc" />
+              </linearGradient>
+            </defs>
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M15 8 L15 28"
-              stroke="currentColor"
+              stroke="url(#musicGradient)"
               strokeWidth="3"
               className="icon-path-1"
             />
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M25 5 L25 25"
-              stroke="currentColor"
+              stroke="url(#musicGradient)"
               strokeWidth="3"
               className="icon-path-2"
             />
@@ -244,7 +274,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               cx="15"
               cy="30"
               r="4"
-              fill="currentColor"
+              fill="url(#musicGradient)"
               className="icon-circle-1"
             />
             <circle
@@ -252,14 +282,14 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               cx="25"
               cy="27"
               r="4"
-              fill="currentColor"
+              fill="url(#musicGradient)"
               className="icon-circle-2"
             />
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M15 8 Q25 5 25 8"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#musicGradient)"
               strokeWidth="2"
               className="icon-path-3"
             />
@@ -268,7 +298,17 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
       
       case '📸': // Photography
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-soft-blue-300">
+            <defs>
+              <linearGradient id="photoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#bae6fd" />
+                <stop offset="100%" stopColor="#99f6e4" />
+              </linearGradient>
+              <linearGradient id="photoGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#0ea5e9" />
+                <stop offset="100%" stopColor="#14b8a6" />
+              </linearGradient>
+            </defs>
             <rect
               ref={el => el && gsap.set(el, { scaleX: 0 })}
               x="5"
@@ -277,7 +317,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               height="20"
               rx="3"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#photoGradient2)"
               strokeWidth="2"
               className="icon-rect-1"
             />
@@ -285,7 +325,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M15 12 L17 8 L23 8 L25 12"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#photoGradient2)"
               strokeWidth="2"
               className="icon-path-1"
             />
@@ -295,7 +335,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               cy="22"
               r="6"
               fill="none"
-              stroke="currentColor"
+              stroke="url(#photoGradient2)"
               strokeWidth="2"
               className="icon-circle-1"
             />
@@ -304,7 +344,7 @@ export const AnimatedIcon: React.FC<AnimatedIconProps> = ({ iconType, containerR
               cx="30"
               cy="16"
               r="1.5"
-              fill="currentColor"
+              fill="url(#photoGradient2)"
               className="icon-circle-2"
             />
           </svg>
