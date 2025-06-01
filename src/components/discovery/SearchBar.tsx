@@ -56,31 +56,31 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilterClick, initialQ
   };
 
   return (
-    <div ref={searchRef} className="bg-white border-b border-gray-200 p-4">
+    <div ref={searchRef} className="bg-white/80 backdrop-blur-sm border-b border-soft-blue-200 p-4">
       <form onSubmit={handleSubmit} className="flex space-x-3 rtl:space-x-reverse">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Search className="absolute left-3 rtl:left-auto rtl:right-3 top-1/2 transform -translate-y-1/2 text-slate-500 w-5 h-5" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t('labels.search_placeholder')}
-            className="w-full pl-10 rtl:pl-4 rtl:pr-10 pr-4 py-3 bg-gray-100 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+            className="w-full pl-10 rtl:pl-4 rtl:pr-10 pr-4 py-3 bg-white/90 backdrop-blur-sm border border-soft-blue-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-soft-blue-400 focus:border-transparent transition-all shadow-sm"
           />
         </div>
         
         <button
           type="button"
           onClick={handleFilterClick}
-          className="filter-btn p-3 bg-gray-100 border border-gray-200 rounded-2xl hover:bg-gray-200 transition-colors"
+          className="filter-btn p-3 bg-white/90 backdrop-blur-sm border border-soft-blue-200 rounded-2xl hover:bg-white transition-colors shadow-sm"
         >
-          <SlidersHorizontal className="w-5 h-5 text-gray-600" />
+          <SlidersHorizontal className="w-5 h-5 text-slate-600" />
         </button>
         
         <button
           type="submit"
-          className="px-6 py-3 bg-black text-white rounded-2xl hover:bg-gray-800 transition-colors font-medium"
+          className="px-6 py-3 bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white rounded-2xl hover:from-soft-blue-600 hover:to-mint-600 transition-all font-medium shadow-md"
         >
           {t('buttons.search')}
         </button>

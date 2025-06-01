@@ -80,33 +80,35 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-gray-600">{t('status.loading')}</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-soft-blue-500 mx-auto mb-4"></div>
+          <p className="text-slate-600">{t('status.loading')}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
       <SearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
       
-      <div ref={containerRef} className="px-4 space-y-6 bg-gray-100">
+      <div ref={containerRef} className="px-4 space-y-6 bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
         {/* Welcome Section */}
         <div className="text-center py-4">
-          <h2 className="text-2xl font-bold text-black mb-2">
-            {t('discovery.title')}
-          </h2>
-          <p className="text-gray-700">
-            {t('discovery.subtitle')}
-          </p>
+          <div className="bg-gradient-to-r from-white/40 to-mint-100/50 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/30 shadow-sm max-w-md mx-auto">
+            <h2 className="text-2xl font-bold text-slate-800 mb-2">
+              {t('discovery.title')}
+            </h2>
+            <p className="text-slate-700">
+              {t('discovery.subtitle')}
+            </p>
+          </div>
         </div>
 
         {/* Categories */}
         <section>
-          <h3 className="text-xl font-bold text-black mb-4">{t('discovery.browse_categories')}</h3>
+          <h3 className="text-xl font-bold text-slate-800 mb-4">{t('discovery.browse_categories')}</h3>
           <div className="grid grid-cols-2 gap-4">
             {categories.map((category) => (
               <CategoryCard
@@ -123,7 +125,7 @@ const Home = () => {
 
         {/* Top Rated Skills */}
         <section>
-          <h3 className="text-xl font-bold text-black mb-4">{t('discovery.top_rated')}</h3>
+          <h3 className="text-xl font-bold text-slate-800 mb-4">{t('discovery.top_rated')}</h3>
           <div className="space-y-4">
             {topSkills.map((skill) => (
               <SkillCard

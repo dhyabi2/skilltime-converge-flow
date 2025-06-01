@@ -62,24 +62,24 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     <div
       ref={cardRef}
       onClick={handleClick}
-      className={`${gradient} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-all duration-300 text-black relative overflow-hidden border-2 border-white/30 hover:border-white/50 shadow-md`}
+      className={`${gradient} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-all duration-300 text-slate-800 relative overflow-hidden border-2 border-white/40 hover:border-white/60 shadow-md backdrop-blur-sm`}
     >
       <div className="relative z-10">
         <div ref={iconRef} className="mb-2">
           <AnimatedIcon iconType={iconType} containerRef={iconRef} />
         </div>
-        <h3 className="font-bold text-lg mb-1 text-black font-arabic">{t(`categories.${title}`)}</h3>
-        <p className="text-sm opacity-90 text-black font-arabic">
+        <h3 className="font-bold text-lg mb-1 text-slate-800 font-arabic">{t(`categories.${title}`)}</h3>
+        <p className="text-sm opacity-90 text-slate-700 font-arabic">
           {skillCount} {t('labels.skills', { count: skillCount })}
         </p>
       </div>
       
       {/* Decorative background pattern */}
-      <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/10 rounded-full" />
-      <div className="absolute -bottom-2 -left-2 w-12 h-12 bg-white/5 rounded-full" />
+      <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/20 rounded-full" />
+      <div className="absolute -bottom-2 -left-2 w-12 h-12 bg-white/10 rounded-full" />
       
       {/* Inner border for extra elegance */}
-      <div className="absolute inset-1 rounded-xl border border-white/20 pointer-events-none" />
+      <div className="absolute inset-1 rounded-xl border border-white/30 pointer-events-none" />
     </div>
   );
 };

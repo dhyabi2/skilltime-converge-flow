@@ -91,17 +91,17 @@ const Browse = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-gray-600">{t('status.loading')}</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-soft-blue-500 mx-auto mb-4"></div>
+          <p className="text-slate-600">{t('status.loading')}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
       <SearchBar 
         onSearch={handleSearch} 
         onFilterClick={() => {}} 
@@ -111,14 +111,14 @@ const Browse = () => {
       <div className="px-4 py-6 space-y-6">
         {/* Category Filters */}
         <section>
-          <h3 className="text-lg font-bold text-black mb-3">{t('filters.category')}</h3>
+          <h3 className="text-lg font-bold text-slate-800 mb-3">{t('filters.category')}</h3>
           <div className="flex overflow-x-auto space-x-3 rtl:space-x-reverse pb-2">
             <button
               onClick={() => handleCategoryFilter('')}
               className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
                 selectedCategory === '' 
-                  ? 'bg-black text-white' 
-                  : 'bg-white text-gray-700 border border-gray-300'
+                  ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-md' 
+                  : 'bg-white/70 backdrop-blur-sm text-slate-700 border border-soft-blue-200 hover:bg-white/90'
               }`}
             >
               {t('categories.all')}
@@ -129,8 +129,8 @@ const Browse = () => {
                 onClick={() => handleCategoryFilter(category.title)}
                 className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors flex items-center space-x-2 rtl:space-x-reverse ${
                   selectedCategory === category.title 
-                    ? 'bg-black text-white' 
-                    : 'bg-white text-gray-700 border border-gray-300'
+                    ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-md' 
+                    : 'bg-white/70 backdrop-blur-sm text-slate-700 border border-soft-blue-200 hover:bg-white/90'
                 }`}
               >
                 <span className="text-lg">{getCategoryEmoji(category.iconType)}</span>
@@ -143,10 +143,10 @@ const Browse = () => {
         {/* Results */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-black">
+            <h3 className="text-lg font-bold text-slate-800">
               {searchQuery ? `${t('discovery.search_results')} "${searchQuery}"` : t('discovery.all_skills')}
             </h3>
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-slate-600">
               {skills.length} {t('status.skills_found')}
             </span>
           </div>
@@ -164,8 +164,8 @@ const Browse = () => {
           ) : (
             <div className="text-center py-12">
               <div className="text-4xl mb-4">🔍</div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-2">{t('status.not_found')}</h4>
-              <p className="text-gray-600">
+              <h4 className="text-lg font-semibold text-slate-800 mb-2">{t('status.not_found')}</h4>
+              <p className="text-slate-600">
                 {t('status.not_found_desc')}
               </p>
             </div>

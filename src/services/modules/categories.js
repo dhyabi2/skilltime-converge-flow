@@ -7,45 +7,45 @@ export const categoriesAPI = {
     return [
       {
         id: '1',
-        title: 'design', // Changed to translation key
-        iconType: 'design', // Changed to English key
+        title: 'design',
+        iconType: 'design',
         skillCount: 124,
-        gradient: 'bg-gradient-to-br from-purple-500 to-pink-500'
+        gradient: 'bg-gradient-to-br from-soft-blue-300 to-mint-300'
       },
       {
         id: '2',
-        title: 'development', // Changed to translation key
+        title: 'development',
         iconType: 'development',
         skillCount: 89,
-        gradient: 'bg-gradient-to-br from-blue-500 to-cyan-500'
+        gradient: 'bg-gradient-to-br from-soft-blue-400 to-mint-400'
       },
       {
         id: '3',
-        title: 'marketing', // Changed to translation key
+        title: 'marketing',
         iconType: 'marketing',
         skillCount: 67,
-        gradient: 'bg-gradient-to-br from-green-500 to-emerald-500'
+        gradient: 'bg-gradient-to-br from-mint-300 to-soft-blue-300'
       },
       {
         id: '4',
-        title: 'writing', // Changed to translation key
+        title: 'writing',
         iconType: 'writing',
         skillCount: 45,
-        gradient: 'bg-gradient-to-br from-orange-500 to-red-500'
+        gradient: 'bg-gradient-to-br from-mint-400 to-soft-blue-400'
       },
       {
         id: '5',
-        title: 'music', // Changed to translation key
+        title: 'music',
         iconType: 'music',
         skillCount: 38,
-        gradient: 'bg-gradient-to-br from-violet-500 to-purple-500'
+        gradient: 'bg-gradient-to-br from-soft-blue-300 to-mint-300'
       },
       {
         id: '6',
-        title: 'photography', // Changed to translation key
+        title: 'photography',
         iconType: 'photography',
         skillCount: 52,
-        gradient: 'bg-gradient-to-br from-teal-500 to-blue-500'
+        gradient: 'bg-gradient-to-br from-mint-300 to-soft-blue-300'
       }
     ];
   },
