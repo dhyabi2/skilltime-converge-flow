@@ -48,5 +48,10 @@
   "install": {
     "title": "تثبيت SkillTime",
     "description": "احصل على تجربة التطبيق الكاملة"
+  },
+  "language": {
+    "toggle": "تبديل اللغة",
+    "arabic": "العربية",
+    "english": "الإنجليزية"
   }
 }
