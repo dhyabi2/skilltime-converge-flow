@@ -4,12 +4,21 @@ import { Star, Clock, MapPin } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslation } from 'react-i18next';
+import { Badge } from '@/components/ui/badge';
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface SkillCardProps {
   id: string;
   providerName: string;
+  providerBadge?: {
+    emoji: string;
+    label: string;
+  };
+  providerIntro?: {
+    type: 'text' | 'voice';
+    content: string;
+  };
   skillTitle: string;
   rating: number;
   price: number;
@@ -22,6 +31,8 @@ interface SkillCardProps {
 
 const SkillCard: React.FC<SkillCardProps> = ({
   providerName,
+  providerBadge,
+  providerIntro,
   skillTitle,
   rating,
   price,
@@ -90,7 +101,26 @@ const SkillCard: React.FC<SkillCardProps> = ({
       
       <div className="p-4">
         <h3 className="font-bold text-lg text-slate-800 mb-1">{skillTitle}</h3>
-        <p className="text-sm text-slate-600 mb-2">{tSkills('labels.by')} {providerName}</p>
+        
+        {/* Provider with Badge */}
+        <div className="flex items-center space-x-2 rtl:space-x-reverse mb-2">
+          <p className="text-sm text-slate-600">{tSkills('labels.by')} {providerName}</p>
+          {providerBadge && (
+            <Badge variant="secondary" className="text-xs px-2 py-0.5 bg-purple-100 text-purple-700 border-purple-200">
+              <span className="mr-1 rtl:mr-0 rtl:ml-1">{providerBadge.emoji}</span>
+              {providerBadge.label}
+            </Badge>
+          )}
+        </div>
+
+        {/* Provider Intro */}
+        {providerIntro && (
+          <div className="mb-3 p-2 bg-slate-50 rounded-lg border-l-3 border-purple-300">
+            <p className="text-xs text-slate-600 italic leading-relaxed">
+              "{providerIntro.content}"
+            </p>
+          </div>
+        )}
         
         <div className="flex items-center space-x-1 rtl:space-x-reverse mb-2">
           {[...Array(5)].map((_, i) => (

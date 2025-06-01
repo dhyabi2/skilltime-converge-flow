@@ -1,10 +1,11 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Star, Clock, MapPin, Calendar, User } from 'lucide-react';
 import { gsap } from 'gsap';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import UseCases from '../components/discovery/UseCases';
 import { skillsAPI } from '../services';
 
 interface Skill {
@@ -16,10 +17,19 @@ interface Skill {
   location: string;
   providerName: string;
   providerImage: string;
+  providerBadge?: {
+    emoji: string;
+    label: string;
+  };
+  providerIntro?: {
+    type: 'text' | 'voice';
+    content: string;
+  };
   image: string;
   rating: number;
   reviewCount: number;
   expertise: string[];
+  useCases?: string[];
   availableSlots: Array<{
     date: string;
     time: string;
@@ -175,16 +185,24 @@ const SkillDetail = () => {
 
       {/* Content */}
       <div ref={contentRef} className="px-4 py-6 space-y-6">
-        {/* Provider Info */}
+        {/* Provider Info with Badge and Intro */}
         <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <div className="flex items-center space-x-4 rtl:space-x-reverse">
+          <div className="flex items-center space-x-4 rtl:space-x-reverse mb-3">
             <img
               src={skill.providerImage}
               alt={skill.providerName}
               className="w-16 h-16 rounded-full object-cover"
             />
             <div className="flex-1">
-              <h3 className="font-bold text-lg text-gray-800">{skill.providerName}</h3>
+              <div className="flex items-center space-x-2 rtl:space-x-reverse mb-1">
+                <h3 className="font-bold text-lg text-gray-800">{skill.providerName}</h3>
+                {skill.providerBadge && (
+                  <Badge variant="secondary" className="bg-purple-100 text-purple-700 border-purple-200">
+                    <span className="mr-1 rtl:mr-0 rtl:ml-1">{skill.providerBadge.emoji}</span>
+                    {skill.providerBadge.label}
+                  </Badge>
+                )}
+              </div>
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <div className="flex items-center space-x-1 rtl:space-x-reverse">
                   {[...Array(5)].map((_, i) => (
@@ -206,6 +224,17 @@ const SkillDetail = () => {
               <div className="text-sm text-gray-500">{t('details.per_hour')}</div>
             </div>
           </div>
+
+          {/* Provider Intro */}
+          {skill.providerIntro && (
+            <div className="mt-3 p-3 bg-purple-50 rounded-lg border-l-4 border-purple-300">
+              <h4 className="font-semibold text-gray-800 mb-2 flex items-center">
+                <User className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2 text-purple-600" />
+                {t('details.provider_intro')}
+              </h4>
+              <p className="text-gray-700 text-sm italic">"{skill.providerIntro.content}"</p>
+            </div>
+          )}
         </div>
 
         {/* Description */}
@@ -225,6 +254,11 @@ const SkillDetail = () => {
             ))}
           </div>
         </div>
+
+        {/* Use Cases */}
+        {skill.useCases && skill.useCases.length > 0 && (
+          <UseCases useCases={skill.useCases} />
+        )}
 
         {/* Available Time Slots */}
         <div className="bg-white rounded-2xl p-4 shadow-sm">

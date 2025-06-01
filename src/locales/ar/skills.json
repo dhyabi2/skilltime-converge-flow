@@ -33,7 +33,10 @@
     "expertise": "الخبرات تشمل:",
     "available_slots": "الأوقات المتاحة",
     "select_time": "اختر وقتًا",
-    "per_hour": "في الساعة"
+    "per_hour": "في الساعة",
+    "provider_intro": "تعرف على مدربك",
+    "use_cases": "ما يمكنك تحقيقه بهذه المهارة",
+    "see_use_cases": "اكتشف ما يمكنك تحقيقه"
   },
   "filters": {
     "category": "تصفية حسب الفئة"

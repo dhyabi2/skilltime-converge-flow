@@ -8,6 +8,11 @@ export const skillsAPI = {
         id: '1',
         providerName: 'Sarah Johnson',
         providerImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200',
+        providerBadge: { emoji: '💡', label: 'Innovator' },
+        providerIntro: {
+          type: 'text',
+          content: 'Hi! I\'m Sarah, a passionate UX designer who loves turning complex problems into simple, beautiful solutions.'
+        },
         skillTitle: 'UI/UX Design Consultation',
         rating: 5,
         reviewCount: 47,
@@ -20,12 +25,23 @@ export const skillsAPI = {
         description: 'Get expert guidance on your UI/UX design projects.',
         expertise: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems'],
         publishedDate: '2024-05-01',
-        weeklyExchanges: 15
+        weeklyExchanges: 15,
+        useCases: [
+          'Redesign your mobile app interface for better user engagement',
+          'Create a design system for your startup\'s brand consistency',
+          'Conduct user research to validate your product ideas',
+          'Optimize your website\'s conversion funnel through UX improvements'
+        ]
       },
       {
         id: '2',
         providerName: 'Mike Chen',
         providerImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',
+        providerBadge: { emoji: '🔄', label: 'Active Trader' },
+        providerIntro: {
+          type: 'text',
+          content: 'Experienced React developer with 6+ years building scalable web applications. Let\'s code something amazing together!'
+        },
         skillTitle: 'React Development',
         rating: 4,
         reviewCount: 32,
@@ -37,12 +53,23 @@ export const skillsAPI = {
         description: 'Build modern web applications with React.',
         expertise: ['React', 'JavaScript', 'TypeScript', 'Node.js'],
         publishedDate: '2024-05-15',
-        weeklyExchanges: 12
+        weeklyExchanges: 12,
+        useCases: [
+          'Build a modern e-commerce platform from scratch',
+          'Migrate your legacy JavaScript app to React',
+          'Implement real-time features with WebSocket integration',
+          'Create a progressive web app (PWA) for your business'
+        ]
       },
       {
         id: '3',
         providerName: 'Emily Rodriguez',
         providerImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200',
+        providerBadge: { emoji: '✍️', label: 'Content Master' },
+        providerIntro: {
+          type: 'text',
+          content: 'Storyteller at heart with a knack for creating content that converts. Ready to help your brand find its voice!'
+        },
         skillTitle: 'Content Writing',
         rating: 5,
         reviewCount: 28,
@@ -55,12 +82,23 @@ export const skillsAPI = {
         description: 'Create compelling content for your business.',
         expertise: ['Copywriting', 'Blog Posts', 'SEO', 'Social Media'],
         publishedDate: '2024-04-20',
-        weeklyExchanges: 8
+        weeklyExchanges: 8,
+        useCases: [
+          'Launch a content marketing strategy that drives traffic',
+          'Write compelling sales copy that converts visitors to customers',
+          'Create an engaging blog series for thought leadership',
+          'Develop social media content that builds community'
+        ]
       },
       {
         id: '4',
         providerName: 'Ahmed Hassan',
         providerImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200',
+        providerBadge: { emoji: '🚀', label: 'Growth Hacker' },
+        providerIntro: {
+          type: 'text',
+          content: 'Digital marketing strategist focused on data-driven growth. Let me help you scale your business online!'
+        },
         skillTitle: 'Digital Marketing Strategy',
         rating: 4.8,
         reviewCount: 35,
@@ -72,7 +110,13 @@ export const skillsAPI = {
         description: 'Boost your online presence with proven strategies.',
         expertise: ['SEO', 'Social Media', 'PPC', 'Analytics'],
         publishedDate: '2024-04-10',
-        weeklyExchanges: 20
+        weeklyExchanges: 20,
+        useCases: [
+          'Increase your website traffic by 300% in 3 months',
+          'Set up profitable Google Ads campaigns with high ROI',
+          'Build a social media presence that generates leads',
+          'Create a comprehensive SEO strategy for long-term growth'
+        ]
       }
     ];
 

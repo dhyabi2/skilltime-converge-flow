@@ -33,7 +33,10 @@
     "expertise": "Expertise includes:",
     "available_slots": "Available Time Slots",
     "select_time": "Select a time",
-    "per_hour": "per hour"
+    "per_hour": "per hour",
+    "provider_intro": "Meet your instructor",
+    "use_cases": "What you can achieve with this skill",
+    "see_use_cases": "See what you can achieve"
   },
   "filters": {
     "category": "Filter by category"
