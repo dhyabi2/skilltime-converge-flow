@@ -1,4 +1,3 @@
-
 {
   "discovery": {
     "title": "اكتشف مهارات مذهلة",
@@ -6,7 +5,8 @@
     "browse_categories": "تصفح الفئات",
     "top_rated": "الأعلى تقييمًا",
     "all_skills": "جميع المهارات",
-    "search_results": "نتائج البحث عن"
+    "search_results": "نتائج البحث عن",
+    "featured_sections": "المهارات المميزة"
   },
   "categories": {
     "all": "جميع الفئات",

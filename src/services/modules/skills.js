@@ -1,4 +1,3 @@
-
 // Skills API module
 export const skillsAPI = {
   getAll: async (filters = {}) => {
@@ -19,7 +18,9 @@ export const skillsAPI = {
         isTopRated: true,
         category: 'Design',
         description: 'Get expert guidance on your UI/UX design projects.',
-        expertise: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems']
+        expertise: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems'],
+        publishedDate: '2024-05-01',
+        weeklyExchanges: 15
       },
       {
         id: '2',
@@ -34,7 +35,9 @@ export const skillsAPI = {
         image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800',
         category: 'Development',
         description: 'Build modern web applications with React.',
-        expertise: ['React', 'JavaScript', 'TypeScript', 'Node.js']
+        expertise: ['React', 'JavaScript', 'TypeScript', 'Node.js'],
+        publishedDate: '2024-05-15',
+        weeklyExchanges: 12
       },
       {
         id: '3',
@@ -50,7 +53,26 @@ export const skillsAPI = {
         isTopRated: true,
         category: 'Writing',
         description: 'Create compelling content for your business.',
-        expertise: ['Copywriting', 'Blog Posts', 'SEO', 'Social Media']
+        expertise: ['Copywriting', 'Blog Posts', 'SEO', 'Social Media'],
+        publishedDate: '2024-04-20',
+        weeklyExchanges: 8
+      },
+      {
+        id: '4',
+        providerName: 'Ahmed Hassan',
+        providerImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200',
+        skillTitle: 'Digital Marketing Strategy',
+        rating: 4.8,
+        reviewCount: 35,
+        price: 60,
+        duration: '1.5 hours',
+        location: 'Remote',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
+        category: 'Marketing',
+        description: 'Boost your online presence with proven strategies.',
+        expertise: ['SEO', 'Social Media', 'PPC', 'Analytics'],
+        publishedDate: '2024-04-10',
+        weeklyExchanges: 20
       }
     ];
 
@@ -101,6 +123,27 @@ export const skillsAPI = {
     
     const skills = await skillsAPI.getAll();
     return skills.filter(skill => skill.isTopRated);
+  },
+
+  getFirstPublished: async () => {
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    const skills = await skillsAPI.getAll();
+    return skills.sort((a, b) => new Date(a.publishedDate) - new Date(b.publishedDate)).slice(0, 3);
+  },
+
+  getTopThisWeek: async () => {
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    const skills = await skillsAPI.getAll();
+    return skills.filter(skill => skill.rating >= 4.5).slice(0, 3);
+  },
+
+  getMostExchanges: async () => {
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    const skills = await skillsAPI.getAll();
+    return skills.sort((a, b) => b.weeklyExchanges - a.weeklyExchanges).slice(0, 3);
   },
 
   getFeatured: async () => {

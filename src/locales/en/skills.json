@@ -1,4 +1,3 @@
-
 {
   "discovery": {
     "title": "Discover Amazing Skills",
@@ -6,7 +5,8 @@
     "browse_categories": "Browse Categories",
     "top_rated": "Top Rated",
     "all_skills": "All Skills",
-    "search_results": "Search results for"
+    "search_results": "Search results for",
+    "featured_sections": "Featured Skills"
   },
   "categories": {
     "all": "All Categories",

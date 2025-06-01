@@ -1,32 +1,25 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { gsap } from 'gsap';
 import SearchBar from '../components/discovery/SearchBar';
 import CategoryCard from '../components/discovery/CategoryCard';
-import SkillCard from '../components/discovery/SkillCard';
-import { categoriesAPI, skillsAPI, searchAPI } from '../services';
+import FeaturedSections from '../components/home/FeaturedSections';
+import { categoriesAPI, searchAPI } from '../services';
 
 const Home = () => {
   const navigate = useNavigate();
   const { t } = useTranslation('skills');
   const containerRef = useRef<HTMLDivElement>(null);
   const [categories, setCategories] = useState([]);
-  const [topSkills, setTopSkills] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [categoriesData, topSkillsData] = await Promise.all([
-          categoriesAPI.getAll(),
-          skillsAPI.getTopRated()
-        ]);
-        
+        const categoriesData = await categoriesAPI.getAll();
         setCategories(categoriesData);
-        setTopSkills(topSkillsData);
       } catch (error) {
         console.error('Error fetching home data:', error);
       } finally {
@@ -83,7 +76,7 @@ const Home = () => {
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-soft-blue-500 mx-auto mb-4"></div>
-          <p className="text-slate-600">{t('status.loading')}</p>
+          <p className="text-slate-600 font-cairo">{t('status.loading')}</p>
         </div>
       </div>
     );
@@ -97,10 +90,10 @@ const Home = () => {
         {/* Welcome Section */}
         <div className="text-center py-4">
           <div className="bg-gradient-to-r from-white/40 to-mint-100/50 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/30 shadow-sm max-w-md mx-auto">
-            <h2 className="text-2xl font-bold text-slate-800 mb-2">
+            <h2 className="text-2xl font-bold text-slate-800 mb-2 font-cairo">
               {t('discovery.title')}
             </h2>
-            <p className="text-slate-700">
+            <p className="text-slate-700 font-cairo">
               {t('discovery.subtitle')}
             </p>
           </div>
@@ -108,7 +101,7 @@ const Home = () => {
 
         {/* Categories */}
         <section>
-          <h3 className="text-xl font-bold text-slate-800 mb-4">{t('discovery.browse_categories')}</h3>
+          <h3 className="text-xl font-bold text-slate-800 mb-4 font-cairo">{t('discovery.browse_categories')}</h3>
           <div className="grid grid-cols-2 gap-4">
             {categories.map((category) => (
               <CategoryCard
@@ -123,19 +116,8 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Top Rated Skills */}
-        <section>
-          <h3 className="text-xl font-bold text-slate-800 mb-4">{t('discovery.top_rated')}</h3>
-          <div className="space-y-4">
-            {topSkills.map((skill) => (
-              <SkillCard
-                key={skill.id}
-                {...skill}
-                onClick={() => handleSkillClick(skill.id)}
-              />
-            ))}
-          </div>
-        </section>
+        {/* Featured Sections */}
+        <FeaturedSections />
       </div>
     </div>
   );
