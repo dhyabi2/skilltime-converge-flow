@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Bell, Check, CheckCheck } from 'lucide-react';
@@ -28,7 +27,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
   });
 
   const markAsReadMutation = useMutation({
-    mutationFn: notificationsAPI.markAsRead,
+    mutationFn: (notificationId: string) => notificationsAPI.markAsRead(notificationId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications', userId] });
       toast({
