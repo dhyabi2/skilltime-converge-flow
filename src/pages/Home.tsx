@@ -1,90 +1,42 @@
-import React, { useEffect, useRef } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import SearchBar from '../components/discovery/SearchBar';
 import CategoryCard from '../components/discovery/CategoryCard';
 import SkillCard from '../components/discovery/SkillCard';
+import { categoriesAPI, skillsAPI, searchAPI } from '../services';
 
 const Home = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const categories = [
-    {
-      title: 'Design',
-      icon: '🎨',
-      skillCount: 124,
-      gradient: 'bg-black'
-    },
-    {
-      title: 'Development',
-      icon: '💻',
-      skillCount: 89,
-      gradient: 'bg-black'
-    },
-    {
-      title: 'Marketing',
-      icon: '📈',
-      skillCount: 67,
-      gradient: 'bg-black'
-    },
-    {
-      title: 'Writing',
-      icon: '✍️',
-      skillCount: 45,
-      gradient: 'bg-black'
-    },
-    {
-      title: 'Music',
-      icon: '🎵',
-      skillCount: 38,
-      gradient: 'bg-black'
-    },
-    {
-      title: 'Photography',
-      icon: '📸',
-      skillCount: 52,
-      gradient: 'bg-black'
-    }
-  ];
-
-  const topSkills = [
-    {
-      id: '1',
-      providerName: 'Sarah Johnson',
-      skillTitle: 'UI/UX Design Consultation',
-      rating: 5,
-      price: 75,
-      duration: '1 hour',
-      location: 'Remote',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400',
-      isTopRated: true
-    },
-    {
-      id: '2',
-      providerName: 'Mike Chen',
-      skillTitle: 'React Development',
-      rating: 4,
-      price: 85,
-      duration: '2 hours',
-      location: 'Remote',
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400'
-    },
-    {
-      id: '3',
-      providerName: 'Emily Rodriguez',
-      skillTitle: 'Content Writing',
-      rating: 5,
-      price: 45,
-      duration: '1.5 hours',
-      location: 'Remote',
-      image: 'https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=400',
-      isTopRated: true
-    }
-  ];
+  const [categories, setCategories] = useState([]);
+  const [topSkills, setTopSkills] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (containerRef.current) {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [categoriesData, topSkillsData] = await Promise.all([
+          categoriesAPI.getAll(),
+          skillsAPI.getTopRated()
+        ]);
+        
+        setCategories(categoriesData);
+        setTopSkills(topSkillsData);
+      } catch (error) {
+        console.error('Error fetching home data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (containerRef.current && !loading) {
       gsap.fromTo(containerRef.current.children,
         { y: 30, opacity: 0 },
         {
@@ -97,11 +49,18 @@ const Home = () => {
         }
       );
     }
-  }, []);
+  }, [loading]);
 
-  const handleSearch = (query: string) => {
+  const handleSearch = async (query: string) => {
     console.log('Searching for:', query);
-    // Implement search functionality
+    try {
+      const results = await searchAPI.searchSkills(query);
+      console.log('Search results:', results);
+      // Navigate to browse page with search results
+      navigate(`/browse?search=${encodeURIComponent(query)}`);
+    } catch (error) {
+      console.error('Search error:', error);
+    }
   };
 
   const handleFilterClick = () => {
@@ -116,6 +75,17 @@ const Home = () => {
   const handleSkillClick = (skillId: string) => {
     navigate(`/skill/${skillId}`);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading amazing skills...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -138,7 +108,7 @@ const Home = () => {
           <div className="grid grid-cols-2 gap-4">
             {categories.map((category) => (
               <CategoryCard
-                key={category.title}
+                key={category.id}
                 title={category.title}
                 icon={category.icon}
                 skillCount={category.skillCount}

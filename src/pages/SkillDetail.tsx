@@ -1,50 +1,47 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Star, Clock, MapPin, Calendar, User } from 'lucide-react';
 import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
+import { skillsAPI } from '../services';
 
 const SkillDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>('');
+  const [skill, setSkill] = useState(null);
+  const [loading, setLoading] = useState(true);
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Mock data - in real app, fetch based on id
-  const skill = {
-    id: '1',
-    providerName: 'Sarah Johnson',
-    providerImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200',
-    skillTitle: 'UI/UX Design Consultation',
-    rating: 5,
-    reviewCount: 47,
-    price: 75,
-    duration: '1 hour',
-    location: 'Remote',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800',
-    description: 'Get expert guidance on your UI/UX design projects. I\'ll help you create user-centered designs that convert and delight your users. Perfect for startups and established businesses looking to improve their digital products.',
-    expertise: ['User Research', 'Wireframing', 'Prototyping', 'Design Systems'],
-    availableSlots: [
-      { date: '2024-06-02', time: '10:00 AM', available: true },
-      { date: '2024-06-02', time: '2:00 PM', available: true },
-      { date: '2024-06-02', time: '4:00 PM', available: false },
-      { date: '2024-06-03', time: '9:00 AM', available: true },
-      { date: '2024-06-03', time: '11:00 AM', available: true },
-      { date: '2024-06-03', time: '3:00 PM', available: true },
-    ]
-  };
+  useEffect(() => {
+    const fetchSkill = async () => {
+      try {
+        setLoading(true);
+        const skillData = await skillsAPI.getById(id);
+        setSkill(skillData);
+      } catch (error) {
+        console.error('Error fetching skill:', error);
+        navigate('/');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchSkill();
+    }
+  }, [id, navigate]);
 
   useEffect(() => {
-    if (headerRef.current) {
+    if (headerRef.current && !loading) {
       gsap.fromTo(headerRef.current,
         { y: -50, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
       );
     }
 
-    if (contentRef.current) {
+    if (contentRef.current && !loading) {
       gsap.fromTo(contentRef.current.children,
         { y: 30, opacity: 0 },
         {
@@ -57,7 +54,7 @@ const SkillDetail = () => {
         }
       );
     }
-  }, []);
+  }, [loading]);
 
   const handleBack = () => {
     navigate(-1);
@@ -93,6 +90,28 @@ const SkillDetail = () => {
       }
     });
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading skill details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!skill) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-black mb-4">Skill not found</h1>
+          <Button onClick={handleBack}>Go Back</Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
