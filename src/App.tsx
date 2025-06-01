@@ -23,8 +23,10 @@ import { OfflineIndicator } from "./components/pwa/OfflineIndicator";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  useRTL();
   const { requestFullscreen } = useFullscreen();
+  
+  // Use the robust RTL hook that doesn't depend on i18n context
+  useRTL();
   
   useEffect(() => {
     // Request fullscreen when app loads
