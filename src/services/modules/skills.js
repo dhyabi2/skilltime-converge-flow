@@ -101,5 +101,27 @@ export const skillsAPI = {
     
     const skills = await skillsAPI.getAll();
     return skills.filter(skill => skill.isTopRated);
+  },
+
+  getFeatured: async () => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const skills = await skillsAPI.getAll();
+    return skills.slice(0, 3);
+  },
+
+  getByProvider: async (providerId) => {
+    await new Promise(resolve => setTimeout(resolve, 700));
+    
+    const skills = await skillsAPI.getAll();
+    return skills.filter(skill => skill.providerName.toLowerCase().includes(providerId.toLowerCase()));
+  },
+
+  getRecommended: async (userId) => {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const skills = await skillsAPI.getAll();
+    // Simple recommendation based on random selection
+    return skills.sort(() => 0.5 - Math.random()).slice(0, 2);
   }
 };

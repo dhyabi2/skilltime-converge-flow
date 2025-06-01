@@ -49,6 +49,27 @@ export const bookingsAPI = {
 
   reschedule: async (bookingId, newSlot) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    return { success: true, message: 'Booking rescheduled successfully' };
+    return { 
+      success: true, 
+      message: 'Booking rescheduled successfully',
+      newSlot: {
+        date: newSlot.date,
+        time: newSlot.time,
+        updatedAt: new Date().toISOString()
+      }
+    };
+  },
+
+  getAvailableSlots: async (skillId, date) => {
+    await new Promise(resolve => setTimeout(resolve, 700));
+    
+    return [
+      { time: '9:00 AM', available: true },
+      { time: '10:00 AM', available: false },
+      { time: '11:00 AM', available: true },
+      { time: '2:00 PM', available: true },
+      { time: '3:00 PM', available: true },
+      { time: '4:00 PM', available: false }
+    ];
   }
 };

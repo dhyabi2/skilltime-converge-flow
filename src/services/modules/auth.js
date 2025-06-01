@@ -39,5 +39,33 @@ export const authAPI = {
   logout: async () => {
     await new Promise(resolve => setTimeout(resolve, 500));
     return { success: true };
+  },
+
+  refreshToken: async (token) => {
+    await new Promise(resolve => setTimeout(resolve, 600));
+    
+    return {
+      success: true,
+      token: 'mock-jwt-token-refreshed-' + Date.now(),
+      expiresIn: 3600
+    };
+  },
+
+  resetPassword: async (email) => {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    return {
+      success: true,
+      message: 'Password reset email sent successfully'
+    };
+  },
+
+  verifyEmail: async (token) => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return {
+      success: true,
+      message: 'Email verified successfully'
+    };
   }
 };
