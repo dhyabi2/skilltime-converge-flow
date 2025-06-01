@@ -4,7 +4,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import { useRTL } from "./hooks/useRTL";
+import { useFullscreen } from "./hooks/useFullscreen";
 import AppShell from "./components/core/AppShell";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
@@ -23,6 +25,16 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   useRTL();
+  const { requestFullscreen } = useFullscreen();
+  
+  useEffect(() => {
+    // Request fullscreen when app loads
+    const timer = setTimeout(() => {
+      requestFullscreen();
+    }, 1000); // Small delay to ensure app is fully loaded
+    
+    return () => clearTimeout(timer);
+  }, [requestFullscreen]);
   
   return (
     <QueryClientProvider client={queryClient}>
