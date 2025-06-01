@@ -118,16 +118,16 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-100">
       <SearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
       
-      <div ref={containerRef} className="px-4 space-y-6">
+      <div ref={containerRef} className="px-4 space-y-6 bg-gray-100">
         {/* Welcome Section */}
         <div className="text-center py-4">
           <h2 className="text-2xl font-bold text-black mb-2">
             Discover Amazing Skills
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-700">
             Connect with talented professionals and learn new skills
           </p>
         </div>

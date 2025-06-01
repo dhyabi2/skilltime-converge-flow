@@ -23,7 +23,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     switch (iconType) {
       case '🎨': // Design
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-white">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M20 5 L35 15 L35 25 L20 35 L5 25 L5 15 Z"
@@ -43,7 +43,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M15 15 L25 25 M25 15 L15 25"
-              stroke="black"
+              stroke="white"
               strokeWidth="2"
               className="icon-path-2"
             />
@@ -52,7 +52,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       
       case '💻': // Development
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-white">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <rect
               ref={el => el && gsap.set(el, { scaleX: 0 })}
               x="5"
@@ -88,7 +88,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       
       case '📈': // Marketing
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-white">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M5 30 L15 20 L25 25 L35 10"
@@ -126,7 +126,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       
       case '✍️': // Writing
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-white">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M8 32 L32 8 L35 11 L11 35 Z"
@@ -156,7 +156,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       
       case '🎵': // Music
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-white">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <path
               ref={el => el && gsap.set(el, { drawSVG: "0%" })}
               d="M15 8 L15 28"
@@ -200,7 +200,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       
       case '📸': // Photography
         return (
-          <svg width="40" height="40" viewBox="0 0 40 40" className="text-white">
+          <svg width="40" height="40" viewBox="0 0 40 40" className="text-black">
             <rect
               ref={el => el && gsap.set(el, { scaleX: 0 })}
               x="5"
@@ -393,20 +393,20 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     <div
       ref={cardRef}
       onClick={handleClick}
-      className="bg-black text-white rounded-2xl p-4 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 min-h-[120px] flex flex-col justify-between border border-gray-800 overflow-hidden relative"
+      className="bg-white text-black rounded-2xl p-4 cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 min-h-[120px] flex flex-col justify-between border border-gray-200 overflow-hidden relative"
     >
       {/* Animated background particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-2 right-2 w-1 h-1 bg-white/20 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-4 left-2 w-0.5 h-0.5 bg-white/10 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-        <div className="absolute top-1/2 right-1/4 w-0.5 h-0.5 bg-white/15 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-2 right-2 w-1 h-1 bg-black/10 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-4 left-2 w-0.5 h-0.5 bg-black/5 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+        <div className="absolute top-1/2 right-1/4 w-0.5 h-0.5 bg-black/8 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
       </div>
       
       <div 
         ref={iconContainerRef}
         className="mb-2 transform-gpu relative z-10 flex justify-center"
         style={{ 
-          filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.3))',
+          filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.1))',
           transformStyle: 'preserve-3d'
         }}
       >
@@ -415,7 +415,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       
       <div className="relative z-10">
         <h3 className="font-bold text-lg mb-1">{title}</h3>
-        <p className="text-sm text-gray-300">{skillCount} skills</p>
+        <p className="text-sm text-gray-600">{skillCount} skills</p>
       </div>
     </div>
   );
