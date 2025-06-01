@@ -6,10 +6,11 @@ import { gsap } from 'gsap';
 interface SearchBarProps {
   onSearch: (query: string) => void;
   onFilterClick: () => void;
+  initialQuery?: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilterClick }) => {
-  const [query, setQuery] = useState('');
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilterClick, initialQuery = '' }) => {
+  const [query, setQuery] = useState(initialQuery);
   const [isFocused, setIsFocused] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);

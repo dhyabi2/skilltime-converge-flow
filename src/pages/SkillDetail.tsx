@@ -5,11 +5,31 @@ import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
 import { skillsAPI } from '../services';
 
+interface Skill {
+  id: string;
+  skillTitle: string;
+  description: string;
+  price: number;
+  duration: string;
+  location: string;
+  providerName: string;
+  providerImage: string;
+  image: string;
+  rating: number;
+  reviewCount: number;
+  expertise: string[];
+  availableSlots: Array<{
+    date: string;
+    time: string;
+    available: boolean;
+  }>;
+}
+
 const SkillDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>('');
-  const [skill, setSkill] = useState(null);
+  const [skill, setSkill] = useState<Skill | null>(null);
   const [loading, setLoading] = useState(true);
   const headerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -191,7 +211,7 @@ const SkillDetail = () => {
           
           <h4 className="font-semibold text-gray-800 mb-2">Expertise includes:</h4>
           <div className="flex flex-wrap gap-2">
-            {skill.expertise.map((item) => (
+            {skill.expertise?.map((item) => (
               <span
                 key={item}
                 className="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-medium"
