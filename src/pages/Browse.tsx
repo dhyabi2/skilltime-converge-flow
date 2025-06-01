@@ -114,13 +114,19 @@ const Browse = () => {
               <button
                 key={category.id}
                 onClick={() => handleCategoryFilter(category.title)}
-                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors flex items-center space-x-2 rtl:space-x-reverse ${
                   selectedCategory === category.title 
                     ? 'bg-black text-white' 
                     : 'bg-white text-gray-700 border border-gray-300'
                 }`}
               >
-                {category.icon} {category.title}
+                <span className="text-lg">{category.iconType === 'التصميم' ? '🎨' : 
+                                          category.iconType === 'البرمجة' ? '💻' :
+                                          category.iconType === 'التسويق' ? '📈' :
+                                          category.iconType === 'الكتابة' ? '✍️' :
+                                          category.iconType === 'الموسيقى' ? '🎵' :
+                                          category.iconType === 'التصوير' ? '📸' : '🎨'}</span>
+                <span>{category.title}</span>
               </button>
             ))}
           </div>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -112,7 +111,7 @@ const Home = () => {
               <CategoryCard
                 key={category.id}
                 title={category.title}
-                icon={category.icon}
+                iconType={category.iconType}
                 skillCount={category.skillCount}
                 gradient={category.gradient}
                 onClick={() => handleCategoryClick(category.title)}

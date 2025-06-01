@@ -3,12 +3,13 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslation } from 'react-i18next';
+import { AnimatedIcon } from './AnimatedIcons';
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface CategoryCardProps {
   title: string;
-  icon: string;
+  iconType: string;
   skillCount: number;
   gradient: string;
   onClick: () => void;
@@ -16,13 +17,14 @@ interface CategoryCardProps {
 
 const CategoryCard: React.FC<CategoryCardProps> = ({
   title,
-  icon,
+  iconType,
   skillCount,
   gradient,
   onClick
 }) => {
   const { t } = useTranslation('common');
   const cardRef = useRef<HTMLDivElement>(null);
+  const iconRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (cardRef.current) {
@@ -63,7 +65,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       className={`${gradient} rounded-2xl p-4 cursor-pointer hover:shadow-lg transition-all duration-300 text-white relative overflow-hidden`}
     >
       <div className="relative z-10">
-        <div className="text-3xl mb-2">{icon}</div>
+        <div ref={iconRef} className="mb-2">
+          <AnimatedIcon iconType={iconType} containerRef={iconRef} />
+        </div>
         <h3 className="font-bold text-lg mb-1">{title}</h3>
         <p className="text-sm opacity-90">
           {skillCount} {t('labels.skills', { count: skillCount })}
