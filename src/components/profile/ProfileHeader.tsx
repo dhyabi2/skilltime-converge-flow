@@ -12,7 +12,7 @@ interface ProfileHeaderProps {
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onEditClick }) => {
-  const displayName = profile.name || 'Your Name';
+  const displayName = profile.name || 'Add your name';
   const displayBio = profile.bio || 'Tell us about yourself...';
   const displayLocation = profile.location || 'Add your location';
   

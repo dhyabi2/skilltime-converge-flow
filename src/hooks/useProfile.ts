@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { usersAPI } from '@/services/modules/users';
+import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
 export interface UserProfile {
@@ -37,9 +37,63 @@ export const useProfile = () => {
     
     try {
       setLoading(true);
-      const profileData = await usersAPI.getProfile(user.id);
-      setProfile(profileData);
+      
+      // Fetch profile data
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError) {
+        console.error('Profile fetch error:', profileError);
+        toast({
+          title: "Error",
+          description: "Failed to load profile data",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Fetch skills
+      const { data: skillsData, error: skillsError } = await supabase
+        .from('user_skills')
+        .select('skill')
+        .eq('user_id', user.id);
+
+      if (skillsError) {
+        console.error('Skills fetch error:', skillsError);
+      }
+
+      // Fetch badges
+      const { data: badgesData, error: badgesError } = await supabase
+        .from('user_badges')
+        .select('badge')
+        .eq('user_id', user.id);
+
+      if (badgesError) {
+        console.error('Badges fetch error:', badgesError);
+      }
+
+      const skills = skillsData?.map(item => item.skill) || [];
+      const badges = badgesData?.map(item => item.badge) || [];
+
+      setProfile({
+        id: profileData.id,
+        name: profileData.name || '',
+        email: profileData.email || '',
+        avatar: profileData.avatar || '',
+        bio: profileData.bio || '',
+        location: profileData.location || '',
+        phone: profileData.phone || '',
+        joinedDate: profileData.created_at,
+        completedBookings: 0, // This would come from a bookings table
+        rating: 0, // This would come from a reviews/ratings table
+        skills,
+        badges
+      });
     } catch (error: any) {
+      console.error('Fetch profile error:', error);
       toast({
         title: "Error",
         description: "Failed to load profile data",
@@ -51,80 +105,130 @@ export const useProfile = () => {
   };
 
   const updateProfile = async (updates: Partial<UserProfile>) => {
-    if (!user || !profile) return;
+    if (!user || !profile) return false;
 
     try {
       setUpdating(true);
-      const result = await usersAPI.updateProfile(user.id, updates);
       
-      if (result.success) {
-        setProfile({ ...profile, ...updates });
+      const { error } = await supabase
+        .from('profiles')
+        .update({
+          name: updates.name,
+          email: updates.email,
+          avatar: updates.avatar,
+          bio: updates.bio,
+          location: updates.location,
+          phone: updates.phone,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', user.id);
+
+      if (error) {
+        console.error('Update profile error:', error);
         toast({
-          title: "Success",
-          description: "Profile updated successfully",
+          title: "Error",
+          description: "Failed to update profile",
+          variant: "destructive",
         });
-        return true;
+        return false;
       }
+
+      setProfile({ ...profile, ...updates });
+      toast({
+        title: "Success",
+        description: "Profile updated successfully",
+      });
+      return true;
     } catch (error: any) {
+      console.error('Update profile error:', error);
       toast({
         title: "Error",
         description: "Failed to update profile",
         variant: "destructive",
       });
+      return false;
     } finally {
       setUpdating(false);
     }
-    return false;
   };
 
   const addSkill = async (skill: string) => {
     if (!user || !profile) return false;
 
     try {
-      const result = await usersAPI.addSkill(user.id, skill);
-      
-      if (result.success) {
-        const updatedSkills = [...profile.skills, skill];
-        setProfile({ ...profile, skills: updatedSkills });
-        toast({
-          title: "Success",
-          description: "Skill added successfully",
+      const { error } = await supabase
+        .from('user_skills')
+        .insert({
+          user_id: user.id,
+          skill: skill
         });
-        return true;
+
+      if (error) {
+        console.error('Add skill error:', error);
+        toast({
+          title: "Error",
+          description: "Failed to add skill",
+          variant: "destructive",
+        });
+        return false;
       }
+
+      const updatedSkills = [...profile.skills, skill];
+      setProfile({ ...profile, skills: updatedSkills });
+      toast({
+        title: "Success",
+        description: "Skill added successfully",
+      });
+      return true;
     } catch (error: any) {
+      console.error('Add skill error:', error);
       toast({
         title: "Error",
         description: "Failed to add skill",
         variant: "destructive",
       });
+      return false;
     }
-    return false;
   };
 
   const removeSkill = async (skillIndex: number) => {
     if (!user || !profile) return false;
 
     try {
-      const result = await usersAPI.removeSkill(user.id, skillIndex);
+      const skillToRemove = profile.skills[skillIndex];
       
-      if (result.success) {
-        const updatedSkills = profile.skills.filter((_, index) => index !== skillIndex);
-        setProfile({ ...profile, skills: updatedSkills });
+      const { error } = await supabase
+        .from('user_skills')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('skill', skillToRemove);
+
+      if (error) {
+        console.error('Remove skill error:', error);
         toast({
-          title: "Success",
-          description: "Skill removed successfully",
+          title: "Error",
+          description: "Failed to remove skill",
+          variant: "destructive",
         });
-        return true;
+        return false;
       }
+
+      const updatedSkills = profile.skills.filter((_, index) => index !== skillIndex);
+      setProfile({ ...profile, skills: updatedSkills });
+      toast({
+        title: "Success",
+        description: "Skill removed successfully",
+      });
+      return true;
     } catch (error: any) {
+      console.error('Remove skill error:', error);
       toast({
         title: "Error",
         description: "Failed to remove skill",
         variant: "destructive",
       });
+      return false;
     }
-    return false;
   };
 
   return {
