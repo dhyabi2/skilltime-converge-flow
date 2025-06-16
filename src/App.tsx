@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useRTL } from "./hooks/useRTL";
 import { useFullscreen } from "./hooks/useFullscreen";
+import { AuthProvider } from "./contexts/AuthContext";
 import AppShell from "./components/core/AppShell";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
@@ -39,27 +40,29 @@ const AppContent = () => {
   
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <OfflineIndicator />
-        <InstallPrompt />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/offline" element={<Offline />} />
-            <Route path="/" element={<AppShell />}>
-              <Route index element={<Home />} />
-              <Route path="browse" element={<Browse />} />
-              <Route path="bookings" element={<Bookings />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="skill/:id" element={<SkillDetail />} />
-              <Route path="booking/:id" element={<BookingConfirmation />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <OfflineIndicator />
+          <InstallPrompt />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/offline" element={<Offline />} />
+              <Route path="/" element={<AppShell />}>
+                <Route index element={<Home />} />
+                <Route path="browse" element={<Browse />} />
+                <Route path="bookings" element={<Bookings />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="skill/:id" element={<SkillDetail />} />
+                <Route path="booking/:id" element={<BookingConfirmation />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };
