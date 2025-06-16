@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,7 +23,7 @@ import { OfflineIndicator } from "./components/pwa/OfflineIndicator";
 
 const queryClient = new QueryClient();
 
-const App = () => {
+const App: React.FC = () => {
   // Use the robust RTL hook that doesn't depend on i18n context
   useRTL();
   
