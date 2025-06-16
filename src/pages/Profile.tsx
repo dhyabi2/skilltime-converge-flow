@@ -6,13 +6,15 @@ import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileStats from '@/components/profile/ProfileStats';
 import SkillsSection from '@/components/profile/SkillsSection';
 import EditProfileModal from '@/components/profile/EditProfileModal';
+import AddSkillModal from '@/components/profile/AddSkillModal';
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const Profile = () => {
   const { t } = useTranslation('profile');
-  const { profile, loading, updating, updateProfile } = useProfile();
+  const { profile, loading, updating, updateProfile, addSkill, removeSkill } = useProfile();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAddSkillModalOpen, setIsAddSkillModalOpen] = useState(false);
 
   if (loading) {
     return (
@@ -56,8 +58,11 @@ const Profile = () => {
   }
 
   const handleAddSkill = () => {
-    // TODO: Implement add skill functionality
-    console.log('Add skill clicked');
+    setIsAddSkillModalOpen(true);
+  };
+
+  const handleRemoveSkill = async (index: number) => {
+    await removeSkill(index);
   };
 
   return (
@@ -72,7 +77,8 @@ const Profile = () => {
         
         <SkillsSection 
           profile={profile} 
-          onAddSkill={handleAddSkill} 
+          onAddSkill={handleAddSkill}
+          onRemoveSkill={handleRemoveSkill}
         />
         
         <EditProfileModal
@@ -81,6 +87,12 @@ const Profile = () => {
           profile={profile}
           onSave={updateProfile}
           updating={updating}
+        />
+
+        <AddSkillModal
+          isOpen={isAddSkillModalOpen}
+          onClose={() => setIsAddSkillModalOpen(false)}
+          onAddSkill={addSkill}
         />
       </div>
     </div>

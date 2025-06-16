@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { UserProfile } from '@/hooks/useProfile';
 
 interface EditProfileModalProps {
@@ -17,9 +18,11 @@ interface EditProfileModalProps {
 
 interface ProfileFormData {
   name: string;
+  email: string;
   bio: string;
   location: string;
   phone: string;
+  avatar: string;
 }
 
 const EditProfileModal: React.FC<EditProfileModalProps> = ({ 
@@ -34,10 +37,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   useEffect(() => {
     if (profile && isOpen) {
       reset({
-        name: profile.name,
-        bio: profile.bio,
-        location: profile.location,
-        phone: profile.phone,
+        name: profile.name || '',
+        email: profile.email || '',
+        bio: profile.bio || '',
+        location: profile.location || '',
+        phone: profile.phone || '',
+        avatar: profile.avatar || '',
       });
     }
   }, [profile, isOpen, reset]);
@@ -51,7 +56,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Edit Profile</DialogTitle>
         </DialogHeader>
@@ -62,6 +67,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <Input 
               id="name"
               {...register('name', { required: 'Name is required' })}
+              placeholder="Enter your full name"
               className="mt-1"
             />
             {errors.name && (
@@ -70,12 +76,43 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </div>
 
           <div>
-            <Label htmlFor="bio">Bio</Label>
+            <Label htmlFor="email">Email</Label>
             <Input 
+              id="email"
+              type="email"
+              {...register('email', { 
+                required: 'Email is required',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address'
+                }
+              })}
+              placeholder="Enter your email"
+              className="mt-1"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div>
+            <Label htmlFor="avatar">Avatar URL</Label>
+            <Input 
+              id="avatar"
+              {...register('avatar')}
+              placeholder="Enter image URL for your avatar"
+              className="mt-1"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="bio">Bio</Label>
+            <Textarea
               id="bio"
               {...register('bio')}
               placeholder="Tell us about yourself..."
               className="mt-1"
+              rows={3}
             />
           </div>
 

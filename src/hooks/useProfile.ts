@@ -77,11 +77,63 @@ export const useProfile = () => {
     return false;
   };
 
+  const addSkill = async (skill: string) => {
+    if (!user || !profile) return false;
+
+    try {
+      const result = await usersAPI.addSkill(user.id, skill);
+      
+      if (result.success) {
+        const updatedSkills = [...profile.skills, skill];
+        setProfile({ ...profile, skills: updatedSkills });
+        toast({
+          title: "Success",
+          description: "Skill added successfully",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to add skill",
+        variant: "destructive",
+      });
+    }
+    return false;
+  };
+
+  const removeSkill = async (skillIndex: number) => {
+    if (!user || !profile) return false;
+
+    try {
+      const result = await usersAPI.removeSkill(user.id, skillIndex);
+      
+      if (result.success) {
+        const updatedSkills = profile.skills.filter((_, index) => index !== skillIndex);
+        setProfile({ ...profile, skills: updatedSkills });
+        toast({
+          title: "Success",
+          description: "Skill removed successfully",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to remove skill",
+        variant: "destructive",
+      });
+    }
+    return false;
+  };
+
   return {
     profile,
     loading,
     updating,
     updateProfile,
+    addSkill,
+    removeSkill,
     refetch: fetchProfile
   };
 };

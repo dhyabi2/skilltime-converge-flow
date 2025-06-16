@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Camera, MapPin, Calendar, Star } from 'lucide-react';
+import { Camera, MapPin, Calendar, Star, Edit } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,10 @@ interface ProfileHeaderProps {
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onEditClick }) => {
+  const displayName = profile.name || 'Your Name';
+  const displayBio = profile.bio || 'Tell us about yourself...';
+  const displayLocation = profile.location || 'Add your location';
+  
   return (
     <div className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 rounded-3xl p-6 text-white mb-6">
       <div className="flex flex-col items-center text-center">
@@ -19,49 +23,68 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onEditClick }) =
           <Avatar className="h-24 w-24 border-4 border-white/20">
             <AvatarImage src={profile.avatar} alt={profile.name} />
             <AvatarFallback className="bg-white/20 text-white text-2xl font-bold">
-              {profile.name.charAt(0)}
+              {profile.name ? profile.name.charAt(0).toUpperCase() : '?'}
             </AvatarFallback>
           </Avatar>
-          <button className="absolute -bottom-2 -right-2 bg-white/20 backdrop-blur-sm rounded-full p-2 border border-white/30">
+          <button 
+            onClick={onEditClick}
+            className="absolute -bottom-2 -right-2 bg-white/20 backdrop-blur-sm rounded-full p-2 border border-white/30 hover:bg-white/30 transition-colors"
+          >
             <Camera className="w-4 h-4" />
           </button>
         </div>
         
-        <h1 className="text-2xl font-bold mb-2">{profile.name}</h1>
-        <p className="text-white/80 mb-4 max-w-sm">{profile.bio}</p>
+        <h1 className="text-2xl font-bold mb-2">
+          {displayName}
+          {!profile.name && (
+            <span className="text-white/60 text-sm font-normal ml-2">(Click edit to add)</span>
+          )}
+        </h1>
+        
+        <p className="text-white/80 mb-4 max-w-sm">
+          {displayBio}
+          {!profile.bio && (
+            <span className="text-white/50"> Click edit to add your bio.</span>
+          )}
+        </p>
         
         <div className="flex flex-wrap justify-center gap-4 mb-4 text-sm">
           <div className="flex items-center gap-1">
             <MapPin className="w-4 h-4" />
-            <span>{profile.location}</span>
+            <span>{displayLocation}</span>
           </div>
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
             <span>Joined {new Date(profile.joinedDate).toLocaleDateString()}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Star className="w-4 h-4 fill-current" />
-            <span>{profile.rating}/5</span>
-          </div>
+          {profile.rating > 0 && (
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 fill-current" />
+              <span>{profile.rating}/5</span>
+            </div>
+          )}
         </div>
         
-        <div className="flex flex-wrap justify-center gap-2 mb-4">
-          {profile.badges.map((badge, index) => (
-            <Badge 
-              key={index} 
-              variant="secondary" 
-              className="bg-white/20 text-white border-white/30"
-            >
-              {badge}
-            </Badge>
-          ))}
-        </div>
+        {profile.badges.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-2 mb-4">
+            {profile.badges.map((badge, index) => (
+              <Badge 
+                key={index} 
+                variant="secondary" 
+                className="bg-white/20 text-white border-white/30"
+              >
+                {badge}
+              </Badge>
+            ))}
+          </div>
+        )}
         
         <Button 
           onClick={onEditClick}
           variant="secondary" 
           className="bg-white/20 text-white border-white/30 hover:bg-white/30"
         >
+          <Edit className="w-4 h-4 mr-2" />
           Edit Profile
         </Button>
       </div>

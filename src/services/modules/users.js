@@ -1,4 +1,3 @@
-
 // Users API module
 export const usersAPI = {
   getProfile: async (userId) => {
@@ -6,17 +5,17 @@ export const usersAPI = {
     
     return {
       id: userId,
-      name: 'Demo User',
-      email: 'demo@example.com',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
-      bio: 'Passionate learner and skill enthusiast',
-      location: 'San Francisco, CA',
-      phone: '+1234567890',
-      joinedDate: '2024-01-15',
-      completedBookings: 12,
-      rating: 4.8,
-      skills: ['UI/UX Design', 'React Development'],
-      badges: ['Early Adopter', 'Top Learner']
+      name: '',
+      email: '',
+      avatar: '',
+      bio: '',
+      location: '',
+      phone: '',
+      joinedDate: new Date().toISOString(),
+      completedBookings: 0,
+      rating: 0,
+      skills: [],
+      badges: []
     };
   },
 
@@ -29,6 +28,24 @@ export const usersAPI = {
         id: userId,
         ...profileData
       }
+    };
+  },
+
+  addSkill: async (userId, skill) => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return {
+      success: true,
+      skill: skill
+    };
+  },
+
+  removeSkill: async (userId, skillIndex) => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return {
+      success: true,
+      removedIndex: skillIndex
     };
   },
 
