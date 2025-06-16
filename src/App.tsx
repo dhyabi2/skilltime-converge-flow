@@ -4,9 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
 import { useRTL } from "./hooks/useRTL";
-import { useFullscreen } from "./hooks/useFullscreen";
 import { AuthProvider } from "./contexts/AuthContext";
 import AppShell from "./components/core/AppShell";
 import Home from "./pages/Home";
@@ -23,20 +21,9 @@ import { OfflineIndicator } from "./components/pwa/OfflineIndicator";
 
 const queryClient = new QueryClient();
 
-const AppContent = () => {
-  const { requestFullscreen } = useFullscreen();
-  
+const App = () => {
   // Use the robust RTL hook that doesn't depend on i18n context
   useRTL();
-  
-  useEffect(() => {
-    // Request fullscreen when app loads
-    const timer = setTimeout(() => {
-      requestFullscreen();
-    }, 1000); // Small delay to ensure app is fully loaded
-    
-    return () => clearTimeout(timer);
-  }, [requestFullscreen]);
   
   return (
     <QueryClientProvider client={queryClient}>
@@ -66,9 +53,5 @@ const AppContent = () => {
     </QueryClientProvider>
   );
 };
-
-const App = () => (
-  <AppContent />
-);
 
 export default App;
