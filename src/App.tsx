@@ -20,10 +20,12 @@ import NotFound from "./pages/NotFound";
 import Offline from "./pages/Offline";
 import { InstallPrompt } from "./components/pwa/InstallPrompt";
 import { OfflineIndicator } from "./components/pwa/OfflineIndicator";
+import { ReactHealthMonitor } from "./components/dev/ReactHealthMonitor";
 
 const queryClient = new QueryClient();
 
-const App: React.FC = () => {
+// Separate component to ensure React context is available
+const AppContent: React.FC = () => {
   // Use the robust RTL hook that doesn't depend on i18n context
   useRTL();
   
@@ -35,6 +37,7 @@ const App: React.FC = () => {
           <Sonner />
           <OfflineIndicator />
           <InstallPrompt />
+          <ReactHealthMonitor />
           <BrowserRouter>
             <Routes>
               <Route path="/auth" element={<Auth />} />
@@ -58,6 +61,16 @@ const App: React.FC = () => {
       </AuthProvider>
     </QueryClientProvider>
   );
+};
+
+const App: React.FC = () => {
+  // Ensure React is properly imported and available
+  if (!React || typeof React.useState !== 'function') {
+    console.error('React hooks are not available');
+    return <div>React initialization error</div>;
+  }
+
+  return <AppContent />;
 };
 
 export default App;

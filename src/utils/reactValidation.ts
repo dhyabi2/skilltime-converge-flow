@@ -3,25 +3,33 @@ import React from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 /**
- * Validates that React is properly imported and available
- * This helps prevent the "Cannot read properties of null (reading 'useState')" error
+ * Enhanced React context validation with better error detection
  */
 export const validateReactContext = async () => {
+  // Check if React is available
   if (!React) {
-    throw new Error(
-      'React is not properly imported. Make sure to import React from "react" at the top of your component files.'
-    );
+    const error = new Error('React is not properly imported. Make sure to import React from "react" at the top of your component files.');
+    console.error('React validation failed:', error.message);
+    throw error;
   }
   
+  // Check if React hooks are available
   if (typeof React.useState !== 'function') {
-    throw new Error(
-      'React hooks are not available. This usually indicates a React import or context issue.'
-    );
+    const error = new Error('React hooks are not available. This usually indicates a React import or context issue.');
+    console.error('React validation failed:', error.message);
+    throw error;
   }
   
-  console.log('React context validation passed');
+  // Check React version compatibility
+  if (typeof React.createElement !== 'function') {
+    const error = new Error('React.createElement is not available. This indicates a serious React context issue.');
+    console.error('React validation failed:', error.message);
+    throw error;
+  }
   
-  // Call edge function for validation
+  console.log('React context validation passed - all hooks and functions available');
+  
+  // Call edge function for validation tracking
   try {
     const { data, error } = await supabase.functions.invoke('react-validation', {
       body: { action: 'validate' }
@@ -41,7 +49,6 @@ export const validateReactContext = async () => {
 
 /**
  * Direct function call for React validation in components
- * Call this directly in component functions instead of using a hook
  */
 export const validateReactInComponent = async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -49,13 +56,15 @@ export const validateReactInComponent = async () => {
       await validateReactContext();
     } catch (error) {
       console.error('React validation failed in component:', error);
-      throw error;
+      // Don't throw to prevent component crashes
+      return false;
     }
   }
+  return true;
 };
 
 /**
- * Periodic React health checker using direct edge function calls
+ * Enhanced periodic React health checker
  */
 export const startReactHealthMonitoring = () => {
   if (process.env.NODE_ENV !== 'development') {
@@ -64,28 +73,33 @@ export const startReactHealthMonitoring = () => {
 
   const checkHealth = async () => {
     try {
-      await validateReactContext();
+      const isValid = await validateReactContext();
       
-      // Call edge function for health check
-      const { data, error } = await supabase.functions.invoke('react-validation', {
-        body: { action: 'health-check' }
-      });
-      
-      if (error) {
-        console.error('Edge function health check error:', error);
-        return false;
+      if (isValid) {
+        // Call edge function for health check
+        const { data, error } = await supabase.functions.invoke('react-validation', {
+          body: { action: 'health-check' }
+        });
+        
+        if (error) {
+          console.error('Edge function health check error:', error);
+          return false;
+        }
+        
+        console.log('React health check: OK', data);
+        return true;
       }
-      
-      console.log('React health check: OK', data);
-      return true;
+      return false;
     } catch (error) {
       console.error('React health check failed:', error);
       return false;
     }
   };
 
-  // Initial check
-  checkHealth();
+  // Initial check with delay to ensure app is fully loaded
+  setTimeout(() => {
+    checkHealth();
+  }, 1000);
 
   // Periodic checks every 30 seconds
   const interval = setInterval(checkHealth, 30000);
