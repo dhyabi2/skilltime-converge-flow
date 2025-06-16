@@ -38,12 +38,12 @@ export const useProfile = () => {
     try {
       setLoading(true);
       
-      // Fetch profile data
+      // Fetch profile data - use maybeSingle() instead of single() to handle missing profiles
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (profileError) {
         console.error('Profile fetch error:', profileError);
@@ -51,6 +51,51 @@ export const useProfile = () => {
           title: "Error",
           description: "Failed to load profile data",
           variant: "destructive",
+        });
+        return;
+      }
+
+      // If no profile exists, create one
+      if (!profileData) {
+        console.log('No profile found, creating one...');
+        const { data: newProfile, error: createError } = await supabase
+          .from('profiles')
+          .insert({
+            id: user.id,
+            name: user.user_metadata?.full_name || user.user_metadata?.name || '',
+            email: user.email || '',
+            avatar: user.user_metadata?.avatar_url || '',
+            bio: '',
+            location: '',
+            phone: ''
+          })
+          .select()
+          .single();
+
+        if (createError) {
+          console.error('Profile creation error:', createError);
+          toast({
+            title: "Error",
+            description: "Failed to create profile",
+            variant: "destructive",
+          });
+          return;
+        }
+
+        // Use the newly created profile
+        setProfile({
+          id: newProfile.id,
+          name: newProfile.name || '',
+          email: newProfile.email || '',
+          avatar: newProfile.avatar || '',
+          bio: newProfile.bio || '',
+          location: newProfile.location || '',
+          phone: newProfile.phone || '',
+          joinedDate: newProfile.created_at,
+          completedBookings: 0,
+          rating: 0,
+          skills: [],
+          badges: []
         });
         return;
       }
