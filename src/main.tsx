@@ -6,15 +6,15 @@ import './index.css';
 import './i18n/config';
 import { validateReactContext, startReactHealthMonitoring } from './utils/reactValidation';
 
-// Validate React context early to catch import issues
+// Validate React context early to catch import issues with edge function call
 if (process.env.NODE_ENV === 'development') {
-  try {
-    validateReactContext();
-    // Start global React health monitoring
+  validateReactContext().then(() => {
+    console.log('React validation with edge function completed');
+    // Start global React health monitoring with edge function calls
     startReactHealthMonitoring();
-  } catch (error) {
+  }).catch((error) => {
     console.error('React validation failed:', error);
-  }
+  });
 }
 
 const container = document.getElementById("root");

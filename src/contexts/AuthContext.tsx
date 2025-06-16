@@ -22,13 +22,15 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  // Direct React validation call instead of hook
-  validateReactInComponent();
-  
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Direct React validation call with edge function
+  React.useEffect(() => {
+    validateReactInComponent();
+  }, []);
+  
   useEffect(() => {
     let mounted = true;
 

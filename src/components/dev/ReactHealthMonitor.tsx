@@ -1,10 +1,11 @@
 
 import React from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { startReactHealthMonitoring } from '@/utils/reactValidation';
 
 /**
  * Development component to monitor React context health
- * Only renders in development mode and uses direct function calls
+ * Only renders in development mode and uses direct edge function calls
  */
 export const ReactHealthMonitor: React.FC = () => {
   const [isHealthy, setIsHealthy] = React.useState(true);
@@ -15,15 +16,24 @@ export const ReactHealthMonitor: React.FC = () => {
       return;
     }
 
-    // Start monitoring with direct function calls
+    // Start monitoring with direct edge function calls
     const cleanup = startReactHealthMonitoring();
 
-    // Custom health checker for UI updates
-    const checkHealthForUI = () => {
+    // Custom health checker for UI updates using edge function
+    const checkHealthForUI = async () => {
       try {
-        const { validateReactContext } = require('@/utils/reactValidation');
-        validateReactContext();
-        setIsHealthy(true);
+        const { data, error } = await supabase.functions.invoke('react-validation', {
+          body: { action: 'health-check' }
+        });
+        
+        if (error) {
+          console.error('Edge function health check failed:', error);
+          setIsHealthy(false);
+        } else {
+          console.log('Edge function health check result:', data);
+          setIsHealthy(true);
+        }
+        
         setLastCheck(new Date());
       } catch (error) {
         console.error('React health check failed:', error);
@@ -34,7 +44,7 @@ export const ReactHealthMonitor: React.FC = () => {
     // Initial check
     checkHealthForUI();
 
-    // UI update checks every 30 seconds
+    // UI update checks every 30 seconds using edge function
     const uiInterval = setInterval(checkHealthForUI, 30000);
 
     return () => {

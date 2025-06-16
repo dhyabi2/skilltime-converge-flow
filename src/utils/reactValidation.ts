@@ -1,11 +1,12 @@
 
 import React from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 /**
  * Validates that React is properly imported and available
  * This helps prevent the "Cannot read properties of null (reading 'useState')" error
  */
-export const validateReactContext = () => {
+export const validateReactContext = async () => {
   if (!React) {
     throw new Error(
       'React is not properly imported. Make sure to import React from "react" at the top of your component files.'
@@ -19,6 +20,22 @@ export const validateReactContext = () => {
   }
   
   console.log('React context validation passed');
+  
+  // Call edge function for validation
+  try {
+    const { data, error } = await supabase.functions.invoke('react-validation', {
+      body: { action: 'validate' }
+    });
+    
+    if (error) {
+      console.error('Edge function validation error:', error);
+    } else {
+      console.log('Edge function validation result:', data);
+    }
+  } catch (error) {
+    console.error('Failed to call validation edge function:', error);
+  }
+  
   return true;
 };
 
@@ -26,10 +43,10 @@ export const validateReactContext = () => {
  * Direct function call for React validation in components
  * Call this directly in component functions instead of using a hook
  */
-export const validateReactInComponent = () => {
+export const validateReactInComponent = async () => {
   if (process.env.NODE_ENV === 'development') {
     try {
-      validateReactContext();
+      await validateReactContext();
     } catch (error) {
       console.error('React validation failed in component:', error);
       throw error;
@@ -38,17 +55,28 @@ export const validateReactInComponent = () => {
 };
 
 /**
- * Periodic React health checker using direct function calls
+ * Periodic React health checker using direct edge function calls
  */
 export const startReactHealthMonitoring = () => {
   if (process.env.NODE_ENV !== 'development') {
     return () => {}; // Return empty cleanup function
   }
 
-  const checkHealth = () => {
+  const checkHealth = async () => {
     try {
-      validateReactContext();
-      console.log('React health check: OK');
+      await validateReactContext();
+      
+      // Call edge function for health check
+      const { data, error } = await supabase.functions.invoke('react-validation', {
+        body: { action: 'health-check' }
+      });
+      
+      if (error) {
+        console.error('Edge function health check error:', error);
+        return false;
+      }
+      
+      console.log('React health check: OK', data);
       return true;
     } catch (error) {
       console.error('React health check failed:', error);
