@@ -23,13 +23,45 @@ export const validateReactContext = () => {
 };
 
 /**
- * Development-only React validation hook
- * Use this in components that have had React import issues
+ * Direct function call for React validation in components
+ * Call this directly in component functions instead of using a hook
  */
-export const useReactValidation = () => {
+export const validateReactInComponent = () => {
   if (process.env.NODE_ENV === 'development') {
-    React.useEffect(() => {
+    try {
       validateReactContext();
-    }, []);
+    } catch (error) {
+      console.error('React validation failed in component:', error);
+      throw error;
+    }
   }
+};
+
+/**
+ * Periodic React health checker using direct function calls
+ */
+export const startReactHealthMonitoring = () => {
+  if (process.env.NODE_ENV !== 'development') {
+    return () => {}; // Return empty cleanup function
+  }
+
+  const checkHealth = () => {
+    try {
+      validateReactContext();
+      console.log('React health check: OK');
+      return true;
+    } catch (error) {
+      console.error('React health check failed:', error);
+      return false;
+    }
+  };
+
+  // Initial check
+  checkHealth();
+
+  // Periodic checks every 30 seconds
+  const interval = setInterval(checkHealth, 30000);
+
+  // Return cleanup function
+  return () => clearInterval(interval);
 };

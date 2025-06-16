@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { validateReactContext } from '@/utils/reactValidation';
+import { startReactHealthMonitoring } from '@/utils/reactValidation';
 
 /**
  * Development component to monitor React context health
- * Only renders in development mode
+ * Only renders in development mode and uses direct function calls
  */
 export const ReactHealthMonitor: React.FC = () => {
   const [isHealthy, setIsHealthy] = React.useState(true);
@@ -15,8 +15,13 @@ export const ReactHealthMonitor: React.FC = () => {
       return;
     }
 
-    const checkHealth = () => {
+    // Start monitoring with direct function calls
+    const cleanup = startReactHealthMonitoring();
+
+    // Custom health checker for UI updates
+    const checkHealthForUI = () => {
       try {
+        const { validateReactContext } = require('@/utils/reactValidation');
         validateReactContext();
         setIsHealthy(true);
         setLastCheck(new Date());
@@ -27,12 +32,15 @@ export const ReactHealthMonitor: React.FC = () => {
     };
 
     // Initial check
-    checkHealth();
+    checkHealthForUI();
 
-    // Periodic checks every 30 seconds
-    const interval = setInterval(checkHealth, 30000);
+    // UI update checks every 30 seconds
+    const uiInterval = setInterval(checkHealthForUI, 30000);
 
-    return () => clearInterval(interval);
+    return () => {
+      cleanup();
+      clearInterval(uiInterval);
+    };
   }, []);
 
   // Only render in development

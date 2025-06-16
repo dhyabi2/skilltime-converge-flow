@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
-import { useReactValidation } from '@/utils/reactValidation';
+import { validateReactInComponent } from '@/utils/reactValidation';
 
 interface AuthContextType {
   user: User | null;
@@ -22,8 +22,8 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  // Add React validation in development
-  useReactValidation();
+  // Direct React validation call instead of hook
+  validateReactInComponent();
   
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
