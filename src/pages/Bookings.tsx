@@ -1,14 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { bookingsAPI } from '../services';
+import RescheduleModal from '../components/booking/RescheduleModal';
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('upcoming');
+  const [rescheduleModal, setRescheduleModal] = useState({ isOpen: false, booking: null });
   const { t } = useTranslation('bookings');
 
   useEffect(() => {
@@ -37,6 +38,18 @@ const Bookings = () => {
     } catch (error) {
       console.error('Error cancelling booking:', error);
     }
+  };
+
+  const handleRescheduleClick = (booking: any) => {
+    setRescheduleModal({ isOpen: true, booking });
+  };
+
+  const handleRescheduleSuccess = () => {
+    fetchBookings(); // Refresh bookings after successful reschedule
+  };
+
+  const closeRescheduleModal = () => {
+    setRescheduleModal({ isOpen: false, booking: null });
   };
 
   const getFilteredBookings = () => {
@@ -144,6 +157,7 @@ const Bookings = () => {
                           </Button>
                           <Button
                             size="sm"
+                            onClick={() => handleRescheduleClick(booking)}
                             className="bg-black hover:bg-gray-800"
                           >
                             {t('actions.reschedule')}
@@ -174,6 +188,14 @@ const Bookings = () => {
             </div>
           )}
         </div>
+
+        {/* Reschedule Modal */}
+        <RescheduleModal
+          isOpen={rescheduleModal.isOpen}
+          onClose={closeRescheduleModal}
+          booking={rescheduleModal.booking}
+          onRescheduleSuccess={handleRescheduleSuccess}
+        />
       </div>
     </div>
   );
