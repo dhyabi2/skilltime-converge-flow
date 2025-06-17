@@ -1,8 +1,8 @@
 
 {
   "app": {
-    "name": "SkillTime",
-    "tagline": "Connect, Learn, Excel Together"
+    "name": "SkillSwap",
+    "tagline": "Exchange skills, grow together"
   },
   "navigation": {
     "home": "Home",
@@ -10,31 +10,11 @@
     "bookings": "Bookings",
     "profile": "Profile"
   },
-  "common": {
-    "loading": "Loading...",
-    "error": "Something went wrong",
-    "retry": "Try again",
-    "cancel": "Cancel",
-    "save": "Save",
-    "edit": "Edit",
-    "delete": "Delete",
-    "search": "Search",
-    "filter": "Filter",
-    "sort": "Sort",
-    "back": "Back",
-    "next": "Next",
-    "previous": "Previous",
-    "close": "Close",
-    "open": "Open"
-  },
-  "notifications": {
-    "title": "Notifications",
-    "empty": "No notifications yet",
-    "mark_all_read": "Mark all read",
-    "view_all": "View all notifications",
-    "marked_read": "Notification marked as read",
-    "marked_read_desc": "The notification has been marked as read",
-    "all_marked_read": "All notifications marked as read",
-    "all_marked_read_desc": "All your notifications have been marked as read"
+  "search": {
+    "placeholder": "Search skills, providers, or categories...",
+    "no_results": "No results found",
+    "recent_searches": "Recent Searches",
+    "popular_searches": "Popular Searches",
+    "suggestions": "Suggestions"
   }
 }
