@@ -15,6 +15,7 @@ import Bookings from "./pages/Bookings";
 import Profile from "./pages/Profile";
 import SkillDetail from "./pages/SkillDetail";
 import BookingConfirmation from "./pages/BookingConfirmation";
+import BookingCreate from "./pages/BookingCreate";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import Offline from "./pages/Offline";
@@ -52,6 +53,7 @@ const AppContent: React.FC = () => {
                 <Route path="bookings" element={<Bookings />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="skill/:id" element={<SkillDetail />} />
+                <Route path="booking/create" element={<BookingCreate />} />
                 <Route path="booking/:id" element={<BookingConfirmation />} />
               </Route>
               <Route path="*" element={<NotFound />} />
