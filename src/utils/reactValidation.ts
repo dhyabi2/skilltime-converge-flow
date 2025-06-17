@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 /**
  * Enhanced React context validation with better error detection
  */
-export const validateReactContext = async () => {
+export const validateReactContext = async (): Promise<boolean> => {
   // Check if React is available
   if (!React) {
     const error = new Error('React is not properly imported. Make sure to import React from "react" at the top of your component files.');
@@ -50,7 +50,7 @@ export const validateReactContext = async () => {
 /**
  * Direct function call for React validation in components
  */
-export const validateReactInComponent = async () => {
+export const validateReactInComponent = async (): Promise<boolean> => {
   if (process.env.NODE_ENV === 'development') {
     try {
       await validateReactContext();
@@ -66,12 +66,12 @@ export const validateReactInComponent = async () => {
 /**
  * Enhanced periodic React health checker
  */
-export const startReactHealthMonitoring = () => {
+export const startReactHealthMonitoring = (): (() => void) => {
   if (process.env.NODE_ENV !== 'development') {
     return () => {}; // Return empty cleanup function
   }
 
-  const checkHealth = async () => {
+  const checkHealth = async (): Promise<boolean> => {
     try {
       const isValid = await validateReactContext();
       
@@ -97,7 +97,7 @@ export const startReactHealthMonitoring = () => {
   };
 
   // Initial check with delay to ensure app is fully loaded
-  setTimeout(() => {
+  const initialTimeout = setTimeout(() => {
     checkHealth();
   }, 1000);
 
@@ -105,5 +105,8 @@ export const startReactHealthMonitoring = () => {
   const interval = setInterval(checkHealth, 30000);
 
   // Return cleanup function
-  return () => clearInterval(interval);
+  return () => {
+    clearTimeout(initialTimeout);
+    clearInterval(interval);
+  };
 };
