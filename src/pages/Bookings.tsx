@@ -19,7 +19,8 @@ const Bookings = () => {
     try {
       setLoading(true);
       // Mock user ID - in real app, get from auth context
-      const userBookings = await bookingsAPI.getUserBookings('1');
+      const userBookings = await bookingsAPI.getAll('1');
+      console.log('Fetched bookings:', userBookings);
       setBookings(userBookings);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -30,7 +31,7 @@ const Bookings = () => {
 
   const handleCancelBooking = async (bookingId: string) => {
     try {
-      await bookingsAPI.cancel(bookingId);
+      await bookingsAPI.cancel(bookingId, 'User requested cancellation');
       // Refresh bookings
       fetchBookings();
     } catch (error) {
@@ -39,9 +40,15 @@ const Bookings = () => {
   };
 
   const getFilteredBookings = () => {
-    return bookings.filter(booking => 
-      activeTab === 'upcoming' ? booking.status === 'upcoming' : booking.status === 'completed'
-    );
+    const today = new Date();
+    return bookings.filter(booking => {
+      const bookingDate = new Date(booking.date);
+      if (activeTab === 'upcoming') {
+        return bookingDate >= today || booking.status === 'confirmed' || booking.status === 'pending';
+      } else {
+        return bookingDate < today || booking.status === 'completed';
+      }
+    });
   };
 
   if (loading) {
@@ -54,6 +61,8 @@ const Bookings = () => {
       </div>
     );
   }
+
+  const filteredBookings = getFilteredBookings();
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6">
@@ -86,12 +95,12 @@ const Bookings = () => {
 
         {/* Bookings List */}
         <div className="space-y-4">
-          {getFilteredBookings().length > 0 ? (
-            getFilteredBookings().map((booking) => (
+          {filteredBookings.length > 0 ? (
+            filteredBookings.map((booking) => (
               <div key={booking.id} className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
                 <div className="flex items-start space-x-3 rtl:space-x-reverse">
                   <img
-                    src={booking.image}
+                    src={booking.providerImage}
                     alt={booking.skillTitle}
                     className="w-16 h-16 rounded-lg object-cover"
                   />
@@ -105,7 +114,7 @@ const Bookings = () => {
                     <div className="space-y-2">
                       <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
-                        <span>{new Date(booking.date).toLocaleDateString('ar-SA', { 
+                        <span>{new Date(booking.date).toLocaleDateString('en-US', { 
                           weekday: 'long', 
                           month: 'short', 
                           day: 'numeric' 
@@ -115,11 +124,15 @@ const Bookings = () => {
                         <Clock className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
                         <span>{booking.time} ({booking.duration})</span>
                       </div>
+                      <div className="flex items-center text-sm text-gray-600">
+                        <MapPin className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
+                        <span>{booking.location}</span>
+                      </div>
                     </div>
                     
                     <div className="flex items-center justify-between mt-4">
-                      <span className="text-lg font-bold text-black">{booking.price} ر.ع</span>
-                      {booking.status === 'upcoming' && (
+                      <span className="text-lg font-bold text-black">${booking.price}</span>
+                      {booking.status === 'confirmed' || booking.status === 'pending' ? (
                         <div className="flex space-x-2 rtl:space-x-reverse">
                           <Button
                             variant="outline"
@@ -136,8 +149,7 @@ const Bookings = () => {
                             {t('actions.reschedule')}
                           </Button>
                         </div>
-                      )}
-                      {booking.status === 'completed' && (
+                      ) : (
                         <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">
                           {t('status.completed')}
                         </span>
