@@ -4,13 +4,15 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import './i18n/config';
-import { validateReactContext, startReactHealthMonitoring } from '@/utils/reactValidation';
 
 // Enhanced React validation with early error detection
 const initializeApp = async () => {
   // Validate React context early to catch import issues
   if (process.env.NODE_ENV === 'development') {
     try {
+      // Use dynamic imports to avoid module loading issues
+      const { validateReactContext, startReactHealthMonitoring } = await import('@/utils/reactValidation');
+      
       await validateReactContext();
       console.log('React validation with edge function completed');
       // Start global React health monitoring
