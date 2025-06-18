@@ -5,22 +5,14 @@ import App from './App.tsx';
 import './index.css';
 import './i18n/config';
 
-// Enhanced React validation with early error detection
+// Simplified initialization without dynamic imports
 const initializeApp = async () => {
-  // Validate React context early to catch import issues
-  if (process.env.NODE_ENV === 'development') {
-    try {
-      // Use dynamic imports to avoid module loading issues
-      const { validateReactContext, startReactHealthMonitoring } = await import('@/utils/reactValidation');
-      
-      await validateReactContext();
-      console.log('React validation with edge function completed');
-      // Start global React health monitoring
-      startReactHealthMonitoring();
-    } catch (error) {
-      console.error('React validation failed:', error);
-      // Don't prevent app initialization, but log the issue
-    }
+  console.log('Initializing app with React version:', React.version);
+  
+  // Basic React validation
+  if (!React || typeof React.useState !== 'function') {
+    console.error('React is not properly loaded');
+    throw new Error('React initialization failed');
   }
 
   const container = document.getElementById("root");
@@ -39,4 +31,9 @@ const initializeApp = async () => {
 // Initialize the app
 initializeApp().catch((error) => {
   console.error('Failed to initialize app:', error);
+  // Fallback rendering
+  const container = document.getElementById("root");
+  if (container) {
+    container.innerHTML = '<div style="padding: 20px; text-align: center;">Application failed to load. Please refresh the page.</div>';
+  }
 });

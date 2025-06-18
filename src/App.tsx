@@ -29,6 +29,12 @@ const queryClient = new QueryClient();
 
 // Separate component to ensure React context is available
 const AppContent: React.FC = () => {
+  // Enhanced React safety check
+  if (!React || typeof React.useState !== 'function') {
+    console.error('React hooks are not available in AppContent');
+    return <div>React initialization error</div>;
+  }
+
   // Use the robust RTL hook that doesn't depend on i18n context
   useRTL();
   
@@ -70,12 +76,23 @@ const AppContent: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  // Ensure React is properly imported and available
-  if (!React || typeof React.useState !== 'function') {
-    console.error('React hooks are not available');
-    return <div>React initialization error</div>;
+  // Comprehensive React validation with detailed logging
+  if (!React) {
+    console.error('React module is not available');
+    return <div>React module loading error</div>;
   }
 
+  if (typeof React.useState !== 'function') {
+    console.error('React hooks are not available - React version issue');
+    return <div>React hooks initialization error</div>;
+  }
+
+  if (typeof React.useEffect !== 'function') {
+    console.error('React useEffect is not available');
+    return <div>React useEffect initialization error</div>;
+  }
+
+  console.log('React initialization successful');
   return <AppContent />;
 };
 

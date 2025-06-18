@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
-import { validateReactInComponent } from '@/utils/reactValidation';
 
 interface AuthContextType {
   user: User | null;
@@ -22,15 +21,16 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  // Add safety check for React availability
+  if (!React || typeof React.useState !== 'function') {
+    console.error('React is not properly initialized');
+    return <div>Loading...</div>;
+  }
+
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Direct React validation call with edge function
-  React.useEffect(() => {
-    validateReactInComponent();
-  }, []);
-  
   useEffect(() => {
     let mounted = true;
 
