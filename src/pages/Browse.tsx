@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import SkillCard from '../components/discovery/SkillCard';
 import SearchBar from '../components/discovery/SearchBar';
 import CategoryBreadcrumb from '../components/discovery/CategoryBreadcrumb';
+import FilterModal from '../components/search/FilterModal';
 import { skillsAPI, searchAPI, categoriesAPI } from '../services';
 
 const Browse = () => {
@@ -19,6 +20,8 @@ const Browse = () => {
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
   const [selectedSubcategory, setSelectedSubcategory] = useState(searchParams.get('subcategory') || '');
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     fetchSkills();
@@ -34,14 +37,16 @@ const Browse = () => {
       let results;
       
       if (searchQuery) {
-        results = await searchAPI.searchSkills(searchQuery, { 
+        results = await searchAPI.searchSkills(searchQuery, {
           category: selectedCategory,
-          subcategory: selectedSubcategory
+          subcategory: selectedSubcategory,
+          maxPrice
         });
       } else {
-        results = await skillsAPI.getAll({ 
+        results = await skillsAPI.getAll({
           category: selectedCategory,
-          subcategory: selectedSubcategory
+          subcategory: selectedSubcategory,
+          maxPrice
         });
       }
       
@@ -76,6 +81,17 @@ const Browse = () => {
   const handleSearch = async (query: string) => {
     setSearchQuery(query);
     updateURLParams({ search: query });
+  };
+
+  const handleFilterClick = () => {
+    setFiltersOpen(true);
+  };
+
+  const handleApplyFilters = (values: { category?: string; subcategory?: string; maxPrice?: number }) => {
+    if (values.category !== undefined) setSelectedCategory(values.category);
+    if (values.subcategory !== undefined) setSelectedSubcategory(values.subcategory || '');
+    if (values.maxPrice !== undefined) setMaxPrice(values.maxPrice);
+    updateURLParams({ category: values.category || '', subcategory: values.subcategory || '', search: searchQuery });
   };
 
   const handleCategoryFilter = (category: string) => {
@@ -149,9 +165,9 @@ const Browse = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
-      <SearchBar 
-        onSearch={handleSearch} 
-        onFilterClick={() => {}} 
+      <SearchBar
+        onSearch={handleSearch}
+        onFilterClick={handleFilterClick}
         initialQuery={searchQuery}
       />
       
@@ -262,6 +278,12 @@ const Browse = () => {
           )}
         </section>
       </div>
+      <FilterModal
+        isOpen={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+        onApply={handleApplyFilters}
+        initialValues={{ category: selectedCategory, subcategory: selectedSubcategory, maxPrice }}
+      />
     </div>
   );
 };

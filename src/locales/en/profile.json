@@ -1,5 +1,28 @@
 
 {
   "title": "Profile",
-  "coming_soon": "Profile page coming soon..."
+  "coming_soon": "Profile page coming soon...",
+  "manage_skills": "Manage Skills",
+  "my_skills_title": "My Skills",
+  "no_skills": "You haven't added any skills yet.",
+  "add_skill": "Add Skill",
+  "add_skill_modal": {
+    "title": "Add New Skill",
+    "label": "Skill Name",
+    "cancel": "Cancel",
+    "add": "Add Skill",
+    "adding": "Adding..."
+  },
+  "edit_profile_modal": {
+    "title": "Edit Profile",
+    "full_name": "Full Name",
+    "email": "Email",
+    "avatar_url": "Avatar URL",
+    "bio": "Bio",
+    "location": "Location",
+    "phone": "Phone Number",
+    "cancel": "Cancel",
+    "save": "Save Changes",
+    "saving": "Saving..."
+  }
 }

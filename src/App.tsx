@@ -13,6 +13,8 @@ import Home from "./pages/Home";
 import Browse from "./pages/Browse";
 import Bookings from "./pages/Bookings";
 import Profile from "./pages/Profile";
+import MySkills from "./pages/MySkills";
+import Notifications from "./pages/Notifications";
 import SkillDetail from "./pages/SkillDetail";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import BookingCreate from "./pages/BookingCreate";
@@ -51,7 +53,9 @@ const AppContent: React.FC = () => {
                 <Route index element={<Home />} />
                 <Route path="browse" element={<Browse />} />
                 <Route path="bookings" element={<Bookings />} />
+                <Route path="notifications" element={<Notifications />} />
                 <Route path="profile" element={<Profile />} />
+                <Route path="my-skills" element={<MySkills />} />
                 <Route path="skill/:id" element={<SkillDetail />} />
                 <Route path="booking/create" element={<BookingCreate />} />
                 <Route path="booking/:id" element={<BookingConfirmation />} />
