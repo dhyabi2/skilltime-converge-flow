@@ -1,0 +1,137 @@
+
+@layer base {
+  /* Font family styling */
+  *, 
+  *::before, 
+  *::after,
+  p, 
+  span, 
+  div, 
+  article, 
+  section,
+  .dynamic-content {
+    font-family: 'Cairo', 'Tajawal', 'Arial', sans-serif !important;
+    font-weight: 500 !important;
+  }
+
+  /* Heading styles */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cairo', 'Tajawal', 'Arial', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+
+  h1 {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+    font-weight: 800 !important;
+  }
+
+  h2 {
+    @apply text-lg sm:text-xl lg:text-2xl;
+    font-weight: 700 !important;
+  }
+
+  h3 {
+    @apply text-base sm:text-lg lg:text-xl;
+    font-weight: 600 !important;
+  }
+
+  h4 {
+    @apply text-sm sm:text-base lg:text-lg;
+    font-weight: 600 !important;
+  }
+
+  h5 {
+    @apply text-xs sm:text-sm lg:text-base;
+    font-weight: 600 !important;
+  }
+
+  h6 {
+    @apply text-xs sm:text-xs lg:text-sm;
+    font-weight: 600 !important;
+  }
+
+  /* Text size overrides */
+  .text-sm {
+    font-size: 0.8rem !important;
+  }
+
+  .text-base {
+    font-size: 0.9rem !important;
+  }
+
+  .text-lg {
+    font-size: 1rem !important;
+  }
+
+  .text-xl {
+    font-size: 1.1rem !important;
+  }
+
+  .text-2xl {
+    font-size: 1.3rem !important;
+  }
+
+  .text-3xl {
+    font-size: 1.6rem !important;
+  }
+
+  /* API content styling */
+  [data-api-content], 
+  .skill-title,
+  .provider-name,
+  .skill-description,
+  .booking-info {
+    font-family: 'Cairo', 'Tajawal', 'Arial', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Form elements */
+  input, 
+  textarea, 
+  select, 
+  button {
+    font-family: 'Cairo', 'Tajawal', 'Arial', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+  }
+
+  button {
+    font-weight: 600 !important;
+  }
+
+  /* Navigation styling */
+  nav, 
+  .navigation, 
+  .menu-item {
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+  }
+
+  /* Card styling */
+  .card-title {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+  }
+
+  .card-description,
+  .card-content {
+    font-size: 0.85rem !important;
+    line-height: 1.7;
+  }
+
+  /* Mobile touch targets */
+  @media (max-width: 768px) {
+    button, 
+    [role="button"], 
+    input[type="button"], 
+    input[type="submit"] {
+      min-height: 48px;
+      min-width: 48px;
+      font-size: 0.9rem !important;
+      padding: 0.75rem 1rem;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+
+@layer base {
+  /* Arabic font styling */
+  [dir="rtl"] *, 
+  [dir="rtl"] *::before, 
+  [dir="rtl"] *::after,
+  [dir="rtl"] p, 
+  [dir="rtl"] span, 
+  [dir="rtl"] div {
+    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Arial', sans-serif !important;
+    font-weight: 600 !important;
+    text-align: right;
+    font-size: 0.95rem !important;
+  }
+
+  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+    text-align: right;
+  }
+
+  /* Ensure proper text color and size for Arabic content */
+  [dir="rtl"] {
+    color: #1e293b;
+    font-size: 0.95rem;
+  }
+}

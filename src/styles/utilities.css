@@ -1,0 +1,26 @@
+
+@layer utilities {
+  .container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .text-responsive {
+    @apply text-xs sm:text-sm lg:text-base;
+  }
+
+  .text-responsive-sm {
+    @apply text-xs sm:text-xs lg:text-sm;
+  }
+
+  .text-responsive-lg {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  .spacing-responsive {
+    @apply space-y-4 sm:space-y-6 lg:space-y-8;
+  }
+
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6;
+  }
+}
