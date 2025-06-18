@@ -16,5 +16,15 @@
     "recent_searches": "عمليات البحث الأخيرة",
     "popular_searches": "عمليات البحث الشائعة",
     "suggestions": "اقتراحات"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "mark_all_read": "تمييز الكل كمقروء",
+    "marked_read": "تمت القراءة",
+    "marked_read_desc": "تم تمييز الإشعار كمقروء",
+    "all_marked_read": "تم تمييز جميع الإشعارات كمقروءة",
+    "all_marked_read_desc": "أنت على اطلاع تام",
+    "empty": "لا توجد إشعارات",
+    "view_all": "عرض الكل"
   }
 }
