@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { Bell, Check, CheckCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -20,6 +21,7 @@ interface NotificationPanelProps {
 const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: notifications = [], isLoading } = useQuery({
     queryKey: ['notifications', userId],
@@ -157,7 +159,12 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
         </ScrollArea>
         {notifications.length > 0 && (
           <div className="p-3 border-t border-gray-200 text-center">
-            <Button variant="ghost" size="sm" className="text-xs">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-xs"
+              onClick={() => navigate('/notifications')}
+            >
               {t('notifications.view_all')}
             </Button>
           </div>
