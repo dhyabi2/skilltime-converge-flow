@@ -41,19 +41,20 @@ const CategoryIconFilters: React.FC<CategoryIconFiltersProps> = ({
   return (
     <section className="relative">
       <h3 className="text-lg font-bold text-slate-800 mb-4">{t('filters.category')}</h3>
-      <div className="relative max-w-full">
+      <div className="relative max-w-full px-8">
         <Carousel 
           className="w-full"
           opts={{
-            align: "start",
+            align: "center",
             loop: false,
             skipSnaps: false,
             dragFree: true,
+            containScroll: "trimSnaps",
           }}
         >
-          <CarouselContent className="-ml-2 md:-ml-4">
+          <CarouselContent className="ml-4 mr-4">
             {/* All Categories Button */}
-            <CarouselItem className="pl-2 md:pl-4 basis-auto">
+            <CarouselItem className="basis-auto pl-2 pr-2">
               <button
                 onClick={() => onCategoryFilter('')}
                 disabled={loading}
@@ -74,7 +75,7 @@ const CategoryIconFilters: React.FC<CategoryIconFiltersProps> = ({
 
             {/* Category Icon Buttons */}
             {categories.map((category) => (
-              <CarouselItem key={category.id} className="pl-2 md:pl-4 basis-auto">
+              <CarouselItem key={category.id} className="basis-auto pl-2 pr-2">
                 <button
                   onClick={() => onCategoryFilter(category.title)}
                   disabled={loading}
@@ -96,8 +97,8 @@ const CategoryIconFilters: React.FC<CategoryIconFiltersProps> = ({
           </CarouselContent>
           
           {/* Custom Navigation Buttons */}
-          <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm border border-soft-blue-200 hover:bg-white hover:border-soft-blue-300 transition-all duration-200 shadow-sm" />
-          <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm border border-soft-blue-200 hover:bg-white hover:border-soft-blue-300 transition-all duration-200 shadow-sm" />
+          <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm border border-soft-blue-200 hover:bg-white hover:border-soft-blue-300 transition-all duration-200 shadow-md z-10" />
+          <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm border border-soft-blue-200 hover:bg-white hover:border-soft-blue-300 transition-all duration-200 shadow-md z-10" />
         </Carousel>
       </div>
     </section>
