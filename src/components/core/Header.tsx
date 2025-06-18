@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Search, Languages, LogOut, User, Settings } from 'lucide-react';
+import { Search, Languages, LogOut, User, Settings, Menu } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Switch } from "@/components/ui/switch";
@@ -12,6 +13,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import NotificationPanel from '../notifications/NotificationPanel';
@@ -23,6 +32,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
   const toggleLanguage = () => {
     const newLang = i18n.language === 'ar' ? 'en' : 'ar';
@@ -50,89 +60,122 @@ const Header = () => {
     setIsSearchModalOpen(true);
   };
 
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    setIsDrawerOpen(false);
+  };
+
   const isArabic = i18n.language === 'ar';
   
   return (
     <>
-      <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 sticky top-0 z-50 w-full">
+      <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-4 py-4 sticky top-0 z-50 w-full">
         <div className="flex items-center justify-between w-full">
-          {/* Icons Area - Left Half */}
-          <div className="flex items-center gap-1 sm:gap-1.5 bg-white/20 backdrop-blur-sm rounded-full px-2 sm:px-2.5 py-1 border border-white/30 shadow-sm w-1/2 justify-start">
-            {/* Language Toggle - More compact */}
-            <div className="flex items-center gap-0.5">
-              <Languages className="w-2.5 h-2.5 text-slate-700 flex-shrink-0" />
-              <div className="flex items-center gap-0.5">
-                <span className={`text-[9px] sm:text-[10px] font-bold transition-colors duration-200 ${!isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
-                  EN
-                </span>
-                <Switch
-                  checked={isArabic}
-                  onCheckedChange={toggleLanguage}
-                  className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/60 h-2.5 w-4 sm:h-3 sm:w-5 [&>span]:h-1.5 [&>span]:w-1.5 sm:[&>span]:h-2 sm:[&>span]:w-2 [&>span]:data-[state=checked]:translate-x-1.5 sm:[&>span]:data-[state=checked]:translate-x-2 [&>span]:data-[state=unchecked]:translate-x-0"
-                />
-                <span className={`text-[9px] sm:text-[10px] font-bold transition-colors duration-200 ${isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
-                  ع
-                </span>
-              </div>
-            </div>
-            
-            {/* Search Button */}
-            <button 
-              onClick={handleSearchClick}
-              className="p-0.5 rounded-full hover:bg-white/30 transition-colors flex-shrink-0"
-            >
-              <Search className="w-2.5 h-2.5 text-slate-700" />
-            </button>
-            
-            {/* Notifications */}
-            {user && <NotificationPanel userId={user.id} />}
-            
-            {/* User Menu */}
-            {user && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-4 w-4 sm:h-5 sm:w-5 rounded-full hover:bg-white/30 flex-shrink-0 p-0">
-                    <Avatar className="h-3.5 w-3.5 sm:h-4 sm:w-4">
-                      <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email || 'User'} />
-                      <AvatarFallback className="bg-slate-100 text-slate-700 text-[7px] sm:text-[8px]">
-                        {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0) || 'U'}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <div className="flex items-center justify-start gap-2 p-2">
-                    <div className="flex flex-col space-y-1 leading-none">
-                      {user.user_metadata?.full_name && (
-                        <p className="font-medium text-sm">{user.user_metadata.full_name}</p>
-                      )}
-                      <p className="w-[200px] truncate text-xs text-muted-foreground">
-                        {user.email}
-                      </p>
+          
+          {/* Hamburger Menu - Left Side */}
+          <div className="flex items-center gap-3">
+            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+              <DrawerTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="h-8 w-8 rounded-full hover:bg-white/30 transition-colors"
+                >
+                  <Menu className="h-5 w-5 text-slate-700" />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="bg-white/95 backdrop-blur-md border-t border-soft-blue-200">
+                <DrawerHeader className="text-center border-b border-soft-blue-200/50 pb-4">
+                  <DrawerTitle className="text-xl font-bold text-slate-800">
+                    {t('app.name')}
+                  </DrawerTitle>
+                </DrawerHeader>
+                
+                <div className="p-6 space-y-4">
+                  {/* Language Toggle */}
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-white/50">
+                    <div className="flex items-center gap-2">
+                      <Languages className="w-4 h-4 text-slate-700" />
+                      <span className="text-sm font-medium text-slate-700">Language</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className={`text-xs font-bold transition-colors duration-200 ${!isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
+                        EN
+                      </span>
+                      <Switch
+                        checked={isArabic}
+                        onCheckedChange={toggleLanguage}
+                        className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/60"
+                      />
+                      <span className={`text-xs font-bold transition-colors duration-200 ${isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
+                        ع
+                      </span>
                     </div>
                   </div>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate('/profile')}>
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/bookings')}>
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>My Bookings</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+
+                  {/* Search */}
+                  <button 
+                    onClick={handleSearchClick}
+                    className="w-full flex items-center gap-3 p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-white/50 hover:bg-white/60 transition-all duration-200"
+                  >
+                    <Search className="w-4 h-4 text-slate-700" />
+                    <span className="text-sm font-medium text-slate-700">Search</span>
+                  </button>
+
+                  {/* Navigation Links */}
+                  {user && (
+                    <div className="space-y-2">
+                      <button 
+                        onClick={() => handleNavigation('/profile')}
+                        className="w-full flex items-center gap-3 p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-white/50 hover:bg-white/60 transition-all duration-200"
+                      >
+                        <User className="w-4 h-4 text-slate-700" />
+                        <span className="text-sm font-medium text-slate-700">Profile</span>
+                      </button>
+                      
+                      <button 
+                        onClick={() => handleNavigation('/bookings')}
+                        className="w-full flex items-center gap-3 p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-white/50 hover:bg-white/60 transition-all duration-200"
+                      >
+                        <Settings className="w-4 h-4 text-slate-700" />
+                        <span className="text-sm font-medium text-slate-700">My Bookings</span>
+                      </button>
+                      
+                      <button 
+                        onClick={handleSignOut}
+                        className="w-full flex items-center gap-3 p-3 rounded-lg bg-red-100/60 backdrop-blur-sm border border-red-200/50 hover:bg-red-200/60 transition-all duration-200"
+                      >
+                        <LogOut className="w-4 h-4 text-red-700" />
+                        <span className="text-sm font-medium text-red-700">Sign out</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+                
+                <DrawerClose asChild>
+                  <Button variant="outline" className="mx-6 mb-6">
+                    Close
+                  </Button>
+                </DrawerClose>
+              </DrawerContent>
+            </Drawer>
+
+            {/* Quick Actions */}
+            {user && <NotificationPanel userId={user.id} />}
+            
+            {user && (
+              <Avatar className="h-8 w-8 ring-2 ring-white/50">
+                <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email || 'User'} />
+                <AvatarFallback className="bg-slate-100 text-slate-700 text-xs">
+                  {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0) || 'U'}
+                </AvatarFallback>
+              </Avatar>
             )}
           </div>
           
-          {/* App Name - Right Half */}
-          <div className="flex-1 w-1/2 ml-3 text-right">
-            <h1 className="text-base sm:text-lg lg:text-xl font-bold text-slate-800 truncate">
+          {/* App Name - Right Side */}
+          <div className="text-right">
+            <h1 className="text-lg lg:text-xl font-bold text-slate-800">
               {t('app.name')}
             </h1>
           </div>
