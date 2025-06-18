@@ -64,7 +64,7 @@ export const validateReactInComponent = async (): Promise<boolean> => {
 };
 
 /**
- * Enhanced periodic React health checker
+ * Enhanced periodic React health checker - exported function
  */
 export const startReactHealthMonitoring = (): (() => void) => {
   if (process.env.NODE_ENV !== 'development') {
