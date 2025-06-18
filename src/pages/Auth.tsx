@@ -34,10 +34,13 @@ const Auth = () => {
   const handleGoogleAuth = async () => {
     setLoading(true);
     try {
+      // Use current domain for redirect instead of hardcoded URL
+      const redirectTo = `${window.location.origin}/`;
+      
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'https://skillstime.life/',
+          redirectTo,
           queryParams: {
             access_type: 'offline',
             prompt: 'consent',
