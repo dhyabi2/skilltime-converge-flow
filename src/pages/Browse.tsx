@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +8,7 @@ import CategoryIconFilters from '../components/discovery/CategoryIconFilters';
 import SubcategoryLabelFilters from '../components/discovery/SubcategoryLabelFilters';
 import SkillResults from '../components/discovery/SkillResults';
 import FilterModal from '../components/search/FilterModal';
+import SkillCardSkeleton from '../components/ui/skeletons/SkillCardSkeleton';
 import { skillsAPI, searchAPI, categoriesAPI } from '../services';
 
 const Browse = () => {
@@ -18,7 +18,8 @@ const Browse = () => {
   const [skills, setSkills] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [skillsLoading, setSkillsLoading] = useState(false);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '');
   const [selectedSubcategory, setSelectedSubcategory] = useState(searchParams.get('subcategory') || '');
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
@@ -26,8 +27,11 @@ const Browse = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
-    fetchSkills();
     fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    fetchSkills();
     if (selectedCategory) {
       fetchSubcategories();
     }
@@ -35,7 +39,7 @@ const Browse = () => {
 
   const fetchSkills = async () => {
     try {
-      setLoading(true);
+      setSkillsLoading(true);
       let results;
       
       if (searchQuery) {
@@ -52,11 +56,14 @@ const Browse = () => {
         });
       }
       
-      setSkills(results);
+      // Add a small delay for smooth transition
+      setTimeout(() => {
+        setSkills(results);
+        setSkillsLoading(false);
+      }, 300);
     } catch (error) {
       console.error('Error fetching skills:', error);
-    } finally {
-      setLoading(false);
+      setSkillsLoading(false);
     }
   };
 
@@ -64,8 +71,10 @@ const Browse = () => {
     try {
       const categoriesData = await categoriesAPI.getAll();
       setCategories(categoriesData);
+      setCategoriesLoading(false);
     } catch (error) {
       console.error('Error fetching categories:', error);
+      setCategoriesLoading(false);
     }
   };
 
@@ -141,16 +150,33 @@ const Browse = () => {
     navigate('/');
   };
 
-  if (loading) {
+  const renderSkillsSection = () => {
+    if (skillsLoading) {
+      return (
+        <section>
+          <div className="flex items-center justify-between mb-4">
+            <div className="h-7 bg-gray-200 rounded w-48 animate-pulse"></div>
+            <div className="h-5 bg-gray-200 rounded w-24 animate-pulse"></div>
+          </div>
+          <div className="space-y-4">
+            {[...Array(3)].map((_, index) => (
+              <SkillCardSkeleton key={index} />
+            ))}
+          </div>
+        </section>
+      );
+    }
+
     return (
-      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-soft-blue-500 mx-auto mb-4"></div>
-          <p className="text-slate-600">{t('status.loading')}</p>
-        </div>
-      </div>
+      <SkillResults
+        skills={skills}
+        searchQuery={searchQuery}
+        selectedCategory={selectedCategory}
+        selectedSubcategory={selectedSubcategory}
+        onSkillClick={handleSkillClick}
+      />
     );
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
@@ -170,11 +196,24 @@ const Browse = () => {
         />
 
         {/* Category Icon Filters */}
-        <CategoryIconFilters
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryFilter={handleCategoryFilter}
-        />
+        {categoriesLoading ? (
+          <section>
+            <div className="h-7 bg-gray-200 rounded w-32 animate-pulse mb-4"></div>
+            <div className="flex justify-center">
+              <div className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-2xl p-2">
+                {[...Array(6)].map((_, index) => (
+                  <div key={index} className="w-14 h-14 bg-gray-200 rounded-xl animate-pulse"></div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : (
+          <CategoryIconFilters
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategoryFilter={handleCategoryFilter}
+          />
+        )}
 
         {/* Subcategory Label Filters */}
         {selectedCategory && (
@@ -185,14 +224,8 @@ const Browse = () => {
           />
         )}
 
-        {/* Results */}
-        <SkillResults
-          skills={skills}
-          searchQuery={searchQuery}
-          selectedCategory={selectedCategory}
-          selectedSubcategory={selectedSubcategory}
-          onSkillClick={handleSkillClick}
-        />
+        {/* Results with elegant loading */}
+        {renderSkillsSection()}
       </div>
 
       <FilterModal

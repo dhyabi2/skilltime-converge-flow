@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +5,7 @@ import { gsap } from 'gsap';
 import SearchBar from '../components/discovery/SearchBar';
 import CategoryCard from '../components/discovery/CategoryCard';
 import FeaturedSections from '../components/home/FeaturedSections';
+import CategoryCardSkeleton from '../components/ui/skeletons/CategoryCardSkeleton';
 import { categoriesAPI, searchAPI } from '../services';
 
 const Home = () => {
@@ -18,12 +18,14 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
         const categoriesData = await categoriesAPI.getAll();
-        setCategories(categoriesData);
+        // Add smooth transition delay
+        setTimeout(() => {
+          setCategories(categoriesData);
+          setLoading(false);
+        }, 500);
       } catch (error) {
         console.error('Error fetching home data:', error);
-      } finally {
         setLoading(false);
       }
     };
@@ -74,6 +76,43 @@ const Home = () => {
     navigate(`/skill/${skillId}`);
   };
 
+  const renderCategoriesSection = () => {
+    if (loading) {
+      return (
+        <section className="w-full">
+          <div className="h-7 bg-gray-200 rounded w-48 animate-pulse mb-4 px-1"></div>
+          <div className="grid grid-cols-1 gap-3 sm:gap-4 w-full">
+            {[...Array(4)].map((_, index) => (
+              <CategoryCardSkeleton key={index} />
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    return (
+      <section className="w-full">
+        <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-3 sm:mb-4 font-cairo px-1">
+          {t('discovery.browse_categories')}
+        </h3>
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 w-full">
+          {categories.map((category) => (
+            <CategoryCard
+              key={category.id}
+              title={category.title}
+              iconType={category.iconType}
+              skillCount={category.skillCount}
+              gradient={category.gradient}
+              subcategories={category.subcategories}
+              onClick={() => handleCategoryClick(category.title)}
+              onSubcategoryClick={(subcategory) => handleSubcategoryClick(category.title, subcategory)}
+            />
+          ))}
+        </div>
+      </section>
+    );
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen w-full bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center p-4">
@@ -102,26 +141,8 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Categories */}
-        <section className="w-full">
-          <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-3 sm:mb-4 font-cairo px-1">
-            {t('discovery.browse_categories')}
-          </h3>
-          <div className="grid grid-cols-1 gap-3 sm:gap-4 w-full">
-            {categories.map((category) => (
-              <CategoryCard
-                key={category.id}
-                title={category.title}
-                iconType={category.iconType}
-                skillCount={category.skillCount}
-                gradient={category.gradient}
-                subcategories={category.subcategories}
-                onClick={() => handleCategoryClick(category.title)}
-                onSubcategoryClick={(subcategory) => handleSubcategoryClick(category.title, subcategory)}
-              />
-            ))}
-          </div>
-        </section>
+        {/* Categories with elegant loading */}
+        {renderCategoriesSection()}
 
         {/* Featured Sections */}
         <div className="w-full">
