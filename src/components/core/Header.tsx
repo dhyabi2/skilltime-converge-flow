@@ -55,10 +55,10 @@ const Header = () => {
   
   return (
     <>
-      <header className="glass-header text-slate-800 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 sticky top-0 z-50 w-full glass-shimmer">
+      <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 sticky top-0 z-50 w-full">
         <div className="flex items-center justify-between w-full max-w-full">
           <div className="flex-1 min-w-0">
-            <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 truncate glass-float">
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 truncate">
               {t('app.name')}
             </h1>
             <p className="text-xs sm:text-sm text-slate-700/80 font-medium mt-0.5 sm:mt-1 italic truncate">
@@ -68,7 +68,7 @@ const Header = () => {
           
           <div className="flex items-center space-x-2 sm:space-x-3 rtl:space-x-reverse flex-shrink-0">
             {/* Language Toggle */}
-            <div className="flex items-center space-x-1 sm:space-x-2 rtl:space-x-reverse glass-button rounded-full px-2 sm:px-3 py-1.5 sm:py-2">
+            <div className="flex items-center space-x-1 sm:space-x-2 rtl:space-x-reverse bg-white/20 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1.5 sm:py-2 border border-white/30">
               <Languages className="w-3 h-3 sm:w-4 sm:h-4 text-slate-700 flex-shrink-0" />
               <span className="text-xs text-slate-700 font-medium hidden sm:inline">EN</span>
               <Switch
@@ -81,7 +81,7 @@ const Header = () => {
             
             <button 
               onClick={handleSearchClick}
-              className="p-1.5 sm:p-2 rounded-full glass-button hover:glass-button flex-shrink-0"
+              className="p-1.5 sm:p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors border border-white/30 flex-shrink-0"
             >
               <Search className="w-4 h-4 sm:w-5 sm:h-5 text-slate-700" />
             </button>
@@ -92,7 +92,7 @@ const Header = () => {
             {user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 sm:h-10 sm:w-10 rounded-full glass-button hover:glass-button flex-shrink-0">
+                  <Button variant="ghost" className="relative h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 flex-shrink-0">
                     <Avatar className="h-6 w-6 sm:h-8 sm:w-8">
                       <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email || 'User'} />
                       <AvatarFallback className="bg-slate-100 text-slate-700 text-xs sm:text-sm">
@@ -101,7 +101,7 @@ const Header = () => {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 glass-morphism border-white/20" align="end" forceMount>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
                       {user.user_metadata?.full_name && (
