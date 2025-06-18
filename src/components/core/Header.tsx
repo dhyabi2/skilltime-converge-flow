@@ -67,16 +67,22 @@ const Header = () => {
           </div>
           
           <div className="flex items-center space-x-2 sm:space-x-3 rtl:space-x-reverse flex-shrink-0">
-            {/* Language Toggle */}
-            <div className="flex items-center space-x-1 sm:space-x-2 rtl:space-x-reverse bg-white/20 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1.5 sm:py-2 border border-white/30">
-              <Languages className="w-3 h-3 sm:w-4 sm:h-4 text-slate-700 flex-shrink-0" />
-              <span className="text-xs text-slate-700 font-medium hidden sm:inline">EN</span>
-              <Switch
-                checked={isArabic}
-                onCheckedChange={toggleLanguage}
-                className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/40 scale-75 sm:scale-100"
-              />
-              <span className="text-xs text-slate-700 font-medium hidden sm:inline">AR</span>
+            {/* Language Toggle - Enhanced for mobile */}
+            <div className="flex items-center bg-white/30 backdrop-blur-sm rounded-full px-3 py-2 border border-white/40 shadow-sm">
+              <Languages className="w-4 h-4 text-slate-700 flex-shrink-0 mr-2" />
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <span className={`text-sm font-semibold transition-colors duration-200 ${!isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
+                  EN
+                </span>
+                <Switch
+                  checked={isArabic}
+                  onCheckedChange={toggleLanguage}
+                  className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/60 h-5 w-9 [&>span]:h-4 [&>span]:w-4 [&>span]:data-[state=checked]:translate-x-4 [&>span]:data-[state=unchecked]:translate-x-0"
+                />
+                <span className={`text-sm font-semibold transition-colors duration-200 ${isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
+                  ع
+                </span>
+              </div>
             </div>
             
             <button 
