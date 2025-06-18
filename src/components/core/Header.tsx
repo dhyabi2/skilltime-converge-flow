@@ -56,8 +56,9 @@ const Header = () => {
   return (
     <>
       <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 sticky top-0 z-50 w-full">
-        <div className="flex items-center justify-between w-full max-w-full">
-          <div className="flex-1 min-w-0 mr-2">
+        <div className="flex items-center justify-between w-full">
+          {/* App Name - Taking more space */}
+          <div className="flex-1 min-w-0 mr-3">
             <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 truncate">
               {t('app.name')}
             </h1>
@@ -66,42 +67,45 @@ const Header = () => {
             </p>
           </div>
           
-          <div className="flex items-center space-x-1 sm:space-x-2 rtl:space-x-reverse flex-shrink-0">
-            {/* Language Toggle - More compact for mobile */}
-            <div className="flex items-center bg-white/30 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1.5 sm:py-2 border border-white/40 shadow-sm">
-              <Languages className="w-3 h-3 sm:w-4 sm:h-4 text-slate-700 flex-shrink-0 mr-1 sm:mr-2" />
-              <div className="flex items-center space-x-1 sm:space-x-2 rtl:space-x-reverse">
-                <span className={`text-xs sm:text-sm font-bold transition-colors duration-200 ${!isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
+          {/* Compact Button Area */}
+          <div className="flex items-center gap-1 sm:gap-1.5 bg-white/20 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1.5 border border-white/30 shadow-sm">
+            {/* Language Toggle - More compact */}
+            <div className="flex items-center gap-1">
+              <Languages className="w-3 h-3 text-slate-700 flex-shrink-0" />
+              <div className="flex items-center gap-0.5">
+                <span className={`text-[10px] sm:text-xs font-bold transition-colors duration-200 ${!isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
                   EN
                 </span>
                 <Switch
                   checked={isArabic}
                   onCheckedChange={toggleLanguage}
-                  className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/60 h-4 w-7 sm:h-5 sm:w-9 [&>span]:h-3 [&>span]:w-3 sm:[&>span]:h-4 sm:[&>span]:w-4 [&>span]:data-[state=checked]:translate-x-3 sm:[&>span]:data-[state=checked]:translate-x-4 [&>span]:data-[state=unchecked]:translate-x-0"
+                  className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/60 h-3 w-5 sm:h-4 sm:w-7 [&>span]:h-2 [&>span]:w-2 sm:[&>span]:h-3 sm:[&>span]:w-3 [&>span]:data-[state=checked]:translate-x-2 sm:[&>span]:data-[state=checked]:translate-x-3 [&>span]:data-[state=unchecked]:translate-x-0"
                 />
-                <span className={`text-xs sm:text-sm font-bold transition-colors duration-200 ${isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
+                <span className={`text-[10px] sm:text-xs font-bold transition-colors duration-200 ${isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
                   ع
                 </span>
               </div>
             </div>
             
+            {/* Search Button */}
             <button 
               onClick={handleSearchClick}
-              className="p-1 sm:p-1.5 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors border border-white/30 flex-shrink-0"
+              className="p-1 rounded-full hover:bg-white/30 transition-colors flex-shrink-0"
             >
-              <Search className="w-3 h-3 sm:w-4 sm:h-4 text-slate-700" />
+              <Search className="w-3 h-3 text-slate-700" />
             </button>
             
+            {/* Notifications */}
             {user && <NotificationPanel userId={user.id} />}
             
-            {/* User Menu - Smaller */}
+            {/* User Menu */}
             {user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 flex-shrink-0 p-0">
-                    <Avatar className="h-5 w-5 sm:h-6 sm:w-6">
+                  <Button variant="ghost" className="relative h-5 w-5 sm:h-6 sm:w-6 rounded-full hover:bg-white/30 flex-shrink-0 p-0">
+                    <Avatar className="h-4 w-4 sm:h-5 sm:w-5">
                       <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email || 'User'} />
-                      <AvatarFallback className="bg-slate-100 text-slate-700 text-xs">
+                      <AvatarFallback className="bg-slate-100 text-slate-700 text-[8px] sm:text-xs">
                         {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0) || 'U'}
                       </AvatarFallback>
                     </Avatar>
