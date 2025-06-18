@@ -73,7 +73,7 @@ const BottomNavigation = () => {
                 }`}
               >
                 <Icon className={`w-5 h-5 sm:w-6 sm:h-6 mb-0.5 sm:mb-1 transition-all duration-200 ${isActive ? 'drop-shadow-sm' : ''}`} />
-                <span className={`text-[10px] sm:text-xs font-medium truncate max-w-[60px] sm:max-w-none transition-all duration-200 ${isActive ? 'font-semibold' : ''}`}>
+                <span className={`text-xs font-medium truncate max-w-[60px] sm:max-w-none transition-all duration-200 ${isActive ? 'font-semibold' : ''}`}>
                   {item.label}
                 </span>
               </button>
