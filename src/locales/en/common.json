@@ -17,6 +17,32 @@
     "popular_searches": "Popular Searches",
     "suggestions": "Suggestions"
   },
+  "buttons": {
+    "search": "Search",
+    "filter": "Filter",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "reset": "Reset"
+  },
+  "labels": {
+    "search_placeholder": "Search skills, providers, or categories...",
+    "skills": "skills",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "status": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "success": "Operation completed successfully",
+    "no_data": "No data available"
+  },
   "notifications": {
     "title": "Notifications",
     "mark_all_read": "Mark all as read",

@@ -17,6 +17,32 @@
     "popular_searches": "عمليات البحث الشائعة",
     "suggestions": "اقتراحات"
   },
+  "buttons": {
+    "search": "بحث",
+    "filter": "تصفية",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إرسال",
+    "reset": "إعادة تعيين"
+  },
+  "labels": {
+    "search_placeholder": "البحث عن المهارات والمقدمين والفئات...",
+    "skills": "مهارات",
+    "loading": "جارٍ التحميل...",
+    "error": "خطأ",
+    "success": "نجح"
+  },
+  "status": {
+    "loading": "جارٍ التحميل...",
+    "error": "حدث خطأ ما",
+    "success": "تمت العملية بنجاح",
+    "no_data": "لا توجد بيانات متاحة"
+  },
   "notifications": {
     "title": "الإشعارات",
     "mark_all_read": "تمييز الكل كمقروء",
