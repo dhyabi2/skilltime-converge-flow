@@ -48,9 +48,9 @@ const BottomNavigation = () => {
   return (
     <nav 
       ref={navRef}
-      className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-50"
+      className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 sm:px-4 py-1 sm:py-2 z-50 w-full"
     >
-      <div className="relative">
+      <div className="relative max-w-md mx-auto">
         <div 
           ref={indicatorRef}
           className="absolute top-0 left-0 w-1/4 h-1 bg-black rounded-full transition-transform duration-300"
@@ -65,14 +65,14 @@ const BottomNavigation = () => {
               <button
                 key={item.path}
                 onClick={() => handleNavClick(item.path, index)}
-                className={`flex flex-col items-center py-2 px-3 rounded-lg transition-all duration-200 ${
+                className={`flex flex-col items-center py-2 px-2 sm:px-3 rounded-lg transition-all duration-200 min-h-[44px] ${
                   isActive 
                     ? 'text-black scale-110' 
                     : 'text-gray-400 hover:text-gray-600'
                 }`}
               >
-                <Icon className={`w-6 h-6 mb-1 ${isActive ? 'animate-pulse' : ''}`} />
-                <span className="text-xs font-medium">{item.label}</span>
+                <Icon className={`w-5 h-5 sm:w-6 sm:h-6 mb-0.5 sm:mb-1 ${isActive ? 'animate-pulse' : ''}`} />
+                <span className="text-xs font-medium truncate max-w-[60px] sm:max-w-none">{item.label}</span>
               </button>
             );
           })}

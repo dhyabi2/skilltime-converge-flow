@@ -55,34 +55,35 @@ const Header = () => {
   
   return (
     <>
-      <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-4 py-3 sticky top-0 z-50">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold text-slate-800">
+      <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 sticky top-0 z-50 w-full">
+        <div className="flex items-center justify-between w-full max-w-full">
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 truncate">
               {t('app.name')}
             </h1>
-            <p className="text-sm text-slate-700/80 font-medium mt-1 italic">
+            <p className="text-xs sm:text-sm text-slate-700/80 font-medium mt-0.5 sm:mt-1 italic truncate">
               {t('app.tagline')}
             </p>
           </div>
-          <div className="flex items-center space-x-3 rtl:space-x-reverse">
+          
+          <div className="flex items-center space-x-2 sm:space-x-3 rtl:space-x-reverse flex-shrink-0">
             {/* Language Toggle */}
-            <div className="flex items-center space-x-2 rtl:space-x-reverse bg-white/20 backdrop-blur-sm rounded-full px-3 py-2 border border-white/30">
-              <Languages className="w-4 h-4 text-slate-700" />
-              <span className="text-xs text-slate-700 font-medium">EN</span>
+            <div className="flex items-center space-x-1 sm:space-x-2 rtl:space-x-reverse bg-white/20 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1.5 sm:py-2 border border-white/30">
+              <Languages className="w-3 h-3 sm:w-4 sm:h-4 text-slate-700 flex-shrink-0" />
+              <span className="text-xs text-slate-700 font-medium hidden sm:inline">EN</span>
               <Switch
                 checked={isArabic}
                 onCheckedChange={toggleLanguage}
-                className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/40"
+                className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/40 scale-75 sm:scale-100"
               />
-              <span className="text-xs text-slate-700 font-medium">AR</span>
+              <span className="text-xs text-slate-700 font-medium hidden sm:inline">AR</span>
             </div>
             
             <button 
               onClick={handleSearchClick}
-              className="p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors border border-white/30"
+              className="p-1.5 sm:p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors border border-white/30 flex-shrink-0"
             >
-              <Search className="w-5 h-5 text-slate-700" />
+              <Search className="w-4 h-4 sm:w-5 sm:h-5 text-slate-700" />
             </button>
             
             {user && <NotificationPanel userId={user.id} />}
@@ -91,10 +92,10 @@ const Header = () => {
             {user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-10 w-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30">
-                    <Avatar className="h-8 w-8">
+                  <Button variant="ghost" className="relative h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/30 flex-shrink-0">
+                    <Avatar className="h-6 w-6 sm:h-8 sm:w-8">
                       <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email || 'User'} />
-                      <AvatarFallback className="bg-slate-100 text-slate-700">
+                      <AvatarFallback className="bg-slate-100 text-slate-700 text-xs sm:text-sm">
                         {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0) || 'U'}
                       </AvatarFallback>
                     </Avatar>
@@ -104,9 +105,9 @@ const Header = () => {
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
                       {user.user_metadata?.full_name && (
-                        <p className="font-medium">{user.user_metadata.full_name}</p>
+                        <p className="font-medium text-sm">{user.user_metadata.full_name}</p>
                       )}
-                      <p className="w-[200px] truncate text-sm text-muted-foreground">
+                      <p className="w-[200px] truncate text-xs text-muted-foreground">
                         {user.email}
                       </p>
                     </div>

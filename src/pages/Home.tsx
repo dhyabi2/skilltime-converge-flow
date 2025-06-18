@@ -76,36 +76,38 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center">
+      <div className="min-h-screen w-full bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-soft-blue-500 mx-auto mb-4"></div>
-          <p className="text-slate-600 font-cairo">{t('status.loading')}</p>
+          <p className="text-slate-600 font-cairo text-sm sm:text-base">{t('status.loading')}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
+    <div className="min-h-screen w-full bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
       <SearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
       
-      <div ref={containerRef} className="px-4 space-y-6 bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
+      <div ref={containerRef} className="w-full px-3 sm:px-4 lg:px-6 space-y-4 sm:space-y-6 bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
         {/* Welcome Section */}
-        <div className="text-center py-4">
-          <div className="bg-gradient-to-r from-white/40 to-mint-100/50 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/30 shadow-sm max-w-md mx-auto">
-            <h2 className="text-2xl font-bold text-slate-800 mb-2 font-cairo">
+        <div className="text-center py-4 sm:py-6">
+          <div className="bg-gradient-to-r from-white/40 to-mint-100/50 backdrop-blur-sm rounded-2xl px-4 sm:px-6 py-4 sm:py-6 border border-white/30 shadow-sm max-w-md mx-auto">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 font-cairo">
               {t('discovery.title')}
             </h2>
-            <p className="text-slate-700 font-cairo">
+            <p className="text-sm sm:text-base text-slate-700 font-cairo">
               {t('discovery.subtitle')}
             </p>
           </div>
         </div>
 
         {/* Categories */}
-        <section>
-          <h3 className="text-xl font-bold text-slate-800 mb-4 font-cairo">{t('discovery.browse_categories')}</h3>
-          <div className="grid grid-cols-1 gap-4">
+        <section className="w-full">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-3 sm:mb-4 font-cairo px-1">
+            {t('discovery.browse_categories')}
+          </h3>
+          <div className="grid grid-cols-1 gap-3 sm:gap-4 w-full">
             {categories.map((category) => (
               <CategoryCard
                 key={category.id}
@@ -122,7 +124,9 @@ const Home = () => {
         </section>
 
         {/* Featured Sections */}
-        <FeaturedSections />
+        <div className="w-full">
+          <FeaturedSections />
+        </div>
       </div>
     </div>
   );
