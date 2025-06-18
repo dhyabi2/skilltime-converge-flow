@@ -78,5 +78,16 @@
     "not_found_desc": "Try adjusting your search terms or category filters",
     "skills_found": "skills found",
     "skill_not_found": "Skill not found"
+  },
+  "filter_modal": {
+    "title": "Filters",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "max_price": "Max price",
+    "placeholder_category": "Select category",
+    "placeholder_subcategory": "Select subcategory",
+    "no_limit": "No limit",
+    "apply": "Apply",
+    "cancel": "Cancel"
   }
 }

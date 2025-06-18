@@ -16,5 +16,15 @@
     "recent_searches": "Recent Searches",
     "popular_searches": "Popular Searches",
     "suggestions": "Suggestions"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "mark_all_read": "Mark all as read",
+    "marked_read": "Marked as read",
+    "marked_read_desc": "Notification marked as read",
+    "all_marked_read": "All notifications marked as read",
+    "all_marked_read_desc": "Great! You're all caught up",
+    "empty": "No notifications yet",
+    "view_all": "View all"
   }
 }

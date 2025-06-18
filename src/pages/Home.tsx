@@ -59,7 +59,7 @@ const Home = () => {
   };
 
   const handleFilterClick = () => {
-    console.log('Opening filters');
+    navigate('/browse');
   };
 
   const handleCategoryClick = (categoryKey: string) => {

@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +34,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   updating 
 }) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ProfileFormData>();
+  const { t } = useTranslation('profile');
 
   useEffect(() => {
     if (profile && isOpen) {
@@ -58,15 +60,15 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogTitle>{t('edit_profile_modal.title')}</DialogTitle>
         </DialogHeader>
         
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <Label htmlFor="name">Full Name</Label>
-            <Input 
+            <Label htmlFor="name">{t('edit_profile_modal.full_name')}</Label>
+            <Input
               id="name"
-              {...register('name', { required: 'Name is required' })}
+              {...register('name', { required: t('edit_profile_modal.full_name') + ' required' })}
               placeholder="Enter your full name"
               className="mt-1"
             />
@@ -76,12 +78,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </div>
 
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('edit_profile_modal.email')}</Label>
             <Input 
               id="email"
               type="email"
               {...register('email', { 
-                required: 'Email is required',
+                required: t('edit_profile_modal.email') + ' required',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: 'Invalid email address'
@@ -96,7 +98,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </div>
 
           <div>
-            <Label htmlFor="avatar">Avatar URL</Label>
+            <Label htmlFor="avatar">{t('edit_profile_modal.avatar_url')}</Label>
             <Input 
               id="avatar"
               {...register('avatar')}
@@ -106,7 +108,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </div>
 
           <div>
-            <Label htmlFor="bio">Bio</Label>
+            <Label htmlFor="bio">{t('edit_profile_modal.bio')}</Label>
             <Textarea
               id="bio"
               {...register('bio')}
@@ -117,7 +119,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </div>
 
           <div>
-            <Label htmlFor="location">Location</Label>
+            <Label htmlFor="location">{t('edit_profile_modal.location')}</Label>
             <Input 
               id="location"
               {...register('location')}
@@ -127,7 +129,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </div>
 
           <div>
-            <Label htmlFor="phone">Phone Number</Label>
+            <Label htmlFor="phone">{t('edit_profile_modal.phone')}</Label>
             <Input 
               id="phone"
               {...register('phone')}
@@ -138,14 +140,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
           <div className="flex justify-end space-x-2 pt-4">
             <Button type="button" variant="outline" onClick={onClose}>
-              Cancel
+              {t('edit_profile_modal.cancel')}
             </Button>
             <Button 
               type="submit" 
               disabled={updating}
               className="bg-soft-blue-600 hover:bg-soft-blue-700"
             >
-              {updating ? 'Saving...' : 'Save Changes'}
+              {updating ? t('edit_profile_modal.saving') : t('edit_profile_modal.save')}
             </Button>
           </div>
         </form>

@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useProfile } from '@/hooks/useProfile';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileStats from '@/components/profile/ProfileStats';
@@ -8,10 +9,12 @@ import SkillsSection from '@/components/profile/SkillsSection';
 import EditProfileModal from '@/components/profile/EditProfileModal';
 import AddSkillModal from '@/components/profile/AddSkillModal';
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const Profile = () => {
   const { t } = useTranslation('profile');
+  const navigate = useNavigate();
   const { profile, loading, updating, updateProfile, addSkill, removeSkill } = useProfile();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isAddSkillModalOpen, setIsAddSkillModalOpen] = useState(false);
@@ -74,6 +77,11 @@ const Profile = () => {
         />
         
         <ProfileStats profile={profile} />
+        <div className="flex justify-end mb-4">
+          <Button size="sm" onClick={() => navigate('/my-skills')}>
+            {t('manage_skills')}
+          </Button>
+        </div>
         
         <SkillsSection 
           profile={profile} 
