@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { useTranslation } from 'react-i18next';
@@ -34,8 +33,8 @@ const Auth = () => {
   const handleGoogleAuth = async () => {
     setLoading(true);
     try {
-      // Use current domain for redirect instead of hardcoded URL
-      const redirectTo = `${window.location.origin}/`;
+      // Redirect to the production domain after successful authentication
+      const redirectTo = 'https://skilltime.life/';
       
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
