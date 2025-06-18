@@ -39,22 +39,22 @@ const CategoryIconFilters: React.FC<CategoryIconFiltersProps> = ({
   };
 
   return (
-    <section className="relative">
+    <section className="relative w-full">
       <h3 className="text-lg font-bold text-slate-800 mb-4">{t('filters.category')}</h3>
-      <div className="relative max-w-full px-8">
+      <div className="relative w-full px-4">
         <Carousel 
           className="w-full"
           opts={{
-            align: "center",
+            align: "start",
             loop: false,
             skipSnaps: false,
             dragFree: true,
             containScroll: "trimSnaps",
           }}
         >
-          <CarouselContent className="ml-4 mr-4">
+          <CarouselContent className="ml-2 mr-2">
             {/* All Categories Button */}
-            <CarouselItem className="basis-auto pl-2 pr-2">
+            <CarouselItem className="basis-auto pl-1 pr-1">
               <button
                 onClick={() => onCategoryFilter('')}
                 disabled={loading}
@@ -75,7 +75,7 @@ const CategoryIconFilters: React.FC<CategoryIconFiltersProps> = ({
 
             {/* Category Icon Buttons */}
             {categories.map((category) => (
-              <CarouselItem key={category.id} className="basis-auto pl-2 pr-2">
+              <CarouselItem key={category.id} className="basis-auto pl-1 pr-1">
                 <button
                   onClick={() => onCategoryFilter(category.title)}
                   disabled={loading}
