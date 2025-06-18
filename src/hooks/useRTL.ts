@@ -1,12 +1,12 @@
-
 import { useEffect, useState } from 'react';
 
 export const useRTL = () => {
-  const [direction, setDirection] = useState<'ltr' | 'rtl'>('ar' === 'ar' ? 'rtl' : 'ltr');
+  // Initialize with a safer default that doesn't depend on string comparison
+  const [direction, setDirection] = useState<'ltr' | 'rtl'>('rtl'); // Default to RTL for Arabic
   const [language, setLanguage] = useState('ar');
   
   useEffect(() => {
-    // Set initial direction based on default language (Arabic)
+    // Set initial direction based on language
     const dir = language === 'ar' ? 'rtl' : 'ltr';
     setDirection(dir);
     document.documentElement.setAttribute('dir', dir);
