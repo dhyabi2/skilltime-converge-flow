@@ -48,12 +48,13 @@ const BottomNavigation = () => {
   return (
     <nav 
       ref={navRef}
-      className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 sm:px-4 py-1 sm:py-2 z-50 w-full"
+      className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200/50 px-2 sm:px-4 py-1 sm:py-2 z-[9999] w-full shadow-lg"
+      style={{ position: 'fixed' }}
     >
       <div className="relative max-w-md mx-auto">
         <div 
           ref={indicatorRef}
-          className="absolute top-0 left-0 w-1/4 h-1 bg-black rounded-full transition-transform duration-300"
+          className="absolute top-0 left-0 w-1/4 h-1 bg-gradient-to-r from-soft-blue-500 to-mint-500 rounded-full transition-transform duration-300 shadow-sm"
           style={{ transform: `translateX(${getActiveIndex() * 100}%)` }}
         />
         <div className="flex justify-around items-center pt-2">
@@ -65,14 +66,16 @@ const BottomNavigation = () => {
               <button
                 key={item.path}
                 onClick={() => handleNavClick(item.path, index)}
-                className={`flex flex-col items-center py-2 px-2 sm:px-3 rounded-lg transition-all duration-200 min-h-[44px] ${
+                className={`flex flex-col items-center py-2 px-2 sm:px-3 rounded-lg transition-all duration-300 min-h-[44px] touch-manipulation ${
                   isActive 
-                    ? 'text-black scale-110' 
-                    : 'text-gray-400 hover:text-gray-600'
+                    ? 'text-soft-blue-600 scale-110 transform' 
+                    : 'text-gray-400 hover:text-gray-600 hover:scale-105'
                 }`}
               >
-                <Icon className={`w-5 h-5 sm:w-6 sm:h-6 mb-0.5 sm:mb-1 ${isActive ? 'animate-pulse' : ''}`} />
-                <span className="text-xs font-medium truncate max-w-[60px] sm:max-w-none">{item.label}</span>
+                <Icon className={`w-5 h-5 sm:w-6 sm:h-6 mb-0.5 sm:mb-1 transition-all duration-200 ${isActive ? 'drop-shadow-sm' : ''}`} />
+                <span className={`text-xs font-medium truncate max-w-[60px] sm:max-w-none transition-all duration-200 ${isActive ? 'font-semibold' : ''}`}>
+                  {item.label}
+                </span>
               </button>
             );
           })}

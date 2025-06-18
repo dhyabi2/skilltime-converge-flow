@@ -82,6 +82,84 @@ export const categoriesAPI = {
           { id: '6-3', title: 'event_photography', skillCount: 10 },
           { id: '6-4', title: 'photo_editing', skillCount: 7 }
         ]
+      },
+      {
+        id: '7',
+        title: 'business',
+        iconType: 'business',
+        skillCount: 78,
+        gradient: 'bg-gradient-to-br from-soft-blue-400 to-mint-300',
+        subcategories: [
+          { id: '7-1', title: 'consulting', skillCount: 25 },
+          { id: '7-2', title: 'finance', skillCount: 20 },
+          { id: '7-3', title: 'project_management', skillCount: 18 },
+          { id: '7-4', title: 'strategy', skillCount: 15 }
+        ]
+      },
+      {
+        id: '8',
+        title: 'education',
+        iconType: 'education',
+        skillCount: 65,
+        gradient: 'bg-gradient-to-br from-mint-400 to-soft-blue-300',
+        subcategories: [
+          { id: '8-1', title: 'tutoring', skillCount: 30 },
+          { id: '8-2', title: 'course_creation', skillCount: 15 },
+          { id: '8-3', title: 'language_teaching', skillCount: 12 },
+          { id: '8-4', title: 'skill_training', skillCount: 8 }
+        ]
+      },
+      {
+        id: '9',
+        title: 'fitness',
+        iconType: 'fitness',
+        skillCount: 42,
+        gradient: 'bg-gradient-to-br from-soft-blue-300 to-mint-400',
+        subcategories: [
+          { id: '9-1', title: 'personal_training', skillCount: 18 },
+          { id: '9-2', title: 'yoga', skillCount: 12 },
+          { id: '9-3', title: 'nutrition', skillCount: 8 },
+          { id: '9-4', title: 'sports_coaching', skillCount: 4 }
+        ]
+      },
+      {
+        id: '10',
+        title: 'technology',
+        iconType: 'technology',
+        skillCount: 95,
+        gradient: 'bg-gradient-to-br from-mint-300 to-soft-blue-400',
+        subcategories: [
+          { id: '10-1', title: 'ai_ml', skillCount: 35 },
+          { id: '10-2', title: 'cybersecurity', skillCount: 25 },
+          { id: '10-3', title: 'cloud_computing', skillCount: 20 },
+          { id: '10-4', title: 'data_science', skillCount: 15 }
+        ]
+      },
+      {
+        id: '11',
+        title: 'arts',
+        iconType: 'arts',
+        skillCount: 58,
+        gradient: 'bg-gradient-to-br from-soft-blue-400 to-mint-300',
+        subcategories: [
+          { id: '11-1', title: 'painting', skillCount: 20 },
+          { id: '11-2', title: 'digital_art', skillCount: 18 },
+          { id: '11-3', title: 'sculpture', skillCount: 12 },
+          { id: '11-4', title: 'illustration', skillCount: 8 }
+        ]
+      },
+      {
+        id: '12',
+        title: 'lifestyle',
+        iconType: 'lifestyle',
+        skillCount: 48,
+        gradient: 'bg-gradient-to-br from-mint-400 to-soft-blue-300',
+        subcategories: [
+          { id: '12-1', title: 'cooking', skillCount: 20 },
+          { id: '12-2', title: 'gardening', skillCount: 15 },
+          { id: '12-3', title: 'home_organization', skillCount: 8 },
+          { id: '12-4', title: 'fashion', skillCount: 5 }
+        ]
       }
     ];
   },

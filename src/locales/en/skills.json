@@ -1,4 +1,3 @@
-
 {
   "discovery": {
     "title": "Discover Amazing Skills",
@@ -16,7 +15,13 @@
     "marketing": "Marketing",
     "writing": "Writing",
     "music": "Music",
-    "photography": "Photography"
+    "photography": "Photography",
+    "business": "Business",
+    "education": "Education",
+    "fitness": "Fitness",
+    "technology": "Technology",
+    "arts": "Arts",
+    "lifestyle": "Lifestyle"
   },
   "subcategories": {
     "ui_ux": "UI/UX Design",
@@ -42,7 +47,31 @@
     "portrait": "Portrait Photography",
     "product_photography": "Product Photography",
     "event_photography": "Event Photography",
-    "photo_editing": "Photo Editing"
+    "photo_editing": "Photo Editing",
+    "consulting": "Business Consulting",
+    "finance": "Finance & Accounting",
+    "project_management": "Project Management",
+    "strategy": "Business Strategy",
+    "tutoring": "Personal Tutoring",
+    "course_creation": "Course Creation",
+    "language_teaching": "Language Teaching",
+    "skill_training": "Skill Training",
+    "personal_training": "Personal Training",
+    "yoga": "Yoga & Meditation",
+    "nutrition": "Nutrition Coaching",
+    "sports_coaching": "Sports Coaching",
+    "ai_ml": "AI & Machine Learning",
+    "cybersecurity": "Cybersecurity",
+    "cloud_computing": "Cloud Computing",
+    "data_science": "Data Science",
+    "painting": "Painting",
+    "digital_art": "Digital Art",
+    "sculpture": "Sculpture",
+    "illustration": "Illustration",
+    "cooking": "Cooking & Baking",
+    "gardening": "Gardening",
+    "home_organization": "Home Organization",
+    "fashion": "Fashion & Style"
   },
   "labels": {
     "top_rated": "Top Rated",

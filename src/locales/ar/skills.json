@@ -1,4 +1,3 @@
-
 {
   "discovery": {
     "title": "اكتشف مهارات مذهلة",
@@ -16,7 +15,13 @@
     "marketing": "التسويق",
     "writing": "الكتابة",
     "music": "الموسيقى",
-    "photography": "التصوير"
+    "photography": "التصوير",
+    "business": "الأعمال",
+    "education": "التعليم",
+    "fitness": "اللياقة البدنية",
+    "technology": "التكنولوجيا",
+    "arts": "الفنون",
+    "lifestyle": "نمط الحياة"
   },
   "subcategories": {
     "ui_ux": "تصميم واجهات المستخدم",
@@ -42,7 +47,31 @@
     "portrait": "التصوير الشخصي",
     "product_photography": "تصوير المنتجات",
     "event_photography": "تصوير الفعاليات",
-    "photo_editing": "تحرير الصور"
+    "photo_editing": "تحرير الصور",
+    "consulting": "الاستشارات التجارية",
+    "finance": "المالية والمحاسبة",
+    "project_management": "إدارة المشاريع",
+    "strategy": "الاستراتيجية التجارية",
+    "tutoring": "التدريس الخاص",
+    "course_creation": "إنشاء الدورات",
+    "language_teaching": "تعليم اللغات",
+    "skill_training": "تدريب المهارات",
+    "personal_training": "التدريب الشخصي",
+    "yoga": "اليوغا والتأمل",
+    "nutrition": "التدريب الغذائي",
+    "sports_coaching": "تدريب الرياضة",
+    "ai_ml": "الذكاء الاصطناعي وتعلم الآلة",
+    "cybersecurity": "الأمن السيبراني",
+    "cloud_computing": "الحوسبة السحابية",
+    "data_science": "علوم البيانات",
+    "painting": "الرسم",
+    "digital_art": "الفن الرقمي",
+    "sculpture": "النحت",
+    "illustration": "التوضيح",
+    "cooking": "الطبخ والخبز",
+    "gardening": "البستنة",
+    "home_organization": "تنظيم المنزل",
+    "fashion": "الموضة والأناقة"
   },
   "labels": {
     "top_rated": "الأعلى تقييمًا",
