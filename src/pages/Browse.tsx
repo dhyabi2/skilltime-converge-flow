@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -180,63 +179,79 @@ const Browse = () => {
           onHomeClick={handleHomeClick}
         />
 
-        {/* Category Filters */}
+        {/* Category Icon Filters */}
         <section>
-          <h3 className="text-lg font-bold text-slate-800 mb-3">{t('filters.category')}</h3>
-          <div className="flex overflow-x-auto space-x-3 rtl:space-x-reverse pb-2">
-            <button
-              onClick={() => handleCategoryFilter('')}
-              className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
-                selectedCategory === '' 
-                  ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-md' 
-                  : 'bg-white/70 backdrop-blur-sm text-slate-700 border border-soft-blue-200 hover:bg-white/90'
-              }`}
-            >
-              {t('categories.all')}
-            </button>
-            {categories.map((category) => (
+          <h3 className="text-lg font-bold text-slate-800 mb-4">{t('filters.category')}</h3>
+          <div className="flex justify-center">
+            <div className="flex items-center space-x-2 rtl:space-x-reverse bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-sm border border-soft-blue-100">
+              {/* All Categories Button */}
               <button
-                key={category.id}
-                onClick={() => handleCategoryFilter(category.title)}
-                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors flex items-center space-x-2 rtl:space-x-reverse ${
-                  selectedCategory === category.title 
-                    ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-md' 
-                    : 'bg-white/70 backdrop-blur-sm text-slate-700 border border-soft-blue-200 hover:bg-white/90'
+                onClick={() => handleCategoryFilter('')}
+                className={`p-3 rounded-xl transition-all duration-300 ${
+                  selectedCategory === '' 
+                    ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-lg transform scale-110' 
+                    : 'bg-white/70 hover:bg-white hover:shadow-md text-slate-600'
                 }`}
+                title={t('categories.all')}
               >
-                <span className="text-lg">{getCategoryEmoji(category.iconType)}</span>
-                <span>{t(`categories.${category.title}`)}</span>
+                <div className="text-2xl">🌟</div>
               </button>
-            ))}
+
+              {/* Category Icon Buttons */}
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => handleCategoryFilter(category.title)}
+                  className={`p-3 rounded-xl transition-all duration-300 ${
+                    selectedCategory === category.title 
+                      ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-lg transform scale-110' 
+                      : 'bg-white/70 hover:bg-white hover:shadow-md text-slate-600'
+                  }`}
+                  title={t(`categories.${category.title}`)}
+                >
+                  <div className="text-2xl">{getCategoryEmoji(category.iconType)}</div>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Subcategory Filters */}
+        {/* Subcategory Label Filters */}
         {selectedCategory && subcategories.length > 0 && (
           <section>
-            <h3 className="text-lg font-bold text-slate-800 mb-3">{t('filters.subcategory')}</h3>
-            <div className="flex overflow-x-auto space-x-3 rtl:space-x-reverse pb-2">
+            <h3 className="text-lg font-bold text-slate-800 mb-4">{t('filters.subcategory')}</h3>
+            <div className="flex flex-wrap gap-2 justify-center">
+              {/* All Subcategories */}
               <button
                 onClick={() => handleSubcategoryFilter('')}
-                className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   selectedSubcategory === '' 
                     ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' 
-                    : 'bg-white/70 backdrop-blur-sm text-slate-700 border border-purple-200 hover:bg-white/90'
+                    : 'bg-white/80 backdrop-blur-sm text-slate-700 border border-purple-200 hover:bg-white hover:shadow-sm hover:border-purple-300'
                 }`}
               >
                 {t('categories.all')}
               </button>
+
+              {/* Subcategory Labels */}
               {subcategories.map((subcategory) => (
                 <button
                   key={subcategory.id}
                   onClick={() => handleSubcategoryFilter(subcategory.title)}
-                  className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
                     selectedSubcategory === subcategory.title 
                       ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' 
-                      : 'bg-white/70 backdrop-blur-sm text-slate-700 border border-purple-200 hover:bg-white/90'
+                      : 'bg-white/80 backdrop-blur-sm text-slate-700 border border-purple-200 hover:bg-white hover:shadow-sm hover:border-purple-300'
                   }`}
                 >
-                  {t(`subcategories.${subcategory.title}`)} ({subcategory.skillCount})
+                  <span>{t(`subcategories.${subcategory.title}`)}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${
+                    selectedSubcategory === subcategory.title 
+                      ? 'bg-white/20 text-white' 
+                      : 'bg-purple-100 text-purple-600'
+                  }`}>
+                    {subcategory.skillCount}
+                  </span>
                 </button>
               ))}
             </div>
