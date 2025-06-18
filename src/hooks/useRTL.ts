@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useRTL = () => {
   const [direction, setDirection] = useState<'ltr' | 'rtl'>('ar' === 'ar' ? 'rtl' : 'ltr');
