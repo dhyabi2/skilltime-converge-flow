@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { startReactHealthMonitoring } from '@/utils/reactValidation';
+import { startReactHealthMonitoring } from '../../utils/reactValidation';
 
 /**
  * Development component to monitor React context health
