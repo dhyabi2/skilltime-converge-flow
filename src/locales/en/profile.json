@@ -1,5 +1,9 @@
 
 {
   "title": "Profile",
-  "coming_soon": "Profile page coming soon..."
+  "coming_soon": "Profile page coming soon...",
+  "manage_skills": "Manage Skills",
+  "my_skills_title": "My Skills",
+  "no_skills": "You haven't added any skills yet.",
+  "add_skill": "Add Skill"
 }
