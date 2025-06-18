@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Languages, LogOut, User, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -136,9 +135,6 @@ const Header = () => {
             <h1 className="text-base sm:text-lg lg:text-xl font-bold text-slate-800 truncate">
               {t('app.name')}
             </h1>
-            <p className="text-[10px] sm:text-xs text-slate-700/80 font-medium mt-0.5 italic truncate">
-              {t('app.tagline')}
-            </p>
           </div>
         </div>
       </header>

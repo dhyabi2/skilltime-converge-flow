@@ -1,8 +1,7 @@
 
 {
   "app": {
-    "name": "SkillSwap",
-    "tagline": "Exchange skills, grow together"
+    "name": "SkillSwap"
   },
   "navigation": {
     "home": "Home",
