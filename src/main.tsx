@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import './i18n/config';
-import { validateReactContext, startReactHealthMonitoring } from './utils/reactValidation';
+import { validateReactContext, startReactHealthMonitoring } from '@/utils/reactValidation';
 
 // Enhanced React validation with early error detection
 const initializeApp = async () => {
