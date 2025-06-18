@@ -1,10 +1,13 @@
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import SkillCard from '../components/discovery/SkillCard';
 import SearchBar from '../components/discovery/SearchBar';
 import CategoryBreadcrumb from '../components/discovery/CategoryBreadcrumb';
+import CategoryIconFilters from '../components/discovery/CategoryIconFilters';
+import SubcategoryLabelFilters from '../components/discovery/SubcategoryLabelFilters';
+import SkillResults from '../components/discovery/SkillResults';
 import FilterModal from '../components/search/FilterModal';
 import { skillsAPI, searchAPI, categoriesAPI } from '../services';
 
@@ -138,19 +141,6 @@ const Browse = () => {
     navigate('/');
   };
 
-  // Helper function to get emoji for category
-  const getCategoryEmoji = (iconType: string) => {
-    const emojiMap: { [key: string]: string } = {
-      'design': '🎨',
-      'development': '💻',
-      'marketing': '📈',
-      'writing': '✍️',
-      'music': '🎵',
-      'photography': '📸'
-    };
-    return emojiMap[iconType] || '🎨';
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center">
@@ -180,119 +170,31 @@ const Browse = () => {
         />
 
         {/* Category Icon Filters */}
-        <section>
-          <h3 className="text-lg font-bold text-slate-800 mb-4">{t('filters.category')}</h3>
-          <div className="flex justify-center">
-            <div className="flex items-center space-x-2 rtl:space-x-reverse bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-sm border border-soft-blue-100">
-              {/* All Categories Button */}
-              <button
-                onClick={() => handleCategoryFilter('')}
-                className={`p-3 rounded-xl transition-all duration-300 ${
-                  selectedCategory === '' 
-                    ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-lg transform scale-110' 
-                    : 'bg-white/70 hover:bg-white hover:shadow-md text-slate-600'
-                }`}
-                title={t('categories.all')}
-              >
-                <div className="text-2xl">🌟</div>
-              </button>
-
-              {/* Category Icon Buttons */}
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategoryFilter(category.title)}
-                  className={`p-3 rounded-xl transition-all duration-300 ${
-                    selectedCategory === category.title 
-                      ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-lg transform scale-110' 
-                      : 'bg-white/70 hover:bg-white hover:shadow-md text-slate-600'
-                  }`}
-                  title={t(`categories.${category.title}`)}
-                >
-                  <div className="text-2xl">{getCategoryEmoji(category.iconType)}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
+        <CategoryIconFilters
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryFilter={handleCategoryFilter}
+        />
 
         {/* Subcategory Label Filters */}
-        {selectedCategory && subcategories.length > 0 && (
-          <section>
-            <h3 className="text-lg font-bold text-slate-800 mb-4">{t('filters.subcategory')}</h3>
-            <div className="flex flex-wrap gap-2 justify-center">
-              {/* All Subcategories */}
-              <button
-                onClick={() => handleSubcategoryFilter('')}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  selectedSubcategory === '' 
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' 
-                    : 'bg-white/80 backdrop-blur-sm text-slate-700 border border-purple-200 hover:bg-white hover:shadow-sm hover:border-purple-300'
-                }`}
-              >
-                {t('categories.all')}
-              </button>
-
-              {/* Subcategory Labels */}
-              {subcategories.map((subcategory) => (
-                <button
-                  key={subcategory.id}
-                  onClick={() => handleSubcategoryFilter(subcategory.title)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
-                    selectedSubcategory === subcategory.title 
-                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' 
-                      : 'bg-white/80 backdrop-blur-sm text-slate-700 border border-purple-200 hover:bg-white hover:shadow-sm hover:border-purple-300'
-                  }`}
-                >
-                  <span>{t(`subcategories.${subcategory.title}`)}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${
-                    selectedSubcategory === subcategory.title 
-                      ? 'bg-white/20 text-white' 
-                      : 'bg-purple-100 text-purple-600'
-                  }`}>
-                    {subcategory.skillCount}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </section>
+        {selectedCategory && (
+          <SubcategoryLabelFilters
+            subcategories={subcategories}
+            selectedSubcategory={selectedSubcategory}
+            onSubcategoryFilter={handleSubcategoryFilter}
+          />
         )}
 
         {/* Results */}
-        <section>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-slate-800">
-              {searchQuery ? `${t('discovery.search_results')} "${searchQuery}"` : 
-               selectedSubcategory ? t(`subcategories.${selectedSubcategory}`) :
-               selectedCategory ? t(`categories.${selectedCategory}`) :
-               t('discovery.all_skills')}
-            </h3>
-            <span className="text-sm text-slate-600">
-              {skills.length} {t('status.skills_found')}
-            </span>
-          </div>
-          
-          {skills.length > 0 ? (
-            <div className="space-y-4">
-              {skills.map((skill) => (
-                <SkillCard
-                  key={skill.id}
-                  {...skill}
-                  onClick={() => handleSkillClick(skill.id)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="text-4xl mb-4">🔍</div>
-              <h4 className="text-lg font-semibold text-slate-800 mb-2">{t('status.not_found')}</h4>
-              <p className="text-slate-600">
-                {t('status.not_found_desc')}
-              </p>
-            </div>
-          )}
-        </section>
+        <SkillResults
+          skills={skills}
+          searchQuery={searchQuery}
+          selectedCategory={selectedCategory}
+          selectedSubcategory={selectedSubcategory}
+          onSkillClick={handleSkillClick}
+        />
       </div>
+
       <FilterModal
         isOpen={filtersOpen}
         onClose={() => setFiltersOpen(false)}
