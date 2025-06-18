@@ -78,5 +78,16 @@
     "not_found_desc": "حاول تعديل مصطلحات البحث أو مرشحات الفئة",
     "skills_found": "مهارة موجودة",
     "skill_not_found": "المهارة غير موجودة"
+  },
+  "filter_modal": {
+    "title": "المرشحات",
+    "category": "الفئة",
+    "subcategory": "الفئة الفرعية",
+    "max_price": "أقصى سعر",
+    "placeholder_category": "اختر فئة",
+    "placeholder_subcategory": "اختر فئة فرعية",
+    "no_limit": "بدون حد",
+    "apply": "تطبيق",
+    "cancel": "إلغاء"
   }
 }

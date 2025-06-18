@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,13 +12,14 @@ interface AddSkillModalProps {
   onAddSkill: (skill: string) => Promise<boolean>;
 }
 
-const AddSkillModal: React.FC<AddSkillModalProps> = ({ 
-  isOpen, 
-  onClose, 
-  onAddSkill 
+const AddSkillModal: React.FC<AddSkillModalProps> = ({
+  isOpen,
+  onClose,
+  onAddSkill
 }) => {
   const [skill, setSkill] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useTranslation('profile');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,13 +43,13 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add New Skill</DialogTitle>
+          <DialogTitle>{t('add_skill_modal.title')}</DialogTitle>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="skill">Skill Name</Label>
-            <Input 
+            <Label htmlFor="skill">{t('add_skill_modal.label')}</Label>
+            <Input
               id="skill"
               value={skill}
               onChange={(e) => setSkill(e.target.value)}
@@ -59,14 +61,14 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({
 
           <div className="flex justify-end space-x-2 pt-4">
             <Button type="button" variant="outline" onClick={handleClose}>
-              Cancel
+              {t('add_skill_modal.cancel')}
             </Button>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={isSubmitting || !skill.trim()}
               className="bg-soft-blue-600 hover:bg-soft-blue-700"
             >
-              {isSubmitting ? 'Adding...' : 'Add Skill'}
+              {isSubmitting ? t('add_skill_modal.adding') : t('add_skill_modal.add')}
             </Button>
           </div>
         </form>

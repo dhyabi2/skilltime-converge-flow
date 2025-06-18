@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -21,6 +22,7 @@ interface FilterModalProps {
 const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, onApply, initialValues }) => {
   const [categories, setCategories] = useState<any[]>([]);
   const [values, setValues] = useState<FilterValues>(initialValues || {});
+  const { t } = useTranslation('skills');
 
   useEffect(() => {
     categoriesAPI.getAll().then(setCategories).catch(console.error);
@@ -41,14 +43,14 @@ const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, onApply, ini
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Filters</DialogTitle>
+          <DialogTitle>{t('filter_modal.title')}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <p className="mb-1 text-sm font-medium">Category</p>
+            <p className="mb-1 text-sm font-medium">{t('filter_modal.category')}</p>
             <Select value={values.category} onValueChange={v => setValues({ ...values, category: v, subcategory: '' })}>
               <SelectTrigger>
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder={t('filter_modal.placeholder_category')} />
               </SelectTrigger>
               <SelectContent>
                 {categories.map(cat => (
@@ -59,10 +61,10 @@ const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, onApply, ini
           </div>
           {subcategories.length > 0 && (
             <div>
-              <p className="mb-1 text-sm font-medium">Subcategory</p>
+              <p className="mb-1 text-sm font-medium">{t('filter_modal.subcategory')}</p>
               <Select value={values.subcategory} onValueChange={v => setValues({ ...values, subcategory: v })}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select subcategory" />
+                  <SelectValue placeholder={t('filter_modal.placeholder_subcategory')} />
                 </SelectTrigger>
                 <SelectContent>
                   {subcategories.map((sub: any) => (
@@ -73,17 +75,17 @@ const FilterModal: React.FC<FilterModalProps> = ({ isOpen, onClose, onApply, ini
             </div>
           )}
           <div>
-            <p className="mb-1 text-sm font-medium">Max price</p>
+            <p className="mb-1 text-sm font-medium">{t('filter_modal.max_price')}</p>
             <Input
               type="number"
               value={values.maxPrice ?? ''}
               onChange={e => setValues({ ...values, maxPrice: Number(e.target.value) })}
-              placeholder="No limit"
+              placeholder={t('filter_modal.no_limit')}
             />
           </div>
           <div className="flex justify-end pt-2 space-x-2 rtl:space-x-reverse">
-            <Button variant="outline" onClick={onClose}>Cancel</Button>
-            <Button onClick={handleApply}>Apply</Button>
+            <Button variant="outline" onClick={onClose}>{t('filter_modal.cancel')}</Button>
+            <Button onClick={handleApply}>{t('filter_modal.apply')}</Button>
           </div>
         </div>
       </DialogContent>
