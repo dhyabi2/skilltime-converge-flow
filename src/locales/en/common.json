@@ -30,14 +30,16 @@
     "submit": "Submit",
     "reset": "Reset",
     "try_again": "Try Again",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "book_now": "Book Now"
   },
   "labels": {
     "search_placeholder": "Search skills, providers, or categories...",
     "skills": "skills",
     "loading": "Loading...",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "reviews": "Reviews"
   },
   "status": {
     "loading": "Loading...",

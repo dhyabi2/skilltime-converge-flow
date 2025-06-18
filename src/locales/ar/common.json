@@ -31,14 +31,16 @@
     "reset": "إعادة تعيين",
     "try_again": "حاول مرة أخرى",
     "refresh": "تحديث",
-    "install_app": "تثبيت التطبيق"
+    "install_app": "تثبيت التطبيق",
+    "book_now": "احجز الآن"
   },
   "labels": {
     "search_placeholder": "البحث عن المهارات والمقدمين والفئات...",
     "skills": "مهارات",
     "loading": "جارٍ التحميل...",
     "error": "خطأ",
-    "success": "نجح"
+    "success": "نجح",
+    "reviews": "التقييمات"
   },
   "status": {
     "loading": "جارٍ التحميل...",

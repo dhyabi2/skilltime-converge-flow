@@ -25,16 +25,16 @@ export default {
         'sans': ['Cairo', 'Tajawal', 'Oswald', 'Bebas Neue', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        'xs': ['0.75rem', { lineHeight: '1.4' }], // Reduced from 0.8rem
-        'sm': ['0.875rem', { lineHeight: '1.5' }], // Reduced from 0.95rem
-        'base': ['1rem', { lineHeight: '1.6' }], // Reduced from 1.1rem
-        'lg': ['1.125rem', { lineHeight: '1.6' }], // Reduced from 1.25rem
-        'xl': ['1.25rem', { lineHeight: '1.5' }], // Reduced from 1.4rem
-        '2xl': ['1.5rem', { lineHeight: '1.4' }], // Reduced from 1.75rem
-        '3xl': ['1.875rem', { lineHeight: '1.3' }], // Reduced from 2.1rem
-        '4xl': ['2.25rem', { lineHeight: '1.2' }], // Reduced from 2.5rem
-        '5xl': ['2.5rem', { lineHeight: '1.1' }], // Reduced from 3rem
-        '6xl': ['3rem', { lineHeight: '1' }], // Reduced from 3.75rem
+        'xs': ['0.7rem', { lineHeight: '1.4' }], // Reduced from 0.75rem
+        'sm': ['0.8rem', { lineHeight: '1.5' }], // Reduced from 0.875rem
+        'base': ['0.9rem', { lineHeight: '1.6' }], // Reduced from 1rem
+        'lg': ['1rem', { lineHeight: '1.6' }], // Reduced from 1.125rem
+        'xl': ['1.1rem', { lineHeight: '1.5' }], // Reduced from 1.25rem
+        '2xl': ['1.3rem', { lineHeight: '1.4' }], // Reduced from 1.5rem
+        '3xl': ['1.6rem', { lineHeight: '1.3' }], // Reduced from 1.875rem
+        '4xl': ['1.9rem', { lineHeight: '1.2' }], // Reduced from 2.25rem
+        '5xl': ['2.1rem', { lineHeight: '1.1' }], // Reduced from 2.5rem
+        '6xl': ['2.5rem', { lineHeight: '1' }], // Reduced from 3rem
       },
       colors: {
         border: "hsl(var(--border))",
