@@ -28,7 +28,9 @@
     "back": "Back",
     "next": "Next",
     "submit": "Submit",
-    "reset": "Reset"
+    "reset": "Reset",
+    "try_again": "Try Again",
+    "refresh": "Refresh"
   },
   "labels": {
     "search_placeholder": "Search skills, providers, or categories...",
@@ -52,5 +54,15 @@
     "all_marked_read_desc": "Great! You're all caught up",
     "empty": "No notifications yet",
     "view_all": "View all"
+  },
+  "offline": {
+    "title": "You're offline",
+    "description": "Please check your internet connection and try again."
+  },
+  "errors": {
+    "page_not_found": "Page not found",
+    "go_home": "Go to Home",
+    "something_wrong": "Something went wrong",
+    "try_again": "Try again"
   }
 }
