@@ -57,7 +57,7 @@ const Header = () => {
     <>
       <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 sticky top-0 z-50 w-full">
         <div className="flex items-center justify-between w-full">
-          {/* Compact Button Area - Left Half */}
+          {/* Icons Area - Left Half */}
           <div className="flex items-center gap-1 sm:gap-1.5 bg-white/20 backdrop-blur-sm rounded-full px-2 sm:px-2.5 py-1 border border-white/30 shadow-sm w-1/2 justify-start">
             {/* Language Toggle - More compact */}
             <div className="flex items-center gap-0.5">
