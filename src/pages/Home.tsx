@@ -80,7 +80,7 @@ const Home = () => {
     if (loading) {
       return (
         <section className="w-full">
-          <div className="h-7 bg-gray-200 rounded w-48 animate-pulse mb-4 px-1"></div>
+          <div className="h-7 glass-card rounded w-48 animate-pulse mb-4 px-1 glass-shimmer"></div>
           <div className="grid grid-cols-1 gap-3 sm:gap-4 w-full">
             {[...Array(4)].map((_, index) => (
               <CategoryCardSkeleton key={index} />
@@ -92,7 +92,7 @@ const Home = () => {
 
     return (
       <section className="w-full">
-        <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-3 sm:mb-4 font-cairo px-1">
+        <h3 className="glass-card rounded-xl px-4 py-2 text-lg sm:text-xl font-bold text-slate-800 mb-3 sm:mb-4 font-cairo border border-white/20 inline-block glass-float">
           {t('discovery.browse_categories')}
         </h3>
         <div className="grid grid-cols-1 gap-3 sm:gap-4 w-full">
@@ -115,8 +115,8 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen w-full bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center p-4">
-        <div className="text-center">
+      <div className="min-h-screen w-full liquid-bg flex items-center justify-center p-4">
+        <div className="text-center glass-morphism rounded-2xl p-8 border border-white/20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-soft-blue-500 mx-auto mb-4"></div>
           <p className="text-slate-600 font-cairo text-sm sm:text-base">{t('status.loading')}</p>
         </div>
@@ -125,13 +125,13 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
+    <div className="min-h-screen w-full liquid-bg">
       <SearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
       
-      <div ref={containerRef} className="w-full px-3 sm:px-4 lg:px-6 space-y-4 sm:space-y-6 bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
+      <div ref={containerRef} className="w-full px-3 sm:px-4 lg:px-6 space-y-4 sm:space-y-6 liquid-bg">
         {/* Welcome Section */}
         <div className="text-center py-4 sm:py-6">
-          <div className="bg-gradient-to-r from-white/40 to-mint-100/50 backdrop-blur-sm rounded-2xl px-4 sm:px-6 py-4 sm:py-6 border border-white/30 shadow-sm max-w-md mx-auto">
+          <div className="glass-morphism rounded-2xl px-4 sm:px-6 py-4 sm:py-6 border border-white/30 shadow-sm max-w-md mx-auto glass-float glass-shimmer">
             <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 font-cairo">
               {t('discovery.title')}
             </h2>
