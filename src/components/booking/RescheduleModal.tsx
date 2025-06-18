@@ -77,7 +77,7 @@ const RescheduleModal = ({ isOpen, onClose, booking, onRescheduleSuccess }: Resc
               <div className="p-2 bg-soft-blue-100 rounded-xl">
                 <Calendar className="h-6 w-6 text-soft-blue-600" />
               </div>
-              Reschedule Booking
+              {t('reschedule.title')}
             </DialogTitle>
           </DialogHeader>
 
@@ -89,7 +89,7 @@ const RescheduleModal = ({ isOpen, onClose, booking, onRescheduleSuccess }: Resc
                   <CheckCircle className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-800 text-sm">Current Booking</p>
+                  <p className="font-semibold text-slate-800 text-sm">{t('reschedule.current_booking')}</p>
                   <p className="text-slate-600 text-xs">Tap to reschedule</p>
                 </div>
               </div>
@@ -117,7 +117,7 @@ const RescheduleModal = ({ isOpen, onClose, booking, onRescheduleSuccess }: Resc
                 <div className="w-8 h-8 bg-soft-blue-100 rounded-lg flex items-center justify-center">
                   <Calendar className="w-4 h-4 text-soft-blue-600" />
                 </div>
-                <h3 className="font-semibold text-slate-800">Select New Date</h3>
+                <h3 className="font-semibold text-slate-800">{t('reschedule.select_new_date')}</h3>
               </div>
               
               <CalendarComponent
@@ -144,7 +144,7 @@ const RescheduleModal = ({ isOpen, onClose, booking, onRescheduleSuccess }: Resc
                     <Clock className="w-4 h-4 text-mint-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-800">Select Time</h3>
+                    <h3 className="font-semibold text-slate-800">{t('reschedule.select_time')}</h3>
                     <p className="text-xs text-slate-600">{formatDate(selectedDate)}</p>
                   </div>
                 </div>
@@ -177,7 +177,7 @@ const RescheduleModal = ({ isOpen, onClose, booking, onRescheduleSuccess }: Resc
                 className="flex-1 h-12 rounded-xl bg-white/50 hover:bg-white/80 border-slate-200 text-slate-700 font-medium"
                 disabled={isLoading}
               >
-                Cancel
+                {t('actions.cancel')}
               </Button>
               <Button
                 onClick={handleReschedule}
@@ -187,10 +187,10 @@ const RescheduleModal = ({ isOpen, onClose, booking, onRescheduleSuccess }: Resc
                 {isLoading ? (
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    Rescheduling...
+                    {t('reschedule.rescheduling')}
                   </div>
                 ) : (
-                  'Confirm Reschedule'
+                  t('reschedule.confirm_reschedule')
                 )}
               </Button>
             </div>
@@ -198,7 +198,7 @@ const RescheduleModal = ({ isOpen, onClose, booking, onRescheduleSuccess }: Resc
             {/* Notice with elegant styling */}
             <div className="bg-amber-50/50 border border-amber-200/50 rounded-xl p-3 text-center">
               <p className="text-xs text-amber-700 font-medium">
-                ⏰ You can reschedule up to 24 hours before your appointment
+                {t('reschedule.notice')}
               </p>
             </div>
           </div>

@@ -17,6 +17,15 @@
     "cancel": "إلغاء",
     "reschedule": "إعادة جدولة"
   },
+  "reschedule": {
+    "title": "إعادة جدولة الحجز",
+    "current_booking": "الحجز الحالي",
+    "select_new_date": "اختر تاريخًا جديدًا",
+    "select_time": "اختر الوقت",
+    "confirm_reschedule": "تأكيد إعادة الجدولة",
+    "rescheduling": "جارٍ إعادة الجدولة...",
+    "notice": "⏰ يمكنك إعادة الجدولة حتى 24 ساعة قبل موعدك"
+  },
   "confirmation": {
     "title": "تم تأكيد الحجز!",
     "subtitle": "تم حجز جلستك بنجاح",
