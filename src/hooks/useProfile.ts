@@ -82,16 +82,17 @@ export const useProfile = () => {
           return;
         }
 
-        // Use the newly created profile
+        // Use the newly created profile with type assertion
+        const typedProfile = newProfile as any;
         setProfile({
-          id: newProfile.id,
-          name: newProfile.name || '',
-          email: newProfile.email || '',
-          avatar: newProfile.avatar || '',
-          bio: newProfile.bio || '',
-          location: newProfile.location || '',
-          phone: newProfile.phone || '',
-          joinedDate: newProfile.created_at,
+          id: typedProfile.id,
+          name: typedProfile.name || '',
+          email: typedProfile.email || '',
+          avatar: typedProfile.avatar || '',
+          bio: typedProfile.bio || '',
+          location: typedProfile.location || '',
+          phone: typedProfile.phone || '',
+          joinedDate: typedProfile.created_at,
           completedBookings: 0,
           rating: 0,
           skills: [],
@@ -123,15 +124,17 @@ export const useProfile = () => {
       const skills = skillsData?.map((item: any) => item.skill) || [];
       const badges = badgesData?.map((item: any) => item.badge) || [];
 
+      // Type assert the profileData to fix TypeScript errors
+      const typedProfileData = profileData as any;
       setProfile({
-        id: profileData.id,
-        name: profileData.name || '',
-        email: profileData.email || '',
-        avatar: profileData.avatar || '',
-        bio: profileData.bio || '',
-        location: profileData.location || '',
-        phone: profileData.phone || '',
-        joinedDate: profileData.created_at,
+        id: typedProfileData.id,
+        name: typedProfileData.name || '',
+        email: typedProfileData.email || '',
+        avatar: typedProfileData.avatar || '',
+        bio: typedProfileData.bio || '',
+        location: typedProfileData.location || '',
+        phone: typedProfileData.phone || '',
+        joinedDate: typedProfileData.created_at,
         completedBookings: 0, // This would come from a bookings table
         rating: 0, // This would come from a reviews/ratings table
         skills,
