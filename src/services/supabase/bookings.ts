@@ -12,7 +12,7 @@ export const bookingsService = {
       .from('bookings')
       .select(`
         *,
-        skills(title, image_url),
+        skills!skill_id(title, image_url),
         client:profiles!client_id(name, avatar),
         provider:profiles!provider_id(name, avatar)
       `)
@@ -28,7 +28,7 @@ export const bookingsService = {
       .from('bookings')
       .select(`
         *,
-        skills(title, description, image_url),
+        skills!skill_id(title, description, image_url),
         client:profiles!client_id(name, avatar, email),
         provider:profiles!provider_id(name, avatar, email)
       `)
@@ -45,7 +45,7 @@ export const bookingsService = {
       .insert(booking)
       .select(`
         *,
-        skills(title, image_url),
+        skills!skill_id(title, image_url),
         client:profiles!client_id(name),
         provider:profiles!provider_id(name)
       `)
@@ -86,7 +86,7 @@ export const bookingsService = {
       .from('bookings')
       .select(`
         *,
-        skills(title, image_url),
+        skills!skill_id(title, image_url),
         client:profiles!client_id(name, avatar),
         provider:profiles!provider_id(name, avatar)
       `)
@@ -104,7 +104,7 @@ export const bookingsService = {
       .from('bookings')
       .select(`
         *,
-        skills(title, image_url),
+        skills!skill_id(title, image_url),
         client:profiles!client_id(name, avatar),
         provider:profiles!provider_id(name, avatar)
       `)
