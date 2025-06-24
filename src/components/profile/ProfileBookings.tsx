@@ -4,11 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, MapPin, User, Plus, Eye } from 'lucide-react';
-import { useRealBookings } from '@/hooks/useRealBookings';
+import { useUserBookings } from '@/hooks/useRealBookings';
 import BookingDetailModal from './modals/BookingDetailModal';
 
 const ProfileBookings = () => {
-  const { data: bookings = [], isLoading } = useRealBookings();
+  const { data: bookings = [], isLoading } = useUserBookings();
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
 
   const getStatusColor = (status: string) => {

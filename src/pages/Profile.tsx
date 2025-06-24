@@ -136,7 +136,7 @@ const Profile = () => {
             </TabsContent>
             
             <TabsContent value="bookings" className="p-3 sm:p-6 mt-0 animate-fade-in">
-              <ProfileBookings userId={profile.id} />
+              <ProfileBookings />
             </TabsContent>
             
             <TabsContent value="reviews" className="p-3 sm:p-6 mt-0 animate-fade-in">
