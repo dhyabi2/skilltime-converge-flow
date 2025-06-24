@@ -1,5 +1,5 @@
+
 import React from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { Bell, Check, CheckCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +10,8 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { notificationsAPI } from '@/services/modules/notifications';
 import { formatDistanceToNow } from 'date-fns';
-import { toast } from '@/hooks/use-toast';
+import { useNotifications, useMarkNotificationAsRead, useMarkAllNotificationsAsRead } from '@/hooks/useNotifications';
 
 interface NotificationPanelProps {
   userId: string;
@@ -20,35 +19,11 @@ interface NotificationPanelProps {
 
 const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
   const { t } = useTranslation('common');
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { data: notifications = [], isLoading } = useQuery({
-    queryKey: ['notifications', userId],
-    queryFn: () => notificationsAPI.getAll(userId),
-  });
-
-  const markAsReadMutation = useMutation({
-    mutationFn: (notificationId: string) => notificationsAPI.markAsRead(notificationId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notifications', userId] });
-      toast({
-        title: t('notifications.marked_read'),
-        description: t('notifications.marked_read_desc'),
-      });
-    },
-  });
-
-  const markAllAsReadMutation = useMutation({
-    mutationFn: () => notificationsAPI.markAllAsRead(userId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['notifications', userId] });
-      toast({
-        title: t('notifications.all_marked_read'),
-        description: t('notifications.all_marked_read_desc'),
-      });
-    },
-  });
+  const { data: notifications = [], isLoading } = useNotifications();
+  const markAsReadMutation = useMarkNotificationAsRead();
+  const markAllAsReadMutation = useMarkAllNotificationsAsRead();
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
@@ -57,15 +32,22 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
   };
 
   const handleMarkAllAsRead = () => {
-    markAllAsReadMutation.mutate();
+    if (!userId) return;
+    markAllAsReadMutation.mutate(userId);
   };
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case 'booking_confirmed':
         return '✅';
+      case 'booking_cancelled':
+        return '❌';
       case 'skill_reminder':
         return '⏰';
+      case 'new_review':
+        return '⭐';
+      case 'payment_received':
+        return '💰';
       default:
         return '📢';
     }
@@ -148,7 +130,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
                         {notification.message}
                       </p>
                       <p className="text-slate-400 text-xs mt-2">
-                        {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
                       </p>
                     </div>
                   </div>

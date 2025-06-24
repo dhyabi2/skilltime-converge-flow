@@ -10,6 +10,12 @@ export { reviewsAPI } from './modules/reviews.js';
 export { notificationsAPI } from './modules/notifications.js';
 export { paymentsAPI } from './modules/payments.js';
 
+// New Supabase services
+export { skillsService } from './supabase/skills.ts';
+export { categoriesService } from './supabase/categories.ts';
+export { bookingsService } from './supabase/bookings.ts';
+export { notificationsService } from './supabase/notifications.ts';
+
 // Utility functions
 export { dateTimeUtils } from './utils/dateTime.js';
 export { imageUploadAPI } from './utils/imageUpload.js';
