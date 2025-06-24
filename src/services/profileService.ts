@@ -5,7 +5,7 @@ import { UserProfile } from '@/types/profile';
 export const profileService = {
   async fetchProfileData(userId: string) {
     const { data: profileData, error: profileError } = await supabase
-      .from('skillstime_profiles' as any)
+      .from('profiles')
       .select('*')
       .eq('id', userId)
       .maybeSingle();
@@ -19,7 +19,7 @@ export const profileService = {
 
   async createProfile(userId: string, userMetadata: any, email: string) {
     const { data: newProfile, error: createError } = await supabase
-      .from('skillstime_profiles' as any)
+      .from('profiles')
       .insert({
         id: userId,
         name: userMetadata?.full_name || userMetadata?.name || '',
@@ -41,7 +41,7 @@ export const profileService = {
 
   async fetchUserSkills(userId: string) {
     const { data: skillsData, error: skillsError } = await supabase
-      .from('skillstime_user_skills' as any)
+      .from('user_skills')
       .select('skill')
       .eq('user_id', userId);
 
@@ -54,7 +54,7 @@ export const profileService = {
 
   async fetchUserBadges(userId: string) {
     const { data: badgesData, error: badgesError } = await supabase
-      .from('skillstime_user_badges' as any)
+      .from('user_badges')
       .select('badge')
       .eq('user_id', userId);
 
@@ -67,7 +67,7 @@ export const profileService = {
 
   async updateProfile(userId: string, updates: Partial<UserProfile>) {
     const { error } = await supabase
-      .from('skillstime_profiles' as any)
+      .from('profiles')
       .update({
         name: updates.name,
         email: updates.email,
@@ -86,7 +86,7 @@ export const profileService = {
 
   async addSkill(userId: string, skill: string) {
     const { error } = await supabase
-      .from('skillstime_user_skills' as any)
+      .from('user_skills')
       .insert({
         user_id: userId,
         skill: skill
@@ -99,7 +99,7 @@ export const profileService = {
 
   async removeSkill(userId: string, skill: string) {
     const { error } = await supabase
-      .from('skillstime_user_skills' as any)
+      .from('user_skills')
       .delete()
       .eq('user_id', userId)
       .eq('skill', skill);
