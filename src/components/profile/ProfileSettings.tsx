@@ -65,32 +65,32 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-slate-800 mb-2">Account Settings</h2>
-        <p className="text-slate-600">Manage your account information and preferences</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2">Account Settings</h2>
+        <p className="text-slate-600 text-sm">Manage your account information and preferences</p>
       </div>
 
       {/* Profile Information */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <User className="w-5 h-5" />
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <User className="w-4 h-4 sm:w-5 sm:h-5" />
             Profile Information
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-4 sm:space-y-6">
           {/* Avatar */}
-          <div className="flex items-center space-x-4">
-            <Avatar className="w-20 h-20">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+            <Avatar className="w-16 h-16 sm:w-20 sm:h-20 mx-auto sm:mx-0">
               <AvatarImage src={formData.avatar} alt={formData.name} />
-              <AvatarFallback className="text-lg">
+              <AvatarFallback className="text-base sm:text-lg">
                 {formData.name ? formData.name.charAt(0).toUpperCase() : '?'}
               </AvatarFallback>
             </Avatar>
-            <div>
-              <Button variant="outline" size="sm">
-                <Camera className="w-4 h-4 mr-2" />
+            <div className="text-center sm:text-left">
+              <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                <Camera className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                 Change Photo
               </Button>
               <p className="text-xs text-slate-500 mt-1">JPG, PNG or GIF. Max size 2MB.</p>
@@ -98,62 +98,67 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           </div>
 
           {/* Form Fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
+            <div className="space-y-1 sm:space-y-2">
+              <Label htmlFor="name" className="text-xs sm:text-sm">Full Name</Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Enter your full name"
+                className="text-xs sm:text-sm"
               />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+            <div className="space-y-1 sm:space-y-2">
+              <Label htmlFor="email" className="text-xs sm:text-sm">Email</Label>
               <Input
                 id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="Enter your email"
+                className="text-xs sm:text-sm"
               />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
+            <div className="space-y-1 sm:space-y-2">
+              <Label htmlFor="phone" className="text-xs sm:text-sm">Phone Number</Label>
               <Input
                 id="phone"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="Enter your phone number"
+                className="text-xs sm:text-sm"
               />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="location">Location</Label>
+            <div className="space-y-1 sm:space-y-2">
+              <Label htmlFor="location" className="text-xs sm:text-sm">Location</Label>
               <Input
                 id="location"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                 placeholder="Enter your location"
+                className="text-xs sm:text-sm"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="bio">Bio</Label>
+          <div className="space-y-1 sm:space-y-2">
+            <Label htmlFor="bio" className="text-xs sm:text-sm">Bio</Label>
             <Textarea
               id="bio"
               value={formData.bio}
               onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
               placeholder="Tell us about yourself..."
-              rows={4}
+              rows={3}
+              className="text-xs sm:text-sm"
             />
           </div>
 
-          <Button onClick={handleSave} disabled={isUpdating} className="w-full md:w-auto">
-            <Save className="w-4 h-4 mr-2" />
+          <Button onClick={handleSave} disabled={isUpdating} className="w-full sm:w-auto text-xs sm:text-sm">
+            <Save className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             {isUpdating ? 'Saving...' : 'Save Changes'}
           </Button>
         </CardContent>
@@ -161,17 +166,17 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
 
       {/* Notification Settings */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Bell className="w-5 h-5" />
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
             Notifications
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-3 sm:space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">Email notifications</p>
-              <p className="text-sm text-slate-600">Receive booking updates via email</p>
+              <p className="font-medium text-sm">Email notifications</p>
+              <p className="text-xs sm:text-sm text-slate-600">Receive booking updates via email</p>
             </div>
             <Switch
               checked={notifications.email}
@@ -181,8 +186,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">Push notifications</p>
-              <p className="text-sm text-slate-600">Receive notifications on your device</p>
+              <p className="font-medium text-sm">Push notifications</p>
+              <p className="text-xs sm:text-sm text-slate-600">Receive notifications on your device</p>
             </div>
             <Switch
               checked={notifications.push}
@@ -192,8 +197,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">SMS notifications</p>
-              <p className="text-sm text-slate-600">Receive important updates via SMS</p>
+              <p className="font-medium text-sm">SMS notifications</p>
+              <p className="text-xs sm:text-sm text-slate-600">Receive important updates via SMS</p>
             </div>
             <Switch
               checked={notifications.sms}
@@ -203,8 +208,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">Marketing emails</p>
-              <p className="text-sm text-slate-600">Receive promotional emails and updates</p>
+              <p className="font-medium text-sm">Marketing emails</p>
+              <p className="text-xs sm:text-sm text-slate-600">Receive promotional emails and updates</p>
             </div>
             <Switch
               checked={notifications.marketing}
@@ -216,17 +221,17 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
 
       {/* Privacy Settings */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Shield className="w-5 h-5" />
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
             Privacy Settings
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-3 sm:space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">Profile visibility</p>
-              <p className="text-sm text-slate-600">Make your profile visible to other users</p>
+              <p className="font-medium text-sm">Profile visibility</p>
+              <p className="text-xs sm:text-sm text-slate-600">Make your profile visible to other users</p>
             </div>
             <Switch
               checked={privacy.profileVisible}
@@ -236,8 +241,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">Show email</p>
-              <p className="text-sm text-slate-600">Display your email on your public profile</p>
+              <p className="font-medium text-sm">Show email</p>
+              <p className="text-xs sm:text-sm text-slate-600">Display your email on your public profile</p>
             </div>
             <Switch
               checked={privacy.showEmail}
@@ -247,8 +252,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">Show phone number</p>
-              <p className="text-sm text-slate-600">Display your phone number on your public profile</p>
+              <p className="font-medium text-sm">Show phone number</p>
+              <p className="text-xs sm:text-sm text-slate-600">Display your phone number on your public profile</p>
             </div>
             <Switch
               checked={privacy.showPhone}
@@ -260,17 +265,17 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
 
       {/* Danger Zone */}
       <Card className="border-red-200">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-red-600">
-            <Trash2 className="w-5 h-5" />
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="flex items-center gap-2 text-red-600 text-base sm:text-lg">
+            <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
             Danger Zone
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-slate-600 mb-4">
+          <p className="text-xs sm:text-sm text-slate-600 mb-3 sm:mb-4">
             Once you delete your account, there is no going back. Please be certain.
           </p>
-          <Button variant="destructive" size="sm">
+          <Button variant="destructive" size="sm" className="text-xs sm:text-sm">
             Delete Account
           </Button>
         </CardContent>

@@ -53,7 +53,7 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-4 h-4 ${
+        className={`w-3 h-3 sm:w-4 sm:h-4 ${
           i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
         }`}
       />
@@ -61,28 +61,28 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
   };
 
   const ReviewCard = ({ review, type }: { review: any, type: 'received' | 'given' }) => (
-    <Card className="mb-4">
-      <CardContent className="p-6">
-        <div className="flex items-start space-x-4">
-          <Avatar className="w-12 h-12">
+    <Card className="mb-3 sm:mb-4">
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex items-start space-x-3 sm:space-x-4">
+          <Avatar className="w-8 h-8 sm:w-12 sm:h-12 shrink-0">
             <AvatarImage 
               src={type === 'received' ? review.reviewerAvatar : review.providerAvatar} 
               alt={type === 'received' ? review.reviewerName : review.providerName} 
             />
-            <AvatarFallback>
+            <AvatarFallback className="text-xs sm:text-sm">
               {(type === 'received' ? review.reviewerName : review.providerName)?.charAt(0)}
             </AvatarFallback>
           </Avatar>
           
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-2">
-              <div>
-                <h4 className="font-semibold text-slate-800">
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+              <div className="mb-1 sm:mb-0">
+                <h4 className="font-semibold text-slate-800 text-sm sm:text-base">
                   {type === 'received' ? review.reviewerName : review.providerName}
                 </h4>
-                <p className="text-sm text-slate-600">{review.skillTitle}</p>
+                <p className="text-xs sm:text-sm text-slate-600">{review.skillTitle}</p>
               </div>
-              <div className="text-right">
+              <div className="text-left sm:text-right">
                 <div className="flex items-center space-x-1 mb-1">
                   {renderStars(review.rating)}
                 </div>
@@ -90,11 +90,11 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
               </div>
             </div>
             
-            <p className="text-slate-700 mb-3">{review.comment}</p>
+            <p className="text-slate-700 mb-2 sm:mb-3 text-sm">{review.comment}</p>
             
-            <div className="flex items-center space-x-4 text-sm text-slate-500">
+            <div className="flex items-center space-x-4 text-xs sm:text-sm text-slate-500">
               <button className="flex items-center space-x-1 hover:text-slate-700">
-                <ThumbsUp className="w-4 h-4" />
+                <ThumbsUp className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span>Helpful ({review.helpful})</span>
               </button>
             </div>
@@ -109,56 +109,62 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
     : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-slate-800 mb-2">Reviews</h2>
-        <p className="text-slate-600">See what others say about your services and share your experiences</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2">Reviews</h2>
+        <p className="text-slate-600 text-sm">See what others say about your services and share your experiences</p>
       </div>
 
       {/* Rating Summary */}
       <Card>
-        <CardContent className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <CardContent className="p-4 sm:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-slate-800 mb-2">
+              <div className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
                 {averageRating.toFixed(1)}
               </div>
               <div className="flex items-center justify-center space-x-1 mb-2">
                 {renderStars(Math.round(averageRating))}
               </div>
-              <p className="text-sm text-slate-600">Overall Rating</p>
+              <p className="text-xs sm:text-sm text-slate-600">Overall Rating</p>
             </div>
             
             <div className="text-center">
-              <div className="text-3xl font-bold text-slate-800 mb-2">
+              <div className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
                 {mockReviews.received.length}
               </div>
-              <p className="text-sm text-slate-600">Reviews Received</p>
+              <p className="text-xs sm:text-sm text-slate-600">Reviews Received</p>
             </div>
             
             <div className="text-center">
-              <div className="text-3xl font-bold text-slate-800 mb-2">
+              <div className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
                 {mockReviews.given.length}
               </div>
-              <p className="text-sm text-slate-600">Reviews Given</p>
+              <p className="text-xs sm:text-sm text-slate-600">Reviews Given</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       <Tabs defaultValue="received" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="received">Reviews Received</TabsTrigger>
-          <TabsTrigger value="given">Reviews Given</TabsTrigger>
+        <TabsList className="w-full h-auto p-1">
+          <div className="flex w-full">
+            <TabsTrigger value="received" className="flex-1 text-xs sm:text-sm px-2 py-2">
+              Reviews Received
+            </TabsTrigger>
+            <TabsTrigger value="given" className="flex-1 text-xs sm:text-sm px-2 py-2">
+              Reviews Given
+            </TabsTrigger>
+          </div>
         </TabsList>
         
-        <TabsContent value="received" className="mt-6">
+        <TabsContent value="received" className="mt-4 sm:mt-6">
           {mockReviews.received.length === 0 ? (
             <Card>
-              <CardContent className="text-center py-8">
-                <Star className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-slate-800 mb-2">No reviews yet</h3>
-                <p className="text-slate-600">Reviews from your clients will appear here</p>
+              <CardContent className="text-center py-6 sm:py-8">
+                <Star className="w-8 h-8 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-3 sm:mb-4" />
+                <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">No reviews yet</h3>
+                <p className="text-slate-600 text-sm">Reviews from your clients will appear here</p>
               </CardContent>
             </Card>
           ) : (
@@ -170,13 +176,13 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
           )}
         </TabsContent>
         
-        <TabsContent value="given" className="mt-6">
+        <TabsContent value="given" className="mt-4 sm:mt-6">
           {mockReviews.given.length === 0 ? (
             <Card>
-              <CardContent className="text-center py-8">
-                <MessageCircle className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-slate-800 mb-2">No reviews given</h3>
-                <p className="text-slate-600">Reviews you've written will appear here</p>
+              <CardContent className="text-center py-6 sm:py-8">
+                <MessageCircle className="w-8 h-8 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-3 sm:mb-4" />
+                <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">No reviews given</h3>
+                <p className="text-slate-600 text-sm">Reviews you've written will appear here</p>
               </CardContent>
             </Card>
           ) : (

@@ -65,18 +65,18 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Profile Completion */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="w-5 h-5" />
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
             Profile Completion
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-xs sm:text-sm">
               <span>Complete your profile to attract more clients</span>
               <span className="font-medium">{profileCompletion}%</span>
             </div>
@@ -86,15 +86,15 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
       </Card>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
             <Card key={index} className="border-0 shadow-sm">
-              <CardContent className="p-4 text-center">
-                <Icon className={`w-6 h-6 mx-auto mb-2 ${stat.color}`} />
-                <div className="text-2xl font-bold text-slate-800">{stat.value}</div>
-                <div className="text-sm text-slate-600">{stat.label}</div>
+              <CardContent className="p-3 sm:p-4 text-center">
+                <Icon className={`w-4 h-4 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2 ${stat.color}`} />
+                <div className="text-lg sm:text-2xl font-bold text-slate-800">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-slate-600">{stat.label}</div>
               </CardContent>
             </Card>
           );
@@ -102,27 +102,27 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Profile Skills */}
         <Card>
-          <CardHeader>
-            <CardTitle>Your Skills</CardTitle>
+          <CardHeader className="pb-3 sm:pb-4">
+            <CardTitle className="text-base sm:text-lg">Your Skills</CardTitle>
           </CardHeader>
           <CardContent>
             {profile.skills.length === 0 ? (
-              <div className="text-center py-4">
-                <p className="text-slate-500 mb-2">No skills added yet</p>
-                <p className="text-sm text-slate-400">Add skills to your profile</p>
+              <div className="text-center py-3 sm:py-4">
+                <p className="text-slate-500 mb-1 sm:mb-2 text-sm">No skills added yet</p>
+                <p className="text-xs sm:text-sm text-slate-400">Add skills to your profile</p>
               </div>
             ) : (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1 sm:gap-2">
                 {profile.skills.slice(0, 5).map((skill, index) => (
-                  <Badge key={index} variant="secondary" className="bg-soft-blue-100 text-soft-blue-800">
+                  <Badge key={index} variant="secondary" className="bg-soft-blue-100 text-soft-blue-800 text-xs">
                     {skill}
                   </Badge>
                 ))}
                 {profile.skills.length > 5 && (
-                  <Badge variant="outline">+{profile.skills.length - 5} more</Badge>
+                  <Badge variant="outline" className="text-xs">+{profile.skills.length - 5} more</Badge>
                 )}
               </div>
             )}
@@ -131,31 +131,31 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
 
         {/* Marketplace Skills */}
         <Card>
-          <CardHeader>
+          <CardHeader className="pb-3 sm:pb-4">
             <div className="flex items-center justify-between">
-              <CardTitle>Marketplace Skills</CardTitle>
+              <CardTitle className="text-base sm:text-lg">Marketplace Skills</CardTitle>
               <CreateSkillModal />
             </div>
           </CardHeader>
           <CardContent>
             {skillsLoading ? (
-              <div className="text-center py-4">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-soft-blue-600 mx-auto"></div>
+              <div className="text-center py-3 sm:py-4">
+                <div className="animate-spin rounded-full h-4 w-4 sm:h-6 sm:w-6 border-b-2 border-soft-blue-600 mx-auto"></div>
               </div>
             ) : mySkills.length === 0 ? (
-              <div className="text-center py-4">
-                <p className="text-slate-500 mb-2">No marketplace skills yet</p>
-                <p className="text-sm text-slate-400">Create skills to earn income</p>
+              <div className="text-center py-3 sm:py-4">
+                <p className="text-slate-500 mb-1 sm:mb-2 text-sm">No marketplace skills yet</p>
+                <p className="text-xs sm:text-sm text-slate-400">Create skills to earn income</p>
               </div>
             ) : (
               <div className="space-y-2">
                 {mySkills.slice(0, 2).map((skill) => (
                   <div key={skill.id} className="flex items-center justify-between p-2 bg-slate-50 rounded">
-                    <div>
-                      <p className="font-medium text-sm">{skill.skillTitle}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-xs sm:text-sm truncate">{skill.skillTitle}</p>
                       <p className="text-xs text-slate-600">{skill.price} OMR</p>
                     </div>
-                    <Badge variant="secondary" className="text-xs">
+                    <Badge variant="secondary" className="text-xs ml-2 shrink-0">
                       {skill.location}
                     </Badge>
                   </div>
@@ -171,13 +171,13 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
 
       {/* Recent Activity placeholder */}
       <Card>
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="text-base sm:text-lg">Recent Activity</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-8">
-            <p className="text-slate-500">No recent activity</p>
-            <p className="text-sm text-slate-400">Your bookings and skill interactions will appear here</p>
+          <div className="text-center py-6 sm:py-8">
+            <p className="text-slate-500 text-sm">No recent activity</p>
+            <p className="text-xs sm:text-sm text-slate-400">Your bookings and skill interactions will appear here</p>
           </div>
         </CardContent>
       </Card>

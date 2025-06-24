@@ -21,10 +21,10 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 to-mint-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 to-mint-50 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-soft-blue-600 mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading profile...</p>
+          <p className="text-slate-600 text-sm">Loading profile...</p>
         </div>
       </div>
     );
@@ -32,12 +32,12 @@ const Profile = () => {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 to-mint-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 to-mint-50 flex items-center justify-center p-4">
         <div className="text-center">
-          <p className="text-slate-600 mb-4">Failed to load profile</p>
+          <p className="text-slate-600 mb-4 text-sm">Failed to load profile</p>
           <button 
             onClick={() => window.location.reload()}
-            className="text-soft-blue-600 hover:text-soft-blue-700"
+            className="text-soft-blue-600 hover:text-soft-blue-700 text-sm"
           >
             Try again
           </button>
@@ -48,7 +48,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 to-mint-50">
-      <div className="max-w-4xl mx-auto px-4 py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
         <ProfileHeader 
           profile={profile}
           onSignOut={signOut}
@@ -56,15 +56,27 @@ const Profile = () => {
         
         <Card className="border-0 shadow-sm">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="skills">My Skills</TabsTrigger>
-              <TabsTrigger value="bookings">Bookings</TabsTrigger>
-              <TabsTrigger value="reviews">Reviews</TabsTrigger>
-              <TabsTrigger value="settings">Settings</TabsTrigger>
+            <TabsList className="w-full h-auto p-1 bg-slate-100 overflow-x-auto">
+              <div className="flex min-w-full">
+                <TabsTrigger value="overview" className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-2 whitespace-nowrap">
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger value="skills" className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-2 whitespace-nowrap">
+                  Skills
+                </TabsTrigger>
+                <TabsTrigger value="bookings" className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-2 whitespace-nowrap">
+                  Bookings
+                </TabsTrigger>
+                <TabsTrigger value="reviews" className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-2 whitespace-nowrap">
+                  Reviews
+                </TabsTrigger>
+                <TabsTrigger value="settings" className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-2 whitespace-nowrap">
+                  Settings
+                </TabsTrigger>
+              </div>
             </TabsList>
             
-            <TabsContent value="overview" className="p-6">
+            <TabsContent value="overview" className="p-3 sm:p-6 mt-0">
               <ProfileOverview 
                 profile={profile}
                 mySkills={mySkills}
@@ -73,7 +85,7 @@ const Profile = () => {
               />
             </TabsContent>
             
-            <TabsContent value="skills" className="p-6">
+            <TabsContent value="skills" className="p-3 sm:p-6 mt-0">
               <ProfileSkills 
                 profile={profile}
                 mySkills={mySkills}
@@ -82,15 +94,15 @@ const Profile = () => {
               />
             </TabsContent>
             
-            <TabsContent value="bookings" className="p-6">
+            <TabsContent value="bookings" className="p-3 sm:p-6 mt-0">
               <ProfileBookings userId={profile.id} />
             </TabsContent>
             
-            <TabsContent value="reviews" className="p-6">
+            <TabsContent value="reviews" className="p-3 sm:p-6 mt-0">
               <ProfileReviews userId={profile.id} />
             </TabsContent>
             
-            <TabsContent value="settings" className="p-6">
+            <TabsContent value="settings" className="p-3 sm:p-6 mt-0">
               <ProfileSettings 
                 profile={profile}
                 onUpdateProfile={updateProfile}
