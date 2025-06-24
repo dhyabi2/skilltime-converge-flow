@@ -1,199 +1,229 @@
 
-import React from 'react';
-import { Star, MessageCircle, ThumbsUp } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useState } from 'react';
+import { Star, ThumbsUp, MessageSquare, Award } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ReviewDetailModal from './modals/ReviewDetailModal';
 
 interface ProfileReviewsProps {
   userId: string;
 }
 
 const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
-  // Mock data - replace with actual data fetching
-  const mockReviews = {
-    received: [
-      {
-        id: '1',
-        rating: 5,
-        comment: 'Excellent web development skills! Very professional and delivered exactly what I needed.',
-        reviewerName: 'Sarah Johnson',
-        reviewerAvatar: '/placeholder.svg',
-        skillTitle: 'Web Development',
-        date: '2024-06-20',
-        helpful: 3
-      },
-      {
-        id: '2',
-        rating: 4,
-        comment: 'Great photography session. Very creative and patient with my requests.',
-        reviewerName: 'Mike Chen',
-        reviewerAvatar: '/placeholder.svg',
-        skillTitle: 'Photography',
-        date: '2024-06-15',
-        helpful: 1
+  const { t } = useTranslation('profile');
+  const [selectedReview, setSelectedReview] = useState<any>(null);
+
+  // Mock data - would be replaced with real data
+  const mockReviews = [
+    {
+      id: 'review-1',
+      rating: 5,
+      comment: 'Absolutely fantastic React mentoring session! Jane explained complex concepts in a very understandable way. Her teaching style is engaging and she provided practical examples that really helped solidify my understanding.',
+      created_at: '2024-01-10T10:00:00Z',
+      upvotes: 12,
+      downvotes: 0,
+      provider_response: 'Thank you so much for the kind words! It was a pleasure working with you. Keep up the great work with React!',
+      provider_response_date: '2024-01-11T14:30:00Z',
+      profiles: {
+        name: 'John Doe',
+        avatar: '/placeholder.svg'
       }
-    ],
-    given: [
-      {
-        id: '3',
-        rating: 5,
-        comment: 'Amazing guitar teacher! Really helped me improve my technique.',
-        providerName: 'David Martinez',
-        providerAvatar: '/placeholder.svg',
-        skillTitle: 'Guitar Lessons',
-        date: '2024-06-18',
-        helpful: 0
+    },
+    {
+      id: 'review-2',
+      rating: 4,
+      comment: 'Great UI/UX consultation. Sarah gave me valuable insights into modern design principles and helped me improve my portfolio. Highly recommend!',
+      created_at: '2024-01-05T15:30:00Z',
+      upvotes: 8,
+      downvotes: 1,
+      provider_response: null,
+      provider_response_date: null,
+      profiles: {
+        name: 'Mike Johnson',
+        avatar: '/placeholder.svg'
       }
-    ]
-  };
+    },
+    {
+      id: 'review-3',
+      rating: 5,
+      comment: 'Bob is an excellent JavaScript instructor. The session was well-structured and covered advanced concepts that I\'ve been struggling with. Worth every penny!',
+      created_at: '2024-01-02T09:15:00Z',
+      upvotes: 15,
+      downvotes: 0,
+      provider_response: 'I\'m so glad the session was helpful! JavaScript can be tricky, but you\'re doing great. Feel free to reach out if you have more questions.',
+      provider_response_date: '2024-01-02T18:00:00Z',
+      profiles: {
+        name: 'Alice Brown',
+        avatar: '/placeholder.svg'
+      }
+    }
+  ];
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-3 h-3 sm:w-4 sm:h-4 ${
+        className={`w-4 h-4 ${
           i < rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
         }`}
       />
     ));
   };
 
-  const ReviewCard = ({ review, type }: { review: any, type: 'received' | 'given' }) => (
-    <Card className="mb-3 sm:mb-4">
-      <CardContent className="p-4 sm:p-6">
-        <div className="flex items-start space-x-3 sm:space-x-4">
-          <Avatar className="w-8 h-8 sm:w-12 sm:h-12 shrink-0">
-            <AvatarImage 
-              src={type === 'received' ? review.reviewerAvatar : review.providerAvatar} 
-              alt={type === 'received' ? review.reviewerName : review.providerName} 
-            />
-            <AvatarFallback className="text-xs sm:text-sm">
-              {(type === 'received' ? review.reviewerName : review.providerName)?.charAt(0)}
-            </AvatarFallback>
-          </Avatar>
-          
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
-              <div className="mb-1 sm:mb-0">
-                <h4 className="font-semibold text-slate-800 text-sm sm:text-base">
-                  {type === 'received' ? review.reviewerName : review.providerName}
-                </h4>
-                <p className="text-xs sm:text-sm text-slate-600">{review.skillTitle}</p>
-              </div>
-              <div className="text-left sm:text-right">
-                <div className="flex items-center space-x-1 mb-1">
-                  {renderStars(review.rating)}
-                </div>
-                <p className="text-xs text-slate-500">{review.date}</p>
-              </div>
-            </div>
-            
-            <p className="text-slate-700 mb-2 sm:mb-3 text-sm">{review.comment}</p>
-            
-            <div className="flex items-center space-x-4 text-xs sm:text-sm text-slate-500">
-              <button className="flex items-center space-x-1 hover:text-slate-700">
-                <ThumbsUp className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>Helpful ({review.helpful})</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
+  const handleReviewClick = (review: any) => {
+    setSelectedReview(review);
+  };
 
-  const averageRating = mockReviews.received.length > 0 
-    ? mockReviews.received.reduce((sum, review) => sum + review.rating, 0) / mockReviews.received.length 
+  const handleVote = (reviewId: string, voteType: 'up' | 'down') => {
+    console.log('Vote on review:', reviewId, voteType);
+    // This would call the review service to vote
+  };
+
+  const handleRespond = (reviewId: string, response: string) => {
+    console.log('Respond to review:', reviewId, response);
+    // This would call the review service to add response
+  };
+
+  const averageRating = mockReviews.length > 0 
+    ? mockReviews.reduce((sum, review) => sum + review.rating, 0) / mockReviews.length 
     : 0;
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <div>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2">Reviews</h2>
-        <p className="text-slate-600 text-sm">See what others say about your services and share your experiences</p>
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex items-center justify-center gap-2">
+          <Award className="w-6 h-6 text-yellow-600" />
+          Reviews & Feedback
+        </h2>
+        <p className="text-slate-600 text-sm">See what others say about your services</p>
       </div>
 
-      {/* Rating Summary */}
-      <Card>
-        <CardContent className="p-4 sm:p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-            <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
-                {averageRating.toFixed(1)}
-              </div>
-              <div className="flex items-center justify-center space-x-1 mb-2">
-                {renderStars(Math.round(averageRating))}
-              </div>
-              <p className="text-xs sm:text-sm text-slate-600">Overall Rating</p>
+      {/* Stats */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <Card className="border-0 shadow-md bg-yellow-50">
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-yellow-600">{averageRating.toFixed(1)}</div>
+            <p className="text-sm text-gray-600">Average Rating</p>
+            <div className="flex justify-center mt-1">{renderStars(Math.round(averageRating))}</div>
+          </CardContent>
+        </Card>
+        <Card className="border-0 shadow-md bg-blue-50">
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-blue-600">{mockReviews.length}</div>
+            <p className="text-sm text-gray-600">Total Reviews</p>
+          </CardContent>
+        </Card>
+        <Card className="border-0 shadow-md bg-green-50">
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-green-600">
+              {mockReviews.reduce((sum, review) => sum + review.upvotes, 0)}
             </div>
-            
-            <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
-                {mockReviews.received.length}
-              </div>
-              <p className="text-xs sm:text-sm text-slate-600">Reviews Received</p>
+            <p className="text-sm text-gray-600">Helpful Votes</p>
+          </CardContent>
+        </Card>
+        <Card className="border-0 shadow-md bg-purple-50">
+          <CardContent className="p-4 text-center">
+            <div className="text-2xl font-bold text-purple-600">
+              {mockReviews.filter(r => r.provider_response).length}
             </div>
-            
-            <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">
-                {mockReviews.given.length}
-              </div>
-              <p className="text-xs sm:text-sm text-slate-600">Reviews Given</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+            <p className="text-sm text-gray-600">Responses</p>
+          </CardContent>
+        </Card>
+      </div>
 
-      <Tabs defaultValue="received" className="w-full">
-        <TabsList className="w-full h-auto p-1">
-          <div className="flex w-full">
-            <TabsTrigger value="received" className="flex-1 text-xs sm:text-sm px-2 py-2">
-              Reviews Received
-            </TabsTrigger>
-            <TabsTrigger value="given" className="flex-1 text-xs sm:text-sm px-2 py-2">
-              Reviews Given
-            </TabsTrigger>
-          </div>
-        </TabsList>
-        
-        <TabsContent value="received" className="mt-4 sm:mt-6">
-          {mockReviews.received.length === 0 ? (
-            <Card>
-              <CardContent className="text-center py-6 sm:py-8">
-                <Star className="w-8 h-8 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">No reviews yet</h3>
-                <p className="text-slate-600 text-sm">Reviews from your clients will appear here</p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div>
-              {mockReviews.received.map((review) => (
-                <ReviewCard key={review.id} review={review} type="received" />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-        
-        <TabsContent value="given" className="mt-4 sm:mt-6">
-          {mockReviews.given.length === 0 ? (
-            <Card>
-              <CardContent className="text-center py-6 sm:py-8">
-                <MessageCircle className="w-8 h-8 sm:w-12 sm:h-12 text-slate-400 mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">No reviews given</h3>
-                <p className="text-slate-600 text-sm">Reviews you've written will appear here</p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div>
-              {mockReviews.given.map((review) => (
-                <ReviewCard key={review.id} review={review} type="given" />
-              ))}
-            </div>
-          )}
-        </TabsContent>
-      </Tabs>
+      {/* Reviews List */}
+      <div className="space-y-4">
+        {mockReviews.map((review) => (
+          <Card 
+            key={review.id} 
+            className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.01] cursor-pointer"
+            onClick={() => handleReviewClick(review)}
+          >
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex gap-4">
+                <Avatar className="w-12 h-12 flex-shrink-0">
+                  <AvatarImage src={review.profiles.avatar} />
+                  <AvatarFallback>{review.profiles.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                
+                <div className="flex-1 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h3 className="font-semibold text-slate-800">{review.profiles.name}</h3>
+                      <div className="flex items-center gap-2">
+                        <div className="flex">{renderStars(review.rating)}</div>
+                        <span className="text-sm text-gray-500">
+                          {new Date(review.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                    {review.provider_response && (
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                        <MessageSquare className="w-3 h-3 mr-1" />
+                        Responded
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  <p className="text-gray-700 line-clamp-3">{review.comment}</p>
+                  
+                  {review.provider_response && (
+                    <div className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-400">
+                      <p className="text-sm text-blue-800 font-medium mb-1">Your Response:</p>
+                      <p className="text-blue-700 text-sm line-clamp-2">{review.provider_response}</p>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-1 text-sm text-gray-500">
+                        <ThumbsUp className="w-4 h-4" />
+                        <span>{review.upvotes}</span>
+                      </div>
+                      <span className="text-sm text-gray-400">•</span>
+                      <span className="text-sm text-gray-500">
+                        {review.upvotes + review.downvotes} found helpful
+                      </span>
+                    </div>
+                    <Badge 
+                      variant="outline" 
+                      className={`${
+                        review.rating >= 4 ? 'border-green-200 text-green-700' : 'border-gray-200'
+                      }`}
+                    >
+                      {review.rating >= 4 ? '⭐ Great' : review.rating >= 3 ? '👍 Good' : '💡 Feedback'}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Empty State */}
+      {mockReviews.length === 0 && (
+        <div className="text-center py-12">
+          <Star className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-gray-600 mb-2">No reviews yet</h3>
+          <p className="text-gray-500">Reviews from your clients will appear here.</p>
+        </div>
+      )}
+
+      {/* Review Detail Modal */}
+      {selectedReview && (
+        <ReviewDetailModal
+          isOpen={true}
+          onClose={() => setSelectedReview(null)}
+          review={selectedReview}
+          onVote={handleVote}
+          onRespond={handleRespond}
+          canRespond={!selectedReview.provider_response}
+        />
+      )}
     </div>
   );
 };

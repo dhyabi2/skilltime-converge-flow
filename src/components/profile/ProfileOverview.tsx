@@ -1,11 +1,13 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Star, Calendar, Award, Heart, TrendingUp, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { UserProfile } from '@/hooks/useProfile';
+import StatsDetailModal from './modals/StatsDetailModal';
+import BadgeDetailModal from './modals/BadgeDetailModal';
 
 interface ProfileOverviewProps {
   profile: UserProfile;
@@ -21,6 +23,10 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
   onRemoveSkill 
 }) => {
   const { t } = useTranslation('profile');
+  const [selectedModal, setSelectedModal] = useState<{
+    type: 'skills' | 'bookings' | 'reviews' | 'rating' | 'badges' | null;
+    data?: any;
+  }>({ type: null });
 
   const calculateProfileCompletion = () => {
     let completed = 0;
@@ -42,32 +48,44 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
       value: profile.skills.length + mySkills.length,
       icon: Zap,
       color: 'from-blue-400 to-blue-600',
-      bgColor: 'bg-blue-50'
+      bgColor: 'bg-blue-50',
+      type: 'skills' as const
     },
     {
       label: t('overview.stats.bookings'),
       value: profile.completedBookings,
       icon: Calendar,
       color: 'from-green-400 to-green-600',
-      bgColor: 'bg-green-50'
+      bgColor: 'bg-green-50',
+      type: 'bookings' as const
     },
     {
       label: t('overview.stats.reviews'),
-      value: 0, // This would come from reviews data
+      value: 0,
       icon: Star,
       color: 'from-yellow-400 to-yellow-600',
-      bgColor: 'bg-yellow-50'
+      bgColor: 'bg-yellow-50',
+      type: 'reviews' as const
     },
     {
       label: t('overview.stats.rating'),
       value: profile.rating.toFixed(1),
       icon: Award,
       color: 'from-purple-400 to-purple-600',
-      bgColor: 'bg-purple-50'
+      bgColor: 'bg-purple-50',
+      type: 'rating' as const
     }
   ];
 
   const profileCompletion = calculateProfileCompletion();
+
+  const handleStatsClick = (type: 'skills' | 'bookings' | 'reviews' | 'rating', data?: any) => {
+    setSelectedModal({ type, data });
+  };
+
+  const handleBadgesClick = () => {
+    setSelectedModal({ type: 'badges' });
+  };
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -80,15 +98,16 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
         <p className="text-slate-600 text-sm">{t('overview.subtitle')}</p>
       </div>
 
-      {/* Stats Grid */}
+      {/* Stats Grid - Now Clickable */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((stat, index) => {
           const IconComponent = stat.icon;
           return (
             <Card 
               key={stat.label} 
-              className={`${stat.bgColor} border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group`}
+              className={`${stat.bgColor} border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group cursor-pointer`}
               style={{ animationDelay: `${index * 0.1}s` }}
+              onClick={() => handleStatsClick(stat.type, stat.type === 'skills' ? mySkills : null)}
             >
               <CardContent className="p-3 sm:p-4 text-center">
                 <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center mx-auto mb-2 sm:mb-3 group-hover:rotate-12 transition-transform duration-300`}>
@@ -139,8 +158,11 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
         </CardContent>
       </Card>
 
-      {/* Badges Section */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-amber-50 to-orange-50 hover:shadow-xl transition-all duration-300">
+      {/* Badges Section - Now Clickable */}
+      <Card 
+        className="border-0 shadow-lg bg-gradient-to-br from-amber-50 to-orange-50 hover:shadow-xl transition-all duration-300 cursor-pointer"
+        onClick={handleBadgesClick}
+      >
         <CardHeader className="pb-3 sm:pb-4">
           <CardTitle className="text-base sm:text-lg flex items-center gap-2">
             <div className="p-2 bg-gradient-to-br from-amber-400 to-orange-400 rounded-full">
@@ -176,6 +198,25 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
           )}
         </CardContent>
       </Card>
+
+      {/* Detail Modals */}
+      {selectedModal.type && selectedModal.type !== 'badges' && (
+        <StatsDetailModal
+          isOpen={true}
+          onClose={() => setSelectedModal({ type: null })}
+          type={selectedModal.type}
+          data={selectedModal.data}
+          profile={profile}
+        />
+      )}
+
+      {selectedModal.type === 'badges' && (
+        <BadgeDetailModal
+          isOpen={true}
+          onClose={() => setSelectedModal({ type: null })}
+          badges={profile.badges || []}
+        />
+      )}
     </div>
   );
 };

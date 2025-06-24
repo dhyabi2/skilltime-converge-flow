@@ -64,6 +64,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "bookings_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "user_statistics"
+            referencedColumns: ["user_id"]
+          },
+          {
             foreignKeyName: "bookings_provider_id_fkey"
             columns: ["provider_id"]
             isOneToOne: false
@@ -71,7 +78,49 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "bookings_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "user_statistics"
+            referencedColumns: ["user_id"]
+          },
+          {
             foreignKeyName: "bookings_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "skills"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_bookings_client_id"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_bookings_client_id"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "user_statistics"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "fk_bookings_provider_id"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_bookings_provider_id"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "user_statistics"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "fk_bookings_skill_id"
             columns: ["skill_id"]
             isOneToOne: false
             referencedRelation: "skills"
@@ -148,6 +197,13 @@ export type Database = {
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_statistics"
+            referencedColumns: ["user_id"]
+          },
         ]
       }
       profiles: {
@@ -186,33 +242,91 @@ export type Database = {
         }
         Relationships: []
       }
+      review_votes: {
+        Row: {
+          created_at: string | null
+          id: string
+          review_id: string | null
+          user_id: string | null
+          vote_type: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          review_id?: string | null
+          user_id?: string | null
+          vote_type?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          review_id?: string | null
+          user_id?: string | null
+          vote_type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "review_votes_review_id_fkey"
+            columns: ["review_id"]
+            isOneToOne: false
+            referencedRelation: "reviews"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_votes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "review_votes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_statistics"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       reviews: {
         Row: {
           comment: string | null
           created_at: string | null
+          downvotes: number | null
           helpful_count: number | null
           id: string
+          provider_response: string | null
+          provider_response_date: string | null
           rating: number | null
           reviewer_id: string | null
           skill_id: string | null
+          upvotes: number | null
         }
         Insert: {
           comment?: string | null
           created_at?: string | null
+          downvotes?: number | null
           helpful_count?: number | null
           id?: string
+          provider_response?: string | null
+          provider_response_date?: string | null
           rating?: number | null
           reviewer_id?: string | null
           skill_id?: string | null
+          upvotes?: number | null
         }
         Update: {
           comment?: string | null
           created_at?: string | null
+          downvotes?: number | null
           helpful_count?: number | null
           id?: string
+          provider_response?: string | null
+          provider_response_date?: string | null
           rating?: number | null
           reviewer_id?: string | null
           skill_id?: string | null
+          upvotes?: number | null
         }
         Relationships: [
           {
@@ -221,6 +335,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "user_statistics"
+            referencedColumns: ["user_id"]
           },
           {
             foreignKeyName: "reviews_skill_id_fkey"
@@ -346,6 +467,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "skills_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "user_statistics"
+            referencedColumns: ["user_id"]
+          },
+          {
             foreignKeyName: "skills_subcategory_id_fkey"
             columns: ["subcategory_id"]
             isOneToOne: false
@@ -388,21 +516,33 @@ export type Database = {
       }
       user_badges: {
         Row: {
+          achieved_at: string | null
           badge: string
           created_at: string
+          description: string | null
           id: string
+          progress: number | null
+          target: number | null
           user_id: string
         }
         Insert: {
+          achieved_at?: string | null
           badge: string
           created_at?: string
+          description?: string | null
           id?: string
+          progress?: number | null
+          target?: number | null
           user_id: string
         }
         Update: {
+          achieved_at?: string | null
           badge?: string
           created_at?: string
+          description?: string | null
           id?: string
+          progress?: number | null
+          target?: number | null
           user_id?: string
         }
         Relationships: []
@@ -430,7 +570,18 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      user_statistics: {
+        Row: {
+          average_rating: number | null
+          name: string | null
+          total_badges: number | null
+          total_bookings: number | null
+          total_reviews: number | null
+          total_skills: number | null
+          user_id: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
