@@ -6,18 +6,14 @@ import { useProfile } from '@/hooks/useProfile';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileStats from '@/components/profile/ProfileStats';
 import SkillsSection from '@/components/profile/SkillsSection';
-import EditProfileModal from '@/components/profile/EditProfileModal';
-import AddSkillModal from '@/components/profile/AddSkillModal';
 import CreateSkillModal from '@/components/skills/CreateSkillModal';
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 const Profile = () => {
   const { user, signOut } = useAuth();
-  const { profile, loading, updateProfile, addSkill, removeSkill } = useProfile();
+  const { profile, loading, addSkill, removeSkill } = useProfile();
   const { t } = useTranslation('profile');
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isAddSkillModalOpen, setIsAddSkillModalOpen] = useState(false);
 
   if (loading) {
     return (
@@ -51,7 +47,6 @@ const Profile = () => {
       <div className="max-w-md mx-auto px-4 py-6 space-y-6">
         <ProfileHeader 
           profile={profile}
-          onEdit={() => setIsEditModalOpen(true)}
           onSignOut={signOut}
         />
         
@@ -59,7 +54,6 @@ const Profile = () => {
         
         <SkillsSection 
           profile={profile}
-          onAddSkill={() => setIsAddSkillModalOpen(true)}
           onRemoveSkill={removeSkill}
         />
 
@@ -79,19 +73,6 @@ const Profile = () => {
             </p>
           </CardContent>
         </Card>
-
-        <EditProfileModal 
-          isOpen={isEditModalOpen}
-          onClose={() => setIsEditModalOpen(false)}
-          profile={profile}
-          onSave={updateProfile}
-        />
-
-        <AddSkillModal 
-          isOpen={isAddSkillModalOpen}
-          onClose={() => setIsAddSkillModalOpen(false)}
-          onAddSkill={addSkill}
-        />
       </div>
     </div>
   );

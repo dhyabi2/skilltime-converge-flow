@@ -10,16 +10,20 @@ export const useMySkills = () => {
 
   return useQuery({
     queryKey: ['my-skills', user?.id],
-    queryFn: () => skillsService.getByProvider(user!.id),
+    queryFn: async () => {
+      try {
+        return await skillsService.getByProvider(user!.id);
+      } catch (error: any) {
+        console.error('Error fetching my skills:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load your skills",
+          variant: "destructive",
+        });
+        throw error;
+      }
+    },
     enabled: !!user?.id,
-    onError: (error: any) => {
-      console.error('Error fetching my skills:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load your skills",
-        variant: "destructive",
-      });
-    }
   });
 };
 
