@@ -94,11 +94,11 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Avatar className="w-10 h-10">
-                  <AvatarImage src={booking.profiles?.avatar} />
-                  <AvatarFallback>{booking.profiles?.name?.charAt(0)}</AvatarFallback>
+                  <AvatarImage src={booking.client?.avatar} />
+                  <AvatarFallback>{booking.client?.name?.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="font-medium">{booking.profiles?.name}</p>
+                  <p className="font-medium">{booking.client?.name}</p>
                   <p className="text-sm text-gray-500">Client</p>
                 </div>
               </div>

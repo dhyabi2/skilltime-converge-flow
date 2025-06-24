@@ -106,7 +106,7 @@ const ProfileBookings = () => {
                       </h4>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <User className="w-3 h-3" />
-                        <span>with {booking.profiles?.name || 'Student'}</span>
+                        <span>with {booking.client?.name || booking.provider?.name || 'Student'}</span>
                       </div>
                     </div>
                   </div>

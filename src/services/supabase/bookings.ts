@@ -13,7 +13,7 @@ export const bookingsService = {
       .select(`
         *,
         skills(title, image_url),
-        profiles!client_id(name, avatar),
+        client:profiles!client_id(name, avatar),
         provider:profiles!provider_id(name, avatar)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
@@ -29,7 +29,7 @@ export const bookingsService = {
       .select(`
         *,
         skills(title, description, image_url),
-        profiles!client_id(name, avatar, email),
+        client:profiles!client_id(name, avatar, email),
         provider:profiles!provider_id(name, avatar, email)
       `)
       .eq('id', id)
@@ -46,7 +46,7 @@ export const bookingsService = {
       .select(`
         *,
         skills(title, image_url),
-        profiles!client_id(name),
+        client:profiles!client_id(name),
         provider:profiles!provider_id(name)
       `)
       .single();
@@ -87,7 +87,7 @@ export const bookingsService = {
       .select(`
         *,
         skills(title, image_url),
-        profiles!client_id(name, avatar),
+        client:profiles!client_id(name, avatar),
         provider:profiles!provider_id(name, avatar)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
@@ -105,7 +105,7 @@ export const bookingsService = {
       .select(`
         *,
         skills(title, image_url),
-        profiles!client_id(name, avatar),
+        client:profiles!client_id(name, avatar),
         provider:profiles!provider_id(name, avatar)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
