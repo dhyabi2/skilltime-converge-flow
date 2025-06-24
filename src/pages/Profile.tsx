@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 
 const Profile = () => {
   const { user, signOut } = useAuth();
-  const { profile, loading, addSkill, removeSkill } = useProfile();
+  const { profile, loading, removeSkill } = useProfile();
   const { t } = useTranslation('profile');
 
   if (loading) {

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Camera, MapPin, Calendar, Star, Edit } from 'lucide-react';
+import { Camera, MapPin, Calendar, Star, Edit, LogOut } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,10 +8,11 @@ import { UserProfile } from '@/hooks/useProfile';
 
 interface ProfileHeaderProps {
   profile: UserProfile;
-  onEditClick: () => void;
+  onEditClick?: () => void;
+  onSignOut?: () => Promise<void>;
 }
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onEditClick }) => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onEditClick, onSignOut }) => {
   const displayName = profile.name || 'Add your name';
   const displayBio = profile.bio || 'Tell us about yourself...';
   const displayLocation = profile.location || 'Add your location';
@@ -26,12 +27,14 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onEditClick }) =
               {profile.name ? profile.name.charAt(0).toUpperCase() : '?'}
             </AvatarFallback>
           </Avatar>
-          <button 
-            onClick={onEditClick}
-            className="absolute -bottom-2 -right-2 bg-white/20 backdrop-blur-sm rounded-full p-2 border border-white/30 hover:bg-white/30 transition-colors"
-          >
-            <Camera className="w-4 h-4" />
-          </button>
+          {onEditClick && (
+            <button 
+              onClick={onEditClick}
+              className="absolute -bottom-2 -right-2 bg-white/20 backdrop-blur-sm rounded-full p-2 border border-white/30 hover:bg-white/30 transition-colors"
+            >
+              <Camera className="w-4 h-4" />
+            </button>
+          )}
         </div>
         
         <h1 className="text-2xl font-bold mb-2">
@@ -79,14 +82,28 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onEditClick }) =
           </div>
         )}
         
-        <Button 
-          onClick={onEditClick}
-          variant="secondary" 
-          className="bg-white/20 text-white border-white/30 hover:bg-white/30"
-        >
-          <Edit className="w-4 h-4 mr-2" />
-          Edit Profile
-        </Button>
+        <div className="flex gap-2">
+          {onEditClick && (
+            <Button 
+              onClick={onEditClick}
+              variant="secondary" 
+              className="bg-white/20 text-white border-white/30 hover:bg-white/30"
+            >
+              <Edit className="w-4 h-4 mr-2" />
+              Edit Profile
+            </Button>
+          )}
+          {onSignOut && (
+            <Button 
+              onClick={onSignOut}
+              variant="secondary" 
+              className="bg-white/20 text-white border-white/30 hover:bg-white/30"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Sign Out
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

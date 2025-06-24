@@ -1,46 +1,26 @@
 
 import React from 'react';
-import { Plus, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { UserProfile } from '@/hooks/useProfile';
 
 interface SkillsSectionProps {
   profile: UserProfile;
-  onAddSkill: () => void;
   onRemoveSkill: (index: number) => void;
 }
 
-const SkillsSection: React.FC<SkillsSectionProps> = ({ profile, onAddSkill, onRemoveSkill }) => {
+const SkillsSection: React.FC<SkillsSectionProps> = ({ profile, onRemoveSkill }) => {
   return (
     <Card className="border-0 shadow-sm mb-6">
       <CardHeader className="pb-4">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold text-slate-800">Skills</CardTitle>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={onAddSkill}
-            className="text-soft-blue-600 border-soft-blue-200 hover:bg-soft-blue-50"
-          >
-            <Plus className="w-4 h-4 mr-1" />
-            Add Skill
-          </Button>
-        </div>
+        <CardTitle className="text-lg font-semibold text-slate-800">Skills</CardTitle>
       </CardHeader>
       <CardContent>
         {profile.skills.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-slate-500 mb-4">No skills added yet</p>
-            <Button 
-              variant="outline" 
-              onClick={onAddSkill}
-              className="text-soft-blue-600 border-soft-blue-200 hover:bg-soft-blue-50"
-            >
-              <Plus className="w-4 h-4 mr-1" />
-              Add Your First Skill
-            </Button>
+            <p className="text-sm text-slate-400">Add skills using the Skills Marketplace section below.</p>
           </div>
         ) : (
           <div className="flex flex-wrap gap-2">
