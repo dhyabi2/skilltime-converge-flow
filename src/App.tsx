@@ -18,6 +18,7 @@ import Notifications from "./pages/Notifications";
 import SkillDetail from "./pages/SkillDetail";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import BookingCreate from "./pages/BookingCreate";
+import Flowchart from "./pages/Flowchart";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import Offline from "./pages/Offline";
@@ -51,6 +52,7 @@ const AppContent: React.FC = () => {
             <Routes>
               <Route path="/auth" element={<Auth />} />
               <Route path="/offline" element={<Offline />} />
+              <Route path="/flowchart" element={<Flowchart />} />
               <Route path="/" element={
                 <ProtectedRoute>
                   <AppShell />

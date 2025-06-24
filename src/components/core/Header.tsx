@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Languages, LogOut, User, Settings, Menu } from 'lucide-react';
+import { Search, Languages, LogOut, User, Settings, Menu, GitBranch } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Switch } from "@/components/ui/switch";
@@ -120,6 +120,15 @@ const Header = () => {
                   >
                     <Search className="w-4 h-4 text-slate-700" />
                     <span className="text-sm font-medium text-slate-700">Search</span>
+                  </button>
+
+                  {/* Flowchart */}
+                  <button 
+                    onClick={() => handleNavigation('/flowchart')}
+                    className="w-full flex items-center gap-3 p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-white/50 hover:bg-white/60 transition-all duration-200"
+                  >
+                    <GitBranch className="w-4 h-4 text-slate-700" />
+                    <span className="text-sm font-medium text-slate-700">App Flowchart</span>
                   </button>
 
                   {/* Navigation Links */}
