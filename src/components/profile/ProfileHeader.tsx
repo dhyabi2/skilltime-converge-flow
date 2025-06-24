@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { Camera, MapPin, Calendar, Star, Edit } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { UserProfile } from '@/types/profile';
+import { UserProfile } from '@/hooks/useProfile';
 
 interface ProfileHeaderProps {
   profile: UserProfile;

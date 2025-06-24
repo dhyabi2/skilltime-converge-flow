@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { Plus, X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { UserProfile } from '@/types/profile';
+import { UserProfile } from '@/hooks/useProfile';
 
 interface SkillsSectionProps {
   profile: UserProfile;

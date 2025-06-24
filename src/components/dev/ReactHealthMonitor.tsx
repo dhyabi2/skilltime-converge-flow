@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { startReactHealthMonitoring } from '@/utils/reactValidation';
 
 /**
  * Development component to monitor React context health
@@ -16,8 +15,20 @@ export const ReactHealthMonitor: React.FC = () => {
       return;
     }
 
-    // Start monitoring directly without dynamic import
-    const cleanup = startReactHealthMonitoring();
+    // Import the validation utilities dynamically to avoid module loading issues
+    const initializeMonitoring = async () => {
+      try {
+        const { startReactHealthMonitoring } = await import('@/utils/reactValidation');
+        
+        // Start monitoring with direct edge function calls
+        const cleanup = startReactHealthMonitoring();
+
+        return cleanup;
+      } catch (error) {
+        console.error('Failed to initialize React health monitoring:', error);
+        return () => {};
+      }
+    };
 
     // Custom health checker for UI updates using edge function
     const checkHealthForUI = async () => {
@@ -40,6 +51,12 @@ export const ReactHealthMonitor: React.FC = () => {
         setIsHealthy(false);
       }
     };
+
+    // Initialize monitoring and UI checks
+    let cleanup: (() => void) | undefined;
+    initializeMonitoring().then((cleanupFn) => {
+      cleanup = cleanupFn;
+    });
 
     // Initial check
     checkHealthForUI();

@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { Calendar, Star, Award } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
-import { UserProfile } from '@/types/profile';
+import { UserProfile } from '@/hooks/useProfile';
 
 interface ProfileStatsProps {
   profile: UserProfile;
