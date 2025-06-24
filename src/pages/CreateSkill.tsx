@@ -1,18 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateMySkill } from '@/hooks/useMySkills';
 import { useCategories } from '@/hooks/useCategories';
 import { skillAvailabilityService } from '@/services/supabase/skillAvailability';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Save } from 'lucide-react';
-import ExpertiseSelector from '@/components/skills/ExpertiseSelector';
-import SkillAvailabilitySelector from '@/components/skills/SkillAvailabilitySelector';
+import { ArrowLeft, ArrowRight, Sparkles, Trophy, Target, Zap, Heart, Star } from 'lucide-react';
+import CreateSkillWizard from '@/components/skills/CreateSkillWizard';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface TimeSlot {
   day_of_week: number;
@@ -22,8 +17,10 @@ interface TimeSlot {
 
 const CreateSkill = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const createSkill = useCreateMySkill();
   const { data: categories = [] } = useCategories();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -39,22 +36,19 @@ const CreateSkill = () => {
   const [useCases, setUseCases] = useState<string[]>([]);
   const [availability, setAvailability] = useState<TimeSlot[]>([]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const handleSubmit = async (finalData: any) => {
     try {
       const skillData = {
-        ...formData,
-        price: parseFloat(formData.price) || 0,
-        expertise,
-        use_cases: useCases,
+        ...finalData,
+        price: parseFloat(finalData.price) || 0,
+        expertise: finalData.expertise,
+        use_cases: finalData.useCases,
       };
 
       const createdSkill = await createSkill.mutateAsync(skillData);
       
-      // Add availability slots if any
-      if (availability.length > 0 && createdSkill?.id) {
-        const availabilityData = availability.map(slot => ({
+      if (finalData.availability.length > 0 && createdSkill?.id) {
+        const availabilityData = finalData.availability.map((slot: TimeSlot) => ({
           skill_id: createdSkill.id,
           day_of_week: slot.day_of_week,
           start_time: slot.start_time,
@@ -64,190 +58,133 @@ const CreateSkill = () => {
         await skillAvailabilityService.createMultiple(availabilityData);
       }
       
-      navigate('/my-skills');
-    } catch (error) {
+      setShowConfetti(true);
+      setTimeout(() => {
+        navigate('/my-skills');
+      }, 3000);
+    } catch (error: any) {
       console.error('Failed to create skill:', error);
     }
   };
 
+  // Confetti effect component
+  const ConfettiOverlay = () => {
+    if (!showConfetti) return null;
+    
+    return (
+      <div className="fixed inset-0 z-50 pointer-events-none">
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center">
+          <div className="text-center animate-scale-in">
+            <div className="text-6xl mb-4">🎉</div>
+            <h2 className="text-3xl font-bold text-white mb-2">Congratulations!</h2>
+            <p className="text-xl text-white/90">Your skill has been created successfully!</p>
+            <div className="flex justify-center gap-2 mt-4">
+              <Star className="w-6 h-6 text-yellow-400 animate-pulse" />
+              <Trophy className="w-6 h-6 text-yellow-400 animate-bounce" />
+              <Star className="w-6 h-6 text-yellow-400 animate-pulse" />
+            </div>
+          </div>
+        </div>
+        {/* Floating confetti elements */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className={`absolute w-3 h-3 bg-gradient-to-r from-mint-400 to-soft-blue-400 rounded-full animate-ping`}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${1 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 to-mint-50">
-      <div className="max-w-4xl mx-auto px-4 py-6">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-purple-50 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-10 left-10 w-20 h-20 bg-mint-400 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-32 right-20 w-16 h-16 bg-soft-blue-400 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-purple-400 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-32 right-1/3 w-12 h-12 bg-pink-400 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 py-6">
+        {/* Header with personality */}
+        <div className="flex items-center gap-4 mb-8">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => navigate('/profile')}
+            className="hover:bg-white/50 backdrop-blur-sm transition-all duration-200"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <div>
-            <h1 className="text-2xl font-bold text-slate-800">Create New Skill</h1>
-            <p className="text-slate-600">Share your expertise with the community</p>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="w-6 h-6 text-mint-500 animate-pulse" />
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-mint-600 to-soft-blue-600 bg-clip-text text-transparent">
+                Share Your Magic ✨
+              </h1>
+            </div>
+            <p className="text-slate-600 flex items-center gap-2">
+              <span>Hey {user?.name || 'there'}! Ready to inspire the world with your skills?</span>
+              <Heart className="w-4 h-4 text-red-400 animate-pulse" />
+            </p>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Basic Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Basic Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Skill Title</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  placeholder="e.g., Web Development, Guitar Lessons"
-                  required
-                />
+        {/* Fun stats banner */}
+        <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 mb-8 border border-white/50 shadow-lg">
+          <div className="flex items-center justify-center gap-8 text-center">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-mint-100 rounded-full flex items-center justify-center">
+                <Target className="w-5 h-5 text-mint-600" />
               </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Describe your skill and what you offer..."
-                  rows={4}
-                />
+              <div>
+                <div className="text-2xl font-bold text-slate-800">47</div>
+                <div className="text-xs text-slate-600">Skills created today</div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Pricing & Logistics */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Pricing & Logistics</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="price">Price (OMR)</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  value={formData.price}
-                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  placeholder="0.00"
-                  required
-                />
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-soft-blue-100 rounded-full flex items-center justify-center">
+                <Zap className="w-5 h-5 text-soft-blue-600" />
               </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="duration">Duration</Label>
-                <Select
-                  value={formData.duration}
-                  onValueChange={(value) => setFormData({ ...formData, duration: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="30 minutes">30 minutes</SelectItem>
-                    <SelectItem value="1 hour">1 hour</SelectItem>
-                    <SelectItem value="2 hours">2 hours</SelectItem>
-                    <SelectItem value="Half day">Half day</SelectItem>
-                    <SelectItem value="Full day">Full day</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div>
+                <div className="text-2xl font-bold text-slate-800">2.3k</div>
+                <div className="text-xs text-slate-600">People inspired</div>
               </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
-                <Select
-                  value={formData.location}
-                  onValueChange={(value) => setFormData({ ...formData, location: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Remote">Remote</SelectItem>
-                    <SelectItem value="Muscat">Muscat</SelectItem>
-                    <SelectItem value="Salalah">Salalah</SelectItem>
-                    <SelectItem value="Nizwa">Nizwa</SelectItem>
-                    <SelectItem value="Sur">Sur</SelectItem>
-                  </SelectContent>
-                </Select>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                <Trophy className="w-5 h-5 text-purple-600" />
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Category */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Category</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
-                <Select
-                  value={formData.category_id}
-                  onValueChange={(value) => setFormData({ ...formData, category_id: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.title}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div>
+                <div className="text-2xl font-bold text-slate-800">You</div>
+                <div className="text-xs text-slate-600">Next success story</div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Expertise */}
-          <ExpertiseSelector
-            expertise={expertise}
-            onChange={setExpertise}
-            placeholder="e.g., React, JavaScript, UI Design"
-            title="Your Expertise"
-          />
-
-          {/* Use Cases */}
-          <ExpertiseSelector
-            expertise={useCases}
-            onChange={setUseCases}
-            placeholder="e.g., Build a modern website, Create a mobile app"
-            title="Use Cases"
-          />
-
-          {/* Availability */}
-          <SkillAvailabilitySelector
-            availability={availability}
-            onChange={setAvailability}
-          />
-
-          {/* Submit Button */}
-          <div className="flex justify-end space-x-4 pt-6">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => navigate('/profile')}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              disabled={createSkill.isPending}
-              className="bg-gradient-to-r from-mint-500 to-soft-blue-500 hover:from-mint-600 hover:to-soft-blue-600"
-            >
-              <Save className="w-4 h-4 mr-2" />
-              {createSkill.isPending ? 'Creating...' : 'Create Skill'}
-            </Button>
+            </div>
           </div>
-        </form>
+        </div>
+
+        {/* Wizard Component */}
+        <CreateSkillWizard
+          initialData={{
+            ...formData,
+            expertise,
+            useCases,
+            availability
+          }}
+          categories={categories}
+          onSubmit={handleSubmit}
+          isSubmitting={createSkill.isPending}
+        />
       </div>
+
+      <ConfettiOverlay />
     </div>
   );
 };
