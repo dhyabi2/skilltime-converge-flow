@@ -62,43 +62,49 @@ const Profile = () => {
         
         <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-500">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="w-full h-auto p-1 bg-gradient-to-r from-slate-100 to-slate-50 overflow-x-auto border-b border-slate-200">
-              <div className="flex min-w-full">
-                <TabsTrigger 
-                  value="overview" 
-                  className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105"
-                >
-                  <span className="mr-1">🏠</span>
-                  Overview
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="skills" 
-                  className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105"
-                >
-                  <span className="mr-1">🎯</span>
-                  Skills
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="bookings" 
-                  className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105"
-                >
-                  <span className="mr-1">📅</span>
-                  Bookings
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="reviews" 
-                  className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105"
-                >
-                  <span className="mr-1">⭐</span>
-                  Reviews
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="settings" 
-                  className="flex-1 min-w-0 text-xs sm:text-sm px-2 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105"
-                >
-                  <span className="mr-1">⚙️</span>
-                  Settings
-                </TabsTrigger>
+            {/* Mobile-optimized TabsList with horizontal scroll */}
+            <TabsList className="w-full h-auto p-1 bg-gradient-to-r from-slate-100 to-slate-50 border-b border-slate-200">
+              <div className="flex w-full overflow-x-auto scrollbar-hide">
+                <div className="flex space-x-1 min-w-full">
+                  <TabsTrigger 
+                    value="overview" 
+                    className="flex-1 min-w-[90px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
+                  >
+                    <span className="mr-1 text-sm">🏠</span>
+                    <span className="hidden xs:inline">Overview</span>
+                    <span className="xs:hidden">Home</span>
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="skills" 
+                    className="flex-1 min-w-[80px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
+                  >
+                    <span className="mr-1 text-sm">🎯</span>
+                    <span>Skills</span>
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="bookings" 
+                    className="flex-1 min-w-[90px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
+                  >
+                    <span className="mr-1 text-sm">📅</span>
+                    <span className="hidden xs:inline">Bookings</span>
+                    <span className="xs:hidden">Book</span>
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="reviews" 
+                    className="flex-1 min-w-[80px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
+                  >
+                    <span className="mr-1 text-sm">⭐</span>
+                    <span>Reviews</span>
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="settings" 
+                    className="flex-1 min-w-[90px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
+                  >
+                    <span className="mr-1 text-sm">⚙️</span>
+                    <span className="hidden xs:inline">Settings</span>
+                    <span className="xs:hidden">Set</span>
+                  </TabsTrigger>
+                </div>
               </div>
             </TabsList>
             

@@ -1,10 +1,11 @@
 
 import React from 'react';
-import { Plus, Star, MapPin, Clock, Zap, Trophy, Heart } from 'lucide-react';
+import { Plus, Star, MapPin, Clock, Zap, Trophy, Heart, Edit } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { useNavigate } from 'react-router-dom';
 import { UserProfile } from '@/hooks/useProfile';
 import CreateSkillModal from '@/components/skills/CreateSkillModal';
 import SkillsSection from '@/components/profile/SkillsSection';
@@ -22,6 +23,13 @@ const ProfileSkills: React.FC<ProfileSkillsProps> = ({
   skillsLoading,
   onRemoveSkill 
 }) => {
+  const navigate = useNavigate();
+
+  const handleManageSkill = (skillId: string) => {
+    // Navigate to skill detail page for management
+    navigate(`/skill/${skillId}`);
+  };
+
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Welcome Header */}
@@ -125,8 +133,9 @@ const ProfileSkills: React.FC<ProfileSkillsProps> = ({
                         variant="outline" 
                         size="sm" 
                         className="w-full text-xs sm:text-sm hover:bg-mint-50 hover:border-mint-300 hover:text-mint-700 transition-all duration-200 hover:scale-105"
+                        onClick={() => handleManageSkill(skill.id)}
                       >
-                        <Zap className="w-3 h-3 mr-1" />
+                        <Edit className="w-3 h-3 mr-1" />
                         ⚡ Manage Skill
                       </Button>
                     </div>
