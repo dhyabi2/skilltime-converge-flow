@@ -47,7 +47,7 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <Badge className={getStatusColor(booking.status)}>
-              {t(`status.${booking.status}`, booking.status)?.toUpperCase()}
+              {String(t(`status.${booking.status}`, booking.status)).toUpperCase()}
             </Badge>
             <span className="text-sm text-gray-500">
               {t('booking_number')} #{booking.id?.slice(0, 8)}
