@@ -3,16 +3,20 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
+import { useMySkills } from '@/hooks/useMySkills';
 import ProfileHeader from '@/components/profile/ProfileHeader';
-import ProfileStats from '@/components/profile/ProfileStats';
-import SkillsSection from '@/components/profile/SkillsSection';
-import CreateSkillModal from '@/components/skills/CreateSkillModal';
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import ProfileOverview from '@/components/profile/ProfileOverview';
+import ProfileSkills from '@/components/profile/ProfileSkills';
+import ProfileBookings from '@/components/profile/ProfileBookings';
+import ProfileReviews from '@/components/profile/ProfileReviews';
+import ProfileSettings from '@/components/profile/ProfileSettings';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
 
 const Profile = () => {
   const { user, signOut } = useAuth();
-  const { profile, loading, removeSkill } = useProfile();
+  const { profile, loading, removeSkill, updateProfile } = useProfile();
+  const { data: mySkills = [], isLoading: skillsLoading } = useMySkills();
   const { t } = useTranslation('profile');
 
   if (loading) {
@@ -44,34 +48,55 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 to-mint-50">
-      <div className="max-w-md mx-auto px-4 py-6 space-y-6">
+      <div className="max-w-4xl mx-auto px-4 py-6">
         <ProfileHeader 
           profile={profile}
           onSignOut={signOut}
         />
         
-        <ProfileStats profile={profile} />
-        
-        <SkillsSection 
-          profile={profile}
-          onRemoveSkill={removeSkill}
-        />
-
-        {/* Skills Marketplace Section */}
         <Card className="border-0 shadow-sm">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-slate-800">Skills Marketplace</h3>
-              <CreateSkillModal />
-            </div>
-            <p className="text-sm text-slate-600 mb-3">
-              Share your expertise and earn by offering your skills to others.
-            </p>
-            <Separator className="my-3" />
-            <p className="text-xs text-slate-500">
-              Create skills to appear in the marketplace where others can book your services.
-            </p>
-          </CardContent>
+          <Tabs defaultValue="overview" className="w-full">
+            <TabsList className="grid w-full grid-cols-5">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="skills">My Skills</TabsTrigger>
+              <TabsTrigger value="bookings">Bookings</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews</TabsTrigger>
+              <TabsTrigger value="settings">Settings</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="overview" className="p-6">
+              <ProfileOverview 
+                profile={profile}
+                mySkills={mySkills}
+                skillsLoading={skillsLoading}
+                onRemoveSkill={removeSkill}
+              />
+            </TabsContent>
+            
+            <TabsContent value="skills" className="p-6">
+              <ProfileSkills 
+                profile={profile}
+                mySkills={mySkills}
+                skillsLoading={skillsLoading}
+                onRemoveSkill={removeSkill}
+              />
+            </TabsContent>
+            
+            <TabsContent value="bookings" className="p-6">
+              <ProfileBookings userId={profile.id} />
+            </TabsContent>
+            
+            <TabsContent value="reviews" className="p-6">
+              <ProfileReviews userId={profile.id} />
+            </TabsContent>
+            
+            <TabsContent value="settings" className="p-6">
+              <ProfileSettings 
+                profile={profile}
+                onUpdateProfile={updateProfile}
+              />
+            </TabsContent>
+          </Tabs>
         </Card>
       </div>
     </div>
