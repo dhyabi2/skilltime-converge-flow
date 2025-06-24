@@ -1,43 +1,33 @@
-import React, { useEffect, useState } from 'react';
+
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
-import { skillsAPI } from '../services';
+import { useMySkills } from '@/hooks/useMySkills';
 import SkillCard from '../components/discovery/SkillCard';
 import { Button } from '@/components/ui/button';
+import SkillCardSkeleton from '@/components/ui/skeletons/SkillCardSkeleton';
 
 const MySkills = () => {
   const { user } = useAuth();
-  const [skills, setSkills] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: skills = [], isLoading, error } = useMySkills();
   const { t } = useTranslation('profile');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) {
-      fetchSkills();
-    }
-  }, [user]);
-
-  const fetchSkills = async () => {
-    try {
-      setLoading(true);
-      const name = user?.user_metadata?.full_name || user?.email || '';
-      const data = await skillsAPI.getByProvider(name);
-      setSkills(data);
-    } catch (error) {
-      console.error('Error fetching skills:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSkillClick = (id: string) => {
     navigate(`/skill/${id}`);
   };
 
+  const handleAddSkill = () => {
+    navigate('/profile');
+  };
+
   if (!user) {
-    return <div className="min-h-screen flex items-center justify-center">{t('coming_soon')}</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500">Please log in to view your skills.</p>
+      </div>
+    );
   }
 
   return (
@@ -45,18 +35,50 @@ const MySkills = () => {
       <div className="max-w-md mx-auto space-y-4">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-2xl font-bold">{t('my_skills_title')}</h1>
-          <Button size="sm" onClick={() => navigate('/profile')}>{t('add_skill')}</Button>
+          <Button size="sm" onClick={handleAddSkill}>
+            {t('add_skill')}
+          </Button>
         </div>
-        {loading ? (
-          <p className="text-center text-gray-500">Loading...</p>
+        
+        {isLoading ? (
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <SkillCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center py-8 space-y-4">
+            <p className="text-red-500">Failed to load skills. Please try again.</p>
+            <Button onClick={() => window.location.reload()}>
+              Retry
+            </Button>
+          </div>
         ) : skills.length > 0 ? (
           <div className="space-y-4">
             {skills.map(skill => (
-              <SkillCard key={skill.id} {...skill} onClick={() => handleSkillClick(skill.id)} />
+              <SkillCard 
+                key={skill.id} 
+                id={skill.id}
+                providerName={skill.providerName}
+                skillTitle={skill.skillTitle}
+                rating={skill.rating}
+                price={skill.price}
+                duration={skill.duration}
+                location={skill.location}
+                image={skill.image}
+                isTopRated={skill.isTopRated}
+                onClick={() => handleSkillClick(skill.id)} 
+              />
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500">{t('no_skills')}</p>
+          <div className="text-center py-8 space-y-4">
+            <p className="text-gray-500">{t('no_skills')}</p>
+            <p className="text-sm text-gray-400">Start by adding your first skill to share your expertise with others.</p>
+            <Button onClick={handleAddSkill}>
+              {t('add_skill')}
+            </Button>
+          </div>
         )}
       </div>
     </div>

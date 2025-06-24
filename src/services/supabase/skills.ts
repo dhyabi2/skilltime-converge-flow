@@ -64,13 +64,31 @@ export const skillsService = {
       .select(`
         *,
         categories(title),
+        subcategories(title),
         reviews(rating)
       `)
       .eq('provider_id', userId)
+      .eq('is_active', true)
       .order('created_at', { ascending: false });
 
     if (error) throw error;
-    return data || [];
+    
+    // Transform data to match expected format
+    return (data || []).map(skill => ({
+      id: skill.id,
+      providerName: 'You', // Since it's the user's own skills
+      skillTitle: skill.title,
+      rating: skill.reviews?.length > 0 
+        ? skill.reviews.reduce((acc: number, review: any) => acc + (review.rating || 0), 0) / skill.reviews.length
+        : 0,
+      price: Number(skill.price),
+      duration: skill.duration,
+      location: skill.location || 'Remote',
+      image: skill.image_url || '/placeholder.svg',
+      isTopRated: skill.is_top_rated || false,
+      category: skill.categories?.title || 'Uncategorized',
+      description: skill.description || ''
+    }));
   },
 
   async create(skill: SkillInsert) {
