@@ -40,7 +40,7 @@ export const useProfile = () => {
       
       // Fetch profile data - use maybeSingle() instead of single() to handle missing profiles
       const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
+        .from('skillstime_profiles')
         .select('*')
         .eq('id', user.id)
         .maybeSingle();
@@ -59,7 +59,7 @@ export const useProfile = () => {
       if (!profileData) {
         console.log('No profile found, creating one...');
         const { data: newProfile, error: createError } = await supabase
-          .from('profiles')
+          .from('skillstime_profiles')
           .insert({
             id: user.id,
             name: user.user_metadata?.full_name || user.user_metadata?.name || '',
@@ -102,7 +102,7 @@ export const useProfile = () => {
 
       // Fetch skills
       const { data: skillsData, error: skillsError } = await supabase
-        .from('user_skills')
+        .from('skillstime_user_skills')
         .select('skill')
         .eq('user_id', user.id);
 
@@ -112,7 +112,7 @@ export const useProfile = () => {
 
       // Fetch badges
       const { data: badgesData, error: badgesError } = await supabase
-        .from('user_badges')
+        .from('skillstime_user_badges')
         .select('badge')
         .eq('user_id', user.id);
 
@@ -156,7 +156,7 @@ export const useProfile = () => {
       setUpdating(true);
       
       const { error } = await supabase
-        .from('profiles')
+        .from('skillstime_profiles')
         .update({
           name: updates.name,
           email: updates.email,
@@ -202,7 +202,7 @@ export const useProfile = () => {
 
     try {
       const { error } = await supabase
-        .from('user_skills')
+        .from('skillstime_user_skills')
         .insert({
           user_id: user.id,
           skill: skill
@@ -243,7 +243,7 @@ export const useProfile = () => {
       const skillToRemove = profile.skills[skillIndex];
       
       const { error } = await supabase
-        .from('user_skills')
+        .from('skillstime_user_skills')
         .delete()
         .eq('user_id', user.id)
         .eq('skill', skillToRemove);
