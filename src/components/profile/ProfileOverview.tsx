@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { UserProfile } from '@/hooks/useProfile';
+import { useUserStatistics } from '@/hooks/useUserStatistics';
+import { useUserBadges } from '@/hooks/useBadges';
 import StatsDetailModal from './modals/StatsDetailModal';
 import BadgeDetailModal from './modals/BadgeDetailModal';
 
@@ -23,6 +25,8 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
   onRemoveSkill 
 }) => {
   const { t } = useTranslation('profile');
+  const { data: userStats, isLoading: statsLoading } = useUserStatistics();
+  const { data: userBadges = [], isLoading: badgesLoading } = useUserBadges();
   const [selectedModal, setSelectedModal] = useState<{
     type: 'skills' | 'bookings' | 'reviews' | 'rating' | 'badges' | null;
     data?: any;
@@ -45,39 +49,44 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
   const stats = [
     {
       label: t('overview.stats.skills'),
-      value: profile.skills.length + mySkills.length,
+      value: userStats?.total_skills || 0,
       icon: Zap,
       color: 'from-blue-400 to-blue-600',
       bgColor: 'bg-blue-50',
-      type: 'skills' as const
+      type: 'skills' as const,
+      loading: statsLoading
     },
     {
       label: t('overview.stats.bookings'),
-      value: profile.completedBookings,
+      value: userStats?.total_bookings || 0,
       icon: Calendar,
       color: 'from-green-400 to-green-600',
       bgColor: 'bg-green-50',
-      type: 'bookings' as const
+      type: 'bookings' as const,
+      loading: statsLoading
     },
     {
       label: t('overview.stats.reviews'),
-      value: 0,
+      value: userStats?.total_reviews || 0,
       icon: Star,
       color: 'from-yellow-400 to-yellow-600',
       bgColor: 'bg-yellow-50',
-      type: 'reviews' as const
+      type: 'reviews' as const,
+      loading: statsLoading
     },
     {
       label: t('overview.stats.rating'),
-      value: profile.rating.toFixed(1),
+      value: userStats?.average_rating ? userStats.average_rating.toFixed(1) : '0.0',
       icon: Award,
       color: 'from-purple-400 to-purple-600',
       bgColor: 'bg-purple-50',
-      type: 'rating' as const
+      type: 'rating' as const,
+      loading: statsLoading
     }
   ];
 
   const profileCompletion = calculateProfileCompletion();
+  const badgeNames = userBadges.map(badge => badge.badge);
 
   const handleStatsClick = (type: 'skills' | 'bookings' | 'reviews' | 'rating', data?: any) => {
     setSelectedModal({ type, data });
@@ -98,7 +107,7 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
         <p className="text-slate-600 text-sm">{t('overview.subtitle')}</p>
       </div>
 
-      {/* Stats Grid - Now Clickable */}
+      {/* Stats Grid - Now Clickable with Real Data */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((stat, index) => {
           const IconComponent = stat.icon;
@@ -114,7 +123,11 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
                   <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
                 <div className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 mb-1">
-                  {typeof stat.value === 'number' && stat.value === 0 ? '🎯' : stat.value}
+                  {stat.loading ? (
+                    <div className="animate-pulse bg-slate-200 rounded h-6 w-8 mx-auto"></div>
+                  ) : (
+                    <span>{typeof stat.value === 'number' && stat.value === 0 ? '🎯' : stat.value}</span>
+                  )}
                 </div>
                 <div className="text-xs sm:text-sm text-slate-600 font-medium">
                   {stat.label}
@@ -158,7 +171,7 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
         </CardContent>
       </Card>
 
-      {/* Badges Section - Now Clickable */}
+      {/* Badges Section - Now Clickable with Real Data */}
       <Card 
         className="border-0 shadow-lg bg-gradient-to-br from-amber-50 to-orange-50 hover:shadow-xl transition-all duration-300 cursor-pointer"
         onClick={handleBadgesClick}
@@ -173,9 +186,15 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
           <p className="text-xs sm:text-sm text-slate-600">{t('overview.badges_subtitle')}</p>
         </CardHeader>
         <CardContent>
-          {profile.badges && profile.badges.length > 0 ? (
+          {badgesLoading ? (
+            <div className="flex gap-2">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-slate-200 rounded-full h-8 w-20"></div>
+              ))}
+            </div>
+          ) : badgeNames && badgeNames.length > 0 ? (
             <div className="flex flex-wrap gap-2">
-              {profile.badges.map((badge, index) => (
+              {badgeNames.map((badge, index) => (
                 <Badge 
                   key={index} 
                   variant="secondary"
@@ -214,7 +233,7 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
         <BadgeDetailModal
           isOpen={true}
           onClose={() => setSelectedModal({ type: null })}
-          badges={profile.badges || []}
+          badges={badgeNames || []}
         />
       )}
     </div>

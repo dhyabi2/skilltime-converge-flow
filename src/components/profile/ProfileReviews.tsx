@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from '@/contexts/AuthContext';
+import { useProviderReviews, useReviewStatistics } from '@/hooks/useReviews';
 import ReviewDetailModal from './modals/ReviewDetailModal';
 
 interface ProfileReviewsProps {
@@ -13,53 +15,10 @@ interface ProfileReviewsProps {
 
 const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
   const { t } = useTranslation('profile');
+  const { user } = useAuth();
+  const { data: reviews = [], isLoading } = useProviderReviews(userId);
+  const { data: reviewStats, isLoading: statsLoading } = useReviewStatistics(userId);
   const [selectedReview, setSelectedReview] = useState<any>(null);
-
-  // Mock data - would be replaced with real data
-  const mockReviews = [
-    {
-      id: 'review-1',
-      rating: 5,
-      comment: 'Absolutely fantastic React mentoring session! Jane explained complex concepts in a very understandable way. Her teaching style is engaging and she provided practical examples that really helped solidify my understanding.',
-      created_at: '2024-01-10T10:00:00Z',
-      upvotes: 12,
-      downvotes: 0,
-      provider_response: 'Thank you so much for the kind words! It was a pleasure working with you. Keep up the great work with React!',
-      provider_response_date: '2024-01-11T14:30:00Z',
-      profiles: {
-        name: 'John Doe',
-        avatar: '/placeholder.svg'
-      }
-    },
-    {
-      id: 'review-2',
-      rating: 4,
-      comment: 'Great UI/UX consultation. Sarah gave me valuable insights into modern design principles and helped me improve my portfolio. Highly recommend!',
-      created_at: '2024-01-05T15:30:00Z',
-      upvotes: 8,
-      downvotes: 1,
-      provider_response: null,
-      provider_response_date: null,
-      profiles: {
-        name: 'Mike Johnson',
-        avatar: '/placeholder.svg'
-      }
-    },
-    {
-      id: 'review-3',
-      rating: 5,
-      comment: 'Bob is an excellent JavaScript instructor. The session was well-structured and covered advanced concepts that I\'ve been struggling with. Worth every penny!',
-      created_at: '2024-01-02T09:15:00Z',
-      upvotes: 15,
-      downvotes: 0,
-      provider_response: 'I\'m so glad the session was helpful! JavaScript can be tricky, but you\'re doing great. Feel free to reach out if you have more questions.',
-      provider_response_date: '2024-01-02T18:00:00Z',
-      profiles: {
-        name: 'Alice Brown',
-        avatar: '/placeholder.svg'
-      }
-    }
-  ];
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -78,17 +37,43 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
 
   const handleVote = (reviewId: string, voteType: 'up' | 'down') => {
     console.log('Vote on review:', reviewId, voteType);
-    // This would call the review service to vote
+    // This will be handled by the modal
   };
 
   const handleRespond = (reviewId: string, response: string) => {
     console.log('Respond to review:', reviewId, response);
-    // This would call the review service to add response
+    // This will be handled by the modal
   };
 
-  const averageRating = mockReviews.length > 0 
-    ? mockReviews.reduce((sum, review) => sum + review.rating, 0) / mockReviews.length 
-    : 0;
+  if (isLoading || statsLoading) {
+    return (
+      <div className="space-y-4">
+        <div className="text-center">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex items-center justify-center gap-2">
+            <Award className="w-6 h-6 text-yellow-600" />
+            Reviews & Feedback
+          </h2>
+          <p className="text-slate-600 text-sm">Loading your reviews...</p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <Card key={i} className="border-0 shadow-md">
+              <CardContent className="p-4 text-center">
+                <div className="animate-pulse space-y-2">
+                  <div className="bg-gray-200 rounded h-8 w-12 mx-auto"></div>
+                  <div className="bg-gray-200 rounded h-4 w-16 mx-auto"></div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const averageRating = reviewStats?.averageRating || 0;
+  const totalReviews = reviewStats?.totalReviews || 0;
+  const totalUpvotes = reviewStats?.totalUpvotes || 0;
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -112,22 +97,20 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
         </Card>
         <Card className="border-0 shadow-md bg-blue-50">
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-blue-600">{mockReviews.length}</div>
+            <div className="text-2xl font-bold text-blue-600">{totalReviews}</div>
             <p className="text-sm text-gray-600">Total Reviews</p>
           </CardContent>
         </Card>
         <Card className="border-0 shadow-md bg-green-50">
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-green-600">
-              {mockReviews.reduce((sum, review) => sum + review.upvotes, 0)}
-            </div>
+            <div className="text-2xl font-bold text-green-600">{totalUpvotes}</div>
             <p className="text-sm text-gray-600">Helpful Votes</p>
           </CardContent>
         </Card>
         <Card className="border-0 shadow-md bg-purple-50">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-purple-600">
-              {mockReviews.filter(r => r.provider_response).length}
+              {reviews.filter(r => r.provider_response).length}
             </div>
             <p className="text-sm text-gray-600">Responses</p>
           </CardContent>
@@ -136,7 +119,7 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
 
       {/* Reviews List */}
       <div className="space-y-4">
-        {mockReviews.map((review) => (
+        {reviews.map((review) => (
           <Card 
             key={review.id} 
             className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.01] cursor-pointer"
@@ -145,16 +128,16 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
             <CardContent className="p-4 sm:p-6">
               <div className="flex gap-4">
                 <Avatar className="w-12 h-12 flex-shrink-0">
-                  <AvatarImage src={review.profiles.avatar} />
-                  <AvatarFallback>{review.profiles.name.charAt(0)}</AvatarFallback>
+                  <AvatarImage src={review.profiles?.avatar} />
+                  <AvatarFallback>{review.profiles?.name?.charAt(0) || 'U'}</AvatarFallback>
                 </Avatar>
                 
                 <div className="flex-1 space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <h3 className="font-semibold text-slate-800">{review.profiles.name}</h3>
+                      <h3 className="font-semibold text-slate-800">{review.profiles?.name || 'Anonymous'}</h3>
                       <div className="flex items-center gap-2">
-                        <div className="flex">{renderStars(review.rating)}</div>
+                        <div className="flex">{renderStars(review.rating || 0)}</div>
                         <span className="text-sm text-gray-500">
                           {new Date(review.created_at).toLocaleDateString()}
                         </span>
@@ -181,20 +164,20 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1 text-sm text-gray-500">
                         <ThumbsUp className="w-4 h-4" />
-                        <span>{review.upvotes}</span>
+                        <span>{review.upvotes || 0}</span>
                       </div>
                       <span className="text-sm text-gray-400">•</span>
                       <span className="text-sm text-gray-500">
-                        {review.upvotes + review.downvotes} found helpful
+                        {(review.upvotes || 0) + (review.downvotes || 0)} found helpful
                       </span>
                     </div>
                     <Badge 
                       variant="outline" 
                       className={`${
-                        review.rating >= 4 ? 'border-green-200 text-green-700' : 'border-gray-200'
+                        (review.rating || 0) >= 4 ? 'border-green-200 text-green-700' : 'border-gray-200'
                       }`}
                     >
-                      {review.rating >= 4 ? '⭐ Great' : review.rating >= 3 ? '👍 Good' : '💡 Feedback'}
+                      {(review.rating || 0) >= 4 ? '⭐ Great' : (review.rating || 0) >= 3 ? '👍 Good' : '💡 Feedback'}
                     </Badge>
                   </div>
                 </div>
@@ -205,7 +188,7 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
       </div>
 
       {/* Empty State */}
-      {mockReviews.length === 0 && (
+      {reviews.length === 0 && (
         <div className="text-center py-12">
           <Star className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-600 mb-2">No reviews yet</h3>
@@ -221,7 +204,7 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
           review={selectedReview}
           onVote={handleVote}
           onRespond={handleRespond}
-          canRespond={!selectedReview.provider_response}
+          canRespond={!selectedReview.provider_response && user?.id === userId}
         />
       )}
     </div>

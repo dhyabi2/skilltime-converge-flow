@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { useMySkills } from '@/hooks/useMySkills';
+import { useCheckBadges } from '@/hooks/useBadges';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileOverview from '@/components/profile/ProfileOverview';
 import ProfileSkills from '@/components/profile/ProfileSkills';
@@ -17,7 +18,15 @@ const Profile = () => {
   const { user, signOut } = useAuth();
   const { profile, loading, removeSkill, updateProfile } = useProfile();
   const { data: mySkills = [], isLoading: skillsLoading } = useMySkills();
+  const checkBadges = useCheckBadges();
   const { t } = useTranslation('profile');
+
+  // Check for new badges when profile loads
+  useEffect(() => {
+    if (profile?.id) {
+      checkBadges.mutate();
+    }
+  }, [profile?.id]);
 
   if (loading) {
     return (

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useUserBookings } from '@/hooks/useRealBookings';
 import BookingDetailModal from './modals/BookingDetailModal';
 
 interface ProfileBookingsProps {
@@ -13,77 +14,8 @@ interface ProfileBookingsProps {
 
 const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
   const { t } = useTranslation('bookings');
+  const { data: bookings = [], isLoading } = useUserBookings();
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
-
-  // Mock data - would be replaced with real data from useBookings hook
-  const mockBookings = [
-    {
-      id: 'booking-1',
-      booking_date: '2024-01-15',
-      booking_time: '14:00',
-      duration: '2 hours',
-      location: 'Remote',
-      price: 150,
-      status: 'confirmed',
-      notes: 'Looking forward to learning React best practices!',
-      skills: {
-        title: 'React Development Mentoring',
-        image_url: '/placeholder.svg'
-      },
-      profiles: {
-        name: 'John Doe',
-        avatar: '/placeholder.svg'
-      },
-      provider: {
-        name: 'Jane Smith',
-        avatar: '/placeholder.svg'
-      }
-    },
-    {
-      id: 'booking-2',
-      booking_date: '2024-01-20',
-      booking_time: '10:00',
-      duration: '1 hour',
-      location: 'Coffee Shop Downtown',
-      price: 75,
-      status: 'pending',
-      notes: 'Need help with UI/UX design principles',
-      skills: {
-        title: 'UI/UX Design Consultation',
-        image_url: '/placeholder.svg'
-      },
-      profiles: {
-        name: 'Mike Johnson',
-        avatar: '/placeholder.svg'
-      },
-      provider: {
-        name: 'Sarah Wilson',
-        avatar: '/placeholder.svg'
-      }
-    },
-    {
-      id: 'booking-3',
-      booking_date: '2024-01-10',
-      booking_time: '16:00',
-      duration: '3 hours',
-      location: 'Remote',
-      price: 200,
-      status: 'completed',
-      notes: 'Great session on advanced JavaScript concepts!',
-      skills: {
-        title: 'JavaScript Fundamentals',
-        image_url: '/placeholder.svg'
-      },
-      profiles: {
-        name: 'Alice Brown',
-        avatar: '/placeholder.svg'
-      },
-      provider: {
-        name: 'Bob Davis',
-        avatar: '/placeholder.svg'
-      }
-    }
-  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -91,6 +23,7 @@ const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
       case 'pending': return 'bg-yellow-100 text-yellow-800';
       case 'completed': return 'bg-blue-100 text-blue-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
+      case 'refunded': return 'bg-gray-100 text-gray-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -101,8 +34,39 @@ const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
 
   const handleStatusUpdate = (bookingId: string, status: string) => {
     console.log('Update booking status:', bookingId, status);
-    // This would call the booking service to update status
+    // This will be handled by the modal
   };
+
+  if (isLoading) {
+    return (
+      <div className="space-y-4">
+        <div className="text-center">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex items-center justify-center gap-2">
+            <Calendar className="w-6 h-6 text-blue-600" />
+            My Bookings
+          </h2>
+          <p className="text-slate-600 text-sm">Loading your bookings...</p>
+        </div>
+        <div className="space-y-4">
+          {[...Array(3)].map((_, i) => (
+            <Card key={i} className="border-0 shadow-lg">
+              <CardContent className="p-4 sm:p-6">
+                <div className="animate-pulse space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="bg-gray-200 rounded-lg w-16 h-16"></div>
+                    <div className="flex-1 space-y-2">
+                      <div className="bg-gray-200 rounded h-4 w-3/4"></div>
+                      <div className="bg-gray-200 rounded h-3 w-1/2"></div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -117,7 +81,7 @@ const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
 
       {/* Bookings List */}
       <div className="space-y-4">
-        {mockBookings.map((booking) => (
+        {bookings.map((booking) => (
           <Card 
             key={booking.id} 
             className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer"
@@ -128,8 +92,8 @@ const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
                 {/* Service Image */}
                 <div className="flex-shrink-0">
                   <img 
-                    src={booking.skills.image_url} 
-                    alt={booking.skills.title}
+                    src={booking.skills?.image_url || '/placeholder.svg'} 
+                    alt={booking.skills?.title || 'Service'}
                     className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover"
                   />
                 </div>
@@ -138,7 +102,7 @@ const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
                 <div className="flex-1 space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <h3 className="font-semibold text-lg text-slate-800">
-                      {booking.skills.title}
+                      {booking.skills?.title || 'Unknown Service'}
                     </h3>
                     <Badge className={getStatusColor(booking.status)}>
                       {booking.status.toUpperCase()}
@@ -160,7 +124,7 @@ const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
                     </div>
                     <div className="flex items-center gap-2">
                       <DollarSign className="w-4 h-4 text-gray-500" />
-                      <span>${booking.price}</span>
+                      <span>{booking.price} OMR</span>
                     </div>
                   </div>
 
@@ -168,16 +132,16 @@ const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Avatar className="w-8 h-8">
-                        <AvatarImage src={booking.profiles.avatar} />
-                        <AvatarFallback>{booking.profiles.name.charAt(0)}</AvatarFallback>
+                        <AvatarImage src={booking.profiles?.avatar} />
+                        <AvatarFallback>{booking.profiles?.name?.charAt(0) || 'U'}</AvatarFallback>
                       </Avatar>
-                      <span className="text-sm text-gray-600">{booking.profiles.name}</span>
+                      <span className="text-sm text-gray-600">{booking.profiles?.name || 'Unknown Client'}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-600">{booking.provider.name}</span>
+                      <span className="text-sm text-gray-600">{booking.provider?.name || 'Unknown Provider'}</span>
                       <Avatar className="w-8 h-8">
-                        <AvatarImage src={booking.provider.avatar} />
-                        <AvatarFallback>{booking.provider.name.charAt(0)}</AvatarFallback>
+                        <AvatarImage src={booking.provider?.avatar} />
+                        <AvatarFallback>{booking.provider?.name?.charAt(0) || 'P'}</AvatarFallback>
                       </Avatar>
                     </div>
                   </div>
@@ -195,7 +159,7 @@ const ProfileBookings: React.FC<ProfileBookingsProps> = ({ userId }) => {
       </div>
 
       {/* Empty State */}
-      {mockBookings.length === 0 && (
+      {bookings.length === 0 && (
         <div className="text-center py-12">
           <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-600 mb-2">No bookings yet</h3>
