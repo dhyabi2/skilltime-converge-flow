@@ -1,0 +1,25 @@
+
+{
+  "title": "التقييمات والملاحظات",
+  "subtitle": "شاهد ما يقوله الآخرون عن خدماتك",
+  "average_rating": "متوسط التقييم",
+  "total_reviews": "إجمالي التقييمات",
+  "helpful_votes": "الأصوات المفيدة",
+  "responses": "الردود",
+  "no_reviews": "لا توجد تقييمات بعد",
+  "no_reviews_subtitle": "تقييمات عملائك ستظهر هنا",
+  "anonymous": "مجهول",
+  "responded": "تم الرد",
+  "your_response": "ردك:",
+  "found_helpful": "وجدوا هذا مفيداً",
+  "great": "ممتاز",
+  "good": "جيد",
+  "feedback": "ملاحظات",
+  "loading_reviews": "جاري تحميل التقييمات...",
+  "vote_helpful": "مفيد",
+  "respond": "رد",
+  "response_placeholder": "اكتب ردك هنا...",
+  "submit_response": "إرسال الرد",
+  "thank_you": "شكراً لك",
+  "helpful": "مفيد"
+}

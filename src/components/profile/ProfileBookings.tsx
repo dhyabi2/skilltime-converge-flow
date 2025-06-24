@@ -4,10 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, MapPin, User, Plus, Eye } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useUserBookings } from '@/hooks/useRealBookings';
 import BookingDetailModal from './modals/BookingDetailModal';
 
 const ProfileBookings = () => {
+  const { t } = useTranslation('profile');
   const { data: bookings = [], isLoading } = useUserBookings();
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
 
@@ -27,7 +29,7 @@ const ProfileBookings = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleDateString('ar-OM', {
       month: 'short',
       day: 'numeric',
       year: 'numeric'
@@ -35,7 +37,7 @@ const ProfileBookings = () => {
   };
 
   const formatTime = (timeString: string) => {
-    return new Date(`2000-01-01T${timeString}`).toLocaleTimeString('en-US', {
+    return new Date(`2000-01-01T${timeString}`).toLocaleTimeString('ar-OM', {
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
@@ -48,7 +50,7 @@ const ProfileBookings = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="w-5 h-5 text-blue-600" />
-            My Bookings
+            {t('bookings.title')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -73,11 +75,11 @@ const ProfileBookings = () => {
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <Calendar className="w-5 h-5 text-blue-600" />
-              My Bookings
+              {t('bookings.title')}
             </CardTitle>
             <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
               <Plus className="w-4 h-4 mr-1" />
-              View All
+              {t('bookings.view_all')}
             </Button>
           </div>
         </CardHeader>
@@ -85,8 +87,8 @@ const ProfileBookings = () => {
           {recentBookings.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
               <Calendar className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-              <p>No bookings yet</p>
-              <p className="text-sm">Your upcoming sessions will appear here</p>
+              <p>{t('bookings.no_bookings')}</p>
+              <p className="text-sm">{t('bookings.no_bookings_subtitle')}</p>
             </div>
           ) : (
             recentBookings.map((booking) => (
@@ -102,17 +104,17 @@ const ProfileBookings = () => {
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-800 group-hover:text-blue-700 transition-colors">
-                        {booking.skills?.title || 'Skill Session'}
+                        {booking.skills?.title || t('bookings.skill_session')}
                       </h4>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <User className="w-3 h-3" />
-                        <span>with {booking.client?.name || booking.provider?.name || 'Student'}</span>
+                        <span>{t('bookings.with')} {booking.client?.name || booking.provider?.name || t('bookings.student')}</span>
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge className={`${getStatusColor(booking.status)} text-xs`}>
-                      {booking.status}
+                      {t(`bookings.status.${booking.status}`, booking.status)}
                     </Badge>
                     <Button
                       variant="ghost"
@@ -135,7 +137,7 @@ const ProfileBookings = () => {
                   </div>
                   <div className="flex items-center gap-1">
                     <MapPin className="w-3 h-3" />
-                    <span>{booking.location || 'Remote'}</span>
+                    <span>{booking.location || t('bookings.remote')}</span>
                   </div>
                 </div>
               </div>

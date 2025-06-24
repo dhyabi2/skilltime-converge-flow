@@ -38,7 +38,7 @@ const Profile = () => {
               <span className="text-2xl animate-pulse">✨</span>
             </div>
           </div>
-          <p className="text-slate-600 text-sm animate-pulse">Loading your amazing profile... 🚀</p>
+          <p className="text-slate-600 text-sm animate-pulse">{t('loading.profile')}</p>
         </div>
       </div>
     );
@@ -49,12 +49,12 @@ const Profile = () => {
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="text-6xl mb-4 animate-bounce">😔</div>
-          <p className="text-slate-600 mb-4 text-sm">Oops! We couldn't load your profile</p>
+          <p className="text-slate-600 mb-4 text-sm">{t('loading.error')}</p>
           <button 
             onClick={() => window.location.reload()}
             className="text-soft-blue-600 hover:text-soft-blue-700 text-sm bg-soft-blue-50 hover:bg-soft-blue-100 px-4 py-2 rounded-full transition-all duration-200 hover:scale-105"
           >
-            🔄 Try again
+            {t('loading.try_again')}
           </button>
         </div>
       </div>
@@ -80,38 +80,38 @@ const Profile = () => {
                     className="flex-1 min-w-[90px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
                   >
                     <span className="mr-1 text-sm">🏠</span>
-                    <span className="hidden xs:inline">Overview</span>
-                    <span className="xs:hidden">Home</span>
+                    <span className="hidden xs:inline">{t('tabs.overview')}</span>
+                    <span className="xs:hidden">{t('tabs.home')}</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="skills" 
                     className="flex-1 min-w-[80px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
                   >
                     <span className="mr-1 text-sm">🎯</span>
-                    <span>Skills</span>
+                    <span>{t('tabs.skills')}</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="bookings" 
                     className="flex-1 min-w-[90px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
                   >
                     <span className="mr-1 text-sm">📅</span>
-                    <span className="hidden xs:inline">Bookings</span>
-                    <span className="xs:hidden">Book</span>
+                    <span className="hidden xs:inline">{t('tabs.bookings')}</span>
+                    <span className="xs:hidden">{t('tabs.book')}</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="reviews" 
                     className="flex-1 min-w-[80px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
                   >
                     <span className="mr-1 text-sm">⭐</span>
-                    <span>Reviews</span>
+                    <span>{t('tabs.reviews')}</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="settings" 
                     className="flex-1 min-w-[90px] text-xs sm:text-sm px-3 py-3 whitespace-nowrap data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200 hover:scale-105 rounded-md"
                   >
                     <span className="mr-1 text-sm">⚙️</span>
-                    <span className="hidden xs:inline">Settings</span>
-                    <span className="xs:hidden">Set</span>
+                    <span className="hidden xs:inline">{t('tabs.settings')}</span>
+                    <span className="xs:hidden">{t('tabs.set')}</span>
                   </TabsTrigger>
                 </div>
               </div>

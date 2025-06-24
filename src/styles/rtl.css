@@ -19,9 +19,68 @@
     text-align: right;
   }
 
+  /* Button and interactive elements */
+  [dir="rtl"] button,
+  [dir="rtl"] .btn {
+    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Arial', sans-serif !important;
+    font-weight: 600 !important;
+  }
+
+  /* Form elements */
+  [dir="rtl"] input,
+  [dir="rtl"] textarea,
+  [dir="rtl"] select {
+    text-align: right;
+    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Arial', sans-serif !important;
+  }
+
+  /* Badge and label styling */
+  [dir="rtl"] .badge,
+  [dir="rtl"] label {
+    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Arial', sans-serif !important;
+    font-weight: 600 !important;
+  }
+
+  /* Tab styling */
+  [dir="rtl"] [role="tab"] {
+    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Arial', sans-serif !important;
+    font-weight: 600 !important;
+  }
+
+  /* Card content */
+  [dir="rtl"] .card-content,
+  [dir="rtl"] .card-header {
+    text-align: right;
+  }
+
   /* Ensure proper text color and size for Arabic content */
   [dir="rtl"] {
     color: #1e293b;
     font-size: 0.95rem;
+  }
+
+  /* Icon positioning for RTL */
+  [dir="rtl"] .icon-left {
+    margin-right: 0;
+    margin-left: 0.5rem;
+  }
+
+  [dir="rtl"] .icon-right {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+
+  /* Flex direction adjustments */
+  [dir="rtl"] .flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  /* Text alignment utilities */
+  [dir="rtl"] .text-left {
+    text-align: right !important;
+  }
+
+  [dir="rtl"] .text-right {
+    text-align: left !important;
   }
 }

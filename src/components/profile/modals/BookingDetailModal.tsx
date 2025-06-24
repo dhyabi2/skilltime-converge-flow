@@ -20,7 +20,7 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
   booking,
   onStatusUpdate
 }) => {
-  const { t } = useTranslation('profile');
+  const { t } = useTranslation('bookings');
 
   if (!booking) return null;
 
@@ -40,23 +40,23 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Calendar className="w-5 h-5" />
-            Booking Details
+            {t('booking_details')}
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <Badge className={getStatusColor(booking.status)}>
-              {booking.status?.toUpperCase()}
+              {t(`status.${booking.status}`, booking.status)?.toUpperCase()}
             </Badge>
             <span className="text-sm text-gray-500">
-              Booking #{booking.id?.slice(0, 8)}
+              {t('booking_number')} #{booking.id?.slice(0, 8)}
             </span>
           </div>
 
           {/* Service Info */}
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-semibold mb-2">Service</h3>
+            <h3 className="font-semibold mb-2">{t('service')}</h3>
             <div className="flex items-center gap-3">
               <img 
                 src={booking.skills?.image_url || '/placeholder.svg'} 
@@ -75,14 +75,14 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-gray-500" />
               <div>
-                <p className="text-sm text-gray-500">Date</p>
+                <p className="text-sm text-gray-500">{t('date')}</p>
                 <p className="font-medium">{booking.booking_date}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-gray-500" />
               <div>
-                <p className="text-sm text-gray-500">Time</p>
+                <p className="text-sm text-gray-500">{t('time')}</p>
                 <p className="font-medium">{booking.booking_time}</p>
               </div>
             </div>
@@ -90,7 +90,7 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
 
           {/* People */}
           <div className="space-y-3">
-            <h3 className="font-semibold">People</h3>
+            <h3 className="font-semibold">{t('people')}</h3>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Avatar className="w-10 h-10">
@@ -99,7 +99,7 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
                 </Avatar>
                 <div>
                   <p className="font-medium">{booking.client?.name}</p>
-                  <p className="text-sm text-gray-500">Client</p>
+                  <p className="text-sm text-gray-500">{t('client')}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -109,7 +109,7 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
                 </Avatar>
                 <div className="text-right">
                   <p className="font-medium">{booking.provider?.name}</p>
-                  <p className="text-sm text-gray-500">Provider</p>
+                  <p className="text-sm text-gray-500">{t('provider')}</p>
                 </div>
               </div>
             </div>
@@ -120,14 +120,14 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-gray-500" />
               <div>
-                <p className="text-sm text-gray-500">Location</p>
-                <p className="font-medium">{booking.location || 'Remote'}</p>
+                <p className="text-sm text-gray-500">{t('location')}</p>
+                <p className="font-medium">{booking.location || t('remote')}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <DollarSign className="w-4 h-4 text-gray-500" />
               <div>
-                <p className="text-sm text-gray-500">Price</p>
+                <p className="text-sm text-gray-500">{t('price')}</p>
                 <p className="font-medium">${booking.price}</p>
               </div>
             </div>
@@ -136,7 +136,7 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
           {/* Notes */}
           {booking.notes && (
             <div>
-              <h3 className="font-semibold mb-2">Notes</h3>
+              <h3 className="font-semibold mb-2">{t('notes')}</h3>
               <p className="text-gray-600 bg-gray-50 p-3 rounded-lg">{booking.notes}</p>
             </div>
           )}
@@ -148,14 +148,14 @@ const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
                 onClick={() => onStatusUpdate(booking.id, 'confirmed')}
                 className="flex-1"
               >
-                Confirm Booking
+                {t('confirm_booking')}
               </Button>
               <Button 
                 variant="outline"
                 onClick={() => onStatusUpdate(booking.id, 'cancelled')}
                 className="flex-1"
               >
-                Cancel Booking
+                {t('cancel_booking')}
               </Button>
             </div>
           )}

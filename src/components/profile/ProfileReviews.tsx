@@ -51,9 +51,9 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
         <div className="text-center">
           <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex items-center justify-center gap-2">
             <Award className="w-6 h-6 text-yellow-600" />
-            Reviews & Feedback
+            {t('reviews.title')}
           </h2>
-          <p className="text-slate-600 text-sm">Loading your reviews...</p>
+          <p className="text-slate-600 text-sm">{t('reviews.loading_reviews')}</p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[...Array(4)].map((_, i) => (
@@ -81,9 +81,9 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
       <div className="text-center">
         <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex items-center justify-center gap-2">
           <Award className="w-6 h-6 text-yellow-600" />
-          Reviews & Feedback
+          {t('reviews.title')}
         </h2>
-        <p className="text-slate-600 text-sm">See what others say about your services</p>
+        <p className="text-slate-600 text-sm">{t('reviews.subtitle')}</p>
       </div>
 
       {/* Stats */}
@@ -91,20 +91,20 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
         <Card className="border-0 shadow-md bg-yellow-50">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-yellow-600">{averageRating.toFixed(1)}</div>
-            <p className="text-sm text-gray-600">Average Rating</p>
+            <p className="text-sm text-gray-600">{t('reviews.average_rating')}</p>
             <div className="flex justify-center mt-1">{renderStars(Math.round(averageRating))}</div>
           </CardContent>
         </Card>
         <Card className="border-0 shadow-md bg-blue-50">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-blue-600">{totalReviews}</div>
-            <p className="text-sm text-gray-600">Total Reviews</p>
+            <p className="text-sm text-gray-600">{t('reviews.total_reviews')}</p>
           </CardContent>
         </Card>
         <Card className="border-0 shadow-md bg-green-50">
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-green-600">{totalUpvotes}</div>
-            <p className="text-sm text-gray-600">Helpful Votes</p>
+            <p className="text-sm text-gray-600">{t('reviews.helpful_votes')}</p>
           </CardContent>
         </Card>
         <Card className="border-0 shadow-md bg-purple-50">
@@ -112,7 +112,7 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
             <div className="text-2xl font-bold text-purple-600">
               {reviews.filter(r => r.provider_response).length}
             </div>
-            <p className="text-sm text-gray-600">Responses</p>
+            <p className="text-sm text-gray-600">{t('reviews.responses')}</p>
           </CardContent>
         </Card>
       </div>
@@ -135,18 +135,18 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
                 <div className="flex-1 space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <h3 className="font-semibold text-slate-800">{review.profiles?.name || 'Anonymous'}</h3>
+                      <h3 className="font-semibold text-slate-800">{review.profiles?.name || t('reviews.anonymous')}</h3>
                       <div className="flex items-center gap-2">
                         <div className="flex">{renderStars(review.rating || 0)}</div>
                         <span className="text-sm text-gray-500">
-                          {new Date(review.created_at).toLocaleDateString()}
+                          {new Date(review.created_at).toLocaleDateString('ar-OM')}
                         </span>
                       </div>
                     </div>
                     {review.provider_response && (
                       <Badge variant="secondary" className="bg-blue-100 text-blue-800">
                         <MessageSquare className="w-3 h-3 mr-1" />
-                        Responded
+                        {t('reviews.responded')}
                       </Badge>
                     )}
                   </div>
@@ -155,7 +155,7 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
                   
                   {review.provider_response && (
                     <div className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-400">
-                      <p className="text-sm text-blue-800 font-medium mb-1">Your Response:</p>
+                      <p className="text-sm text-blue-800 font-medium mb-1">{t('reviews.your_response')}</p>
                       <p className="text-blue-700 text-sm line-clamp-2">{review.provider_response}</p>
                     </div>
                   )}
@@ -168,7 +168,7 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
                       </div>
                       <span className="text-sm text-gray-400">•</span>
                       <span className="text-sm text-gray-500">
-                        {(review.upvotes || 0) + (review.downvotes || 0)} found helpful
+                        {(review.upvotes || 0) + (review.downvotes || 0)} {t('reviews.found_helpful')}
                       </span>
                     </div>
                     <Badge 
@@ -177,7 +177,7 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
                         (review.rating || 0) >= 4 ? 'border-green-200 text-green-700' : 'border-gray-200'
                       }`}
                     >
-                      {(review.rating || 0) >= 4 ? '⭐ Great' : (review.rating || 0) >= 3 ? '👍 Good' : '💡 Feedback'}
+                      {(review.rating || 0) >= 4 ? `⭐ ${t('reviews.great')}` : (review.rating || 0) >= 3 ? `👍 ${t('reviews.good')}` : `💡 ${t('reviews.feedback')}`}
                     </Badge>
                   </div>
                 </div>
@@ -191,8 +191,8 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
       {reviews.length === 0 && (
         <div className="text-center py-12">
           <Star className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-600 mb-2">No reviews yet</h3>
-          <p className="text-gray-500">Reviews from your clients will appear here.</p>
+          <h3 className="text-lg font-semibold text-gray-600 mb-2">{t('reviews.no_reviews')}</h3>
+          <p className="text-gray-500">{t('reviews.no_reviews_subtitle')}</p>
         </div>
       )}
 
