@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Save, User, Mail, Phone, MapPin, Camera, Bell, Shield, Trash2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +19,7 @@ interface ProfileSettingsProps {
 }
 
 const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProfile }) => {
+  const { t } = useTranslation('profile');
   const [formData, setFormData] = useState({
     name: profile.name || '',
     email: profile.email || '',
@@ -43,7 +45,23 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
   const [isUpdating, setIsUpdating] = useState(false);
   const { toast } = useToast();
 
+  const validatePhone = (phone: string) => {
+    if (!phone) return true; // Phone is optional
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''));
+  };
+
   const handleSave = async () => {
+    // Validate phone if provided
+    if (formData.phone && !validatePhone(formData.phone)) {
+      toast({
+        title: "Invalid Phone Number",
+        description: "Please enter a valid phone number",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsUpdating(true);
     try {
       const success = await onUpdateProfile(formData);
@@ -67,8 +85,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
   return (
     <div className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2">Account Settings</h2>
-        <p className="text-slate-600 text-sm">Manage your account information and preferences</p>
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2">{t('settings.title')}</h2>
+        <p className="text-slate-600 text-sm">{t('settings.subtitle')}</p>
       </div>
 
       {/* Profile Information */}
@@ -76,7 +94,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
         <CardHeader className="pb-3 sm:pb-4">
           <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
             <User className="w-4 h-4 sm:w-5 sm:h-5" />
-            Profile Information
+            {t('settings.profile_info')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 sm:space-y-6">
@@ -91,67 +109,88 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
             <div className="text-center sm:text-left">
               <Button variant="outline" size="sm" className="text-xs sm:text-sm">
                 <Camera className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                Change Photo
+                {t('settings.change_photo')}
               </Button>
-              <p className="text-xs text-slate-500 mt-1">JPG, PNG or GIF. Max size 2MB.</p>
+              <p className="text-xs text-slate-500 mt-1">{t('settings.photo_requirements')}</p>
+            </div>
+          </div>
+
+          {/* Avatar URL Input */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
+            <div className="space-y-1 sm:space-y-2 lg:col-span-2">
+              <Label htmlFor="avatar" className="text-xs sm:text-sm">{t('edit_profile_modal.avatar_url')}</Label>
+              <Input
+                id="avatar"
+                value={formData.avatar}
+                onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
+                placeholder="https://example.com/avatar.jpg"
+                className="text-xs sm:text-sm"
+              />
             </div>
           </div>
 
           {/* Form Fields */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="name" className="text-xs sm:text-sm">Full Name</Label>
+              <Label htmlFor="name" className="text-xs sm:text-sm">{t('edit_profile_modal.full_name')}</Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="Enter your full name"
+                placeholder={t('edit_profile_modal.full_name')}
                 className="text-xs sm:text-sm"
               />
             </div>
             
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="email" className="text-xs sm:text-sm">Email</Label>
+              <Label htmlFor="email" className="text-xs sm:text-sm">{t('edit_profile_modal.email')}</Label>
               <Input
                 id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="Enter your email"
+                placeholder={t('edit_profile_modal.email')}
                 className="text-xs sm:text-sm"
               />
             </div>
             
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="phone" className="text-xs sm:text-sm">Phone Number</Label>
+              <Label htmlFor="phone" className="text-xs sm:text-sm">
+                <Phone className="w-3 h-3 inline mr-1" />
+                {t('edit_profile_modal.phone')}
+              </Label>
               <Input
                 id="phone"
+                type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="Enter your phone number"
+                placeholder="+968 12345678"
                 className="text-xs sm:text-sm"
               />
             </div>
             
             <div className="space-y-1 sm:space-y-2">
-              <Label htmlFor="location" className="text-xs sm:text-sm">Location</Label>
+              <Label htmlFor="location" className="text-xs sm:text-sm">
+                <MapPin className="w-3 h-3 inline mr-1" />
+                {t('edit_profile_modal.location')}
+              </Label>
               <Input
                 id="location"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                placeholder="Enter your location"
+                placeholder="Muscat, Oman"
                 className="text-xs sm:text-sm"
               />
             </div>
           </div>
 
           <div className="space-y-1 sm:space-y-2">
-            <Label htmlFor="bio" className="text-xs sm:text-sm">Bio</Label>
+            <Label htmlFor="bio" className="text-xs sm:text-sm">{t('edit_profile_modal.bio')}</Label>
             <Textarea
               id="bio"
               value={formData.bio}
               onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-              placeholder="Tell us about yourself..."
+              placeholder={t('edit_profile_modal.bio')}
               rows={3}
               className="text-xs sm:text-sm"
             />
@@ -159,7 +198,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
 
           <Button onClick={handleSave} disabled={isUpdating} className="w-full sm:w-auto text-xs sm:text-sm">
             <Save className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-            {isUpdating ? 'Saving...' : 'Save Changes'}
+            {isUpdating ? t('settings.saving') : t('settings.save_changes')}
           </Button>
         </CardContent>
       </Card>
@@ -169,14 +208,14 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
         <CardHeader className="pb-3 sm:pb-4">
           <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
             <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
-            Notifications
+            {t('settings.notifications')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 sm:space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">Email notifications</p>
-              <p className="text-xs sm:text-sm text-slate-600">Receive booking updates via email</p>
+              <p className="font-medium text-sm">{t('settings.email_notifications')}</p>
+              <p className="text-xs sm:text-sm text-slate-600">{t('settings.email_notifications_desc')}</p>
             </div>
             <Switch
               checked={notifications.email}
@@ -186,8 +225,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">Push notifications</p>
-              <p className="text-xs sm:text-sm text-slate-600">Receive notifications on your device</p>
+              <p className="font-medium text-sm">{t('settings.push_notifications')}</p>
+              <p className="text-xs sm:text-sm text-slate-600">{t('settings.push_notifications_desc')}</p>
             </div>
             <Switch
               checked={notifications.push}
@@ -197,8 +236,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">SMS notifications</p>
-              <p className="text-xs sm:text-sm text-slate-600">Receive important updates via SMS</p>
+              <p className="font-medium text-sm">{t('settings.sms_notifications')}</p>
+              <p className="text-xs sm:text-sm text-slate-600">{t('settings.sms_notifications_desc')}</p>
             </div>
             <Switch
               checked={notifications.sms}
@@ -208,8 +247,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">Marketing emails</p>
-              <p className="text-xs sm:text-sm text-slate-600">Receive promotional emails and updates</p>
+              <p className="font-medium text-sm">{t('settings.marketing_emails')}</p>
+              <p className="text-xs sm:text-sm text-slate-600">{t('settings.marketing_emails_desc')}</p>
             </div>
             <Switch
               checked={notifications.marketing}
@@ -224,14 +263,14 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
         <CardHeader className="pb-3 sm:pb-4">
           <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
             <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
-            Privacy Settings
+            {t('settings.privacy_settings')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 sm:space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">Profile visibility</p>
-              <p className="text-xs sm:text-sm text-slate-600">Make your profile visible to other users</p>
+              <p className="font-medium text-sm">{t('settings.profile_visibility')}</p>
+              <p className="text-xs sm:text-sm text-slate-600">{t('settings.profile_visibility_desc')}</p>
             </div>
             <Switch
               checked={privacy.profileVisible}
@@ -241,8 +280,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">Show email</p>
-              <p className="text-xs sm:text-sm text-slate-600">Display your email on your public profile</p>
+              <p className="font-medium text-sm">{t('settings.show_email')}</p>
+              <p className="text-xs sm:text-sm text-slate-600">{t('settings.show_email_desc')}</p>
             </div>
             <Switch
               checked={privacy.showEmail}
@@ -252,8 +291,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
           
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-sm">Show phone number</p>
-              <p className="text-xs sm:text-sm text-slate-600">Display your phone number on your public profile</p>
+              <p className="font-medium text-sm">{t('settings.show_phone')}</p>
+              <p className="text-xs sm:text-sm text-slate-600">{t('settings.show_phone_desc')}</p>
             </div>
             <Switch
               checked={privacy.showPhone}
@@ -268,15 +307,15 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ profile, onUpdateProf
         <CardHeader className="pb-3 sm:pb-4">
           <CardTitle className="flex items-center gap-2 text-red-600 text-base sm:text-lg">
             <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
-            Danger Zone
+            {t('settings.danger_zone')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-xs sm:text-sm text-slate-600 mb-3 sm:mb-4">
-            Once you delete your account, there is no going back. Please be certain.
+            {t('settings.delete_warning')}
           </p>
           <Button variant="destructive" size="sm" className="text-xs sm:text-sm">
-            Delete Account
+            {t('settings.delete_account')}
           </Button>
         </CardContent>
       </Card>

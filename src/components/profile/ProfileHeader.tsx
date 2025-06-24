@@ -1,127 +1,133 @@
 
-import React from 'react';
-import { Camera, MapPin, Calendar, Star, Edit, LogOut, Sparkles, Trophy } from 'lucide-react';
+import React, { useState } from 'react';
+import { LogOut, Edit, Calendar, MapPin, Phone } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { UserProfile } from '@/hooks/useProfile';
+import EditProfileModal from './EditProfileModal';
 
 interface ProfileHeaderProps {
   profile: UserProfile;
-  onEditClick?: () => void;
-  onSignOut?: () => Promise<void>;
+  onSignOut: () => void;
 }
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onEditClick, onSignOut }) => {
-  const displayName = profile.name || 'Add your name';
-  const displayBio = profile.bio || 'Tell us about yourself...';
-  const displayLocation = profile.location || 'Add your location';
-  
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({ profile, onSignOut }) => {
+  const { t } = useTranslation('profile');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).getFullYear();
+  };
+
   return (
-    <div className="relative bg-gradient-to-br from-soft-blue-400 via-soft-blue-300 to-mint-400 rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-white mb-4 sm:mb-6 overflow-hidden">
-      {/* Floating decorative elements */}
-      <div className="absolute top-4 right-4 opacity-20">
-        <Sparkles className="w-6 h-6 animate-pulse" />
-      </div>
-      <div className="absolute bottom-4 left-4 opacity-10">
-        <Trophy className="w-8 h-8 animate-bounce" style={{ animationDelay: '0.5s' }} />
-      </div>
-      
-      <div className="flex flex-col items-center text-center relative z-10">
-        <div className="relative mb-3 sm:mb-4 group">
-          <div className="absolute inset-0 bg-white/20 rounded-full blur-lg group-hover:blur-xl transition-all duration-300"></div>
-          <Avatar className="h-16 w-16 sm:h-24 sm:w-24 border-4 border-white/30 relative z-10 transition-all duration-300 group-hover:scale-105 group-hover:border-white/50">
-            <AvatarImage src={profile.avatar} alt={profile.name} />
-            <AvatarFallback className="bg-gradient-to-br from-white/30 to-white/10 text-white text-lg sm:text-2xl font-bold animate-pulse">
-              {profile.name ? profile.name.charAt(0).toUpperCase() : '🙋'}
-            </AvatarFallback>
-          </Avatar>
-          {onEditClick && (
-            <button 
-              onClick={onEditClick}
-              className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 bg-white/30 backdrop-blur-sm rounded-full p-1.5 sm:p-2 border border-white/40 hover:bg-white/40 hover:scale-110 transition-all duration-200 hover:rotate-12"
-            >
-              <Camera className="w-3 h-3 sm:w-4 sm:h-4" />
-            </button>
-          )}
-        </div>
-        
-        <div className="mb-3 sm:mb-4">
-          <h1 className="text-lg sm:text-2xl font-bold mb-2 hover:scale-105 transition-transform duration-200 cursor-default">
-            {displayName}
-            {!profile.name && (
-              <span className="text-white/60 text-xs sm:text-sm font-normal ml-2 block sm:inline animate-pulse">
-                ✨ (Click edit to add)
-              </span>
-            )}
-          </h1>
-          
-          <p className="text-white/90 mb-2 max-w-sm text-sm sm:text-base px-2 hover:text-white transition-colors duration-200">
-            {displayBio}
-            {!profile.bio && (
-              <span className="text-white/60"> 💭 Click edit to add your story!</span>
-            )}
-          </p>
-        </div>
-        
-        <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-2 sm:gap-4 mb-3 sm:mb-4 text-xs sm:text-sm">
-          <div className="flex items-center gap-1 justify-center bg-white/10 rounded-full px-3 py-1 hover:bg-white/20 transition-all duration-200 hover:scale-105">
-            <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span>{displayLocation}</span>
-          </div>
-          <div className="flex items-center gap-1 justify-center bg-white/10 rounded-full px-3 py-1 hover:bg-white/20 transition-all duration-200 hover:scale-105">
-            <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span>🎉 Joined {new Date(profile.joinedDate).toLocaleDateString()}</span>
-          </div>
-          {profile.rating > 0 && (
-            <div className="flex items-center gap-1 justify-center bg-yellow-400/20 rounded-full px-3 py-1 hover:bg-yellow-400/30 transition-all duration-200 hover:scale-105">
-              <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-300 text-yellow-300 animate-pulse" />
-              <span className="font-semibold">{profile.rating}/5 ⭐</span>
+    <>
+      <Card className="mb-4 sm:mb-6 border-0 shadow-xl bg-gradient-to-r from-soft-blue-50 via-white to-mint-50 hover:shadow-2xl transition-all duration-500 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-soft-blue-100/20 to-mint-100/20 animate-pulse"></div>
+        <CardContent className="relative p-4 sm:p-6 lg:p-8">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+            {/* Avatar */}
+            <div className="relative group">
+              <Avatar className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 border-4 border-white shadow-xl group-hover:scale-110 transition-all duration-300">
+                <AvatarImage src={profile.avatar} alt={profile.name} />
+                <AvatarFallback className="text-xl sm:text-2xl lg:text-3xl bg-gradient-to-br from-soft-blue-400 to-mint-400 text-white font-bold">
+                  {profile.name ? profile.name.charAt(0).toUpperCase() : '?'}
+                </AvatarFallback>
+              </Avatar>
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-8 sm:h-8 bg-green-400 rounded-full border-2 sm:border-4 border-white flex items-center justify-center animate-bounce">
+                <span className="text-xs sm:text-sm">✨</span>
+              </div>
             </div>
-          )}
-        </div>
-        
-        {profile.badges.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mb-3 sm:mb-4">
-            {profile.badges.map((badge, index) => (
-              <Badge 
-                key={index} 
-                variant="secondary" 
-                className="bg-white/20 text-white border-white/30 text-xs px-3 py-1 hover:bg-white/30 hover:scale-110 transition-all duration-200 cursor-default"
-                style={{ animationDelay: `${index * 0.1}s` }}
+
+            {/* Profile Info */}
+            <div className="flex-1 text-center sm:text-left space-y-2 sm:space-y-3">
+              <div>
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-1 sm:mb-2 hover:text-soft-blue-600 transition-colors duration-200">
+                  {profile.name || 'Anonymous User'} 
+                  <span className="text-lg sm:text-xl ml-2 animate-bounce">👋</span>
+                </h1>
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-4 text-xs sm:text-sm text-slate-600">
+                  <div className="flex items-center gap-1 bg-soft-blue-50 rounded-full px-2 sm:px-3 py-1 hover:bg-soft-blue-100 transition-colors duration-200">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span>{t('header.member_since')} {formatDate(profile.joinedDate)}</span>
+                  </div>
+                  {profile.location && (
+                    <div className="flex items-center gap-1 bg-mint-50 rounded-full px-2 sm:px-3 py-1 hover:bg-mint-100 transition-colors duration-200">
+                      <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span>📍 {profile.location}</span>
+                    </div>
+                  )}
+                  {profile.phone && (
+                    <div className="flex items-center gap-1 bg-purple-50 rounded-full px-2 sm:px-3 py-1 hover:bg-purple-100 transition-colors duration-200">
+                      <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span>📞 {profile.phone}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {profile.bio && (
+                <p className="text-sm sm:text-base text-slate-700 max-w-2xl leading-relaxed bg-white/50 p-2 sm:p-3 rounded-lg border-l-4 border-soft-blue-300 hover:bg-white/70 transition-all duration-200">
+                  💭 {profile.bio}
+                </p>
+              )}
+
+              {/* Badges */}
+              {profile.badges && profile.badges.length > 0 && (
+                <div className="flex flex-wrap gap-1 sm:gap-2 justify-center sm:justify-start">
+                  {profile.badges.map((badge, index) => (
+                    <Badge 
+                      key={index} 
+                      variant="secondary" 
+                      className="bg-gradient-to-r from-yellow-100 to-orange-100 text-yellow-800 hover:from-yellow-200 hover:to-orange-200 transition-all duration-200 hover:scale-110 cursor-default text-xs"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      🏆 {badge}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <Button
+                onClick={() => setIsEditModalOpen(true)}
+                variant="outline"
+                size="sm"
+                className="text-xs sm:text-sm hover:bg-soft-blue-50 hover:border-soft-blue-300 hover:text-soft-blue-700 transition-all duration-200 hover:scale-105"
               >
-                🏆 {badge}
-              </Badge>
-            ))}
+                <Edit className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                {t('header.edit_profile')}
+              </Button>
+              <Button
+                onClick={onSignOut}
+                variant="ghost"
+                size="sm"
+                className="text-xs sm:text-sm text-slate-600 hover:text-red-600 hover:bg-red-50 transition-all duration-200 hover:scale-105"
+              >
+                <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                {t('header.sign_out')}
+              </Button>
+            </div>
           </div>
-        )}
-        
-        <div className="flex flex-col sm:flex-row gap-2">
-          {onEditClick && (
-            <Button 
-              onClick={onEditClick}
-              variant="secondary" 
-              size="sm"
-              className="bg-white/20 text-white border-white/30 hover:bg-white/30 hover:scale-105 text-xs sm:text-sm transition-all duration-200 hover:shadow-lg"
-            >
-              <Edit className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-              ✨ Edit Profile
-            </Button>
-          )}
-          {onSignOut && (
-            <Button 
-              onClick={onSignOut}
-              variant="secondary" 
-              size="sm"
-              className="bg-white/20 text-white border-white/30 hover:bg-red-200/30 hover:scale-105 text-xs sm:text-sm transition-all duration-200 hover:shadow-lg"
-            >
-              <LogOut className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-              👋 Sign Out
-            </Button>
-          )}
-        </div>
-      </div>
-    </div>
+        </CardContent>
+      </Card>
+
+      <EditProfileModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        profile={profile}
+        onSave={async (updates) => {
+          // This would be handled by the parent component
+          console.log('Profile updates:', updates);
+          return true;
+        }}
+        updating={false}
+      />
+    </>
   );
 };
 

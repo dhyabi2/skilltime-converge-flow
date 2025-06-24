@@ -24,5 +24,70 @@
     "cancel": "إلغاء",
     "save": "حفظ التغييرات",
     "saving": "جارٍ الحفظ..."
+  },
+  "header": {
+    "member_since": "عضو منذ",
+    "sign_out": "تسجيل الخروج",
+    "edit_profile": "تعديل الملف الشخصي"
+  },
+  "overview": {
+    "title": "نظرة عامة على الملف الشخصي",
+    "subtitle": "رحلتك المذهلة في لمحة!",
+    "stats": {
+      "skills": "المهارات",
+      "bookings": "الحجوزات",
+      "reviews": "التقييمات",
+      "rating": "التقييم"
+    },
+    "profile_completion": "اكتمال الملف الشخصي",
+    "badges_title": "أوسمتك الرائعة",
+    "no_badges": "لم تحصل على أوسمة بعد",
+    "badges_subtitle": "اجمع الأوسمة وأنت تنمو! كل واحدة تحكي قصتك!"
+  },
+  "skills": {
+    "title": "عرض مهاراتك",
+    "subtitle": "أظهر للعالم ما أنت مذهل فيه!",
+    "collection_title": "مجموعة مهاراتك",
+    "collection_subtitle": "أظهر ما يجعلك مميزاً!",
+    "no_skills_title": "لم تتم إضافة مهارات بعد",
+    "no_skills_subtitle": "كل خبير كان مبتدئاً يوماً ما!",
+    "no_skills_action": "أضف المهارات باستخدام قسم المهارات المربحة أدناه للبدء!",
+    "marketplace_title": "المهارات المربحة",
+    "marketplace_subtitle": "حول مواهبك إلى كنز!",
+    "ready_to_earn": "مستعد لبدء الكسب؟",
+    "share_expertise": "شارك خبرتك وحول مهاراتك إلى دخل!",
+    "quick_start": "يستغرق الأمر دقيقتين فقط للبدء!",
+    "manage_skill": "إدارة المهارة",
+    "loading": "جاري تحميل مهاراتك الرائعة...",
+    "skills_count": "لديك {count} مهارة{plural} رائعة! مذهل!",
+    "earning_count": "لديك {count} مهارة{plural} رائعة جاهزة لكسب المال! استمر!"
+  },
+  "settings": {
+    "title": "إعدادات الحساب",
+    "subtitle": "إدارة معلومات حسابك وتفضيلاتك",
+    "profile_info": "معلومات الملف الشخصي",
+    "change_photo": "تغيير الصورة",
+    "photo_requirements": "JPG أو PNG أو GIF. الحد الأقصى للحجم 2 ميجابايت.",
+    "notifications": "الإشعارات",
+    "email_notifications": "إشعارات البريد الإلكتروني",
+    "email_notifications_desc": "تلقي تحديثات الحجز عبر البريد الإلكتروني",
+    "push_notifications": "الإشعارات المنبثقة",
+    "push_notifications_desc": "تلقي الإشعارات على جهازك",
+    "sms_notifications": "إشعارات الرسائل النصية",
+    "sms_notifications_desc": "تلقي التحديثات المهمة عبر الرسائل النصية",
+    "marketing_emails": "رسائل البريد الإلكتروني التسويقية",
+    "marketing_emails_desc": "تلقي رسائل البريد الإلكتروني الترويجية والتحديثات",
+    "privacy_settings": "إعدادات الخصوصية",
+    "profile_visibility": "رؤية الملف الشخصي",
+    "profile_visibility_desc": "جعل ملفك الشخصي مرئياً للمستخدمين الآخرين",
+    "show_email": "إظهار البريد الإلكتروني",
+    "show_email_desc": "عرض بريدك الإلكتروني في ملفك الشخصي العام",
+    "show_phone": "إظهار رقم الهاتف",
+    "show_phone_desc": "عرض رقم هاتفك في ملفك الشخصي العام",
+    "danger_zone": "المنطقة الخطرة",
+    "delete_warning": "بمجرد حذف حسابك، لن يكون هناك عودة. يرجى التأكد.",
+    "delete_account": "حذف الحساب",
+    "save_changes": "حفظ التغييرات",
+    "saving": "جاري الحفظ..."
   }
 }

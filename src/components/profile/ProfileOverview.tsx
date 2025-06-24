@@ -1,12 +1,11 @@
 
 import React from 'react';
-import { Calendar, Star, Award, Plus, TrendingUp, Target, Zap, Heart } from 'lucide-react';
+import { Star, Calendar, Award, Heart, TrendingUp, Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { UserProfile } from '@/hooks/useProfile';
-import CreateSkillModal from '@/components/skills/CreateSkillModal';
 
 interface ProfileOverviewProps {
   profile: UserProfile;
@@ -21,271 +20,160 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
   skillsLoading,
   onRemoveSkill 
 }) => {
-  const profileCompletion = React.useMemo(() => {
+  const { t } = useTranslation('profile');
+
+  const calculateProfileCompletion = () => {
     let completed = 0;
-    const total = 7;
+    const total = 6;
     
     if (profile.name) completed++;
+    if (profile.email) completed++;
     if (profile.bio) completed++;
     if (profile.location) completed++;
     if (profile.phone) completed++;
     if (profile.avatar) completed++;
-    if (profile.skills.length > 0) completed++;
-    if (mySkills.length > 0) completed++;
     
     return Math.round((completed / total) * 100);
-  }, [profile, mySkills]);
-
-  const CircularProgress = ({ value, size = 60, strokeWidth = 6 }: { value: number, size?: number, strokeWidth?: number }) => {
-    const radius = (size - strokeWidth) / 2;
-    const circumference = 2 * Math.PI * radius;
-    const strokeDasharray = circumference;
-    const strokeDashoffset = circumference - (value / 100) * circumference;
-
-    return (
-      <div className="relative inline-flex items-center justify-center">
-        <svg width={size} height={size} className="transform -rotate-90">
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            stroke="rgb(226 232 240)"
-            strokeWidth={strokeWidth}
-            fill="none"
-          />
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            stroke="url(#gradient)"
-            strokeWidth={strokeWidth}
-            fill="none"
-            strokeDasharray={strokeDasharray}
-            strokeDashoffset={strokeDashoffset}
-            strokeLinecap="round"
-            className="transition-all duration-1000 ease-out"
-          />
-          <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgb(56 189 248)" />
-              <stop offset="100%" stopColor="rgb(45 212 191)" />
-            </linearGradient>
-          </defs>
-        </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-lg font-bold text-slate-800">{value}%</span>
-        </div>
-      </div>
-    );
   };
 
   const stats = [
     {
-      icon: Calendar,
-      label: 'Bookings',
+      label: t('overview.stats.skills'),
+      value: profile.skills.length + mySkills.length,
+      icon: Zap,
+      color: 'from-blue-400 to-blue-600',
+      bgColor: 'bg-blue-50'
+    },
+    {
+      label: t('overview.stats.bookings'),
       value: profile.completedBookings,
-      color: 'text-soft-blue-600',
-      bgColor: 'bg-soft-blue-50',
-      emoji: '📅'
+      icon: Calendar,
+      color: 'from-green-400 to-green-600',
+      bgColor: 'bg-green-50'
     },
     {
+      label: t('overview.stats.reviews'),
+      value: 0, // This would come from reviews data
       icon: Star,
-      label: 'Rating',
-      value: `${profile.rating}/5`,
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-50',
-      emoji: '⭐'
+      color: 'from-yellow-400 to-yellow-600',
+      bgColor: 'bg-yellow-50'
     },
     {
+      label: t('overview.stats.rating'),
+      value: profile.rating.toFixed(1),
       icon: Award,
-      label: 'Skills',
-      value: mySkills.length,
-      color: 'text-mint-600',
-      bgColor: 'bg-mint-50',
-      emoji: '🎯'
-    },
-    {
-      icon: Heart,
-      label: 'Completion',
-      value: `${profileCompletion}%`,
-      color: 'text-pink-600',
-      bgColor: 'bg-pink-50',
-      emoji: '💖'
+      color: 'from-purple-400 to-purple-600',
+      bgColor: 'bg-purple-50'
     }
   ];
 
+  const profileCompletion = calculateProfileCompletion();
+
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Welcome Message */}
+      {/* Welcome Header */}
       <div className="text-center py-4">
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">
-          Welcome back, {profile.name || 'Friend'}! 🎉
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex items-center justify-center gap-2">
+          <span className="text-2xl animate-bounce">🌟</span>
+          {t('overview.title')}
         </h2>
-        <p className="text-slate-600 text-sm">Ready to make today amazing? Let's see what you can accomplish!</p>
+        <p className="text-slate-600 text-sm">{t('overview.subtitle')}</p>
       </div>
 
-      {/* Profile Completion with Circular Progress */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-soft-blue-50 to-mint-50 hover:shadow-xl transition-all duration-300">
-        <CardHeader className="pb-3 sm:pb-4">
-          <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-            <div className="p-2 bg-gradient-to-br from-soft-blue-400 to-mint-400 rounded-full">
-              <Target className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-            </div>
-            Profile Power-Up! ⚡
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col sm:flex-row items-center gap-4">
-          <CircularProgress value={profileCompletion} />
-          <div className="flex-1 text-center sm:text-left">
-            <p className="text-sm text-slate-600 mb-2">
-              🚀 You're {profileCompletion}% complete! {profileCompletion < 100 ? "Let's boost your profile power!" : "You're a profile superstar! 🌟"}
-            </p>
-            {profileCompletion < 100 && (
-              <div className="flex flex-wrap gap-1 text-xs">
-                {!profile.name && <Badge variant="outline" className="bg-yellow-100">📝 Add name</Badge>}
-                {!profile.bio && <Badge variant="outline" className="bg-yellow-100">💭 Add bio</Badge>}
-                {!profile.location && <Badge variant="outline" className="bg-yellow-100">📍 Add location</Badge>}
-                {!profile.phone && <Badge variant="outline" className="bg-yellow-100">📱 Add phone</Badge>}
-                {!profile.avatar && <Badge variant="outline" className="bg-yellow-100">📸 Add photo</Badge>}
-                {profile.skills.length === 0 && <Badge variant="outline" className="bg-yellow-100">🎯 Add skills</Badge>}
-                {mySkills.length === 0 && <Badge variant="outline" className="bg-yellow-100">💼 Create service</Badge>}
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Animated Stats Grid */}
+      {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((stat, index) => {
-          const Icon = stat.icon;
+          const IconComponent = stat.icon;
           return (
             <Card 
-              key={index} 
-              className={`border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer ${stat.bgColor} group`}
+              key={stat.label} 
+              className={`${stat.bgColor} border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardContent className="p-3 sm:p-4 text-center">
-                <div className={`w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2 rounded-full ${stat.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
-                  <span className="text-lg sm:text-xl">{stat.emoji}</span>
+                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center mx-auto mb-2 sm:mb-3 group-hover:rotate-12 transition-transform duration-300`}>
+                  <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
-                <div className={`text-lg sm:text-2xl font-bold ${stat.color} group-hover:scale-110 transition-transform duration-200`}>
-                  {stat.value}
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-800 mb-1">
+                  {typeof stat.value === 'number' && stat.value === 0 ? '🎯' : stat.value}
                 </div>
-                <div className="text-xs sm:text-sm text-slate-600">{stat.label}</div>
+                <div className="text-xs sm:text-sm text-slate-600 font-medium">
+                  {stat.label}
+                </div>
               </CardContent>
             </Card>
           );
         })}
       </div>
 
-      {/* Interactive Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-        {/* Your Skills */}
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-purple-50 to-pink-50">
-          <CardHeader className="pb-3 sm:pb-4">
-            <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-              <span className="text-xl">🎨</span>
-              Your Amazing Skills
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {profile.skills.length === 0 ? (
-              <div className="text-center py-3 sm:py-4">
-                <div className="text-4xl mb-2 animate-bounce">🌟</div>
-                <p className="text-slate-500 mb-1 sm:mb-2 text-sm">No skills yet? Let's change that!</p>
-                <p className="text-xs sm:text-sm text-slate-400">Add skills to show off your talents</p>
-              </div>
-            ) : (
-              <div className="flex flex-wrap gap-1 sm:gap-2">
-                {profile.skills.slice(0, 5).map((skill, index) => (
-                  <Badge 
-                    key={index} 
-                    variant="secondary" 
-                    className="bg-purple-100 text-purple-800 text-xs hover:bg-purple-200 hover:scale-105 transition-all duration-200 cursor-default"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    ✨ {skill}
-                  </Badge>
-                ))}
-                {profile.skills.length > 5 && (
-                  <Badge variant="outline" className="text-xs hover:scale-105 transition-transform duration-200">
-                    +{profile.skills.length - 5} more awesome skills! 🚀
-                  </Badge>
-                )}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Marketplace Skills */}
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-green-50 to-mint-50">
-          <CardHeader className="pb-3 sm:pb-4">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-                <span className="text-xl">💰</span>
-                Money Makers
-              </CardTitle>
-              <CreateSkillModal />
-            </div>
-          </CardHeader>
-          <CardContent>
-            {skillsLoading ? (
-              <div className="text-center py-3 sm:py-4">
-                <div className="animate-spin text-2xl mb-2">⏳</div>
-                <p className="text-slate-500 text-sm">Loading your awesome services...</p>
-              </div>
-            ) : mySkills.length === 0 ? (
-              <div className="text-center py-3 sm:py-4">
-                <div className="text-4xl mb-2 animate-pulse">💡</div>
-                <p className="text-slate-500 mb-1 sm:mb-2 text-sm">Ready to start earning?</p>
-                <p className="text-xs sm:text-sm text-slate-400">Create your first service and start making money!</p>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {mySkills.slice(0, 2).map((skill, index) => (
-                  <div 
-                    key={skill.id} 
-                    className="flex items-center justify-between p-2 bg-white/70 rounded-lg hover:bg-white transition-all duration-200 hover:scale-102"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-xs sm:text-sm truncate">💼 {skill.skillTitle}</p>
-                      <p className="text-xs text-green-600 font-semibold">💵 {skill.price} OMR</p>
-                    </div>
-                    <Badge variant="secondary" className="text-xs ml-2 shrink-0 bg-green-100 text-green-700 hover:scale-105 transition-transform duration-200">
-                      📍 {skill.location}
-                    </Badge>
-                  </div>
-                ))}
-                {mySkills.length > 2 && (
-                  <p className="text-xs text-slate-500 text-center">
-                    +{mySkills.length - 2} more money-making skills! 🤑
-                  </p>
-                )}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Activity Feed */}
-      <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50">
+      {/* Profile Completion */}
+      <Card className="border-0 shadow-lg bg-gradient-to-r from-indigo-50 to-purple-50 hover:shadow-xl transition-all duration-300">
         <CardHeader className="pb-3 sm:pb-4">
           <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-            <span className="text-xl">📊</span>
-            Your Journey So Far
+            <div className="p-2 bg-gradient-to-br from-indigo-400 to-purple-400 rounded-full">
+              <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            </div>
+            {t('overview.profile_completion')} ✨
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-6 sm:py-8">
-            <div className="text-4xl mb-3 animate-bounce">🎯</div>
-            <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">Your adventure is just beginning!</h3>
-            <p className="text-xs sm:text-sm text-slate-600">
-              Once you start booking services or providing skills, your activity timeline will appear here. 
-              Get ready for an amazing journey! 🚀
-            </p>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-slate-700">
+                {profileCompletion}% {profileCompletion === 100 ? '🎉' : '📈'}
+              </span>
+              <span className="text-xs text-slate-500">
+                {profileCompletion < 100 ? `${100 - profileCompletion}% to go!` : 'Perfect! 🌟'}
+              </span>
+            </div>
+            <Progress 
+              value={profileCompletion} 
+              className="h-2 sm:h-3 bg-white/50" 
+            />
+            {profileCompletion < 100 && (
+              <p className="text-xs sm:text-sm text-slate-600 bg-white/50 p-2 sm:p-3 rounded-lg">
+                💡 Complete your profile to unlock more features and attract more opportunities!
+              </p>
+            )}
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Badges Section */}
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-amber-50 to-orange-50 hover:shadow-xl transition-all duration-300">
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+            <div className="p-2 bg-gradient-to-br from-amber-400 to-orange-400 rounded-full">
+              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            </div>
+            {t('overview.badges_title')} 🏆
+          </CardTitle>
+          <p className="text-xs sm:text-sm text-slate-600">{t('overview.badges_subtitle')}</p>
+        </CardHeader>
+        <CardContent>
+          {profile.badges && profile.badges.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {profile.badges.map((badge, index) => (
+                <Badge 
+                  key={index} 
+                  variant="secondary"
+                  className="bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 hover:from-amber-200 hover:to-orange-200 transition-all duration-200 hover:scale-110 cursor-default text-xs sm:text-sm py-1.5 px-3"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  🏅 {badge}
+                </Badge>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-6 sm:py-8">
+              <div className="text-4xl sm:text-6xl mb-3 sm:mb-4 animate-pulse">🎯</div>
+              <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">{t('overview.no_badges')}</h3>
+              <div className="bg-white/50 rounded-lg p-3 sm:p-4 border-2 border-dashed border-amber-200">
+                <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400 mx-auto mb-2" />
+                <p className="text-xs sm:text-sm text-slate-600">Start completing tasks and offering skills to earn your first badge! 🌟</p>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

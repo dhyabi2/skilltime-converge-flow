@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Plus, Star, MapPin, Clock, Zap, Trophy, Heart, Edit } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,10 +24,10 @@ const ProfileSkills: React.FC<ProfileSkillsProps> = ({
   skillsLoading,
   onRemoveSkill 
 }) => {
+  const { t } = useTranslation('profile');
   const navigate = useNavigate();
 
   const handleManageSkill = (skillId: string) => {
-    // Navigate to skill detail page for management
     navigate(`/skill/${skillId}`);
   };
 
@@ -36,9 +37,9 @@ const ProfileSkills: React.FC<ProfileSkillsProps> = ({
       <div className="text-center py-4">
         <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 flex items-center justify-center gap-2">
           <span className="text-2xl">🎯</span>
-          Your Skill Showcase
+          {t('skills.title')}
         </h2>
-        <p className="text-slate-600 text-sm">Show the world what you're amazing at! ✨</p>
+        <p className="text-slate-600 text-sm">{t('skills.subtitle')}</p>
       </div>
 
       {/* Profile Skills */}
@@ -58,9 +59,9 @@ const ProfileSkills: React.FC<ProfileSkillsProps> = ({
                 <div className="p-2 bg-gradient-to-br from-green-400 to-mint-400 rounded-full">
                   <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
-                Money-Making Skills 💰
+                {t('skills.marketplace_title')} 💰
               </CardTitle>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1">Turn your talents into treasure! 🏆</p>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">{t('skills.marketplace_subtitle')}</p>
             </div>
             <CreateSkillModal />
           </div>
@@ -74,16 +75,16 @@ const ProfileSkills: React.FC<ProfileSkillsProps> = ({
                   <span className="text-lg">⚡</span>
                 </div>
               </div>
-              <p className="text-slate-600 text-sm">Loading your amazing skills... ✨</p>
+              <p className="text-slate-600 text-sm">{t('skills.loading')}</p>
             </div>
           ) : mySkills.length === 0 ? (
             <div className="text-center py-6 sm:py-8">
               <div className="text-6xl mb-4 animate-bounce">🚀</div>
-              <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">Ready to start earning?</h3>
-              <p className="text-slate-600 mb-3 sm:mb-4 text-sm">Share your expertise and turn your skills into income! 💡</p>
+              <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-2">{t('skills.ready_to_earn')}</h3>
+              <p className="text-slate-600 mb-3 sm:mb-4 text-sm">{t('skills.share_expertise')}</p>
               <div className="flex flex-col items-center gap-2">
                 <CreateSkillModal />
-                <p className="text-xs text-slate-500">It only takes 2 minutes to get started! ⏱️</p>
+                <p className="text-xs text-slate-500">{t('skills.quick_start')}</p>
               </div>
             </div>
           ) : (
@@ -136,7 +137,7 @@ const ProfileSkills: React.FC<ProfileSkillsProps> = ({
                         onClick={() => handleManageSkill(skill.id)}
                       >
                         <Edit className="w-3 h-3 mr-1" />
-                        ⚡ Manage Skill
+                        ⚡ {t('skills.manage_skill')}
                       </Button>
                     </div>
                   </CardContent>
@@ -153,7 +154,12 @@ const ProfileSkills: React.FC<ProfileSkillsProps> = ({
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center gap-2 text-sm text-slate-600">
               <Heart className="w-4 h-4 text-pink-500 animate-pulse" />
-              <span>You have {mySkills.length} amazing skill{mySkills.length !== 1 ? 's' : ''} ready to earn money! Keep it up! 🎉</span>
+              <span>
+                {t('skills.earning_count', { 
+                  count: mySkills.length, 
+                  plural: mySkills.length !== 1 ? 's' : '' 
+                })}
+              </span>
               <Heart className="w-4 h-4 text-pink-500 animate-pulse" />
             </div>
           </CardContent>

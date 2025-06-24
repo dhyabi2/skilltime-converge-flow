@@ -24,5 +24,70 @@
     "cancel": "Cancel",
     "save": "Save Changes",
     "saving": "Saving..."
+  },
+  "header": {
+    "member_since": "Member since",
+    "sign_out": "Sign Out",
+    "edit_profile": "Edit Profile"
+  },
+  "overview": {
+    "title": "Profile Overview",
+    "subtitle": "Your amazing journey at a glance!",
+    "stats": {
+      "skills": "Skills",
+      "bookings": "Bookings",
+      "reviews": "Reviews",
+      "rating": "Rating"
+    },
+    "profile_completion": "Profile Completion",
+    "badges_title": "Your Awesome Badges",
+    "no_badges": "No badges earned yet",
+    "badges_subtitle": "Collect badges as you grow! Each one tells your story!"
+  },
+  "skills": {
+    "title": "Your Skill Showcase",
+    "subtitle": "Show the world what you're amazing at!",
+    "collection_title": "Your Skill Collection",
+    "collection_subtitle": "Show off what makes you special!",
+    "no_skills_title": "No skills added yet",
+    "no_skills_subtitle": "Every expert was once a beginner!",
+    "no_skills_action": "Add skills using the Money-Making Skills section below to get started!",
+    "marketplace_title": "Money-Making Skills",
+    "marketplace_subtitle": "Turn your talents into treasure!",
+    "ready_to_earn": "Ready to start earning?",
+    "share_expertise": "Share your expertise and turn your skills into income!",
+    "quick_start": "It only takes 2 minutes to get started!",
+    "manage_skill": "Manage Skill",
+    "loading": "Loading your amazing skills...",
+    "skills_count": "You have {count} amazing skill{plural}! Amazing!",
+    "earning_count": "You have {count} amazing skill{plural} ready to earn money! Keep it up!"
+  },
+  "settings": {
+    "title": "Account Settings",
+    "subtitle": "Manage your account information and preferences",
+    "profile_info": "Profile Information",
+    "change_photo": "Change Photo",
+    "photo_requirements": "JPG, PNG or GIF. Max size 2MB.",
+    "notifications": "Notifications",
+    "email_notifications": "Email notifications",
+    "email_notifications_desc": "Receive booking updates via email",
+    "push_notifications": "Push notifications", 
+    "push_notifications_desc": "Receive notifications on your device",
+    "sms_notifications": "SMS notifications",
+    "sms_notifications_desc": "Receive important updates via SMS",
+    "marketing_emails": "Marketing emails",
+    "marketing_emails_desc": "Receive promotional emails and updates",
+    "privacy_settings": "Privacy Settings",
+    "profile_visibility": "Profile visibility",
+    "profile_visibility_desc": "Make your profile visible to other users",
+    "show_email": "Show email",
+    "show_email_desc": "Display your email on your public profile",
+    "show_phone": "Show phone number",
+    "show_phone_desc": "Display your phone number on your public profile",
+    "danger_zone": "Danger Zone",
+    "delete_warning": "Once you delete your account, there is no going back. Please be certain.",
+    "delete_account": "Delete Account",
+    "save_changes": "Save Changes",
+    "saving": "Saving..."
   }
 }
