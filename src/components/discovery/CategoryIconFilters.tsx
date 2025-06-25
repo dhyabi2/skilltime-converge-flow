@@ -38,6 +38,9 @@ const CategoryIconFilters: React.FC<CategoryIconFiltersProps> = ({
     return emojiMap[iconType] || '🎨';
   };
 
+  // Calculate total skills count for "All Categories"
+  const totalSkillsCount = categories.reduce((total, category) => total + (category.skillCount || 0), 0);
+
   return (
     <section className="relative w-full">
       <h3 className="text-lg font-bold text-slate-800 mb-4">{t('filters.category')}</h3>
@@ -55,43 +58,55 @@ const CategoryIconFilters: React.FC<CategoryIconFiltersProps> = ({
           <CarouselContent className="ml-2 mr-2">
             {/* All Categories Button */}
             <CarouselItem className="basis-auto pl-1 pr-1">
-              <button
-                onClick={() => onCategoryFilter('')}
-                disabled={loading}
-                className={`p-3 rounded-xl transition-all duration-300 relative flex-shrink-0 ${
-                  selectedCategory === '' 
-                    ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-lg transform scale-110' 
-                    : 'bg-white/70 hover:bg-white hover:shadow-md text-slate-600'
-                } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                title={t('categories.all')}
-              >
-                {loading && selectedCategory === '' ? (
-                  <Loader2 className="w-6 h-6 animate-spin" />
-                ) : (
-                  <div className="text-2xl">🌟</div>
-                )}
-              </button>
+              <div className="flex flex-col items-center space-y-2">
+                <button
+                  onClick={() => onCategoryFilter('')}
+                  disabled={loading}
+                  className={`p-3 rounded-xl transition-all duration-300 relative flex-shrink-0 ${
+                    selectedCategory === '' 
+                      ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-lg transform scale-110' 
+                      : 'bg-white/70 hover:bg-white hover:shadow-md text-slate-600'
+                  } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  title={t('categories.all')}
+                >
+                  {loading && selectedCategory === '' ? (
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                  ) : (
+                    <div className="text-2xl">🌟</div>
+                  )}
+                </button>
+                <div className="text-center">
+                  <p className="text-xs font-medium text-slate-700">{t('categories.all')}</p>
+                  <p className="text-xs text-slate-500">{totalSkillsCount} {t('labels.skills')}</p>
+                </div>
+              </div>
             </CarouselItem>
 
             {/* Category Icon Buttons */}
             {categories.map((category) => (
               <CarouselItem key={category.id} className="basis-auto pl-1 pr-1">
-                <button
-                  onClick={() => onCategoryFilter(category.title)}
-                  disabled={loading}
-                  className={`p-3 rounded-xl transition-all duration-300 relative flex-shrink-0 ${
-                    selectedCategory === category.title 
-                      ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-lg transform scale-110' 
-                      : 'bg-white/70 hover:bg-white hover:shadow-md text-slate-600'
-                  } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  title={t(`categories.${category.title}`)}
-                >
-                  {loading && selectedCategory === category.title ? (
-                    <Loader2 className="w-6 h-6 animate-spin text-white" />
-                  ) : (
-                    <div className="text-2xl">{getCategoryEmoji(category.iconType)}</div>
-                  )}
-                </button>
+                <div className="flex flex-col items-center space-y-2">
+                  <button
+                    onClick={() => onCategoryFilter(category.title)}
+                    disabled={loading}
+                    className={`p-3 rounded-xl transition-all duration-300 relative flex-shrink-0 ${
+                      selectedCategory === category.title 
+                        ? 'bg-gradient-to-r from-soft-blue-500 to-mint-500 text-white shadow-lg transform scale-110' 
+                        : 'bg-white/70 hover:bg-white hover:shadow-md text-slate-600'
+                    } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    title={t(`categories.${category.title}`)}
+                  >
+                    {loading && selectedCategory === category.title ? (
+                      <Loader2 className="w-6 h-6 animate-spin text-white" />
+                    ) : (
+                      <div className="text-2xl">{getCategoryEmoji(category.iconType)}</div>
+                    )}
+                  </button>
+                  <div className="text-center">
+                    <p className="text-xs font-medium text-slate-700">{t(`categories.${category.title}`)}</p>
+                    <p className="text-xs text-slate-500">{category.skillCount} {t('labels.skills')}</p>
+                  </div>
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>

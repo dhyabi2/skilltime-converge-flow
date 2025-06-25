@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -34,6 +35,10 @@ const Browse = () => {
     fetchSkills();
     if (selectedCategory) {
       fetchSubcategories();
+    } else {
+      // Clear subcategories when "All Categories" is selected
+      setSubcategories([]);
+      setSelectedSubcategory('');
     }
   }, [selectedCategory, selectedSubcategory, searchQuery]);
 
@@ -51,15 +56,15 @@ const Browse = () => {
       if (searchQuery) {
         console.log('Using search API for query:', searchQuery);
         results = await searchAPI.searchSkills(searchQuery, {
-          category: selectedCategory,
-          subcategory: selectedSubcategory,
+          category: selectedCategory || undefined, // Convert empty string to undefined
+          subcategory: selectedSubcategory || undefined,
           maxPrice
         });
       } else {
         console.log('Using skills API for category browsing');
         results = await skillsAPI.getAll({
-          category: selectedCategory,
-          subcategory: selectedSubcategory,
+          category: selectedCategory || undefined, // Convert empty string to undefined
+          subcategory: selectedSubcategory || undefined,
           maxPrice
         });
       }
@@ -116,6 +121,7 @@ const Browse = () => {
   };
 
   const handleCategoryFilter = (category: string) => {
+    console.log('Category filter selected:', category);
     setSelectedCategory(category);
     setSelectedSubcategory(''); // Reset subcategory when changing category
     updateURLParams({ category, subcategory: '' });
@@ -128,15 +134,25 @@ const Browse = () => {
 
   const updateURLParams = (updates: { [key: string]: string }) => {
     const params = new URLSearchParams();
-    if (updates.search !== undefined ? updates.search : searchQuery) {
-      params.set('search', updates.search !== undefined ? updates.search : searchQuery);
+    
+    // Handle search parameter
+    const searchValue = updates.search !== undefined ? updates.search : searchQuery;
+    if (searchValue) {
+      params.set('search', searchValue);
     }
-    if (updates.category !== undefined ? updates.category : selectedCategory) {
-      params.set('category', updates.category !== undefined ? updates.category : selectedCategory);
+    
+    // Handle category parameter
+    const categoryValue = updates.category !== undefined ? updates.category : selectedCategory;
+    if (categoryValue) {
+      params.set('category', categoryValue);
     }
-    if (updates.subcategory !== undefined ? updates.subcategory : selectedSubcategory) {
-      params.set('subcategory', updates.subcategory !== undefined ? updates.subcategory : selectedSubcategory);
+    
+    // Handle subcategory parameter
+    const subcategoryValue = updates.subcategory !== undefined ? updates.subcategory : selectedSubcategory;
+    if (subcategoryValue) {
+      params.set('subcategory', subcategoryValue);
     }
+    
     navigate(`/browse?${params.toString()}`, { replace: true });
   };
 
@@ -225,8 +241,8 @@ const Browse = () => {
           />
         )}
 
-        {/* Subcategory Label Filters */}
-        {selectedCategory && (
+        {/* Subcategory Label Filters - Only show when a specific category is selected */}
+        {selectedCategory && subcategories.length > 0 && (
           <SubcategoryLabelFilters
             subcategories={subcategories}
             selectedSubcategory={selectedSubcategory}
