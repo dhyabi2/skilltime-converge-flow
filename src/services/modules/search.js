@@ -1,26 +1,42 @@
-// Search API module
+
+// Search API module - Updated to use real Supabase data
+import { skillsService } from '../supabase/skills';
+
 export const searchAPI = {
   searchSkills: async (query, filters = {}) => {
-    await new Promise(resolve => setTimeout(resolve, 700));
-    
-    const skills = await import('./skills.js').then(module => module.skillsAPI.getAll());
-    
-    return skills.filter(skill => {
-      const matchesQuery = !query || 
-        skill.skillTitle.toLowerCase().includes(query.toLowerCase()) ||
-        skill.providerName.toLowerCase().includes(query.toLowerCase()) ||
-        skill.category.toLowerCase().includes(query.toLowerCase());
+    try {
+      console.log('Searching for:', query, 'with filters:', filters);
       
-      const matchesCategory = !filters.category || 
-        skill.category.toLowerCase() === filters.category.toLowerCase();
-
-      const matchesSubcategory = !filters.subcategory || 
-        skill.subcategory.toLowerCase() === filters.subcategory.toLowerCase();
+      // Use the real Supabase skills service instead of mock data
+      const skills = await skillsService.getAll({
+        search: query,
+        category: filters.category,
+        limit: filters.limit
+      });
       
-      const matchesPrice = !filters.maxPrice || skill.price <= filters.maxPrice;
+      console.log('Found skills:', skills);
       
-      return matchesQuery && matchesCategory && matchesSubcategory && matchesPrice;
-    });
+      // Apply additional client-side filtering if needed
+      let filteredSkills = skills;
+      
+      if (filters.subcategory) {
+        filteredSkills = filteredSkills.filter(skill => 
+          skill.subcategory && skill.subcategory.toLowerCase() === filters.subcategory.toLowerCase()
+        );
+      }
+      
+      if (filters.maxPrice) {
+        filteredSkills = filteredSkills.filter(skill => 
+          Number(skill.price) <= filters.maxPrice
+        );
+      }
+      
+      return filteredSkills;
+    } catch (error) {
+      console.error('Search error:', error);
+      // Fallback to empty array on error
+      return [];
+    }
   },
 
   getPopularSearches: async () => {
@@ -48,24 +64,49 @@ export const searchAPI = {
   },
 
   getSuggestions: async (query) => {
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
-    const allSuggestions = [
-      'UI/UX Design',
-      'React Development',
-      'Content Writing',
-      'Digital Marketing',
-      'Photography',
-      'Graphic Design',
-      'Web Development',
-      'Mobile App Design',
-      'SEO Optimization',
-      'Social Media Marketing'
-    ];
-    
-    return allSuggestions.filter(suggestion =>
-      suggestion.toLowerCase().includes(query.toLowerCase())
-    ).slice(0, 5);
+    try {
+      // Get suggestions from real skills data
+      const skills = await skillsService.getAll({ search: query, limit: 20 });
+      
+      // Extract unique suggestions from titles and categories
+      const suggestions = new Set();
+      
+      skills.forEach(skill => {
+        if (skill.title && skill.title.toLowerCase().includes(query.toLowerCase())) {
+          suggestions.add(skill.title);
+        }
+        if (skill.category && skill.category.toLowerCase().includes(query.toLowerCase())) {
+          suggestions.add(skill.category);
+        }
+        // Include provider names in suggestions
+        if (skill.profiles && skill.profiles.name && 
+            skill.profiles.name.toLowerCase().includes(query.toLowerCase())) {
+          suggestions.add(skill.profiles.name);
+        }
+      });
+      
+      return Array.from(suggestions).slice(0, 5);
+    } catch (error) {
+      console.error('Error getting suggestions:', error);
+      
+      // Fallback to static suggestions
+      const allSuggestions = [
+        'UI/UX Design',
+        'React Development',
+        'Content Writing',
+        'Digital Marketing',
+        'Photography',
+        'Graphic Design',
+        'Web Development',
+        'Mobile App Design',
+        'SEO Optimization',
+        'Social Media Marketing'
+      ];
+      
+      return allSuggestions.filter(suggestion =>
+        suggestion.toLowerCase().includes(query.toLowerCase())
+      ).slice(0, 5);
+    }
   },
 
   getFilters: async () => {

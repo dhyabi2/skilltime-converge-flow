@@ -12,6 +12,8 @@ export const skillsService = {
     search?: string;
     limit?: number;
   }) {
+    console.log('skillsService.getAll called with filters:', filters);
+    
     let query = supabase
       .from('skills')
       .select(`
@@ -27,8 +29,10 @@ export const skillsService = {
       query = query.eq('categories.title', filters.category);
     }
 
+    // Enhanced search to include provider names
     if (filters?.search) {
-      query = query.or(`title.ilike.%${filters.search}%,description.ilike.%${filters.search}%`);
+      const searchTerm = `%${filters.search}%`;
+      query = query.or(`title.ilike.${searchTerm},description.ilike.${searchTerm},profiles.name.ilike.${searchTerm}`);
     }
 
     if (filters?.limit) {
@@ -37,8 +41,38 @@ export const skillsService = {
 
     const { data, error } = await query.order('created_at', { ascending: false });
 
-    if (error) throw error;
-    return data || [];
+    if (error) {
+      console.error('Error fetching skills:', error);
+      throw error;
+    }
+    
+    console.log('Raw skills data from Supabase:', data);
+    
+    // Transform data to match expected format
+    const transformedSkills = (data || []).map(skill => ({
+      id: skill.id,
+      providerName: skill.profiles?.name || 'Unknown Provider',
+      skillTitle: skill.title,
+      rating: skill.reviews?.length > 0 
+        ? skill.reviews.reduce((acc: number, review: any) => acc + (review.rating || 0), 0) / skill.reviews.length
+        : 0,
+      price: Number(skill.price),
+      duration: skill.duration,
+      location: skill.location || 'Remote',
+      image: skill.image_url || '/placeholder.svg',
+      isTopRated: skill.is_top_rated || false,
+      category: skill.categories?.title || 'Uncategorized',
+      subcategory: skill.subcategories?.title || 'general',
+      description: skill.description || '',
+      expertise: skill.expertise || [],
+      publishedDate: skill.published_date,
+      weeklyExchanges: skill.weekly_exchanges || 0,
+      useCases: skill.use_cases || [],
+      providerImage: skill.profiles?.avatar || '/placeholder.svg'
+    }));
+    
+    console.log('Transformed skills:', transformedSkills);
+    return transformedSkills;
   },
 
   async getById(id: string) {

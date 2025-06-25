@@ -40,21 +40,31 @@ const Browse = () => {
   const fetchSkills = async () => {
     try {
       setSkillsLoading(true);
+      console.log('Fetching skills with params:', { 
+        searchQuery, 
+        selectedCategory, 
+        selectedSubcategory 
+      });
+      
       let results;
       
       if (searchQuery) {
+        console.log('Using search API for query:', searchQuery);
         results = await searchAPI.searchSkills(searchQuery, {
           category: selectedCategory,
           subcategory: selectedSubcategory,
           maxPrice
         });
       } else {
+        console.log('Using skills API for category browsing');
         results = await skillsAPI.getAll({
           category: selectedCategory,
           subcategory: selectedSubcategory,
           maxPrice
         });
       }
+      
+      console.log('Fetched skills results:', results);
       
       // Add a small delay for smooth transition
       setTimeout(() => {
