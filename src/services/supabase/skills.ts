@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 import { Database } from '@/integrations/supabase/types';
 
@@ -29,9 +28,10 @@ export const skillsService = {
       query = query.eq('categories.title', filters.category);
     }
 
-    // Enhanced search to include provider names
+    // Enhanced search to include partial matches for provider names, titles, and descriptions
     if (filters?.search) {
       const searchTerm = `%${filters.search}%`;
+      // Use ilike for case-insensitive partial matching
       query = query.or(`title.ilike.${searchTerm},description.ilike.${searchTerm},profiles.name.ilike.${searchTerm}`);
     }
 

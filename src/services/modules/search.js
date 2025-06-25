@@ -1,4 +1,3 @@
-
 // Search API module - Updated to use real Supabase data
 import { skillsService } from '../supabase/skills';
 
@@ -7,7 +6,7 @@ export const searchAPI = {
     try {
       console.log('Searching for:', query, 'with filters:', filters);
       
-      // Use the real Supabase skills service instead of mock data
+      // Use the real Supabase skills service with enhanced search
       const skills = await skillsService.getAll({
         search: query,
         category: filters.category,
@@ -18,6 +17,22 @@ export const searchAPI = {
       
       // Apply additional client-side filtering if needed
       let filteredSkills = skills;
+      
+      // Enhanced client-side filtering for partial matches
+      if (query && query.trim()) {
+        const searchLower = query.toLowerCase().trim();
+        filteredSkills = filteredSkills.filter(skill => {
+          const providerName = (skill.providerName || '').toLowerCase();
+          const skillTitle = (skill.skillTitle || '').toLowerCase();
+          const description = (skill.description || '').toLowerCase();
+          const category = (skill.category || '').toLowerCase();
+          
+          return providerName.includes(searchLower) ||
+                 skillTitle.includes(searchLower) ||
+                 description.includes(searchLower) ||
+                 category.includes(searchLower);
+        });
+      }
       
       if (filters.subcategory) {
         filteredSkills = filteredSkills.filter(skill => 
@@ -31,6 +46,7 @@ export const searchAPI = {
         );
       }
       
+      console.log('Final filtered skills:', filteredSkills);
       return filteredSkills;
     } catch (error) {
       console.error('Search error:', error);
@@ -65,23 +81,28 @@ export const searchAPI = {
 
   getSuggestions: async (query) => {
     try {
-      // Get suggestions from real skills data
+      // Get suggestions from real skills data with enhanced search
       const skills = await skillsService.getAll({ search: query, limit: 20 });
       
-      // Extract unique suggestions from titles and categories
+      // Extract unique suggestions from titles, categories, and provider names
       const suggestions = new Set();
       
       skills.forEach(skill => {
-        if (skill.title && skill.title.toLowerCase().includes(query.toLowerCase())) {
-          suggestions.add(skill.title);
+        const queryLower = query.toLowerCase();
+        
+        // Add skill titles that contain the query
+        if (skill.skillTitle && skill.skillTitle.toLowerCase().includes(queryLower)) {
+          suggestions.add(skill.skillTitle);
         }
-        if (skill.category && skill.category.toLowerCase().includes(query.toLowerCase())) {
+        
+        // Add categories that contain the query
+        if (skill.category && skill.category.toLowerCase().includes(queryLower)) {
           suggestions.add(skill.category);
         }
-        // Include provider names in suggestions
-        if (skill.profiles && skill.profiles.name && 
-            skill.profiles.name.toLowerCase().includes(query.toLowerCase())) {
-          suggestions.add(skill.profiles.name);
+        
+        // Add provider names that contain the query
+        if (skill.providerName && skill.providerName.toLowerCase().includes(queryLower)) {
+          suggestions.add(skill.providerName);
         }
       });
       
