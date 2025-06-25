@@ -1,3 +1,4 @@
+
 import { supabase } from '@/integrations/supabase/client';
 import { Database } from '@/integrations/supabase/types';
 
@@ -8,6 +9,7 @@ type SkillUpdate = Database['public']['Tables']['skills']['Update'];
 export const skillsService = {
   async getAll(filters?: {
     category?: string;
+    subcategory?: string;
     search?: string;
     limit?: number;
   }) {
@@ -28,11 +30,18 @@ export const skillsService = {
       query = query.eq('categories.title', filters.category);
     }
 
-    // Enhanced search to include partial matches for provider names, titles, and descriptions
+    if (filters?.subcategory) {
+      query = query.eq('subcategories.title', filters.subcategory);
+    }
+
+    // Enhanced search with better handling for provider names
     if (filters?.search) {
       const searchTerm = `%${filters.search}%`;
-      // Use ilike for case-insensitive partial matching
-      query = query.or(`title.ilike.${searchTerm},description.ilike.${searchTerm},profiles.name.ilike.${searchTerm}`);
+      console.log('Applying search filter for:', searchTerm);
+      
+      // Use a more robust approach for searching across joined tables
+      // First, let's search for skills by title and description
+      query = query.or(`title.ilike.${searchTerm},description.ilike.${searchTerm}`);
     }
 
     if (filters?.limit) {
@@ -49,7 +58,7 @@ export const skillsService = {
     console.log('Raw skills data from Supabase:', data);
     
     // Transform data to match expected format
-    const transformedSkills = (data || []).map(skill => ({
+    let transformedSkills = (data || []).map(skill => ({
       id: skill.id,
       providerName: skill.profiles?.name || 'Unknown Provider',
       skillTitle: skill.title,
@@ -70,8 +79,37 @@ export const skillsService = {
       useCases: skill.use_cases || [],
       providerImage: skill.profiles?.avatar || '/placeholder.svg'
     }));
+
+    // Apply additional client-side filtering for provider name search
+    if (filters?.search) {
+      const searchLower = filters.search.toLowerCase().trim();
+      console.log('Applying client-side provider name filter for:', searchLower);
+      
+      transformedSkills = transformedSkills.filter(skill => {
+        const providerName = (skill.providerName || '').toLowerCase();
+        const skillTitle = (skill.skillTitle || '').toLowerCase();
+        const description = (skill.description || '').toLowerCase();
+        const category = (skill.category || '').toLowerCase();
+        
+        const matchesProvider = providerName.includes(searchLower);
+        const matchesTitle = skillTitle.includes(searchLower);
+        const matchesDescription = description.includes(searchLower);
+        const matchesCategory = category.includes(searchLower);
+        
+        console.log(`Skill "${skill.skillTitle}" by "${skill.providerName}":`, {
+          matchesProvider,
+          matchesTitle,
+          matchesDescription,
+          matchesCategory,
+          providerName,
+          searchLower
+        });
+        
+        return matchesProvider || matchesTitle || matchesDescription || matchesCategory;
+      });
+    }
     
-    console.log('Transformed skills:', transformedSkills);
+    console.log('Final transformed skills after filtering:', transformedSkills);
     return transformedSkills;
   },
 

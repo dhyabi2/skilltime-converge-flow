@@ -50,13 +50,26 @@ const Home = () => {
   }, [loading]);
 
   const handleSearch = async (query: string) => {
-    console.log('Searching for:', query);
+    console.log('Home page search initiated for:', query);
+    
+    if (!query.trim()) {
+      console.log('Empty search query, navigating to browse');
+      navigate('/browse');
+      return;
+    }
+    
     try {
-      const results = await searchAPI.searchSkills(query);
-      console.log('Search results:', results);
-      navigate(`/browse?search=${encodeURIComponent(query)}`);
+      // Test the search functionality and log results
+      const results = await searchAPI.searchSkills(query.trim());
+      console.log('Home page search results:', results);
+      console.log(`Found ${results.length} skills for query: "${query}"`);
+      
+      // Navigate to browse page with search query
+      navigate(`/browse?search=${encodeURIComponent(query.trim())}`);
     } catch (error) {
-      console.error('Search error:', error);
+      console.error('Home page search error:', error);
+      // Still navigate to browse page even if search fails
+      navigate(`/browse?search=${encodeURIComponent(query.trim())}`);
     }
   };
 

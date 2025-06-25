@@ -4,41 +4,28 @@ import { skillsService } from '../supabase/skills';
 export const searchAPI = {
   searchSkills: async (query, filters = {}) => {
     try {
-      console.log('Searching for:', query, 'with filters:', filters);
+      console.log('searchAPI.searchSkills called with query:', query, 'filters:', filters);
+      
+      if (!query || !query.trim()) {
+        console.log('Empty search query, returning empty results');
+        return [];
+      }
       
       // Use the real Supabase skills service with enhanced search
       const skills = await skillsService.getAll({
-        search: query,
+        search: query.trim(),
         category: filters.category,
+        subcategory: filters.subcategory,
         limit: filters.limit
       });
       
-      console.log('Found skills:', skills);
+      console.log('Search results from skillsService:', skills);
       
       // Apply additional client-side filtering if needed
       let filteredSkills = skills;
       
-      // Enhanced client-side filtering for partial matches
-      if (query && query.trim()) {
-        const searchLower = query.toLowerCase().trim();
-        filteredSkills = filteredSkills.filter(skill => {
-          const providerName = (skill.providerName || '').toLowerCase();
-          const skillTitle = (skill.skillTitle || '').toLowerCase();
-          const description = (skill.description || '').toLowerCase();
-          const category = (skill.category || '').toLowerCase();
-          
-          return providerName.includes(searchLower) ||
-                 skillTitle.includes(searchLower) ||
-                 description.includes(searchLower) ||
-                 category.includes(searchLower);
-        });
-      }
-      
-      if (filters.subcategory) {
-        filteredSkills = filteredSkills.filter(skill => 
-          skill.subcategory && skill.subcategory.toLowerCase() === filters.subcategory.toLowerCase()
-        );
-      }
+      // The main filtering is now handled in skillsService.getAll
+      // but we can add additional filters here if needed
       
       if (filters.maxPrice) {
         filteredSkills = filteredSkills.filter(skill => 
@@ -46,7 +33,7 @@ export const searchAPI = {
         );
       }
       
-      console.log('Final filtered skills:', filteredSkills);
+      console.log('Final search results:', filteredSkills);
       return filteredSkills;
     } catch (error) {
       console.error('Search error:', error);
