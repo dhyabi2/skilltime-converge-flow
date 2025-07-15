@@ -1,0 +1,75 @@
+
+{
+  "general": {
+    "something_went_wrong": "حدث خطأ ما",
+    "try_again": "حاول مرة أخرى",
+    "reload_page": "إعادة تحميل الصفحة",
+    "contact_support": "اتصل بالدعم",
+    "error_occurred": "حدث خطأ",
+    "unknown_error": "خطأ غير معروف"
+  },
+  "network": {
+    "connection_lost": "فقدان الاتصال",
+    "no_internet": "لا يوجد اتصال بالإنترنت",
+    "request_failed": "فشل الطلب",
+    "timeout": "انتهت مهلة الطلب",
+    "server_error": "خطأ في الخادم"
+  },
+  "auth": {
+    "login_failed": "فشل تسجيل الدخول",
+    "logout_failed": "فشل تسجيل الخروج",
+    "session_expired": "انتهت جلسة العمل",
+    "unauthorized": "غير مخول",
+    "forbidden": "محظور",
+    "invalid_credentials": "بيانات اعتماد غير صحيحة",
+    "email_not_verified": "البريد الإلكتروني غير مؤكد",
+    "account_locked": "الحساب مغلق"
+  },
+  "validation": {
+    "required_field": "هذا الحقل مطلوب",
+    "invalid_email": "عنوان بريد إلكتروني غير صحيح",
+    "password_too_short": "كلمة المرور قصيرة جداً",
+    "passwords_dont_match": "كلمات المرور غير متطابقة",
+    "invalid_phone": "رقم هاتف غير صحيح",
+    "invalid_format": "تنسيق غير صحيح",
+    "min_length": "يجب أن يكون {{min}} أحرف على الأقل",
+    "max_length": "يجب أن يكون {{max}} أحرف على الأكثر",
+    "invalid_number": "رقم غير صحيح",
+    "file_too_large": "الملف كبير جداً",
+    "invalid_file_type": "نوع ملف غير صحيح"
+  },
+  "booking": {
+    "creation_failed": "فشل إنشاء الحجز",
+    "update_failed": "فشل تحديث الحجز",
+    "cancellation_failed": "فشل إلغاء الحجز",
+    "not_found": "الحجز غير موجود",
+    "already_booked": "هذا الوقت محجوز بالفعل",
+    "past_date": "لا يمكن الحجز في تاريخ مضى",
+    "insufficient_balance": "رصيد غير كافٍ"
+  },
+  "skill": {
+    "creation_failed": "فشل إنشاء المهارة",
+    "update_failed": "فشل تحديث المهارة",
+    "deletion_failed": "فشل حذف المهارة",
+    "not_found": "المهارة غير موجودة",
+    "already_exists": "المهارة موجودة بالفعل"
+  },
+  "profile": {
+    "update_failed": "فشل تحديث الملف الشخصي",
+    "image_upload_failed": "فشل رفع الصورة",
+    "not_found": "الملف الشخصي غير موجود"
+  },
+  "payment": {
+    "failed": "فشل الدفع",
+    "declined": "تم رفض الدفع",
+    "insufficient_funds": "أموال غير كافية",
+    "invalid_card": "بطاقة غير صحيحة",
+    "expired_card": "بطاقة منتهية الصلاحية"
+  },
+  "file": {
+    "upload_failed": "فشل رفع الملف",
+    "download_failed": "فشل تحميل الملف",
+    "corrupted": "ملف تالف",
+    "not_supported": "نوع ملف غير مدعوم"
+  }
+}

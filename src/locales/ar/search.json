@@ -1,0 +1,47 @@
+
+{
+  "placeholder": "ابحث عن المهارات أو المقدمين أو الفئات",
+  "search": "بحث",
+  "searching": "جاري البحث...",
+  "clear": "مسح",
+  "no_results": "لا توجد نتائج",
+  "no_results_for": "لا توجد نتائج لـ \"{{query}}\"",
+  "search_anyway": "البحث على أي حال",
+  "suggestions": "الاقتراحات",
+  "recent_searches": "عمليات البحث الأخيرة",
+  "popular_searches": "عمليات البحث الشائعة",
+  "start_typing": "ابدأ الكتابة للبحث عن المهارات أو المقدمين أو الفئات",
+  "filters": {
+    "title": "المرشحات",
+    "apply": "تطبيق",
+    "clear_all": "مسح الكل",
+    "category": "الفئة",
+    "subcategory": "الفئة الفرعية",
+    "price_range": "نطاق السعر",
+    "max_price": "أقصى سعر",
+    "min_price": "أدنى سعر",
+    "duration": "المدة",
+    "location": "الموقع",
+    "rating": "التقييم",
+    "availability": "التوفر",
+    "sort_by": "ترتيب حسب",
+    "most_relevant": "الأكثر صلة",
+    "highest_rated": "الأعلى تقييماً",
+    "lowest_price": "أقل سعر",
+    "highest_price": "أعلى سعر",
+    "newest": "الأحدث",
+    "most_popular": "الأكثر شعبية",
+    "placeholder_category": "اختر فئة",
+    "placeholder_subcategory": "اختر فئة فرعية",
+    "no_limit": "بدون حد",
+    "any_duration": "أي مدة",
+    "any_location": "أي موقع",
+    "all_ratings": "جميع التقييمات"
+  },
+  "results": {
+    "showing": "عرض {{count}} من {{total}} نتيجة",
+    "for_query": "لـ \"{{query}}\"",
+    "load_more": "تحميل المزيد",
+    "end_of_results": "انتهت النتائج"
+  }
+}

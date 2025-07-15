@@ -23,7 +23,9 @@ interface MobileDrawerProps {
 }
 
 const MobileDrawer: React.FC<MobileDrawerProps> = ({ user, onSearchClick }) => {
-  const { t } = useTranslation('common');
+  const { t: tCommon } = useTranslation('common');
+  const { t: tNav } = useTranslation('navigation');
+  const { t: tUI } = useTranslation('ui');
   const { signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -65,7 +67,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ user, onSearchClick }) => {
       <DrawerContent className="bg-white/95 backdrop-blur-md border-t border-soft-blue-200">
         <DrawerHeader className="text-center border-b border-soft-blue-200/50 pb-4">
           <DrawerTitle className="text-xl font-bold text-slate-800">
-            {t('app.name')}
+            {tCommon('app.name')}
           </DrawerTitle>
         </DrawerHeader>
         
@@ -79,7 +81,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ user, onSearchClick }) => {
             className="w-full flex items-center gap-3 p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-white/50 hover:bg-white/60 transition-all duration-200"
           >
             <Search className="w-4 h-4 text-slate-700" />
-            <span className="text-sm font-medium text-slate-700">Search</span>
+            <span className="text-sm font-medium text-slate-700">{tNav('search')}</span>
           </button>
 
           {/* Flowchart */}
@@ -99,7 +101,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ user, onSearchClick }) => {
                 className="w-full flex items-center gap-3 p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-white/50 hover:bg-white/60 transition-all duration-200"
               >
                 <User className="w-4 h-4 text-slate-700" />
-                <span className="text-sm font-medium text-slate-700">Profile</span>
+                <span className="text-sm font-medium text-slate-700">{tNav('profile')}</span>
               </button>
               
               <button 
@@ -107,7 +109,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ user, onSearchClick }) => {
                 className="w-full flex items-center gap-3 p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-white/50 hover:bg-white/60 transition-all duration-200"
               >
                 <Settings className="w-4 h-4 text-slate-700" />
-                <span className="text-sm font-medium text-slate-700">My Bookings</span>
+                <span className="text-sm font-medium text-slate-700">{tNav('my_bookings')}</span>
               </button>
               
               <button 
@@ -115,7 +117,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ user, onSearchClick }) => {
                 className="w-full flex items-center gap-3 p-3 rounded-lg bg-red-100/60 backdrop-blur-sm border border-red-200/50 hover:bg-red-200/60 transition-all duration-200"
               >
                 <LogOut className="w-4 h-4 text-red-700" />
-                <span className="text-sm font-medium text-red-700">Sign out</span>
+                <span className="text-sm font-medium text-red-700">{tCommon('auth.sign_out')}</span>
               </button>
             </div>
           )}
@@ -123,7 +125,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ user, onSearchClick }) => {
         
         <DrawerClose asChild>
           <Button variant="outline" className="mx-6 mb-6">
-            Close
+            {tUI('close')}
           </Button>
         </DrawerClose>
       </DrawerContent>

@@ -18,7 +18,7 @@ interface NotificationPanelProps {
 }
 
 const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('notifications');
   const navigate = useNavigate();
 
   const { data: notifications = [], isLoading } = useNotifications();
@@ -70,7 +70,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
       <PopoverContent className="w-80 p-0" align="end">
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-slate-800">{t('notifications.title')}</h3>
+            <h3 className="font-semibold text-slate-800">{t('title')}</h3>
             {unreadCount > 0 && (
               <Button
                 variant="ghost"
@@ -80,7 +80,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
                 className="text-xs"
               >
                 <CheckCheck className="w-4 h-4 mr-1" />
-                {t('notifications.mark_all_read')}
+                {t('mark_all_read')}
               </Button>
             )}
           </div>
@@ -88,12 +88,12 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
         <ScrollArea className="h-96">
           {isLoading ? (
             <div className="p-4 text-center text-slate-500">
-              {t('common.loading')}
+              {t('loading')}
             </div>
           ) : notifications.length === 0 ? (
             <div className="p-8 text-center text-slate-500">
               <Bell className="w-12 h-12 mx-auto mb-3 text-slate-300" />
-              <p>{t('notifications.empty')}</p>
+              <p>{t('empty')}</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-100">
@@ -147,7 +147,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
               className="text-xs"
               onClick={() => navigate('/notifications')}
             >
-              {t('notifications.view_all')}
+              {t('view_all')}
             </Button>
           </div>
         )}

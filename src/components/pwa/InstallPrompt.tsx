@@ -8,7 +8,7 @@ import { usePWA } from '@/hooks/usePWA';
 
 export const InstallPrompt = () => {
   const { isInstallable, installApp } = usePWA();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('pwa');
   const [dismissed, setDismissed] = useState(false);
 
   if (!isInstallable || dismissed) return null;
@@ -34,7 +34,7 @@ export const InstallPrompt = () => {
       <CardContent className="pt-0">
         <Button onClick={installApp} className="w-full" size="sm">
           <Download className="mr-2 rtl:mr-0 rtl:ml-2 h-4 w-4" />
-          {t('buttons.install_app')}
+          {t('install.button')}
         </Button>
       </CardContent>
     </Card>

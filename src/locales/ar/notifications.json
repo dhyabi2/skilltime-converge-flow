@@ -1,0 +1,29 @@
+
+{
+  "title": "الإشعارات",
+  "empty": "لا توجد إشعارات",
+  "mark_all_read": "تحديد الكل كمقروء",
+  "mark_as_read": "تحديد كمقروء",
+  "view_all": "عرض الكل",
+  "loading": "جاري تحميل الإشعارات...",
+  "types": {
+    "booking_confirmed": "تم تأكيد الحجز",
+    "booking_cancelled": "تم إلغاء الحجز",
+    "skill_reminder": "تذكير بالمهارة",
+    "new_review": "تقييم جديد",
+    "payment_received": "تم استلام الدفع",
+    "system": "إشعار النظام"
+  },
+  "actions": {
+    "dismiss": "رفض",
+    "view_details": "عرض التفاصيل",
+    "respond": "رد"
+  },
+  "time": {
+    "just_now": "الآن",
+    "minutes_ago": "منذ {{count}} دقيقة",
+    "hours_ago": "منذ {{count}} ساعة",
+    "days_ago": "منذ {{count}} يوم",
+    "weeks_ago": "منذ {{count}} أسبوع"
+  }
+}

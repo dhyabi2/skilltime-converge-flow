@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Search, Clock, TrendingUp, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +18,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
   const [popularSearches, setPopularSearches] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('search');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -98,7 +97,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             <Input
               type="text"
-              placeholder={t('search.placeholder')}
+              placeholder={t('placeholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={handleKeyPress}
@@ -120,7 +119,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           {/* Suggestions */}
           {suggestions.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 mb-3">Suggestions</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">{t('suggestions')}</h3>
               <div className="space-y-2">
                 {suggestions.map((suggestion, index) => (
                   <button
@@ -141,7 +140,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             <div className="mb-6">
               <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
                 <Clock className="h-4 w-4 mr-2" />
-                Recent Searches
+                {t('recent_searches')}
               </h3>
               <div className="space-y-2">
                 {recentSearches.map((search, index) => (
@@ -163,7 +162,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
                 <TrendingUp className="h-4 w-4 mr-2" />
-                Popular Searches
+                {t('popular_searches')}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {popularSearches.map((search, index) => (
@@ -183,16 +182,16 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           {!isLoading && !searchQuery && recentSearches.length === 0 && popularSearches.length === 0 && (
             <div className="text-center py-8">
               <Search className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">Start typing to search for skills, providers, or categories</p>
+              <p className="text-gray-500">{t('start_typing')}</p>
             </div>
           )}
 
           {/* No Results */}
           {searchQuery.length > 2 && suggestions.length === 0 && !isLoading && (
             <div className="text-center py-8">
-              <p className="text-gray-500 mb-4">No suggestions found for "{searchQuery}"</p>
+              <p className="text-gray-500 mb-4">{t('no_results_for', { query: searchQuery })}</p>
               <Button onClick={() => handleSearch(searchQuery)} className="bg-soft-blue-500 hover:bg-soft-blue-600">
-                Search anyway
+                {t('search_anyway')}
               </Button>
             </div>
           )}

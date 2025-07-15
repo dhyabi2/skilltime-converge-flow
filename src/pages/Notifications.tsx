@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { notificationsAPI } from '../services/modules/notifications';
 import { Button } from '@/components/ui/button';
@@ -6,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const Notifications = () => {
   const { user } = useAuth();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('notifications');
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,14 +33,14 @@ const Notifications = () => {
   };
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return <div className="min-h-screen flex items-center justify-center">{t('loading')}</div>;
   }
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6">
-      <h1 className="text-2xl font-bold mb-4">{t('notifications.title')}</h1>
+      <h1 className="text-2xl font-bold mb-4">{t('title')}</h1>
       {items.length === 0 ? (
-        <p className="text-gray-500 text-center">{t('notifications.empty')}</p>
+        <p className="text-gray-500 text-center">{t('empty')}</p>
       ) : (
         <div className="space-y-4">
           {items.map((n) => (
@@ -52,7 +53,7 @@ const Notifications = () => {
       )}
       {items.length > 0 && (
         <div className="mt-6 text-center">
-          <Button size="sm" onClick={handleMarkAll}>{t('notifications.mark_all_read')}</Button>
+          <Button size="sm" onClick={handleMarkAll}>{t('mark_all_read')}</Button>
         </div>
       )}
     </div>

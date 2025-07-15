@@ -6,7 +6,7 @@ import { usePWA } from '@/hooks/usePWA';
 
 export const OfflineIndicator = () => {
   const { isOnline } = usePWA();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('pwa');
 
   if (isOnline) return null;
 
