@@ -56,7 +56,7 @@ const MobileBookingCard: React.FC<MobileBookingCardProps> = ({
   };
 
   const isUpcoming = new Date(booking.booking_date) > new Date();
-  const otherUser = booking.client?.name || booking.provider?.name || t('bookings.student');
+  const otherUser = booking.client?.name || booking.provider?.name || String(t('bookings.student'));
   const otherUserAvatar = booking.client?.avatar || booking.provider?.avatar;
 
   return (
@@ -73,16 +73,16 @@ const MobileBookingCard: React.FC<MobileBookingCardProps> = ({
             </Avatar>
             <div className="min-w-0 flex-1">
               <h4 className="font-medium text-gray-800 truncate">
-                {booking.skills?.title || t('bookings.skill_session')}
+                {booking.skills?.title || String(t('bookings.skill_session'))}
               </h4>
               <div className="flex items-center gap-1 text-sm text-gray-600">
                 <User className="w-3 h-3 flex-shrink-0" />
-                <span className="truncate">{t('bookings.with')} {otherUser}</span>
+                <span className="truncate">{String(t('bookings.with'))} {otherUser}</span>
               </div>
             </div>
           </div>
           <Badge className={`${getStatusColor(booking.status)} text-xs flex-shrink-0`}>
-            {t(`bookings.status.${booking.status}`, booking.status)}
+            {String(t(`bookings.status.${booking.status}`, booking.status))}
           </Badge>
         </div>
         
@@ -98,7 +98,7 @@ const MobileBookingCard: React.FC<MobileBookingCardProps> = ({
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <MapPin className="w-4 h-4 text-purple-600 flex-shrink-0" />
-            <span className="truncate">{booking.location || t('bookings.remote')}</span>
+            <span className="truncate">{booking.location || String(t('bookings.remote'))}</span>
           </div>
         </div>
 
