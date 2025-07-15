@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Star, ThumbsUp, MessageSquare, Award, Flag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';

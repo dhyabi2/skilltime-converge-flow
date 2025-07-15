@@ -47,22 +47,32 @@ export const useNotifications = () => {
   useEffect(() => {
     if (!user?.id) return;
 
-    const unsubscribe = notificationsService.subscribeToNotifications(
-      user.id,
-      (notification) => {
-        // Show toast for new notification
-        toast({
-          title: notification.title,
-          description: notification.message,
-        });
+    let unsubscribe: (() => void) | undefined;
 
-        // Refresh queries
-        queryClient.invalidateQueries({ queryKey: ['notifications'] });
-        queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
+    const setupSubscription = async () => {
+      unsubscribe = notificationsService.subscribeToNotifications(
+        user.id,
+        (notification) => {
+          // Show toast for new notification
+          toast({
+            title: notification.title,
+            description: notification.message,
+          });
+
+          // Refresh queries
+          queryClient.invalidateQueries({ queryKey: ['notifications'] });
+          queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
+        }
+      );
+    };
+
+    setupSubscription();
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
       }
-    );
-
-    return unsubscribe;
+    };
   }, [user?.id, queryClient, toast]);
 
   return {
@@ -74,4 +84,29 @@ export const useNotifications = () => {
     isMarkingAsRead: markAsReadMutation.isPending,
     isMarkingAllAsRead: markAllAsReadMutation.isPending,
   };
+};
+
+export const useMarkNotificationAsRead = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: notificationsService.markAsRead,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+      queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
+    },
+  });
+};
+
+export const useMarkAllNotificationsAsRead = () => {
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
+
+  return useMutation({
+    mutationFn: () => notificationsService.markAllAsRead(user!.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+      queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
+    },
+  });
 };

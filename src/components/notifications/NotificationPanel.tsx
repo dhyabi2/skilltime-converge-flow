@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatDistanceToNow } from 'date-fns';
-import { useNotifications, useMarkNotificationAsRead, useMarkAllNotificationsAsRead } from '@/hooks/useNotifications';
+import { useNotifications } from '@/hooks/useNotifications';
 
 interface NotificationPanelProps {
   userId: string;
@@ -21,19 +21,23 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
   const { t } = useTranslation('notifications');
   const navigate = useNavigate();
 
-  const { data: notifications = [], isLoading } = useNotifications();
-  const markAsReadMutation = useMarkNotificationAsRead();
-  const markAllAsReadMutation = useMarkAllNotificationsAsRead();
-
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const { 
+    notifications = [], 
+    unreadCount,
+    isLoading,
+    markAsRead,
+    markAllAsRead,
+    isMarkingAsRead,
+    isMarkingAllAsRead 
+  } = useNotifications();
 
   const handleMarkAsRead = (notificationId: string) => {
-    markAsReadMutation.mutate(notificationId);
+    markAsRead(notificationId);
   };
 
   const handleMarkAllAsRead = () => {
     if (!userId) return;
-    markAllAsReadMutation.mutate(userId);
+    markAllAsRead();
   };
 
   const getNotificationIcon = (type: string) => {
@@ -76,7 +80,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
                 variant="ghost"
                 size="sm"
                 onClick={handleMarkAllAsRead}
-                disabled={markAllAsReadMutation.isPending}
+                disabled={isMarkingAllAsRead}
                 className="text-xs"
               >
                 <CheckCheck className="w-4 h-4 mr-1" />
@@ -121,6 +125,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ userId }) => {
                               handleMarkAsRead(notification.id);
                             }}
                             className="p-1 h-auto"
+                            disabled={isMarkingAsRead}
                           >
                             <Check className="w-3 h-3" />
                           </Button>

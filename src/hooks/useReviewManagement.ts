@@ -87,3 +87,54 @@ export const useReviewVoting = () => {
     },
   });
 };
+
+export const useVoteReview = () => {
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: ({ reviewId, voteType }: { reviewId: string; voteType: 'up' | 'down' }) =>
+      reviewsService.vote(reviewId, user!.id, voteType),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['skill-reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['provider-reviews'] });
+      toast({
+        title: "Success",
+        description: "Vote recorded",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to vote",
+        variant: "destructive",
+      });
+    },
+  });
+};
+
+export const useRespondToReview = () => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: ({ reviewId, response }: { reviewId: string; response: string }) =>
+      reviewsService.addResponse(reviewId, response),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['skill-reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['provider-reviews'] });
+      toast({
+        title: "Success",
+        description: "Response added successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to add response",
+        variant: "destructive",
+      });
+    },
+  });
+};
