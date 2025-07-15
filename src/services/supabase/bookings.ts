@@ -13,8 +13,8 @@ export const bookingsService = {
       .select(`
         *,
         skills!skill_id(title, image_url),
-        client:profiles!client_id(name, avatar),
-        provider:profiles!provider_id(name, avatar)
+        client:profiles!client_id(name, avatar, phone),
+        provider:profiles!provider_id(name, avatar, phone)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
       .order('booking_date', { ascending: false });
@@ -29,8 +29,8 @@ export const bookingsService = {
       .select(`
         *,
         skills!skill_id(title, description, image_url),
-        client:profiles!client_id(name, avatar, email),
-        provider:profiles!provider_id(name, avatar, email)
+        client:profiles!client_id(name, avatar, email, phone),
+        provider:profiles!provider_id(name, avatar, email, phone)
       `)
       .eq('id', id)
       .single();
@@ -50,8 +50,8 @@ export const bookingsService = {
       .select(`
         *,
         skills!skill_id(title, image_url),
-        client:profiles!client_id(name),
-        provider:profiles!provider_id(name)
+        client:profiles!client_id(name, phone),
+        provider:profiles!provider_id(name, phone)
       `)
       .single();
 
@@ -112,8 +112,8 @@ export const bookingsService = {
       .select(`
         *,
         skills!skill_id(title, image_url),
-        client:profiles!client_id(name, avatar),
-        provider:profiles!provider_id(name, avatar)
+        client:profiles!client_id(name, avatar, phone),
+        provider:profiles!provider_id(name, avatar, phone)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
       .gte('booking_date', today)
@@ -130,8 +130,8 @@ export const bookingsService = {
       .select(`
         *,
         skills!skill_id(title, image_url),
-        client:profiles!client_id(name, avatar),
-        provider:profiles!provider_id(name, avatar)
+        client:profiles!client_id(name, avatar, phone),
+        provider:profiles!provider_id(name, avatar, phone)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
       .eq('status', 'completed')
