@@ -3,12 +3,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { notificationsService } from '@/services/supabase/notifications';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useNotifications = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const unsubscribeRef = useRef<(() => void) | null>(null);
 
   const { data: notifications = [], isLoading } = useQuery({
     queryKey: ['notifications', user?.id],
@@ -47,30 +48,35 @@ export const useNotifications = () => {
   useEffect(() => {
     if (!user?.id) return;
 
-    let unsubscribe: (() => void) | undefined;
-
     const setupSubscription = async () => {
-      unsubscribe = notificationsService.subscribeToNotifications(
-        user.id,
-        (notification) => {
-          // Show toast for new notification
-          toast({
-            title: notification.title,
-            description: notification.message,
-          });
+      try {
+        const unsubscribe = await notificationsService.subscribeToNotifications(
+          user.id,
+          (notification) => {
+            // Show toast for new notification
+            toast({
+              title: notification.title,
+              description: notification.message,
+            });
 
-          // Refresh queries
-          queryClient.invalidateQueries({ queryKey: ['notifications'] });
-          queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
-        }
-      );
+            // Refresh queries
+            queryClient.invalidateQueries({ queryKey: ['notifications'] });
+            queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
+          }
+        );
+        
+        unsubscribeRef.current = unsubscribe;
+      } catch (error) {
+        console.error('Failed to setup notification subscription:', error);
+      }
     };
 
     setupSubscription();
 
     return () => {
-      if (unsubscribe) {
-        unsubscribe();
+      if (unsubscribeRef.current) {
+        unsubscribeRef.current();
+        unsubscribeRef.current = null;
       }
     };
   }, [user?.id, queryClient, toast]);
