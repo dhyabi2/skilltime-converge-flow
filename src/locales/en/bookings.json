@@ -8,7 +8,6 @@
     "summary": "Booking Summary",
     "service_details": "Service Details",
     "session_details": "Session Details",
-    "payment_summary": "Payment Summary",
     "confirm_booking": "Confirm Booking",
     "confirming": "Confirming...",
     "booking_confirmed": "Booking Confirmed!",
@@ -54,21 +53,9 @@
     "confirm_booking": "Confirm Booking",
     "booking_notice": "By booking, you agree to our terms and conditions"
   },
-  "payment": {
-    "secure_payment": "Secure Payment",
-    "service": "Service",
-    "total": "Total Amount",
-    "pay_now": "Pay Now",
-    "processing": "Processing Payment...",
-    "security_notice": "Your payment information is secure and encrypted",
-    "terms_notice": "By completing this payment, you agree to our booking terms and cancellation policy",
-    "error": "Payment Error",
-    "generic_error": "Payment failed. Please try again."
-  },
   "steps": {
     "select_date": "Date",
     "select_time": "Time", 
-    "payment": "Payment",
     "confirmation": "Done"
   },
   "error": {

@@ -8,7 +8,6 @@
     "summary": "ملخص الحجز",
     "service_details": "تفاصيل الخدمة",
     "session_details": "تفاصيل الجلسة",
-    "payment_summary": "ملخص الدفع",
     "confirm_booking": "تأكيد الحجز",
     "confirming": "جاري التأكيد...",
     "booking_confirmed": "تم تأكيد الحجز!",
@@ -54,21 +53,9 @@
     "confirm_booking": "تأكيد الحجز",
     "booking_notice": "بالحجز، فإنك توافق على الشروط والأحكام الخاصة بنا"
   },
-  "payment": {
-    "secure_payment": "دفع آمن",
-    "service": "الخدمة",
-    "total": "المبلغ الإجمالي",
-    "pay_now": "ادفع الآن",
-    "processing": "جاري معالجة الدفع...",
-    "security_notice": "معلومات الدفع الخاصة بك آمنة ومشفرة",
-    "terms_notice": "بإتمام هذا الدفع، فإنك توافق على شروط الحجز وسياسة الإلغاء",
-    "error": "خطأ في الدفع",
-    "generic_error": "فشل الدفع. يرجى المحاولة مرة أخرى."
-  },
   "steps": {
     "select_date": "التاريخ",
     "select_time": "الوقت",
-    "payment": "الدفع",
     "confirmation": "تم"
   },
   "error": {

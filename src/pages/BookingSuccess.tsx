@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CheckCircle, Calendar, Clock, User, CreditCard, Home, Eye } from 'lucide-react';
+import { CheckCircle, Calendar, Clock, User, Home, Eye } from 'lucide-react';
 import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,7 +15,7 @@ const BookingSuccess = () => {
   const checkmarkRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const { booking, skill, paymentData } = location.state || {};
+  const { booking, skill } = location.state || {};
 
   useEffect(() => {
     if (!booking || !skill) {
@@ -138,17 +138,6 @@ const BookingSuccess = () => {
                   <div>
                     <p className="font-medium text-slate-800">{formattedTime}</p>
                     <p className="text-sm text-slate-600">{booking.duration} session</p>
-                  </div>
-                </div>
-
-                {/* Payment */}
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-green-100 to-mint-100 rounded-full flex items-center justify-center">
-                    <CreditCard className="w-5 h-5 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-slate-800">{booking.price} OMR</p>
-                    <p className="text-sm text-slate-600">Payment confirmed</p>
                   </div>
                 </div>
               </div>
