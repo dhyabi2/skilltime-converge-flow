@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useSkillDetails } from '@/hooks/useSkillDetails';
-import { useCreateBooking } from '@/hooks/useRealBookings';
+import { useCreateFreeBooking } from '@/hooks/useFreeBookings';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import BookingDatePicker from './BookingDatePicker';
-import BookingTimeSlots from './BookingTimeSlots';
+import FreeBookingTimeSlots from './FreeBookingTimeSlots';
 import BookingProgress from './BookingProgress';
 import { hapticFeedback } from '@/utils/hapticFeedback';
 import { LoadingSkeleton } from '@/components/ui/loading-skeleton';
@@ -28,10 +28,15 @@ const FreeBookingCreate = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [notes, setNotes] = useState<string>('');
   
-  const { data: skill, isLoading: skillLoading } = useSkillDetails(skillId);
-  const createBooking = useCreateBooking();
+  const { data: skill, isLoading: skillLoading, error: skillError } = useSkillDetails(skillId);
+  const createBooking = useCreateFreeBooking();
 
   const steps = ['select_date', 'select_time', 'confirmation'];
+
+  // Debug logging
+  useEffect(() => {
+    console.log('FreeBookingCreate mounted with:', { skillId, user, skill });
+  }, [skillId, user, skill]);
 
   // Parse pre-selected slot from URL
   useEffect(() => {
@@ -45,6 +50,7 @@ const FreeBookingCreate = () => {
   }, [searchParams]);
 
   const handleDateSelect = (date: string) => {
+    console.log('Date selected:', date);
     setSelectedDate(date);
     setSelectedTime('');
     setCurrentStep(1);
@@ -52,13 +58,35 @@ const FreeBookingCreate = () => {
   };
 
   const handleTimeSelect = (time: string) => {
+    console.log('Time selected:', time);
     setSelectedTime(time);
     setCurrentStep(2);
     hapticFeedback.light();
   };
 
   const handleConfirmBooking = async () => {
-    if (!skill || !user || !selectedDate || !selectedTime) return;
+    if (!skill || !user || !selectedDate || !selectedTime) {
+      console.error('Missing required data:', { skill: !!skill, user: !!user, selectedDate, selectedTime });
+      toast({
+        title: "Error",
+        description: "Missing required booking information",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    console.log('Creating booking with:', {
+      skill_id: skill.id,
+      client_id: user.id,
+      provider_id: skill.provider_id,
+      booking_date: selectedDate,
+      booking_time: selectedTime,
+      price: skill.price,
+      duration: skill.duration,
+      location: skill.location || 'Remote',
+      status: 'pending',
+      notes: notes || undefined
+    });
 
     try {
       const booking = await createBooking.mutateAsync({
@@ -74,6 +102,7 @@ const FreeBookingCreate = () => {
         notes: notes || undefined
       });
 
+      console.log('Booking created successfully:', booking);
       hapticFeedback.success();
 
       toast({
@@ -81,7 +110,7 @@ const FreeBookingCreate = () => {
         description: t('create.success_message'),
       });
 
-      // Navigate to success page
+      // Navigate to success page with booking data
       navigate('/booking-success', {
         state: {
           booking,
@@ -110,6 +139,19 @@ const FreeBookingCreate = () => {
     }
   };
 
+  // Handle authentication requirement
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-slate-800 mb-4">Authentication Required</h1>
+          <p className="text-slate-600 mb-4">Please sign in to book this service</p>
+          <Button onClick={() => navigate('/auth')}>Sign In</Button>
+        </div>
+      </div>
+    );
+  }
+
   if (skillLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50">
@@ -121,11 +163,13 @@ const FreeBookingCreate = () => {
     );
   }
 
-  if (!skill) {
+  if (skillError || !skill) {
+    console.error('Skill loading error:', skillError);
     return (
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-slate-800 mb-4">{t('error.skill_not_found')}</h1>
+          <p className="text-slate-600 mb-4">Skill ID: {skillId}</p>
           <Button onClick={() => navigate(-1)}>{t('actions.back')}</Button>
         </div>
       </div>
@@ -180,8 +224,9 @@ const FreeBookingCreate = () => {
                     day: 'numeric'
                   })}
                 </p>
-                <BookingTimeSlots
-                  availableSlots={['09:00', '10:00', '11:00', '14:00', '15:00', '16:00']} // Mock slots for now
+                <FreeBookingTimeSlots
+                  skillId={skillId!}
+                  selectedDate={selectedDate}
                   onTimeSelect={handleTimeSelect}
                   selectedTime={selectedTime}
                 />
@@ -202,7 +247,7 @@ const FreeBookingCreate = () => {
                     </div>
                     <div>
                       <p className="font-medium text-slate-800">{skill.title}</p>
-                      <p className="text-sm text-slate-600">with {skill.profiles?.name}</p>
+                      <p className="text-sm text-slate-600">with {skill.profiles?.name || 'Provider'}</p>
                     </div>
                   </div>
 

@@ -17,9 +17,13 @@ const BookingSuccess = () => {
 
   const { booking, skill } = location.state || {};
 
+  console.log('BookingSuccess page loaded with:', { booking, skill, locationState: location.state });
+
   useEffect(() => {
+    // Redirect if no booking data (shouldn't happen in normal flow)
     if (!booking || !skill) {
-      navigate('/');
+      console.warn('No booking data found, redirecting to home');
+      navigate('/home');
       return;
     }
 
@@ -62,11 +66,18 @@ const BookingSuccess = () => {
 
   const handleBackHome = () => {
     hapticFeedback.light();
-    navigate('/');
+    navigate('/home');
   };
 
   if (!booking || !skill) {
-    return null;
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50 p-4 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-slate-800 mb-4">Loading...</h1>
+          <p className="text-slate-600">Redirecting to home...</p>
+        </div>
+      </div>
+    );
   }
 
   const formattedDate = new Date(booking.booking_date).toLocaleDateString('en-US', {
@@ -94,9 +105,9 @@ const BookingSuccess = () => {
             <CheckCircle className="w-12 h-12 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-slate-800 mb-2">
-            {t('create.booking_confirmed')}
+            Booking Confirmed!
           </h1>
-          <p className="text-slate-600">{t('create.success_message')}</p>
+          <p className="text-slate-600">Your session has been successfully booked</p>
         </div>
 
         {/* Booking Details */}
@@ -104,7 +115,7 @@ const BookingSuccess = () => {
           <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
             <CardContent className="p-6">
               <h2 className="font-bold text-lg text-slate-800 mb-4">
-                {t('summary.booking_details')}
+                Booking Details
               </h2>
               
               <div className="space-y-4">
@@ -115,7 +126,7 @@ const BookingSuccess = () => {
                   </div>
                   <div>
                     <p className="font-medium text-slate-800">{skill.title}</p>
-                    <p className="text-sm text-slate-600">with {skill.profiles?.name}</p>
+                    <p className="text-sm text-slate-600">with {skill.profiles?.name || 'Provider'}</p>
                   </div>
                 </div>
 
@@ -126,7 +137,7 @@ const BookingSuccess = () => {
                   </div>
                   <div>
                     <p className="font-medium text-slate-800">{formattedDate}</p>
-                    <p className="text-sm text-slate-600">{t('summary.session_date')}</p>
+                    <p className="text-sm text-slate-600">Session date</p>
                   </div>
                 </div>
 
