@@ -24,7 +24,8 @@ export const skillDetailsService = {
   },
 
   async getAvailableSlots(skillId: string, date: string) {
-    const { data, error } = await supabase.rpc('get_available_time_slots', {
+    // Use supabase.rpc with proper typing by casting the result
+    const { data, error } = await (supabase as any).rpc('get_available_time_slots', {
       p_skill_id: skillId,
       p_date: date
     });
@@ -34,7 +35,8 @@ export const skillDetailsService = {
   },
 
   async checkAvailability(skillId: string, date: string, time: string, duration: string) {
-    const { data, error } = await supabase.rpc('check_booking_availability', {
+    // Use supabase.rpc with proper typing by casting the result
+    const { data, error } = await (supabase as any).rpc('check_booking_availability', {
       p_skill_id: skillId,
       p_booking_date: date,
       p_booking_time: time,
