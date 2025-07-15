@@ -18,7 +18,13 @@ export const usePWA = () => {
     const checkInstallStatus = () => {
       const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches;
       const isInWebAppMode = (window.navigator as any).standalone === true;
-      setIsInstalled(isInStandaloneMode || isInWebAppMode);
+      const isInstalled = isInStandaloneMode || isInWebAppMode;
+      setIsInstalled(isInstalled);
+      
+      // Don't show install prompt if already installed
+      if (isInstalled) {
+        setIsInstallable(false);
+      }
     };
 
     checkInstallStatus();
@@ -35,6 +41,9 @@ export const usePWA = () => {
       setIsInstallable(false);
       setIsInstalled(true);
       console.log('PWA was installed');
+      
+      // Store installation status
+      localStorage.setItem('pwa-installed', 'true');
     };
 
     const handleOnline = () => {
@@ -62,6 +71,44 @@ export const usePWA = () => {
     // Check for service worker updates
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.addEventListener('controllerchange', handleServiceWorkerUpdate);
+      
+      // Register service worker if not already registered
+      navigator.serviceWorker.register('/sw.js', { scope: '/' })
+        .then((registration) => {
+          console.log('SW registered: ', registration);
+          
+          // Check for updates
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed') {
+                  if (navigator.serviceWorker.controller) {
+                    setUpdateAvailable(true);
+                    console.log('New content is available; please refresh.');
+                  } else {
+                    console.log('Content is cached for offline use.');
+                  }
+                }
+              });
+            }
+          });
+        })
+        .catch((registrationError) => {
+          console.log('SW registration failed: ', registrationError);
+        });
+    }
+
+    // Check if user has previously dismissed the install prompt
+    const dismissedInstall = localStorage.getItem('pwa-install-dismissed');
+    if (dismissedInstall) {
+      const dismissedTime = parseInt(dismissedInstall);
+      const daysSinceDismissed = (Date.now() - dismissedTime) / (1000 * 60 * 60 * 24);
+      
+      // Show prompt again after 7 days
+      if (daysSinceDismissed < 7) {
+        setIsInstallable(false);
+      }
     }
 
     return () => {
@@ -92,6 +139,8 @@ export const usePWA = () => {
         console.log('User accepted the install prompt');
       } else {
         console.log('User dismissed the install prompt');
+        // Store dismissal time
+        localStorage.setItem('pwa-install-dismissed', Date.now().toString());
       }
     } catch (error) {
       console.error('Error during app installation:', error);
@@ -108,12 +157,18 @@ export const usePWA = () => {
     }
   };
 
+  const dismissInstallPrompt = () => {
+    setIsInstallable(false);
+    localStorage.setItem('pwa-install-dismissed', Date.now().toString());
+  };
+
   return {
     isInstallable,
     isInstalled,
     isOnline,
     updateAvailable,
     installApp,
-    updateApp
+    updateApp,
+    dismissInstallPrompt
   };
 };

@@ -1,8 +1,8 @@
 
 {
-  "name": "SkillTime Converge Flow",
-  "short_name": "SkillTime",
-  "description": "A platform for sharing and learning skills - works offline",
+  "name": "وقت المهارات - SkillTime",
+  "short_name": "وقت المهارات",
+  "description": "منصة لتبادل وتعلم المهارات - تعمل بدون اتصال بالإنترنت",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#1a73e8",
@@ -10,9 +10,9 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "id": "skilltime-app",
-  "categories": ["education", "productivity", "social"],
-  "lang": "en-US",
-  "dir": "ltr",
+  "categories": ["education", "productivity", "social", "business"],
+  "lang": "ar",
+  "dir": "rtl",
   "prefer_related_applications": false,
   "icons": [
     {
@@ -33,22 +33,37 @@
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "form_factor": "narrow"
+      "form_factor": "narrow",
+      "label": "الصفحة الرئيسية لتطبيق وقت المهارات"
     }
   ],
   "shortcuts": [
     {
-      "name": "Browse Skills",
-      "short_name": "Browse",
-      "description": "Browse available skills",
+      "name": "تصفح المهارات",
+      "short_name": "تصفح",
+      "description": "تصفح المهارات المتاحة",
       "url": "/browse",
       "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     },
     {
-      "name": "My Bookings",
-      "short_name": "Bookings",
-      "description": "View your bookings",
+      "name": "حجوزاتي",
+      "short_name": "الحجوزات",
+      "description": "عرض حجوزاتك",
       "url": "/bookings",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "الملف الشخصي",
+      "short_name": "الملف",
+      "description": "إدارة ملفك الشخصي",
+      "url": "/profile",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "إضافة مهارة",
+      "short_name": "إضافة",
+      "description": "إضافة مهارة جديدة",
+      "url": "/create-skill",
       "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     }
   ],
@@ -56,5 +71,9 @@
   "protocol_handlers": [],
   "edge_side_panel": {
     "preferred_width": 400
+  },
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "launch_handler": {
+    "client_mode": "focus-existing"
   }
 }
