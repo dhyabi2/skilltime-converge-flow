@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserProfile } from '@/hooks/useProfile';
-import { useToast } from '@/hooks/use-toast';
+import { useProfileShare, useAvatarUpdate } from '@/hooks/useProfileManagement';
 import EditProfileModal from '../EditProfileModal';
 
 interface MobileProfileHeaderProps {
@@ -23,32 +23,16 @@ interface MobileProfileHeaderProps {
 
 const MobileProfileHeader: React.FC<MobileProfileHeaderProps> = ({ profile, onSignOut }) => {
   const { t } = useTranslation('profile');
-  const { toast } = useToast();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const { shareProfile } = useProfileShare();
+  const avatarUpload = useAvatarUpdate();
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).getFullYear();
   };
 
   const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `${profile.name}'s Profile`,
-          text: `Check out ${profile.name}'s skills and services`,
-          url: window.location.href,
-        });
-      } catch (error) {
-        console.log('Share cancelled');
-      }
-    } else {
-      // Fallback for browsers that don't support Web Share API
-      await navigator.clipboard.writeText(window.location.href);
-      toast({
-        title: "Link copied!",
-        description: "Profile link has been copied to clipboard",
-      });
-    }
+    await shareProfile(profile.name);
   };
 
   const handleCall = () => {
@@ -61,6 +45,13 @@ const MobileProfileHeader: React.FC<MobileProfileHeaderProps> = ({ profile, onSi
     if (profile.location) {
       const encodedLocation = encodeURIComponent(profile.location);
       window.open(`https://maps.google.com/?q=${encodedLocation}`, '_blank');
+    }
+  };
+
+  const handleAvatarUpdate = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      avatarUpload.mutate(file);
     }
   };
 
@@ -120,14 +111,26 @@ const MobileProfileHeader: React.FC<MobileProfileHeaderProps> = ({ profile, onSi
                   {profile.name ? profile.name.charAt(0).toUpperCase() : '?'}
                 </AvatarFallback>
               </Avatar>
-              <Button
-                size="icon"
-                variant="outline"
-                className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-white shadow-md hover:scale-110 transition-transform"
-                onClick={() => setIsEditModalOpen(true)}
-              >
-                <Camera className="h-4 w-4" />
-              </Button>
+              <label htmlFor="avatar-upload">
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-white shadow-md hover:scale-110 transition-transform cursor-pointer"
+                  disabled={avatarUpload.isPending}
+                  asChild
+                >
+                  <span>
+                    <Camera className="h-4 w-4" />
+                  </span>
+                </Button>
+              </label>
+              <input
+                id="avatar-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarUpdate}
+                className="hidden"
+              />
             </div>
 
             {/* Name and Status */}

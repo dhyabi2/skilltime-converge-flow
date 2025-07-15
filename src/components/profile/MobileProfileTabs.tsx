@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from 'react-i18next';
+import { useNotificationCounts } from '@/hooks/useNotificationCounts';
 
 interface MobileProfileTabsProps {
   children: React.ReactNode;
@@ -17,18 +18,22 @@ interface MobileProfileTabsProps {
 const MobileProfileTabs: React.FC<MobileProfileTabsProps> = ({ 
   children, 
   defaultValue,
-  notificationCounts = {}
+  notificationCounts: passedCounts
 }) => {
   const { t } = useTranslation('profile');
   const [activeTab, setActiveTab] = useState(defaultValue);
   const tabsListRef = useRef<HTMLDivElement>(null);
+  const { counts, isLoading } = useNotificationCounts();
+
+  // Use real-time counts or fallback to passed counts
+  const finalCounts = !isLoading ? counts : (passedCounts || { bookings: 0, reviews: 0, settings: 0 });
 
   const tabs = [
     { value: 'overview', label: t('tabs.overview'), icon: '🏠', shortLabel: t('tabs.home') },
     { value: 'skills', label: t('tabs.skills'), icon: '🎯', shortLabel: t('tabs.skills') },
-    { value: 'bookings', label: t('tabs.bookings'), icon: '📅', shortLabel: t('tabs.book'), count: notificationCounts.bookings },
-    { value: 'reviews', label: t('tabs.reviews'), icon: '⭐', shortLabel: t('tabs.reviews'), count: notificationCounts.reviews },
-    { value: 'settings', label: t('tabs.settings'), icon: '⚙️', shortLabel: t('tabs.set'), count: notificationCounts.settings }
+    { value: 'bookings', label: t('tabs.bookings'), icon: '📅', shortLabel: t('tabs.book'), count: finalCounts.bookings },
+    { value: 'reviews', label: t('tabs.reviews'), icon: '⭐', shortLabel: t('tabs.reviews'), count: finalCounts.reviews },
+    { value: 'settings', label: t('tabs.settings'), icon: '⚙️', shortLabel: t('tabs.set'), count: finalCounts.settings }
   ];
 
   // Auto-scroll to active tab
@@ -77,7 +82,7 @@ const MobileProfileTabs: React.FC<MobileProfileTabsProps> = ({
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      {/* Enhanced TabsList with better mobile support */}
+      {/* Enhanced TabsList with real-time notification counts */}
       <div 
         ref={tabsListRef}
         className="w-full border-b border-slate-200 bg-white/90 backdrop-blur-sm sticky top-[72px] z-40"
@@ -96,7 +101,12 @@ const MobileProfileTabs: React.FC<MobileProfileTabsProps> = ({
                     <div className="flex items-center gap-1">
                       <span className="text-base">{tab.icon}</span>
                       {tab.count && tab.count > 0 && (
-                        <Badge variant="destructive" className="h-4 w-4 p-0 text-xs rounded-full flex items-center justify-center">
+                        <Badge 
+                          variant="destructive" 
+                          className={`h-4 w-4 p-0 text-xs rounded-full flex items-center justify-center ${
+                            isLoading ? 'animate-pulse' : ''
+                          }`}
+                        >
                           {tab.count > 9 ? '9+' : tab.count}
                         </Badge>
                       )}

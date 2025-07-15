@@ -3,17 +3,19 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, MapPin, User, Plus, Eye } from 'lucide-react';
+import { Calendar, Clock, MapPin, User, Plus, Eye, Phone, MessageCircle, Navigation } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useUserBookings } from '@/hooks/useRealBookings';
+import { useRealTimeBookings } from '@/hooks/useRealTimeBookings';
+import { useBookingActions } from '@/hooks/useBookingActions';
 import BookingDetailModal from './modals/BookingDetailModal';
 
 const ProfileBookings = () => {
   const { t } = useTranslation('profile');
   const navigate = useNavigate();
-  const { data: bookings = [], isLoading } = useUserBookings();
+  const { data: bookings = [], isLoading } = useRealTimeBookings();
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
+  const { callContact, getDirections, sendMessage } = useBookingActions();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -101,8 +103,7 @@ const ProfileBookings = () => {
             recentBookings.map((booking) => (
               <div
                 key={booking.id}
-                onClick={() => setSelectedBooking(booking)}
-                className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 cursor-pointer group"
+                className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 group"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
@@ -125,13 +126,49 @@ const ProfileBookings = () => {
                     <Badge className={`${getStatusColor(booking.status)} text-xs`}>
                       {t(`bookings.status.${booking.status}`, booking.status)}
                     </Badge>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <Eye className="w-4 h-4" />
-                    </Button>
+                    
+                    {/* Action buttons */}
+                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0"
+                        onClick={() => setSelectedBooking(booking)}
+                      >
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                      
+                      {(booking.client?.phone || booking.provider?.phone) && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0"
+                          onClick={() => callContact(booking.client?.phone || booking.provider?.phone)}
+                        >
+                          <Phone className="w-4 h-4" />
+                        </Button>
+                      )}
+                      
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0"
+                        onClick={() => sendMessage(booking.id)}
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                      </Button>
+                      
+                      {booking.location && booking.location !== 'Remote' && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0"
+                          onClick={() => getDirections(booking.location)}
+                        >
+                          <Navigation className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
                 

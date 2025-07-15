@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MobileDrawer from './MobileDrawer';
 import SearchModal from '../search/SearchModal';
 import NotificationPanel from '../notifications/NotificationPanel';
+import { useNotifications } from '@/hooks/useNotifications';
 
 const MobileHeader = () => {
   const { t } = useTranslation('common');
@@ -18,6 +19,7 @@ const MobileHeader = () => {
   const location = useLocation();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const { unreadCount } = useNotifications();
 
   const isProfilePage = location.pathname === '/profile';
   const canGoBack = location.pathname !== '/' && location.pathname !== '/home';
@@ -74,7 +76,7 @@ const MobileHeader = () => {
               <Search className="h-4 w-4 text-slate-700" />
             </Button>
 
-            {/* Notifications */}
+            {/* Notifications with real-time count */}
             {user && (
               <div className="relative">
                 <Button 
@@ -84,9 +86,11 @@ const MobileHeader = () => {
                   onClick={() => setIsNotificationOpen(!isNotificationOpen)}
                 >
                   <Bell className="h-4 w-4 text-slate-700" />
-                  <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs p-0 flex items-center justify-center">
-                    3
-                  </Badge>
+                  {unreadCount > 0 && (
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs p-0 flex items-center justify-center">
+                      {unreadCount > 9 ? '9+' : unreadCount}
+                    </Badge>
+                  )}
                 </Button>
                 {isNotificationOpen && (
                   <div className="absolute right-0 top-full mt-2 z-50">
