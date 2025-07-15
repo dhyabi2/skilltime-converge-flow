@@ -1,42 +1,47 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar } from '@/components/ui/calendar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CalendarIcon } from 'lucide-react';
+import { useSkillAvailableSlots } from '@/hooks/useSkillDetails';
 
 interface BookingDatePickerProps {
-  selectedDate: Date | null;
-  onDateSelect: (date: Date) => void;
+  skillId: string;
+  onDateSelect: (date: string) => void;
+  selectedDate?: string;
 }
 
-const BookingDatePicker = ({ selectedDate, onDateSelect }: BookingDatePickerProps) => {
+const BookingDatePicker = ({ skillId, onDateSelect, selectedDate }: BookingDatePickerProps) => {
+  const [selectedCalendarDate, setSelectedCalendarDate] = useState<Date | undefined>(
+    selectedDate ? new Date(selectedDate) : undefined
+  );
+
   const today = new Date();
   const maxDate = new Date();
   maxDate.setMonth(maxDate.getMonth() + 2); // Allow booking up to 2 months ahead
 
+  const handleDateSelect = (date: Date | undefined) => {
+    if (date) {
+      setSelectedCalendarDate(date);
+      onDateSelect(date.toISOString().split('T')[0]);
+    }
+  };
+
   return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-base">
-          <CalendarIcon className="h-5 w-5" />
-          Select Date
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="pt-0">
-        <Calendar
-          mode="single"
-          selected={selectedDate}
-          onSelect={onDateSelect}
-          disabled={(date) => date < today || date > maxDate}
-          className="rounded-md border-0"
-          classNames={{
-            day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-            day_disabled: "text-gray-300",
-            day_outside: "text-gray-400",
-          }}
-        />
-      </CardContent>
-    </Card>
+    <div className="flex justify-center">
+      <Calendar
+        mode="single"
+        selected={selectedCalendarDate}
+        onSelect={handleDateSelect}
+        disabled={(date) => date < today || date > maxDate}
+        className="rounded-xl border-0 bg-transparent"
+        classNames={{
+          day_selected: "bg-gradient-to-br from-soft-blue-500 to-mint-500 text-white hover:from-soft-blue-600 hover:to-mint-600 rounded-xl font-semibold",
+          day_disabled: "text-slate-300 cursor-not-allowed",
+          day: "hover:bg-soft-blue-50 rounded-lg transition-colors cursor-pointer",
+          head_cell: "text-slate-600 font-semibold",
+          cell: "text-center p-1",
+        }}
+      />
+    </div>
   );
 };
 

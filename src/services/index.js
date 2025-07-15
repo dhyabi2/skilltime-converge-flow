@@ -15,6 +15,8 @@ export { skillsService } from './supabase/skills.ts';
 export { categoriesService } from './supabase/categories.ts';
 export { bookingsService } from './supabase/bookings.ts';
 export { notificationsService } from './supabase/notifications.ts';
+export { reviewsService } from './supabase/reviews.ts';
+export { skillDetailsService } from './supabase/skillDetails.ts';
 
 // Utility functions
 export { dateTimeUtils } from './utils/dateTime.js';

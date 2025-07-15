@@ -42,6 +42,30 @@ export const useBooking = (bookingId: string) => {
   });
 };
 
+export const useCreateBooking = () => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: bookingsService.create,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user-bookings'] });
+      queryClient.invalidateQueries({ queryKey: ['upcoming-bookings'] });
+      toast({
+        title: "Success",
+        description: "Booking created successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to create booking",
+        variant: "destructive",
+      });
+    },
+  });
+};
+
 export const useUpdateBookingStatus = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
@@ -63,6 +87,36 @@ export const useUpdateBookingStatus = () => {
       toast({
         title: "Error",
         description: error.message || "Failed to update booking",
+        variant: "destructive",
+      });
+    },
+  });
+};
+
+export const useRescheduleBooking = () => {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: ({ bookingId, newDate, newTime }: { bookingId: string; newDate: string; newTime: string }) =>
+      bookingsService.update(bookingId, { 
+        booking_date: newDate, 
+        booking_time: newTime,
+        status: 'pending'
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user-bookings'] });
+      queryClient.invalidateQueries({ queryKey: ['upcoming-bookings'] });
+      queryClient.invalidateQueries({ queryKey: ['booking'] });
+      toast({
+        title: "Success",
+        description: "Booking rescheduled successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to reschedule booking",
         variant: "destructive",
       });
     },

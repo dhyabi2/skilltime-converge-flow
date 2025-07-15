@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, MapPin, User, Plus, Eye } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useUserBookings } from '@/hooks/useRealBookings';
 import BookingDetailModal from './modals/BookingDetailModal';
 
 const ProfileBookings = () => {
   const { t } = useTranslation('profile');
+  const navigate = useNavigate();
   const { data: bookings = [], isLoading } = useUserBookings();
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
 
@@ -77,7 +79,12 @@ const ProfileBookings = () => {
               <Calendar className="w-5 h-5 text-blue-600" />
               {t('bookings.title')}
             </CardTitle>
-            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-blue-600 hover:text-blue-700"
+              onClick={() => navigate('/bookings')}
+            >
               <Plus className="w-4 h-4 mr-1" />
               {t('bookings.view_all')}
             </Button>
@@ -108,7 +115,9 @@ const ProfileBookings = () => {
                       </h4>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <User className="w-3 h-3" />
-                        <span>{t('bookings.with')} {booking.client?.name || booking.provider?.name || t('bookings.student')}</span>
+                        <span>
+                          {t('bookings.with')} {booking.client?.name || booking.provider?.name || t('bookings.student')}
+                        </span>
                       </div>
                     </div>
                   </div>
