@@ -6,6 +6,7 @@ import { Switch } from "@/components/ui/switch";
 
 const LanguageToggle = () => {
   const { i18n, t } = useTranslation('common');
+  const { t: tUI } = useTranslation('ui');
   
   const toggleLanguage = () => {
     const newLang = i18n.language === 'ar' ? 'en' : 'ar';
@@ -22,7 +23,7 @@ const LanguageToggle = () => {
       </div>
       <div className="flex items-center gap-2">
         <span className={`text-xs font-bold transition-colors duration-200 ${!isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
-          EN
+          {tUI('language_en')}
         </span>
         <Switch
           checked={isArabic}
@@ -30,7 +31,7 @@ const LanguageToggle = () => {
           className="data-[state=checked]:bg-soft-blue-600 data-[state=unchecked]:bg-white/60"
         />
         <span className={`text-xs font-bold transition-colors duration-200 ${isArabic ? 'text-slate-800' : 'text-slate-600'}`}>
-          ع
+          {tUI('language_ar')}
         </span>
       </div>
     </div>

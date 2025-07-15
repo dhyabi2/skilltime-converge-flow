@@ -2,46 +2,12 @@
 {
   "home": "الرئيسية",
   "browse": "تصفح",
-  "search": "بحث",
   "bookings": "الحجوزات",
   "my_bookings": "حجوزاتي",
   "profile": "الملف الشخصي",
-  "my_profile": "ملفي الشخصي",
   "notifications": "الإشعارات",
   "my_skills": "مهاراتي",
   "create_skill": "إضافة مهارة",
-  "settings": "الإعدادات",
-  "help": "المساعدة",
-  "about": "حول",
-  "contact": "اتصل بنا",
-  "privacy": "الخصوصية",
-  "terms": "الشروط",
-  "logout": "تسجيل الخروج",
-  "login": "تسجيل الدخول",
-  "register": "التسجيل",
-  "back": "رجوع",
-  "next": "التالي",
-  "previous": "السابق",
-  "close": "إغلاق",
-  "menu": "القائمة",
-  "more": "المزيد",
-  "categories": {
-    "all": "جميع الفئات",
-    "design": "التصميم",
-    "development": "البرمجة",
-    "marketing": "التسويق",
-    "writing": "الكتابة",
-    "music": "الموسيقى",
-    "photography": "التصوير",
-    "business": "الأعمال",
-    "education": "التعليم",
-    "fitness": "اللياقة البدنية",
-    "technology": "التكنولوجيا",
-    "arts": "الفنون",
-    "lifestyle": "نمط الحياة"
-  },
-  "breadcrumb": {
-    "home": "الرئيسية",
-    "separator": "/"
-  }
+  "search": "بحث",
+  "flowchart": "مخطط التطبيق"
 }

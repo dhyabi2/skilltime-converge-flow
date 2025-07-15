@@ -14,7 +14,8 @@
     "notifications": "الإشعارات",
     "my_skills": "مهاراتي",
     "create_skill": "إضافة مهارة",
-    "search": "بحث"
+    "search": "بحث",
+    "flowchart": "مخطط التطبيق"
   },
   "actions": {
     "search": "بحث",
@@ -51,7 +52,8 @@
     "unavailable": "غير متاح",
     "rating": "التقييم",
     "skills_count": "{{count}} مهارة",
-    "results_count": "{{count}} نتيجة"
+    "results_count": "{{count}} نتيجة",
+    "currency": "ر.ع"
   },
   "time": {
     "minutes": "دقائق",
@@ -67,5 +69,12 @@
     "confirm": "تأكيد",
     "reschedule": "إعادة جدولة",
     "cancel_booking": "إلغاء الحجز"
+  },
+  "ui": {
+    "loading": "جاري التحميل...",
+    "save": "حفظ",
+    "close": "إغلاق",
+    "language_en": "EN",
+    "language_ar": "ع"
   }
 }

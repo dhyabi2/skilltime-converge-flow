@@ -5,6 +5,7 @@ import { Calendar, Clock, User, CreditCard, ArrowLeft, Check } from 'lucide-reac
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 import BookingServiceCard from '@/components/booking/BookingServiceCard';
 import BookingDatePicker from '@/components/booking/BookingDatePicker';
 import BookingTimeSlots from '@/components/booking/BookingTimeSlots';
@@ -44,6 +45,7 @@ const dummyTimeSlots = [
 const BookingCreate = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation('bookings');
   
   const [selectedService, setSelectedService] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -75,8 +77,8 @@ const BookingCreate = () => {
   const handleConfirmBooking = async () => {
     if (!selectedService || !selectedDate || !selectedTime) {
       toast({
-        title: "Missing Information",
-        description: "Please complete all booking details",
+        title: t('create.missing_info'),
+        description: t('create.complete_details'),
         variant: "destructive",
       });
       return;
@@ -89,16 +91,16 @@ const BookingCreate = () => {
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       toast({
-        title: "Booking Confirmed!",
-        description: "Your session has been successfully booked",
+        title: t('create.booking_confirmed'),
+        description: t('create.success_message'),
       });
       
       // Navigate to confirmation page
       navigate(`/booking/confirmation`);
     } catch (error) {
       toast({
-        title: "Booking Failed",
-        description: "Something went wrong. Please try again.",
+        title: t('create.booking_failed'),
+        description: t('create.error_message'),
         variant: "destructive",
       });
     } finally {
@@ -128,8 +130,8 @@ const BookingCreate = () => {
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Book a Session</h1>
-            <p className="text-sm text-gray-600">Step {currentStep} of 3</p>
+            <h1 className="text-xl font-bold text-gray-900">{t('create.title')}</h1>
+            <p className="text-sm text-gray-600">{t('create.step_of', { current: currentStep, total: 3 })}</p>
           </div>
         </div>
         
@@ -150,7 +152,7 @@ const BookingCreate = () => {
         {/* Step 1: Service Selection */}
         {currentStep === 1 && (
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Choose a Service</h2>
+            <h2 className="text-lg font-semibold text-gray-900">{t('create.choose_service')}</h2>
             <div className="space-y-3">
               {dummyServices.map((service) => (
                 <BookingServiceCard
@@ -167,7 +169,7 @@ const BookingCreate = () => {
         {/* Step 2: Date & Time Selection */}
         {currentStep === 2 && (
           <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-gray-900">Select Date & Time</h2>
+            <h2 className="text-lg font-semibold text-gray-900">{t('create.select_date_time')}</h2>
             
             <BookingDatePicker
               selectedDate={selectedDate}
@@ -188,7 +190,7 @@ const BookingCreate = () => {
         {/* Step 3: Summary & Confirmation */}
         {currentStep === 3 && (
           <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-gray-900">Booking Summary</h2>
+            <h2 className="text-lg font-semibold text-gray-900">{t('create.summary')}</h2>
             
             <BookingSummary
               service={selectedService}
@@ -206,12 +208,12 @@ const BookingCreate = () => {
               {loading ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Confirming...
+                  {t('create.confirming')}
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <Check className="h-5 w-5" />
-                  Confirm Booking - ${calculateTotal()}
+                  {t('create.confirm_booking')} - ${calculateTotal()}
                 </div>
               )}
             </Button>

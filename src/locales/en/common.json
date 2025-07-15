@@ -14,7 +14,8 @@
     "notifications": "Notifications",
     "my_skills": "My Skills",
     "create_skill": "Add Skill",
-    "search": "Search"
+    "search": "Search",
+    "flowchart": "App Flowchart"
   },
   "actions": {
     "search": "Search",
@@ -51,7 +52,8 @@
     "unavailable": "Unavailable",
     "rating": "Rating",
     "skills_count": "{{count}} skills",
-    "results_count": "{{count}} results"
+    "results_count": "{{count}} results",
+    "currency": "OMR"
   },
   "time": {
     "minutes": "minutes",
@@ -67,5 +69,12 @@
     "confirm": "Confirm",
     "reschedule": "Reschedule",
     "cancel_booking": "Cancel Booking"
+  },
+  "ui": {
+    "loading": "Loading...",
+    "save": "Save",
+    "close": "Close",
+    "language_en": "EN",
+    "language_ar": "ع"
   }
 }

@@ -24,6 +24,8 @@
   },
   "use_cases": {
     "title": "What you can achieve",
-    "subtitle": "Real outcomes from our community"
+    "subtitle": "Real outcomes from our community",
+    "show": "Show use cases",
+    "hide": "Hide use cases"
   }
 }

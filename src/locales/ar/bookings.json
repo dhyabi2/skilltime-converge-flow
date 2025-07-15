@@ -1,31 +1,48 @@
 
 {
-  "title": "الحجوزات",
-  "my_bookings": "حجوزاتي",
-  "booking_details": "تفاصيل الحجز",
-  "no_bookings": "لا توجد حجوزات حتى الآن",
-  "no_bookings_subtitle": "الجلسات القادمة ستظهر هنا",
-  "view_all": "عرض الكل",
-  "with": "مع",
-  "student": "طالب",
-  "remote": "عن بُعد",
-  "service": "الخدمة",
-  "date": "التاريخ",
-  "time": "الوقت",
-  "location": "الموقع",
-  "price": "السعر",
-  "people": "الأشخاص",
-  "client": "العميل",
-  "provider": "مقدم الخدمة",
-  "notes": "الملاحظات",
-  "booking_number": "رقم الحجز",
-  "confirm_booking": "تأكيد الحجز",
-  "cancel_booking": "إلغاء الحجز",
-  "duration": "المدة",
-  "status": {
-    "pending": "في الانتظار",
-    "confirmed": "مؤكد",
-    "completed": "مكتمل",
-    "cancelled": "ملغي"
+  "create": {
+    "title": "حجز جلسة",
+    "step_of": "الخطوة {{current}} من {{total}}",
+    "choose_service": "اختر خدمة",
+    "select_date_time": "اختر التاريخ والوقت",
+    "summary": "ملخص الحجز",
+    "service_details": "تفاصيل الخدمة",
+    "session_details": "تفاصيل الجلسة",
+    "payment_summary": "ملخص الدفع",
+    "confirm_booking": "تأكيد الحجز",
+    "confirming": "جاري التأكيد...",
+    "booking_confirmed": "تم تأكيد الحجز!",
+    "booking_failed": "فشل الحجز",
+    "missing_info": "معلومات ناقصة",
+    "complete_details": "يرجى إكمال جميع تفاصيل الحجز",
+    "success_message": "تم حجز جلستك بنجاح",
+    "error_message": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  },
+  "date_picker": {
+    "select_date": "اختر التاريخ",
+    "choose_date": "اختر التاريخ المفضل لديك"
+  },
+  "time_slots": {
+    "available_times": "الأوقات المتاحة",
+    "select_time": "اختر الوقت المفضل لديك",
+    "no_slots": "لا توجد أوقات متاحة لهذا التاريخ"
+  },
+  "service_card": {
+    "per_hour": "في الساعة",
+    "per_session": "لكل جلسة",
+    "duration_minutes": "{{count}} دقيقة",
+    "reviews_count": "{{count}} تقييم",
+    "rating": "تقييم {{rating}}"
+  },
+  "summary": {
+    "service": "الخدمة",
+    "provider": "مقدم الخدمة",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "duration": "المدة",
+    "total": "المجموع",
+    "subtotal": "المجموع الفرعي",
+    "taxes": "الضرائب",
+    "final_total": "المجموع النهائي"
   }
 }

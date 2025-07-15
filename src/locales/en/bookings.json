@@ -1,35 +1,48 @@
 
 {
-  "title": "My Bookings",
-  "tabs": {
-    "upcoming": "Upcoming",
-    "completed": "Completed"
+  "create": {
+    "title": "Book a Session",
+    "step_of": "Step {{current}} of {{total}}",
+    "choose_service": "Choose a Service",
+    "select_date_time": "Select Date & Time",
+    "summary": "Booking Summary",
+    "service_details": "Service Details",
+    "session_details": "Session Details",
+    "payment_summary": "Payment Summary",
+    "confirm_booking": "Confirm Booking",
+    "confirming": "Confirming...",
+    "booking_confirmed": "Booking Confirmed!",
+    "booking_failed": "Booking Failed",
+    "missing_info": "Missing Information",
+    "complete_details": "Please complete all booking details",
+    "success_message": "Your session has been successfully booked",
+    "error_message": "Something went wrong. Please try again."
   },
-  "status": {
-    "loading": "Loading your bookings...",
-    "no_upcoming": "No upcoming bookings",
-    "no_upcoming_desc": "You don't have any upcoming bookings yet",
-    "no_completed": "No completed bookings",
-    "no_completed_desc": "You haven't completed any bookings yet",
-    "completed": "Completed"
+  "date_picker": {
+    "select_date": "Select Date",
+    "choose_date": "Choose your preferred date"
   },
-  "actions": {
-    "cancel": "Cancel",
-    "reschedule": "Reschedule"
+  "time_slots": {
+    "available_times": "Available Times",
+    "select_time": "Select your preferred time",
+    "no_slots": "No available time slots for this date"
   },
-  "confirmation": {
-    "title": "Booking Confirmed!",
-    "subtitle": "Your session has been successfully booked",
-    "details_title": "Booking Details",
-    "upcoming_session": "Upcoming Session",
-    "payment_confirmed": "Payment Confirmed",
-    "next_steps": "What's next?",
-    "email_confirmation": "You'll receive a confirmation email with session details",
-    "meeting_link": "Meeting link will be shared 15 minutes before the session",
-    "reschedule_info": "You can reschedule or cancel up to 24 hours before the appointment",
-    "view_bookings": "View My Bookings",
-    "back_home": "Back to Home",
-    "loading": "Confirming your booking...",
-    "failed": "Booking failed"
+  "service_card": {
+    "per_hour": "per hour",
+    "per_session": "per session",
+    "duration_minutes": "{{count}} min",
+    "reviews_count": "{{count}} reviews",
+    "rating": "{{rating}} rating"
+  },
+  "summary": {
+    "service": "Service",
+    "provider": "Provider",
+    "date": "Date",
+    "time": "Time",
+    "duration": "Duration",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "taxes": "Taxes",
+    "final_total": "Final Total"
   }
 }

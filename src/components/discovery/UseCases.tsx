@@ -10,7 +10,7 @@ interface UseCasesProps {
 }
 
 const UseCases: React.FC<UseCasesProps> = ({ useCases, className = '' }) => {
-  const { t } = useTranslation('skills');
+  const { t } = useTranslation('discovery');
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!useCases || useCases.length === 0) return null;
@@ -20,7 +20,7 @@ const UseCases: React.FC<UseCasesProps> = ({ useCases, className = '' }) => {
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-bold text-lg text-gray-800 flex items-center">
           <Target className="w-5 h-5 mr-2 rtl:mr-0 rtl:ml-2 text-purple-600" />
-          {t('details.use_cases')}
+          {t('use_cases.title')}
         </h3>
         <Button
           variant="ghost"
@@ -28,7 +28,7 @@ const UseCases: React.FC<UseCasesProps> = ({ useCases, className = '' }) => {
           onClick={() => setIsExpanded(!isExpanded)}
           className="flex items-center space-x-1 rtl:space-x-reverse text-purple-600 hover:text-purple-700"
         >
-          <span className="text-sm">{t('details.see_use_cases')}</span>
+          <span className="text-sm">{isExpanded ? t('use_cases.hide') : t('use_cases.show')}</span>
           {isExpanded ? (
             <ChevronUp className="w-4 h-4" />
           ) : (

@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Star, Clock, MapPin } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -147,7 +148,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         </div>
         
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold bg-gradient-to-r from-soft-blue-600 to-mint-600 bg-clip-text text-transparent">{price} ر.ع</span>
+          <span className="text-2xl font-bold bg-gradient-to-r from-soft-blue-600 to-mint-600 bg-clip-text text-transparent">{price} {t('labels.currency')}</span>
           <span className="text-sm text-slate-500">{t('labels.per_hour')}</span>
         </div>
       </div>

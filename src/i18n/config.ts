@@ -65,7 +65,8 @@ const resources = {
     pwa: {
       install: {
         title: "Install App",
-        description: "Get a better experience with our app"
+        description: "Get a better experience with our app",
+        button: "Install App"
       },
       offline: {
         indicator: "You are offline"
@@ -78,11 +79,15 @@ const resources = {
     },
     navigation: {
       home: "Home",
-      browse: "Browse"
+      browse: "Browse",
+      flowchart: "App Flowchart"
     },
     ui: {
       loading: "Loading...",
-      save: "Save"
+      save: "Save",
+      close: "Close",
+      language_en: "EN",
+      language_ar: "ع"
     }
   },
 };
