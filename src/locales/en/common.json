@@ -13,7 +13,8 @@
     "profile": "Profile",
     "notifications": "Notifications",
     "my_skills": "My Skills",
-    "create_skill": "Add Skill"
+    "create_skill": "Add Skill",
+    "search": "Search"
   },
   "actions": {
     "search": "Search",
@@ -23,7 +24,9 @@
     "edit": "Edit",
     "delete": "Delete",
     "view": "View",
-    "close": "Close"
+    "close": "Close",
+    "view_all": "View All",
+    "try_again": "Try Again"
   },
   "status": {
     "loading": "Loading...",
@@ -35,5 +38,34 @@
     "sign_in": "Sign In",
     "sign_out": "Sign Out",
     "sign_up": "Sign Up"
+  },
+  "labels": {
+    "search_placeholder": "Search for skills, providers, or categories...",
+    "language": "Language",
+    "member_since": "Member since",
+    "edit_profile": "Edit Profile",
+    "by": "by",
+    "per_session": "per session",
+    "per_hour": "per hour",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "rating": "Rating",
+    "skills_count": "{{count}} skills",
+    "results_count": "{{count}} results"
+  },
+  "time": {
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "months": "months"
+  },
+  "buttons": {
+    "search": "Search",
+    "filter": "Filter",
+    "book_now": "Book Now",
+    "confirm": "Confirm",
+    "reschedule": "Reschedule",
+    "cancel_booking": "Cancel Booking"
   }
 }

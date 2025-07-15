@@ -17,6 +17,7 @@ import pwaAr from '../locales/ar/pwa.json';
 import errorsAr from '../locales/ar/errors.json';
 import navigationAr from '../locales/ar/navigation.json';
 import uiAr from '../locales/ar/ui.json';
+import discoveryAr from '../locales/ar/discovery.json';
 
 // English translation imports
 import commonEn from '../locales/en/common.json';
@@ -24,6 +25,7 @@ import authEn from '../locales/en/auth.json';
 import skillsEn from '../locales/en/skills.json';
 import bookingsEn from '../locales/en/bookings.json';
 import profileEn from '../locales/en/profile.json';
+import discoveryEn from '../locales/en/discovery.json';
 
 const resources = {
   ar: {
@@ -40,6 +42,7 @@ const resources = {
     errors: errorsAr,
     navigation: navigationAr,
     ui: uiAr,
+    discovery: discoveryAr,
   },
   en: {
     common: commonEn,
@@ -47,6 +50,7 @@ const resources = {
     skills: skillsEn,
     bookings: bookingsEn,
     profile: profileEn,
+    discovery: discoveryEn,
     // Create English versions for the new namespaces
     notifications: {
       title: "Notifications",
@@ -94,7 +98,7 @@ i18n
     
     // Configure namespaces
     defaultNS: 'common',
-    ns: ['common', 'auth', 'skills', 'bookings', 'profile', 'create-skill', 'reviews', 'notifications', 'search', 'pwa', 'errors', 'navigation', 'ui'],
+    ns: ['common', 'auth', 'skills', 'bookings', 'profile', 'create-skill', 'reviews', 'notifications', 'search', 'pwa', 'errors', 'navigation', 'ui', 'discovery'],
     
     interpolation: {
       escapeValue: false,

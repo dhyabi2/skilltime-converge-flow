@@ -19,6 +19,7 @@ const SkillResults: React.FC<SkillResultsProps> = ({
   onSkillClick
 }) => {
   const { t } = useTranslation('skills');
+  const { t: tCommon } = useTranslation('common');
 
   const getResultsTitle = () => {
     if (searchQuery) return `${t('discovery.search_results')} "${searchQuery}"`;
@@ -34,7 +35,7 @@ const SkillResults: React.FC<SkillResultsProps> = ({
           {getResultsTitle()}
         </h3>
         <span className="text-sm text-slate-600">
-          {skills.length} {t('status.skills_found')}
+          {tCommon('labels.results_count', { count: skills.length })}
         </span>
       </div>
       

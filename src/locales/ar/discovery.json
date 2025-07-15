@@ -1,0 +1,29 @@
+
+{
+  "sections": {
+    "featured": "المهارات المميزة",
+    "top_rated": "الأعلى تقييماً",
+    "recent": "المضافة حديثاً",
+    "popular": "الأكثر شعبية"
+  },
+  "sorting": {
+    "title": "ترتيب حسب",
+    "most_relevant": "الأكثر صلة",
+    "highest_rated": "الأعلى تقييماً",
+    "lowest_price": "أقل سعر",
+    "highest_price": "أعلى سعر",
+    "newest": "الأحدث",
+    "most_popular": "الأكثر شعبية"
+  },
+  "filters": {
+    "all_categories": "جميع الفئات",
+    "price_range": "نطاق السعر",
+    "duration": "المدة",
+    "location": "الموقع",
+    "rating": "التقييم"
+  },
+  "use_cases": {
+    "title": "ما يمكنك تحقيقه",
+    "subtitle": "نتائج حقيقية من مجتمعنا"
+  }
+}

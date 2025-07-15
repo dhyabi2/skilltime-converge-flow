@@ -1,0 +1,29 @@
+
+{
+  "sections": {
+    "featured": "Featured Skills",
+    "top_rated": "Top Rated",
+    "recent": "Recently Added",
+    "popular": "Most Popular"
+  },
+  "sorting": {
+    "title": "Sort by",
+    "most_relevant": "Most Relevant",
+    "highest_rated": "Highest Rated",
+    "lowest_price": "Lowest Price",
+    "highest_price": "Highest Price",
+    "newest": "Newest",
+    "most_popular": "Most Popular"
+  },
+  "filters": {
+    "all_categories": "All Categories",
+    "price_range": "Price Range",
+    "duration": "Duration",
+    "location": "Location",
+    "rating": "Rating"
+  },
+  "use_cases": {
+    "title": "What you can achieve",
+    "subtitle": "Real outcomes from our community"
+  }
+}

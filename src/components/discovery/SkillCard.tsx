@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Star, Clock, MapPin } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -104,7 +103,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         
         {/* Provider with Badge */}
         <div className="flex items-center space-x-2 rtl:space-x-reverse mb-2">
-          <p className="text-sm text-slate-600">{tSkills('labels.by')} {providerName}</p>
+          <p className="text-sm text-slate-600">{t('labels.by')} {providerName}</p>
           {providerBadge && (
             <Badge variant="secondary" className="text-xs px-2 py-0.5 bg-purple-100 text-purple-700 border-purple-200">
               <span className="mr-1 rtl:mr-0 rtl:ml-1">{providerBadge.emoji}</span>
@@ -149,7 +148,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold bg-gradient-to-r from-soft-blue-600 to-mint-600 bg-clip-text text-transparent">{price} ر.ع</span>
-          <span className="text-sm text-slate-500">{tSkills('details.per_hour')}</span>
+          <span className="text-sm text-slate-500">{t('labels.per_hour')}</span>
         </div>
       </div>
     </div>
