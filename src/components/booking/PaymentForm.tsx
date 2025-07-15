@@ -47,7 +47,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({
       // Create payment intent
       const { clientSecret } = await paymentsService.createPaymentIntent({
         skillId: bookingData.skillId,
-        amount: bookingData.amount * 100, // Convert to cents
+        amount: bookingData.amount * 1000, // Convert to fils (smallest currency unit for OMR)
         currency: bookingData.currency.toLowerCase()
       });
 
