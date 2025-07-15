@@ -39,6 +39,10 @@ export const bookingsService = {
     return data;
   },
 
+  async getBookingById(id: string) {
+    return this.getById(id);
+  },
+
   async create(booking: BookingInsert) {
     const { data, error } = await supabase
       .from('bookings')
@@ -71,6 +75,27 @@ export const bookingsService = {
     const { data, error } = await supabase
       .from('bookings')
       .update({ status, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
+
+  async updateBookingStatus(id: string, status: 'pending' | 'confirmed' | 'completed' | 'cancelled') {
+    return this.updateStatus(id, status);
+  },
+
+  async rescheduleBooking(id: string, newDate: string, newTime: string) {
+    const { data, error } = await supabase
+      .from('bookings')
+      .update({ 
+        booking_date: newDate, 
+        booking_time: newTime,
+        status: 'pending',
+        updated_at: new Date().toISOString()
+      })
       .eq('id', id)
       .select()
       .single();

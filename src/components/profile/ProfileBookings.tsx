@@ -117,14 +117,14 @@ const ProfileBookings = () => {
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <User className="w-3 h-3" />
                         <span>
-                          {t('bookings.with')} {booking.client?.name || booking.provider?.name || t('bookings.student')}
+                          {String(t('bookings.with'))} {booking.client?.name || booking.provider?.name || String(t('bookings.student'))}
                         </span>
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge className={`${getStatusColor(booking.status)} text-xs`}>
-                      {t(`bookings.status.${booking.status}`, booking.status)}
+                      {String(t(`bookings.status.${booking.status}`, booking.status))}
                     </Badge>
                     
                     {/* Action buttons */}
@@ -183,7 +183,7 @@ const ProfileBookings = () => {
                   </div>
                   <div className="flex items-center gap-1">
                     <MapPin className="w-3 h-3" />
-                    <span>{booking.location || t('bookings.remote')}</span>
+                    <span>{booking.location || String(t('bookings.remote'))}</span>
                   </div>
                 </div>
               </div>
