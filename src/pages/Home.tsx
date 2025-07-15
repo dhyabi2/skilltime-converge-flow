@@ -5,8 +5,10 @@ import { gsap } from 'gsap';
 import SearchBar from '../components/discovery/SearchBar';
 import CategoryCard from '../components/discovery/CategoryCard';
 import FeaturedSections from '../components/home/FeaturedSections';
+import WelcomeIntroModal from '../components/home/WelcomeIntroModal';
 import CategoryCardSkeleton from '../components/ui/skeletons/CategoryCardSkeleton';
 import { categoriesAPI, searchAPI } from '../services';
+import { useWelcomeModal } from '../hooks/useWelcomeModal';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const Home = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { isOpen: isWelcomeOpen, closeModal: closeWelcomeModal } = useWelcomeModal();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -138,31 +141,39 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
-      <SearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
-      
-      <div ref={containerRef} className="w-full px-3 sm:px-4 lg:px-6 space-y-4 sm:space-y-6 bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
-        {/* Welcome Section */}
-        <div className="text-center py-4 sm:py-6">
-          <div className="bg-gradient-to-r from-white/40 to-mint-100/50 backdrop-blur-sm rounded-2xl px-4 sm:px-6 py-4 sm:py-6 border border-white/30 shadow-sm max-w-md mx-auto">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 font-cairo">
-              {t('discovery.title')}
-            </h2>
-            <p className="text-sm sm:text-base text-slate-700 font-cairo">
-              {t('discovery.subtitle')}
-            </p>
+    <>
+      <div className="min-h-screen w-full bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
+        <SearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
+        
+        <div ref={containerRef} className="w-full px-3 sm:px-4 lg:px-6 space-y-4 sm:space-y-6 bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
+          {/* Welcome Section */}
+          <div className="text-center py-4 sm:py-6">
+            <div className="bg-gradient-to-r from-white/40 to-mint-100/50 backdrop-blur-sm rounded-2xl px-4 sm:px-6 py-4 sm:py-6 border border-white/30 shadow-sm max-w-md mx-auto">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 font-cairo">
+                {t('discovery.title')}
+              </h2>
+              <p className="text-sm sm:text-base text-slate-700 font-cairo">
+                {t('discovery.subtitle')}
+              </p>
+            </div>
+          </div>
+
+          {/* Categories with elegant loading */}
+          {renderCategoriesSection()}
+
+          {/* Featured Sections */}
+          <div className="w-full">
+            <FeaturedSections />
           </div>
         </div>
-
-        {/* Categories with elegant loading */}
-        {renderCategoriesSection()}
-
-        {/* Featured Sections */}
-        <div className="w-full">
-          <FeaturedSections />
-        </div>
       </div>
-    </div>
+
+      {/* Welcome Intro Modal */}
+      <WelcomeIntroModal 
+        isOpen={isWelcomeOpen} 
+        onClose={closeWelcomeModal} 
+      />
+    </>
   );
 };
 

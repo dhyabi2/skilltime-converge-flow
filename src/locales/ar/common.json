@@ -1,75 +1,39 @@
 
 {
   "app": {
-    "name": "SkillsTime"
+    "name": "وقت المهارات",
+    "welcome_title": "مرحباً بك في وقت المهارات!",
+    "welcome_message": "رحلتك لتعلم مهارات جديدة تبدأ من هنا. اكتشف الخبراء، استكشف الفئات، وأطلق إمكاناتك.",
+    "lets_start": "لنبدأ!"
   },
   "navigation": {
     "home": "الرئيسية",
     "browse": "تصفح",
     "bookings": "الحجوزات",
-    "profile": "الملف الشخصي"
+    "profile": "الملف الشخصي",
+    "notifications": "الإشعارات",
+    "my_skills": "مهاراتي",
+    "create_skill": "إضافة مهارة"
   },
-  "search": {
-    "placeholder": "البحث عن المهارات والمقدمين والفئات...",
-    "no_results": "لم يتم العثور على نتائج",
-    "recent_searches": "عمليات البحث الأخيرة",
-    "popular_searches": "عمليات البحث الشائعة",
-    "suggestions": "اقتراحات"
-  },
-  "buttons": {
+  "actions": {
     "search": "بحث",
     "filter": "تصفية",
-    "cancel": "إلغاء",
     "save": "حفظ",
+    "cancel": "إلغاء",
     "edit": "تعديل",
     "delete": "حذف",
-    "confirm": "تأكيد",
-    "back": "رجوع",
-    "next": "التالي",
-    "submit": "إرسال",
-    "reset": "إعادة تعيين",
-    "try_again": "حاول مرة أخرى",
-    "refresh": "تحديث",
-    "install_app": "تثبيت التطبيق",
-    "book_now": "احجز الآن"
-  },
-  "labels": {
-    "search_placeholder": "البحث عن المهارات والمقدمين والفئات...",
-    "skills": "مهارات",
-    "loading": "جارٍ التحميل...",
-    "error": "خطأ",
-    "success": "نجح",
-    "reviews": "التقييمات"
+    "view": "عرض",
+    "close": "إغلاق"
   },
   "status": {
-    "loading": "جارٍ التحميل...",
-    "error": "حدث خطأ ما",
-    "success": "تمت العملية بنجاح",
-    "no_data": "لا توجد بيانات متاحة"
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "success": "نجح",
+    "no_results": "لا توجد نتائج"
   },
-  "notifications": {
-    "title": "الإشعارات",
-    "mark_all_read": "تمييز الكل كمقروء",
-    "marked_read": "تمت القراءة",
-    "marked_read_desc": "تم تمييز الإشعار كمقروء",
-    "all_marked_read": "تم تمييز جميع الإشعارات كمقروءة",
-    "all_marked_read_desc": "أنت على اطلاع تام",
-    "empty": "لا توجد إشعارات",
-    "view_all": "عرض الكل"
-  },
-  "offline": {
-    "title": "أنت غير متصل",
-    "description": "يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",
-    "indicator": "أنت غير متصل بالإنترنت"
-  },
-  "install": {
-    "title": "تثبيت التطبيق",
-    "description": "ثبت التطبيق للحصول على تجربة أفضل"
-  },
-  "errors": {
-    "page_not_found": "الصفحة غير موجودة",
-    "go_home": "الذهاب للرئيسية",
-    "something_wrong": "حدث خطأ ما",
-    "try_again": "حاول مرة أخرى"
+  "auth": {
+    "sign_in": "تسجيل الدخول",
+    "sign_out": "تسجيل الخروج",
+    "sign_up": "إنشاء حساب"
   }
 }

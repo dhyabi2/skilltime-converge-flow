@@ -1,69 +1,39 @@
 
 {
   "app": {
-    "name": "SkillSwap"
+    "name": "SkillTime",
+    "welcome_title": "Welcome to SkillTime!",
+    "welcome_message": "Your journey to new skills starts here. Discover experts, explore categories, and unlock your potential.",
+    "lets_start": "Let's Start!"
   },
   "navigation": {
     "home": "Home",
     "browse": "Browse",
     "bookings": "Bookings",
-    "profile": "Profile"
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "my_skills": "My Skills",
+    "create_skill": "Add Skill"
   },
-  "search": {
-    "placeholder": "Search skills, providers, or categories...",
-    "no_results": "No results found",
-    "recent_searches": "Recent Searches",
-    "popular_searches": "Popular Searches",
-    "suggestions": "Suggestions"
-  },
-  "buttons": {
+  "actions": {
     "search": "Search",
     "filter": "Filter",
-    "cancel": "Cancel",
     "save": "Save",
+    "cancel": "Cancel",
     "edit": "Edit",
     "delete": "Delete",
-    "confirm": "Confirm",
-    "back": "Back",
-    "next": "Next",
-    "submit": "Submit",
-    "reset": "Reset",
-    "try_again": "Try Again",
-    "refresh": "Refresh",
-    "book_now": "Book Now"
-  },
-  "labels": {
-    "search_placeholder": "Search skills, providers, or categories...",
-    "skills": "skills",
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "reviews": "Reviews"
+    "view": "View",
+    "close": "Close"
   },
   "status": {
     "loading": "Loading...",
-    "error": "Something went wrong",
-    "success": "Operation completed successfully",
-    "no_data": "No data available"
+    "error": "An error occurred",
+    "success": "Success",
+    "no_results": "No results found"
   },
-  "notifications": {
-    "title": "Notifications",
-    "mark_all_read": "Mark all as read",
-    "marked_read": "Marked as read",
-    "marked_read_desc": "Notification marked as read",
-    "all_marked_read": "All notifications marked as read",
-    "all_marked_read_desc": "Great! You're all caught up",
-    "empty": "No notifications yet",
-    "view_all": "View all"
-  },
-  "offline": {
-    "title": "You're offline",
-    "description": "Please check your internet connection and try again."
-  },
-  "errors": {
-    "page_not_found": "Page not found",
-    "go_home": "Go to Home",
-    "something_wrong": "Something went wrong",
-    "try_again": "Try again"
+  "auth": {
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "sign_up": "Sign Up"
   }
 }
