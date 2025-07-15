@@ -27,7 +27,7 @@ export const skillDetailsService = {
     const { data, error } = await supabase.rpc('get_available_time_slots', {
       p_skill_id: skillId,
       p_date: date
-    } as any);
+    });
 
     if (error) throw error;
     return data || [];
@@ -39,7 +39,7 @@ export const skillDetailsService = {
       p_booking_date: date,
       p_booking_time: time,
       p_duration: duration
-    } as any);
+    });
 
     if (error) throw error;
     return data;
