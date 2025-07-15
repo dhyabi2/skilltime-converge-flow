@@ -16,7 +16,8 @@
     "missing_info": "معلومات ناقصة",
     "complete_details": "يرجى إكمال جميع تفاصيل الحجز",
     "success_message": "تم حجز جلستك بنجاح",
-    "error_message": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+    "error_message": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "redirecting": "جاري التوجيه إلى صفحة التأكيد"
   },
   "date_picker": {
     "select_date": "اختر التاريخ",
@@ -43,6 +44,37 @@
     "total": "المجموع",
     "subtotal": "المجموع الفرعي",
     "taxes": "الضرائب",
-    "final_total": "المجموع النهائي"
+    "final_total": "المجموع النهائي",
+    "booking_details": "تفاصيل الحجز",
+    "session_date": "تاريخ الجلسة",
+    "session_time": "وقت الجلسة",
+    "session_location": "مكان الجلسة",
+    "total_price": "السعر الإجمالي",
+    "confirming": "جاري التأكيد...",
+    "confirm_booking": "تأكيد الحجز",
+    "booking_notice": "بالحجز، فإنك توافق على الشروط والأحكام الخاصة بنا"
+  },
+  "payment": {
+    "secure_payment": "دفع آمن",
+    "service": "الخدمة",
+    "total": "المبلغ الإجمالي",
+    "pay_now": "ادفع الآن",
+    "processing": "جاري معالجة الدفع...",
+    "security_notice": "معلومات الدفع الخاصة بك آمنة ومشفرة",
+    "terms_notice": "بإتمام هذا الدفع، فإنك توافق على شروط الحجز وسياسة الإلغاء",
+    "error": "خطأ في الدفع",
+    "generic_error": "فشل الدفع. يرجى المحاولة مرة أخرى."
+  },
+  "steps": {
+    "select_date": "التاريخ",
+    "select_time": "الوقت",
+    "payment": "الدفع",
+    "confirmation": "تم"
+  },
+  "error": {
+    "skill_not_found": "لم يتم العثور على المهارة"
+  },
+  "actions": {
+    "back": "العودة"
   }
 }

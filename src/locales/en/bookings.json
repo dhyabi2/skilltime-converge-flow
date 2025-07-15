@@ -16,7 +16,8 @@
     "missing_info": "Missing Information",
     "complete_details": "Please complete all booking details",
     "success_message": "Your session has been successfully booked",
-    "error_message": "Something went wrong. Please try again."
+    "error_message": "Something went wrong. Please try again.",
+    "redirecting": "Redirecting to confirmation page"
   },
   "date_picker": {
     "select_date": "Select Date",
@@ -43,6 +44,37 @@
     "total": "Total",
     "subtotal": "Subtotal",
     "taxes": "Taxes",
-    "final_total": "Final Total"
+    "final_total": "Final Total",
+    "booking_details": "Booking Details",
+    "session_date": "Session Date",
+    "session_time": "Session Time",
+    "session_location": "Session Location",
+    "total_price": "Total Price",
+    "confirming": "Confirming...",
+    "confirm_booking": "Confirm Booking",
+    "booking_notice": "By booking, you agree to our terms and conditions"
+  },
+  "payment": {
+    "secure_payment": "Secure Payment",
+    "service": "Service",
+    "total": "Total Amount",
+    "pay_now": "Pay Now",
+    "processing": "Processing Payment...",
+    "security_notice": "Your payment information is secure and encrypted",
+    "terms_notice": "By completing this payment, you agree to our booking terms and cancellation policy",
+    "error": "Payment Error",
+    "generic_error": "Payment failed. Please try again."
+  },
+  "steps": {
+    "select_date": "Date",
+    "select_time": "Time", 
+    "payment": "Payment",
+    "confirmation": "Done"
+  },
+  "error": {
+    "skill_not_found": "Skill not found"
+  },
+  "actions": {
+    "back": "Go Back"
   }
 }
