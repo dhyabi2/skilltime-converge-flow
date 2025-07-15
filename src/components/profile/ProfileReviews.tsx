@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
-import { Star, ThumbsUp, MessageSquare, Award } from 'lucide-react';
+import { Star, ThumbsUp, MessageSquare, Award, Flag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useAuth } from '@/contexts/AuthContext';
 import { useProviderReviews, useReviewStatistics } from '@/hooks/useReviews';
+import { useVoteReview, useRespondToReview } from '@/hooks/useReviewManagement';
 import ReviewDetailModal from './modals/ReviewDetailModal';
 
 interface ProfileReviewsProps {
@@ -19,6 +21,8 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
   const { data: reviews = [], isLoading } = useProviderReviews(userId);
   const { data: reviewStats, isLoading: statsLoading } = useReviewStatistics(userId);
   const [selectedReview, setSelectedReview] = useState<any>(null);
+  const voteReviewMutation = useVoteReview();
+  const respondToReviewMutation = useRespondToReview();
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -36,13 +40,16 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
   };
 
   const handleVote = (reviewId: string, voteType: 'up' | 'down') => {
-    console.log('Vote on review:', reviewId, voteType);
-    // This will be handled by the modal
+    voteReviewMutation.mutate({ reviewId, voteType });
   };
 
   const handleRespond = (reviewId: string, response: string) => {
-    console.log('Respond to review:', reviewId, response);
-    // This will be handled by the modal
+    respondToReviewMutation.mutate({ reviewId, response });
+  };
+
+  const handleQuickVote = (reviewId: string, voteType: 'up' | 'down', event: React.MouseEvent) => {
+    event.stopPropagation();
+    handleVote(reviewId, voteType);
   };
 
   if (isLoading || statsLoading) {
@@ -143,29 +150,53 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
                         </span>
                       </div>
                     </div>
-                    {review.provider_response && (
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-                        <MessageSquare className="w-3 h-3 mr-1" />
-                        {t('reviews.responded')}
-                      </Badge>
-                    )}
+                    <div className="flex items-center gap-2">
+                      {review.provider_response && (
+                        <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                          <MessageSquare className="w-3 h-3 mr-1" />
+                          {t('reviews.responded')}
+                        </Badge>
+                      )}
+                      {user && user.id !== userId && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // Report functionality would go here
+                          }}
+                        >
+                          <Flag className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
                   </div>
                   
                   <p className="text-gray-700 line-clamp-3">{review.comment}</p>
                   
                   {review.provider_response && (
                     <div className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-400">
-                      <p className="text-sm text-blue-800 font-medium mb-1">{t('reviews.your_response')}</p>
+                      <p className="text-sm text-blue-800 font-medium mb-1">{t('reviews.provider_response')}</p>
                       <p className="text-blue-700 text-sm line-clamp-2">{review.provider_response}</p>
+                      <p className="text-xs text-blue-600 mt-1">
+                        {new Date(review.provider_response_date).toLocaleDateString('ar-OM')}
+                      </p>
                     </div>
                   )}
                   
                   <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                     <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-1 text-sm text-gray-500">
-                        <ThumbsUp className="w-4 h-4" />
-                        <span>{review.upvotes || 0}</span>
-                      </div>
+                      {user && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => handleQuickVote(review.id, 'up', e)}
+                          className="flex items-center gap-1 text-sm text-gray-500 hover:text-green-600"
+                        >
+                          <ThumbsUp className="w-4 h-4" />
+                          <span>{review.upvotes || 0}</span>
+                        </Button>
+                      )}
                       <span className="text-sm text-gray-400">•</span>
                       <span className="text-sm text-gray-500">
                         {(review.upvotes || 0) + (review.downvotes || 0)} {t('reviews.found_helpful')}
@@ -174,10 +205,14 @@ const ProfileReviews: React.FC<ProfileReviewsProps> = ({ userId }) => {
                     <Badge 
                       variant="outline" 
                       className={`${
-                        (review.rating || 0) >= 4 ? 'border-green-200 text-green-700' : 'border-gray-200'
+                        (review.rating || 0) >= 4 ? 'border-green-200 text-green-700' : 
+                        (review.rating || 0) >= 3 ? 'border-yellow-200 text-yellow-700' : 
+                        'border-red-200 text-red-700'
                       }`}
                     >
-                      {(review.rating || 0) >= 4 ? `⭐ ${t('reviews.great')}` : (review.rating || 0) >= 3 ? `👍 ${t('reviews.good')}` : `💡 ${t('reviews.feedback')}`}
+                      {(review.rating || 0) >= 4 ? `⭐ ${t('reviews.excellent')}` : 
+                       (review.rating || 0) >= 3 ? `👍 ${t('reviews.good')}` : 
+                       `💡 ${t('reviews.needs_improvement')}`}
                     </Badge>
                   </div>
                 </div>

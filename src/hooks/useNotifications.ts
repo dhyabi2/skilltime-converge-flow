@@ -3,69 +3,75 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { notificationsService } from '@/services/supabase/notifications';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { useEffect } from 'react';
 
 export const useNotifications = () => {
   const { user } = useAuth();
-  
-  return useQuery({
-    queryKey: ['notifications', user?.id],
-    queryFn: () => notificationsService.getAll(user!.id),
-    enabled: !!user,
-  });
-};
-
-export const useUnreadNotificationsCount = () => {
-  const { user } = useAuth();
-  
-  return useQuery({
-    queryKey: ['notifications', 'unread-count', user?.id],
-    queryFn: () => notificationsService.getUnreadCount(user!.id),
-    enabled: !!user,
-  });
-};
-
-export const useMarkNotificationAsRead = () => {
-  const queryClient = useQueryClient();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  return useMutation({
+  const { data: notifications = [], isLoading } = useQuery({
+    queryKey: ['notifications', user?.id],
+    queryFn: () => notificationsService.getNotifications(user!.id),
+    enabled: !!user?.id,
+  });
+
+  const { data: unreadCount = 0 } = useQuery({
+    queryKey: ['notifications-unread-count', user?.id],
+    queryFn: () => notificationsService.getUnreadCount(user!.id),
+    enabled: !!user?.id,
+    refetchInterval: 30000, // Refresh every 30 seconds
+  });
+
+  const markAsReadMutation = useMutation({
     mutationFn: notificationsService.markAsRead,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications'] });
-      toast({
-        title: "Success",
-        description: "Notification marked as read",
-      });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to mark notification as read",
-        variant: "destructive",
-      });
+      queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
     },
   });
-};
 
-export const useMarkAllNotificationsAsRead = () => {
-  const queryClient = useQueryClient();
-  const { toast } = useToast();
-
-  return useMutation({
-    mutationFn: notificationsService.markAllAsRead,
+  const markAllAsReadMutation = useMutation({
+    mutationFn: () => notificationsService.markAllAsRead(user!.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications'] });
+      queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
       toast({
         title: "Success",
         description: "All notifications marked as read",
       });
     },
-    onError: (error: any) => {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to mark notifications as read",
-        variant: "destructive",
-      });
-    },
   });
+
+  // Subscribe to real-time notifications
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const unsubscribe = notificationsService.subscribeToNotifications(
+      user.id,
+      (notification) => {
+        // Show toast for new notification
+        toast({
+          title: notification.title,
+          description: notification.message,
+        });
+
+        // Refresh queries
+        queryClient.invalidateQueries({ queryKey: ['notifications'] });
+        queryClient.invalidateQueries({ queryKey: ['notifications-unread-count'] });
+      }
+    );
+
+    return unsubscribe;
+  }, [user?.id, queryClient, toast]);
+
+  return {
+    notifications,
+    unreadCount,
+    isLoading,
+    markAsRead: markAsReadMutation.mutate,
+    markAllAsRead: markAllAsReadMutation.mutate,
+    isMarkingAsRead: markAsReadMutation.isPending,
+    isMarkingAllAsRead: markAllAsReadMutation.isPending,
+  };
 };

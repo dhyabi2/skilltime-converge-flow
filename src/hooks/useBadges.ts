@@ -14,31 +14,26 @@ export const useUserBadges = () => {
   });
 };
 
-export const useBadgeProgress = () => {
-  const { user } = useAuth();
-
-  return useQuery({
-    queryKey: ['badge-progress', user?.id],
-    queryFn: () => badgesService.getBadgeProgress(user!.id),
-    enabled: !!user?.id,
-  });
-};
-
 export const useCheckBadges = () => {
-  const queryClient = useQueryClient();
   const { user } = useAuth();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () => badgesService.checkAndAwardBadges(user!.id),
-    onSuccess: () => {
+    onSuccess: (badges) => {
+      if (badges.length > 0) {
+        badges.forEach(badge => {
+          toast({
+            title: "🏆 New Badge Earned!",
+            description: `You've earned the "${badge.badge}" badge`,
+          });
+        });
+      }
+      
       queryClient.invalidateQueries({ queryKey: ['user-badges'] });
-      queryClient.invalidateQueries({ queryKey: ['badge-progress'] });
       queryClient.invalidateQueries({ queryKey: ['user-statistics'] });
-      toast({
-        title: "Badges Updated",
-        description: "Your achievements have been checked",
-      });
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
     },
     onError: (error: any) => {
       console.error('Badge check error:', error);

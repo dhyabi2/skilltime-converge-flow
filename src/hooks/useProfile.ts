@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { fileUploadService } from '@/services/supabase/fileUpload';
+import { badgesService } from '@/services/supabase/badges';
 
 export interface UserProfile {
   id: string;
@@ -38,7 +40,7 @@ export const useProfile = () => {
     try {
       setLoading(true);
       
-      // Fetch profile data - use maybeSingle() instead of single() to handle missing profiles
+      // Fetch profile data
       const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
@@ -100,28 +102,26 @@ export const useProfile = () => {
         return;
       }
 
-      // Fetch skills
-      const { data: skillsData, error: skillsError } = await supabase
-        .from('user_skills')
-        .select('skill')
-        .eq('user_id', user.id);
+      // Fetch additional data in parallel
+      const [skillsData, badgesData, statsData] = await Promise.all([
+        supabase.from('user_skills').select('skill').eq('user_id', user.id),
+        badgesService.getUserBadges(user.id),
+        supabase.from('bookings').select('id').eq('provider_id', user.id).eq('status', 'completed')
+      ]);
 
-      if (skillsError) {
-        console.error('Skills fetch error:', skillsError);
-      }
-
-      // Fetch badges
-      const { data: badgesData, error: badgesError } = await supabase
-        .from('user_badges')
-        .select('badge')
-        .eq('user_id', user.id);
-
-      if (badgesError) {
-        console.error('Badges fetch error:', badgesError);
-      }
-
-      const skills = skillsData?.map(item => item.skill) || [];
+      const skills = skillsData.data?.map(item => item.skill) || [];
       const badges = badgesData?.map(item => item.badge) || [];
+      const completedBookings = statsData.data?.length || 0;
+
+      // Calculate average rating from reviews
+      const { data: reviewsData } = await supabase
+        .from('reviews')
+        .select('rating, skills!inner(provider_id)')
+        .eq('skills.provider_id', user.id);
+
+      const rating = reviewsData && reviewsData.length > 0
+        ? reviewsData.reduce((sum, r) => sum + (r.rating || 0), 0) / reviewsData.length
+        : 0;
 
       setProfile({
         id: profileData.id,
@@ -132,8 +132,8 @@ export const useProfile = () => {
         location: profileData.location || '',
         phone: profileData.phone || '',
         joinedDate: profileData.created_at,
-        completedBookings: 0, // This would come from a bookings table
-        rating: 0, // This would come from a reviews/ratings table
+        completedBookings,
+        rating: Number(rating.toFixed(1)),
         skills,
         badges
       });
@@ -183,12 +183,46 @@ export const useProfile = () => {
         title: "Success",
         description: "Profile updated successfully",
       });
+
+      // Check for new badges after profile update
+      try {
+        await badgesService.checkAndAwardBadges(user.id);
+      } catch (badgeError) {
+        console.error('Badge check error:', badgeError);
+      }
+
       return true;
     } catch (error: any) {
       console.error('Update profile error:', error);
       toast({
         title: "Error",
         description: "Failed to update profile",
+        variant: "destructive",
+      });
+      return false;
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const updateAvatar = async (file: File) => {
+    if (!user || !profile) return false;
+
+    try {
+      setUpdating(true);
+      
+      // Upload new avatar
+      const avatarUrl = await fileUploadService.uploadAvatar(file, user.id);
+      
+      // Update profile with new avatar URL
+      const success = await updateProfile({ avatar: avatarUrl });
+      
+      return success;
+    } catch (error: any) {
+      console.error('Avatar update error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update avatar",
         variant: "destructive",
       });
       return false;
@@ -224,6 +258,14 @@ export const useProfile = () => {
         title: "Success",
         description: "Skill added successfully",
       });
+
+      // Check for new badges
+      try {
+        await badgesService.checkAndAwardBadges(user.id);
+      } catch (badgeError) {
+        console.error('Badge check error:', badgeError);
+      }
+
       return true;
     } catch (error: any) {
       console.error('Add skill error:', error);
@@ -281,6 +323,7 @@ export const useProfile = () => {
     loading,
     updating,
     updateProfile,
+    updateAvatar,
     addSkill,
     removeSkill,
     refetch: fetchProfile

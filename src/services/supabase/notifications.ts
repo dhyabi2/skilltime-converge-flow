@@ -6,42 +6,49 @@ type Notification = Database['public']['Tables']['notifications']['Row'];
 type NotificationInsert = Database['public']['Tables']['notifications']['Insert'];
 
 export const notificationsService = {
-  async getAll(userId: string) {
+  async getNotifications(userId: string) {
     const { data, error } = await supabase
       .from('notifications')
       .select('*')
       .eq('user_id', userId)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(50);
 
     if (error) throw error;
     return data || [];
   },
 
-  async markAsRead(notificationId: string) {
-    const { data, error } = await supabase
+  async getUnreadCount(userId: string): Promise<number> {
+    const { count, error } = await supabase
       .from('notifications')
-      .update({ read: true })
-      .eq('id', notificationId)
-      .select()
-      .single();
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', userId)
+      .eq('read', false);
 
     if (error) throw error;
-    return data;
+    return count || 0;
+  },
+
+  async markAsRead(notificationId: string) {
+    const { error } = await supabase
+      .from('notifications')
+      .update({ read: true })
+      .eq('id', notificationId);
+
+    if (error) throw error;
   },
 
   async markAllAsRead(userId: string) {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('notifications')
       .update({ read: true })
       .eq('user_id', userId)
-      .eq('read', false)
-      .select();
+      .eq('read', false);
 
     if (error) throw error;
-    return data;
   },
 
-  async create(notification: NotificationInsert) {
+  async createNotification(notification: NotificationInsert) {
     const { data, error } = await supabase
       .from('notifications')
       .insert(notification)
@@ -52,14 +59,25 @@ export const notificationsService = {
     return data;
   },
 
-  async getUnreadCount(userId: string) {
-    const { count, error } = await supabase
-      .from('notifications')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_id', userId)
-      .eq('read', false);
+  async subscribeToNotifications(userId: string, callback: (notification: Notification) => void) {
+    const channel = supabase
+      .channel('notifications')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'notifications',
+          filter: `user_id=eq.${userId}`
+        },
+        (payload) => {
+          callback(payload.new as Notification);
+        }
+      )
+      .subscribe();
 
-    if (error) throw error;
-    return count || 0;
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }
 };

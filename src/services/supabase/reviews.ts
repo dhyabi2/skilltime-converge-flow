@@ -13,9 +13,23 @@ export const reviewsService = {
       .select(`
         *,
         profiles!reviewer_id(name, avatar),
-        skills(title)
+        skills(title, provider_id)
       `)
       .eq('skills.provider_id', providerId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  },
+
+  async getBySkill(skillId: string) {
+    const { data, error } = await supabase
+      .from('reviews')
+      .select(`
+        *,
+        profiles!reviewer_id(name, avatar)
+      `)
+      .eq('skill_id', skillId)
       .order('created_at', { ascending: false });
 
     if (error) throw error;
@@ -41,10 +55,32 @@ export const reviewsService = {
     const { data, error } = await supabase
       .from('reviews')
       .insert(review)
-      .select()
+      .select(`
+        *,
+        profiles!reviewer_id(name, avatar),
+        skills(title, provider_id)
+      `)
       .single();
 
     if (error) throw error;
+
+    // Create notification for skill provider
+    if (data.skills?.provider_id) {
+      await supabase
+        .from('notifications')
+        .insert({
+          user_id: data.skills.provider_id,
+          type: 'new_review',
+          title: 'New Review Received',
+          message: `You received a ${data.rating}-star review for "${data.skills.title}"`,
+          data: { 
+            review_id: data.id,
+            skill_id: data.skill_id,
+            rating: data.rating 
+          }
+        });
+    }
+
     return data;
   },
 
@@ -68,10 +104,30 @@ export const reviewsService = {
         provider_response_date: new Date().toISOString()
       })
       .eq('id', reviewId)
-      .select()
+      .select(`
+        *,
+        profiles!reviewer_id(name, avatar)
+      `)
       .single();
 
     if (error) throw error;
+
+    // Create notification for reviewer
+    if (data.reviewer_id) {
+      await supabase
+        .from('notifications')
+        .insert({
+          user_id: data.reviewer_id,
+          type: 'review_response',
+          title: 'Provider Responded',
+          message: 'The provider responded to your review',
+          data: { 
+            review_id: data.id,
+            response: response 
+          }
+        });
+    }
+
     return data;
   },
 
@@ -132,24 +188,57 @@ export const reviewsService = {
   },
 
   async getStatistics(providerId: string) {
-    const { data, error } = await supabase
+    // Get all reviews for provider's skills
+    const { data: reviews, error } = await supabase
       .from('reviews')
-      .select('rating, upvotes, downvotes')
+      .select('rating, upvotes, downvotes, skills!inner(provider_id)')
       .eq('skills.provider_id', providerId);
 
     if (error) throw error;
 
-    const reviews = data || [];
-    const totalReviews = reviews.length;
+    const reviewsData = reviews || [];
+    const totalReviews = reviewsData.length;
     const averageRating = totalReviews > 0 
-      ? reviews.reduce((sum, review) => sum + (review.rating || 0), 0) / totalReviews
+      ? reviewsData.reduce((sum, review) => sum + (review.rating || 0), 0) / totalReviews
       : 0;
-    const totalUpvotes = reviews.reduce((sum, review) => sum + (review.upvotes || 0), 0);
+    const totalUpvotes = reviewsData.reduce((sum, review) => sum + (review.upvotes || 0), 0);
 
     return {
       totalReviews,
-      averageRating,
+      averageRating: Number(averageRating.toFixed(1)),
       totalUpvotes
     };
+  },
+
+  async getUserVote(reviewId: string, userId: string) {
+    const { data, error } = await supabase
+      .from('review_votes')
+      .select('vote_type')
+      .eq('review_id', reviewId)
+      .eq('user_id', userId)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    return data?.vote_type || null;
+  },
+
+  async reportReview(reviewId: string, userId: string, reason: string) {
+    // This would typically go to a separate reports table
+    // For now, we'll create a notification to admins
+    const { error } = await supabase
+      .from('notifications')
+      .insert({
+        user_id: 'admin', // This would be actual admin user IDs
+        type: 'review_report',
+        title: 'Review Reported',
+        message: `Review ${reviewId} was reported for: ${reason}`,
+        data: { 
+          review_id: reviewId,
+          reporter_id: userId,
+          reason 
+        }
+      });
+
+    if (error) throw error;
   }
 };
