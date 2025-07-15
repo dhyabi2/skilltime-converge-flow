@@ -48,6 +48,18 @@ export const reviewsService = {
     return data;
   },
 
+  async update(reviewId: string, updates: ReviewUpdate) {
+    const { data, error } = await supabase
+      .from('reviews')
+      .update(updates)
+      .eq('id', reviewId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
+
   async addResponse(reviewId: string, response: string) {
     const { data, error } = await supabase
       .from('reviews')
