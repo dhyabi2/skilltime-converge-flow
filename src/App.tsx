@@ -17,6 +17,7 @@ import Home from './pages/Home';
 import Browse from './pages/Browse';
 import SkillDetail from './pages/SkillDetail';
 import BookingCreate from './pages/BookingCreate';
+import BookingDetail from './pages/BookingDetail';
 import BookingConfirmation from './pages/BookingConfirmation';
 import BookingSuccess from './pages/BookingSuccess';
 import Bookings from './pages/Bookings';
@@ -52,6 +53,7 @@ const AppContent = () => {
           <Route path="/browse" element={<Browse />} />
           <Route path="/skill/:id" element={<SkillDetail />} />
           <Route path="/book/:skillId" element={<ProtectedRoute><BookingCreate /></ProtectedRoute>} />
+          <Route path="/booking/:bookingId" element={<ProtectedRoute><BookingDetail /></ProtectedRoute>} />
           <Route path="/booking-confirmation/:bookingId" element={<ProtectedRoute><BookingConfirmation /></ProtectedRoute>} />
           <Route path="/booking-success" element={<ProtectedRoute><BookingSuccess /></ProtectedRoute>} />
           <Route path="/bookings" element={<ProtectedRoute><Bookings /></ProtectedRoute>} />
