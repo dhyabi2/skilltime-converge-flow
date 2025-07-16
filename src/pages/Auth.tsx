@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ const Auth = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation('auth');
 
   // Redirect authenticated users to home
   useEffect(() => {
@@ -42,20 +44,20 @@ const Auth = () => {
 
       if (error) {
         toast({
-          title: "Sign up failed",
+          title: t('errors.sign_up_failed', 'Sign up failed'),
           description: error.message,
           variant: "destructive",
         });
       } else {
         toast({
-          title: "Check your email",
-          description: "We've sent you a confirmation link.",
+          title: t('success.check_email', 'Check your email'),
+          description: t('success.confirmation_sent', 'We\'ve sent you a confirmation link.'),
         });
       }
     } catch (error) {
       toast({
-        title: "An error occurred",
-        description: "Please try again later.",
+        title: t('errors.error_occurred', 'An error occurred'),
+        description: t('errors.try_again', 'Please try again later.'),
         variant: "destructive",
       });
     } finally {
@@ -75,20 +77,20 @@ const Auth = () => {
 
       if (error) {
         toast({
-          title: "Sign in failed",
+          title: t('errors.sign_in_failed', 'Sign in failed'),
           description: error.message,
           variant: "destructive",
         });
       } else {
         toast({
-          title: "Welcome back!",
-          description: "You've been signed in successfully.",
+          title: t('success.welcome_back', 'Welcome back!'),
+          description: t('success.signed_in', 'You\'ve been signed in successfully.'),
         });
       }
     } catch (error) {
       toast({
-        title: "An error occurred",
-        description: "Please try again later.",
+        title: t('errors.error_occurred', 'An error occurred'),
+        description: t('errors.try_again', 'Please try again later.'),
         variant: "destructive",
       });
     } finally {
@@ -109,15 +111,15 @@ const Auth = () => {
 
       if (error) {
         toast({
-          title: "Google sign in failed",
+          title: t('errors.google_sign_in_failed', 'Google sign in failed'),
           description: error.message,
           variant: "destructive",
         });
       }
     } catch (error) {
       toast({
-        title: "An error occurred",
-        description: "Please try again later.",
+        title: t('errors.error_occurred', 'An error occurred'),
+        description: t('errors.try_again', 'Please try again later.'),
         variant: "destructive",
       });
     } finally {
@@ -129,13 +131,14 @@ const Auth = () => {
     <div className="min-h-screen bg-gradient-to-br from-soft-blue-400 via-soft-blue-300 to-mint-400 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Welcome</CardTitle>
+          <CardTitle className="text-2xl font-bold">{t('welcome.title')}</CardTitle>
+          <p className="text-muted-foreground mt-2">{t('welcome.subtitle')}</p>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="signin">{t('buttons.sign_in')}</TabsTrigger>
+              <TabsTrigger value="signup">{t('buttons.sign_up')}</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin">
@@ -149,7 +152,7 @@ const Auth = () => {
                   {googleLoading ? (
                     <div className="flex items-center gap-2">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
-                      <span>Signing in with Google...</span>
+                      <span>{t('loading.signing_in_google', 'Signing in with Google...')}</span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
@@ -159,7 +162,7 @@ const Auth = () => {
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                       </svg>
-                      <span>Continue with Google</span>
+                      <span>{t('social.continue_with')} {t('social.google')}</span>
                     </div>
                   )}
                 </Button>
@@ -170,14 +173,14 @@ const Auth = () => {
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
                     <span className="bg-background px-2 text-muted-foreground">
-                      Or continue with email
+                      {t('social.or_continue_email', 'Or continue with email')}
                     </span>
                   </div>
                 </div>
 
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="signin-email">Email</Label>
+                    <Label htmlFor="signin-email">{t('forms.email')}</Label>
                     <Input
                       id="signin-email"
                       type="email"
@@ -187,7 +190,7 @@ const Auth = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signin-password">Password</Label>
+                    <Label htmlFor="signin-password">{t('forms.password')}</Label>
                     <Input
                       id="signin-password"
                       type="password"
@@ -197,7 +200,7 @@ const Auth = () => {
                     />
                   </div>
                   <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Signing in...' : 'Sign In'}
+                    {loading ? t('loading.signing_in', 'Signing in...') : t('buttons.sign_in')}
                   </Button>
                 </form>
               </div>
@@ -214,7 +217,7 @@ const Auth = () => {
                   {googleLoading ? (
                     <div className="flex items-center gap-2">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-900"></div>
-                      <span>Signing up with Google...</span>
+                      <span>{t('loading.signing_up_google', 'Signing up with Google...')}</span>
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
@@ -224,7 +227,7 @@ const Auth = () => {
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                       </svg>
-                      <span>Sign up with Google</span>
+                      <span>{t('social.sign_up_with', 'Sign up with')} {t('social.google')}</span>
                     </div>
                   )}
                 </Button>
@@ -235,14 +238,14 @@ const Auth = () => {
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
                     <span className="bg-background px-2 text-muted-foreground">
-                      Or sign up with email
+                      {t('social.or_sign_up_email', 'Or sign up with email')}
                     </span>
                   </div>
                 </div>
 
                 <form onSubmit={handleSignUp} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
+                    <Label htmlFor="signup-email">{t('forms.email')}</Label>
                     <Input
                       id="signup-email"
                       type="email"
@@ -252,7 +255,7 @@ const Auth = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
+                    <Label htmlFor="signup-password">{t('forms.password')}</Label>
                     <Input
                       id="signup-password"
                       type="password"
@@ -262,7 +265,7 @@ const Auth = () => {
                     />
                   </div>
                   <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Signing up...' : 'Sign Up'}
+                    {loading ? t('loading.signing_up', 'Signing up...') : t('buttons.sign_up')}
                   </Button>
                 </form>
               </div>
