@@ -18,7 +18,9 @@
     "complete_details": "Please complete all booking details",
     "success_message": "Your session has been successfully booked",
     "error_message": "Something went wrong. Please try again.",
-    "redirecting": "Redirecting to confirmation page"
+    "redirecting": "Redirecting to confirmation page",
+    "auth_required": "Authentication Required",
+    "auth_message": "Please sign in to book this service"
   },
   "tabs": {
     "upcoming": "Upcoming",
@@ -40,7 +42,8 @@
     "reschedule": "Reschedule",
     "contact": "Contact",
     "message": "Message",
-    "back": "Go Back"
+    "back": "Go Back",
+    "sign_in": "Sign In"
   },
   "service_card": {
     "default_title": "Skill Session",
@@ -80,7 +83,12 @@
     "total_price": "Total Price",
     "confirming": "Confirming...",
     "confirm_booking": "Confirm Booking",
-    "booking_notice": "By booking, you agree to our terms and conditions"
+    "booking_notice": "By booking, you agree to our terms and conditions",
+    "with": "with",
+    "provider": "Provider",
+    "session": "session",
+    "additional_notes": "Additional Notes (Optional)",
+    "notes_placeholder": "Any specific requirements or questions..."
   },
   "steps": {
     "select_date": "Date",
@@ -88,6 +96,7 @@
     "confirmation": "Done"
   },
   "error": {
-    "skill_not_found": "Skill not found"
+    "skill_not_found": "Skill not found",
+    "skill_id": "Skill ID"
   }
 }

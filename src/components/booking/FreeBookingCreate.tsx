@@ -68,8 +68,8 @@ const FreeBookingCreate = () => {
     if (!skill || !user || !selectedDate || !selectedTime) {
       console.error('Missing required data:', { skill: !!skill, user: !!user, selectedDate, selectedTime });
       toast({
-        title: "Error",
-        description: "Missing required booking information",
+        title: t('create.booking_failed'),
+        description: t('create.missing_info'),
         variant: "destructive",
       });
       return;
@@ -144,9 +144,9 @@ const FreeBookingCreate = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-slate-800 mb-4">Authentication Required</h1>
-          <p className="text-slate-600 mb-4">Please sign in to book this service</p>
-          <Button onClick={() => navigate('/auth')}>Sign In</Button>
+          <h1 className="text-2xl font-bold text-slate-800 mb-4">{t('create.auth_required')}</h1>
+          <p className="text-slate-600 mb-4">{t('create.auth_message')}</p>
+          <Button onClick={() => navigate('/auth')}>{t('actions.sign_in')}</Button>
         </div>
       </div>
     );
@@ -169,7 +169,7 @@ const FreeBookingCreate = () => {
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-slate-800 mb-4">{t('error.skill_not_found')}</h1>
-          <p className="text-slate-600 mb-4">Skill ID: {skillId}</p>
+          <p className="text-slate-600 mb-4">{t('error.skill_id')}: {skillId}</p>
           <Button onClick={() => navigate(-1)}>{t('actions.back')}</Button>
         </div>
       </div>
@@ -218,7 +218,7 @@ const FreeBookingCreate = () => {
               <CardContent className="p-6">
                 <h2 className="text-lg font-semibold mb-4">{t('time_slots.available_times')}</h2>
                 <p className="text-sm text-slate-600 mb-4">
-                  {new Date(selectedDate).toLocaleDateString('en-US', {
+                  {new Date(selectedDate).toLocaleDateString(undefined, {
                     weekday: 'long',
                     month: 'long',
                     day: 'numeric'
@@ -247,7 +247,7 @@ const FreeBookingCreate = () => {
                     </div>
                     <div>
                       <p className="font-medium text-slate-800">{skill.title}</p>
-                      <p className="text-sm text-slate-600">with {skill.profiles?.name || 'Provider'}</p>
+                      <p className="text-sm text-slate-600">{t('summary.with')} {skill.profiles?.name || t('summary.provider')}</p>
                     </div>
                   </div>
 
@@ -257,7 +257,7 @@ const FreeBookingCreate = () => {
                     </div>
                     <div>
                       <p className="font-medium text-slate-800">
-                        {new Date(selectedDate).toLocaleDateString('en-US', {
+                        {new Date(selectedDate).toLocaleDateString(undefined, {
                           weekday: 'long',
                           month: 'long',
                           day: 'numeric'
@@ -273,13 +273,13 @@ const FreeBookingCreate = () => {
                     </div>
                     <div>
                       <p className="font-medium text-slate-800">
-                        {new Date(`2000-01-01T${selectedTime}`).toLocaleTimeString('en-US', {
+                        {new Date(`2000-01-01T${selectedTime}`).toLocaleTimeString(undefined, {
                           hour: 'numeric',
                           minute: '2-digit',
                           hour12: true
                         })}
                       </p>
-                      <p className="text-sm text-slate-600">{skill.duration} session</p>
+                      <p className="text-sm text-slate-600">{skill.duration} {t('summary.session')}</p>
                     </div>
                   </div>
                 </div>
@@ -287,12 +287,12 @@ const FreeBookingCreate = () => {
                 {/* Optional Notes */}
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Additional Notes (Optional)
+                    {t('summary.additional_notes')}
                   </label>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Any specific requirements or questions..."
+                    placeholder={t('summary.notes_placeholder')}
                     className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-soft-blue-500 focus:border-transparent resize-none"
                     rows={3}
                   />

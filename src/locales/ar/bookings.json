@@ -16,7 +16,9 @@
     "complete_details": "يرجى إكمال جميع تفاصيل الحجز",
     "success_message": "تم حجز جلستك بنجاح",
     "error_message": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
-    "redirecting": "جاري التوجيه إلى صفحة التأكيد"
+    "redirecting": "جاري التوجيه إلى صفحة التأكيد",
+    "auth_required": "المصادقة مطلوبة",
+    "auth_message": "يرجى تسجيل الدخول لحجز هذه الخدمة"
   },
   "date_picker": {
     "select_date": "اختر التاريخ",
@@ -51,7 +53,12 @@
     "total_price": "السعر الإجمالي",
     "confirming": "جاري التأكيد...",
     "confirm_booking": "تأكيد الحجز",
-    "booking_notice": "بالحجز، فإنك توافق على الشروط والأحكام الخاصة بنا"
+    "booking_notice": "بالحجز، فإنك توافق على الشروط والأحكام الخاصة بنا",
+    "with": "مع",
+    "provider": "مقدم الخدمة",
+    "session": "جلسة",
+    "additional_notes": "ملاحظات إضافية (اختيارية)",
+    "notes_placeholder": "أي متطلبات أو أسئلة محددة..."
   },
   "steps": {
     "select_date": "التاريخ",
@@ -59,9 +66,11 @@
     "confirmation": "تم"
   },
   "error": {
-    "skill_not_found": "لم يتم العثور على المهارة"
+    "skill_not_found": "لم يتم العثور على المهارة",
+    "skill_id": "معرف المهارة"
   },
   "actions": {
-    "back": "العودة"
+    "back": "العودة",
+    "sign_in": "تسجيل الدخول"
   }
 }

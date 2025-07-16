@@ -16,9 +16,9 @@ export const freeBookingsService = {
       })
       .select(`
         *,
-        skills!skill_id(title, image_url),
-        client:profiles!client_id(name, phone),
-        provider:profiles!provider_id(name, phone)
+        skills!bookings_skill_id_fkey(title, image_url),
+        client:profiles!bookings_client_id_fkey(name, phone),
+        provider:profiles!bookings_provider_id_fkey(name, phone)
       `)
       .single();
 
