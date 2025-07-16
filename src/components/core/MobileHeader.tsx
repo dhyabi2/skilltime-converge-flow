@@ -42,7 +42,7 @@ const MobileHeader = () => {
 
   return (
     <>
-      <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-3 py-3 sticky top-0 z-50 w-full">
+      <header className="bg-gradient-to-r from-soft-blue-400 via-soft-blue-300 to-mint-400 text-slate-800 border-b border-soft-blue-200 px-3 py-3 fixed top-0 left-0 right-0 z-[60] w-full">
         <div className="flex items-center justify-between w-full">
           
           {/* Left Side */}

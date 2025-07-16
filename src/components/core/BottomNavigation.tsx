@@ -49,7 +49,6 @@ const BottomNavigation = () => {
     <nav 
       ref={navRef}
       className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200/50 px-2 sm:px-4 py-1 sm:py-2 z-[9999] w-full shadow-lg"
-      style={{ position: 'fixed' }}
     >
       <div className="relative max-w-md mx-auto">
         <div 
