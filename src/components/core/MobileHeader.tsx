@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Bell, ArrowLeft } from 'lucide-react';
+import { Search, Bell, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -13,7 +13,7 @@ import NotificationPanel from '../notifications/NotificationPanel';
 import { useNotifications } from '@/hooks/useNotifications';
 
 const MobileHeader = () => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,6 +23,7 @@ const MobileHeader = () => {
 
   const isProfilePage = location.pathname === '/profile';
   const canGoBack = location.pathname !== '/' && location.pathname !== '/home';
+  const isRTL = i18n.language === 'ar';
 
   const handleBack = () => {
     if (window.history.length > 1) {
@@ -35,6 +36,9 @@ const MobileHeader = () => {
   const handleProfileClick = () => {
     navigate('/profile');
   };
+
+  // Use the appropriate arrow icon based on language direction
+  const BackArrowIcon = isRTL ? ArrowRight : ArrowLeft;
 
   return (
     <>
@@ -50,7 +54,7 @@ const MobileHeader = () => {
                 className="h-9 w-9 rounded-full hover:bg-white/30 transition-colors"
                 onClick={handleBack}
               >
-                <ArrowLeft className="h-5 w-5 text-slate-700" />
+                <BackArrowIcon className="h-5 w-5 text-slate-700" />
               </Button>
             ) : (
               <MobileDrawer user={user} onSearchClick={() => setIsSearchModalOpen(true)} />
