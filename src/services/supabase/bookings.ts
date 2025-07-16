@@ -14,9 +14,9 @@ export const bookingsService = {
       .from('bookings')
       .select(`
         *,
-        skills!skill_id(title, image_url, description),
-        client:profiles!client_id(name, phone, avatar),
-        provider:profiles!provider_id(name, phone, avatar)
+        skills!fk_bookings_skill_id(title, image_url, description),
+        client:profiles!fk_bookings_client_id(name, phone, avatar),
+        provider:profiles!fk_bookings_provider_id(name, phone, avatar)
       `)
       .eq('id', id)
       .single();
@@ -47,9 +47,9 @@ export const bookingsService = {
       })
       .select(`
         *,
-        skills!skill_id(title, image_url, description),
-        client:profiles!client_id(name, phone, avatar),
-        provider:profiles!provider_id(name, phone, avatar)
+        skills!fk_bookings_skill_id(title, image_url, description),
+        client:profiles!fk_bookings_client_id(name, phone, avatar),
+        provider:profiles!fk_bookings_provider_id(name, phone, avatar)
       `)
       .single();
 
@@ -103,9 +103,9 @@ export const bookingsService = {
       .eq('id', id)
       .select(`
         *,
-        skills!skill_id(title, image_url, description),
-        client:profiles!client_id(name, phone, avatar),
-        provider:profiles!provider_id(name, phone, avatar)
+        skills!fk_bookings_skill_id(title, image_url, description),
+        client:profiles!fk_bookings_client_id(name, phone, avatar),
+        provider:profiles!fk_bookings_provider_id(name, phone, avatar)
       `)
       .single();
 
@@ -137,9 +137,9 @@ export const bookingsService = {
       .from('bookings')
       .select(`
         *,
-        skills!skill_id(title, image_url, description),
-        client:profiles!client_id(name, phone, avatar),
-        provider:profiles!provider_id(name, phone, avatar)
+        skills!fk_bookings_skill_id(title, image_url, description),
+        client:profiles!fk_bookings_client_id(name, phone, avatar),
+        provider:profiles!fk_bookings_provider_id(name, phone, avatar)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
       .in('status', ['pending', 'confirmed'])
@@ -164,9 +164,9 @@ export const bookingsService = {
       .from('bookings')
       .select(`
         *,
-        skills!skill_id(title, image_url, description),
-        client:profiles!client_id(name, phone, avatar),
-        provider:profiles!provider_id(name, phone, avatar)
+        skills!fk_bookings_skill_id(title, image_url, description),
+        client:profiles!fk_bookings_client_id(name, phone, avatar),
+        provider:profiles!fk_bookings_provider_id(name, phone, avatar)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
       .eq('status', 'completed')
@@ -196,9 +196,9 @@ export const bookingsService = {
       .eq('id', id)
       .select(`
         *,
-        skills!skill_id(title, image_url, description),
-        client:profiles!client_id(name, phone, avatar),
-        provider:profiles!provider_id(name, phone, avatar)
+        skills!fk_bookings_skill_id(title, image_url, description),
+        client:profiles!fk_bookings_client_id(name, phone, avatar),
+        provider:profiles!fk_bookings_provider_id(name, phone, avatar)
       `)
       .single();
 
@@ -219,9 +219,9 @@ export const bookingsService = {
       .from('bookings')
       .select(`
         *,
-        skills!skill_id(title, image_url, description),
-        client:profiles!client_id(name, phone, avatar),
-        provider:profiles!provider_id(name, phone, avatar)
+        skills!fk_bookings_skill_id(title, image_url, description),
+        client:profiles!fk_bookings_client_id(name, phone, avatar),
+        provider:profiles!fk_bookings_provider_id(name, phone, avatar)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
       .order('booking_date', { ascending: false });
