@@ -31,6 +31,11 @@ export const bookingsService = {
     return data;
   },
 
+  async getBookingById(id: string) {
+    // Alias for getById to maintain compatibility
+    return this.getById(id);
+  },
+
   async create(booking: BookingInsert) {
     console.log('Creating booking:', booking);
     
@@ -75,6 +80,124 @@ export const bookingsService = {
 
     if (error) {
       console.error('Error updating booking status:', error);
+      throw error;
+    }
+    
+    return data;
+  },
+
+  async updateBookingStatus(id: string, status: string) {
+    // Alias for updateStatus to maintain compatibility
+    return this.updateStatus(id, status);
+  },
+
+  async update(id: string, updates: BookingUpdate) {
+    console.log('Updating booking:', { id, updates });
+    
+    const { data, error } = await supabase
+      .from('bookings')
+      .update({
+        ...updates,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', id)
+      .select(`
+        *,
+        skills!skill_id(title, image_url, description),
+        client:profiles!client_id(name, phone, avatar),
+        provider:profiles!provider_id(name, phone, avatar)
+      `)
+      .single();
+
+    console.log('Booking update result:', { data, error });
+
+    if (error) {
+      console.error('Error updating booking:', error);
+      throw error;
+    }
+    
+    return data;
+  },
+
+  async getAll(userId: string) {
+    return this.getUserBookings(userId);
+  },
+
+  async getUpcoming(userId: string) {
+    console.log('Fetching upcoming bookings for:', userId);
+    
+    const { data, error } = await supabase
+      .from('bookings')
+      .select(`
+        *,
+        skills!skill_id(title, image_url, description),
+        client:profiles!client_id(name, phone, avatar),
+        provider:profiles!provider_id(name, phone, avatar)
+      `)
+      .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
+      .in('status', ['pending', 'confirmed'])
+      .gte('booking_date', new Date().toISOString().split('T')[0])
+      .order('booking_date', { ascending: true });
+
+    console.log('Upcoming bookings result:', { data, error });
+
+    if (error) {
+      console.error('Error fetching upcoming bookings:', error);
+      throw error;
+    }
+    
+    return data || [];
+  },
+
+  async getCompleted(userId: string) {
+    console.log('Fetching completed bookings for:', userId);
+    
+    const { data, error } = await supabase
+      .from('bookings')
+      .select(`
+        *,
+        skills!skill_id(title, image_url, description),
+        client:profiles!client_id(name, phone, avatar),
+        provider:profiles!provider_id(name, phone, avatar)
+      `)
+      .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
+      .eq('status', 'completed')
+      .order('booking_date', { ascending: false });
+
+    console.log('Completed bookings result:', { data, error });
+
+    if (error) {
+      console.error('Error fetching completed bookings:', error);
+      throw error;
+    }
+    
+    return data || [];
+  },
+
+  async rescheduleBooking(id: string, newDate: string, newTime: string) {
+    console.log('Rescheduling booking:', { id, newDate, newTime });
+    
+    const { data, error } = await supabase
+      .from('bookings')
+      .update({
+        booking_date: newDate,
+        booking_time: newTime,
+        status: 'pending',
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', id)
+      .select(`
+        *,
+        skills!skill_id(title, image_url, description),
+        client:profiles!client_id(name, phone, avatar),
+        provider:profiles!provider_id(name, phone, avatar)
+      `)
+      .single();
+
+    console.log('Reschedule booking result:', { data, error });
+
+    if (error) {
+      console.error('Error rescheduling booking:', error);
       throw error;
     }
     
