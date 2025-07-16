@@ -1,7 +1,7 @@
 
 {
-  "name": "وقت المهارات - SkillTime",
-  "short_name": "وقت المهارات",
+  "name": "TimeValueX - وقت المهارات",
+  "short_name": "TimeValueX",
   "description": "منصة لتبادل وتعلم المهارات - تعمل بدون اتصال بالإنترنت",
   "start_url": "/",
   "display": "standalone",
@@ -9,7 +9,7 @@
   "background_color": "#ffffff",
   "orientation": "portrait-primary",
   "scope": "/",
-  "id": "skilltime-app",
+  "id": "timevaluex-app",
   "categories": ["education", "productivity", "social", "business"],
   "lang": "ar",
   "dir": "rtl",
@@ -34,7 +34,7 @@
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "الصفحة الرئيسية لتطبيق وقت المهارات"
+      "label": "الصفحة الرئيسية لتطبيق TimeValueX"
     }
   ],
   "shortcuts": [
