@@ -1,5 +1,7 @@
 
 {
+  "title": "حجوزاتي",
+  "subtitle": "إدارة جلسات المهارات الخاصة بك",
   "create": {
     "title": "حجز جلسة",
     "step_of": "الخطوة {{current}} من {{total}}",
@@ -20,6 +22,54 @@
     "auth_required": "المصادقة مطلوبة",
     "auth_message": "يرجى تسجيل الدخول لحجز هذه الخدمة"
   },
+  "success": {
+    "title": "تم تأكيد الحجز!",
+    "subtitle": "تم حجز جلستك بنجاح",
+    "booking_details": "تفاصيل الحجز",
+    "whats_next": "ما التالي؟",
+    "next_steps": {
+      "email": "ستتلقى بريدًا إلكترونيًا للتأكيد مع تفاصيل الجلسة",
+      "meeting_link": "سيتم مشاركة رابط الاجتماع قبل 15 دقيقة من الجلسة",
+      "reschedule": "يمكنك إعادة الجدولة أو الإلغاء حتى 24 ساعة قبل الموعد"
+    },
+    "view_bookings": "عرض حجوزاتي",
+    "back_home": "العودة للرئيسية"
+  },
+  "tabs": {
+    "upcoming": "القادمة",
+    "completed": "المكتملة"
+  },
+  "status": {
+    "pending": "قيد الانتظار",
+    "confirmed": "مؤكد",
+    "cancelled": "ملغي",
+    "completed": "مكتمل",
+    "loading": "جاري التحميل...",
+    "no_upcoming": "لا توجد حجوزات قادمة",
+    "no_completed": "لا توجد حجوزات مكتملة",
+    "no_upcoming_desc": "ليس لديك أي جلسات قادمة. تصفح المهارات لحجز جلستك الأولى.",
+    "no_completed_desc": "لم تكمل أي جلسات بعد. ستظهر سجل جلساتك هنا."
+  },
+  "actions": {
+    "cancel": "إلغاء",
+    "reschedule": "إعادة جدولة",
+    "contact": "اتصال",
+    "message": "رسالة",
+    "back": "العودة",
+    "sign_in": "تسجيل الدخول"
+  },
+  "service_card": {
+    "default_title": "جلسة مهارة",
+    "with": "مع",
+    "by": "بواسطة",
+    "provider": "مقدم الخدمة",
+    "student": "طالب",
+    "per_hour": "في الساعة",
+    "per_session": "لكل جلسة",
+    "duration_minutes": "{{count}} دقيقة",
+    "reviews_count": "{{count}} تقييم",
+    "rating": "تقييم {{rating}}"
+  },
   "date_picker": {
     "select_date": "اختر التاريخ",
     "choose_date": "اختر التاريخ المفضل لديك"
@@ -28,13 +78,6 @@
     "available_times": "الأوقات المتاحة",
     "select_time": "اختر الوقت المفضل لديك",
     "no_slots": "لا توجد أوقات متاحة لهذا التاريخ"
-  },
-  "service_card": {
-    "per_hour": "في الساعة",
-    "per_session": "لكل جلسة",
-    "duration_minutes": "{{count}} دقيقة",
-    "reviews_count": "{{count}} تقييم",
-    "rating": "تقييم {{rating}}"
   },
   "summary": {
     "service": "الخدمة",
@@ -68,9 +111,5 @@
   "error": {
     "skill_not_found": "لم يتم العثور على المهارة",
     "skill_id": "معرف المهارة"
-  },
-  "actions": {
-    "back": "العودة",
-    "sign_in": "تسجيل الدخول"
   }
 }
