@@ -53,7 +53,7 @@
     "rating": "Rating",
     "skills_count": "{{count}} skills",
     "results_count": "{{count}} results",
-    "currency": "OMR"
+    "loading": "Loading..."
   },
   "time": {
     "minutes": "minutes",
@@ -76,5 +76,6 @@
     "close": "Close",
     "language_en": "EN",
     "language_ar": "ع"
-  }
+  },
+  "currency": "OMR"
 }

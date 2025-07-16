@@ -1,0 +1,56 @@
+
+{
+  "success": {
+    "booking_confirmed": "Booking confirmed successfully!",
+    "booking_cancelled": "Booking cancelled successfully",
+    "booking_rescheduled": "Booking rescheduled successfully",
+    "profile_updated": "Profile updated successfully",
+    "skill_created": "Skill created successfully",
+    "skill_updated": "Skill updated successfully",
+    "skill_deleted": "Skill deleted successfully",
+    "review_submitted": "Review submitted successfully",
+    "settings_saved": "Settings saved successfully",
+    "file_uploaded": "File uploaded successfully",
+    "changes_saved": "Changes saved successfully"
+  },
+  "error": {
+    "booking_failed": "Failed to confirm booking",
+    "booking_cancel_failed": "Failed to cancel booking",
+    "booking_reschedule_failed": "Failed to reschedule booking",
+    "profile_update_failed": "Failed to update profile",
+    "skill_create_failed": "Failed to create skill",
+    "skill_update_failed": "Failed to update skill",
+    "skill_delete_failed": "Failed to delete skill",
+    "review_submit_failed": "Failed to submit review",
+    "settings_save_failed": "Failed to save settings",
+    "file_upload_failed": "Failed to upload file",
+    "network_error": "Network error occurred",
+    "something_went_wrong": "Something went wrong",
+    "authentication_required": "Authentication required",
+    "permission_denied": "Permission denied",
+    "invalid_input": "Invalid input provided",
+    "server_error": "Server error occurred"
+  },
+  "info": {
+    "loading": "Loading...",
+    "processing": "Processing...",
+    "uploading": "Uploading...",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "sending": "Sending...",
+    "connecting": "Connecting...",
+    "redirecting": "Redirecting...",
+    "please_wait": "Please wait...",
+    "almost_done": "Almost done..."
+  },
+  "warning": {
+    "unsaved_changes": "You have unsaved changes",
+    "confirm_delete": "Are you sure you want to delete this?",
+    "confirm_cancel": "Are you sure you want to cancel?",
+    "session_expiring": "Your session is about to expire",
+    "weak_password": "Password is too weak",
+    "file_too_large": "File size is too large",
+    "invalid_file_type": "Invalid file type",
+    "connection_lost": "Connection lost"
+  }
+}

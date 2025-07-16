@@ -76,7 +76,7 @@ const Bookings = () => {
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-soft-blue-200 border-t-soft-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600 font-medium">{tCommon('labels.loading')}</p>
+          <p className="text-slate-600 font-medium">{t('status.loading')}</p>
         </div>
       </div>
     );
@@ -177,7 +177,7 @@ const Bookings = () => {
                       {/* Price and Actions */}
                       <div className="flex items-center justify-between">
                         <div className="bg-gradient-to-r from-soft-blue-500 to-mint-500 bg-clip-text text-transparent">
-                          <span className="text-xl font-bold">{booking.price} {tCommon('currency.omr')}</span>
+                          <span className="text-xl font-bold">{booking.price} {tCommon('currency')}</span>
                         </div>
                         
                         {activeTab === 'upcoming' && (booking.status === 'confirmed' || booking.status === 'pending') ? (

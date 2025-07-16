@@ -2,6 +2,19 @@
 {
   "title": "My Bookings",
   "subtitle": "Manage your skill sessions",
+  "success": {
+    "title": "Booking Confirmed!",
+    "subtitle": "Your session has been successfully booked",
+    "booking_details": "Booking Details",
+    "whats_next": "What's Next?",
+    "confirmation_email": "You'll receive a confirmation email with session details",
+    "meeting_link": "Meeting link will be shared 15 minutes before the session",
+    "reschedule_policy": "You can reschedule or cancel up to 24 hours before",
+    "view_bookings": "View My Bookings",
+    "back_home": "Back to Home",
+    "loading": "Loading...",
+    "redirecting": "Redirecting to home..."
+  },
   "create": {
     "title": "Book a Session",
     "step_of": "Step {{current}} of {{total}}",

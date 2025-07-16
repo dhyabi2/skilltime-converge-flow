@@ -16,6 +16,7 @@ const SkillDetail = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { t } = useTranslation('skills');
+  const { t: tCommon } = useTranslation('common');
   const [isLiked, setIsLiked] = useState(false);
   
   const { data: skill, isLoading, error } = useSkillDetails(id);
@@ -66,8 +67,8 @@ const SkillDetail = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-slate-800 mb-4">{t('error.not_found')}</h1>
-          <Button onClick={handleBack}>{t('actions.back')}</Button>
+          <h1 className="text-2xl font-bold text-slate-800 mb-4">{t('detail.error_not_found')}</h1>
+          <Button onClick={handleBack}>{t('detail.back')}</Button>
         </div>
       </div>
     );
@@ -135,7 +136,7 @@ const SkillDetail = () => {
               
               <div className="flex items-center gap-1 text-slate-600">
                 <User className="w-4 h-4" />
-                <span className="text-sm">{skill.profiles?.name || 'Provider'}</span>
+                <span className="text-sm">{skill.profiles?.name || t('service_card.provider')}</span>
               </div>
             </div>
 

@@ -1,3 +1,4 @@
+
 {
   "discovery": {
     "title": "اكتشف مهارات مذهلة",
@@ -7,6 +8,21 @@
     "all_skills": "جميع المهارات",
     "search_results": "نتائج البحث عن",
     "featured_sections": "المهارات المميزة"
+  },
+  "detail": {
+    "error_not_found": "المهارة غير موجودة",
+    "back": "العودة",
+    "book_now": "احجز الآن",
+    "sign_in_to_book": "سجل الدخول للحجز",
+    "ready_to_book": "هل أنت مستعد للحجز؟",
+    "start_learning": "ابدأ رحلة التعلم",
+    "per_session": "لكل جلسة",
+    "session_date": "تاريخ الجلسة",
+    "session": "جلسة",
+    "what_next": "ما التالي؟",
+    "confirmation_email": "ستتلقى رسالة تأكيد بالبريد الإلكتروني مع تفاصيل الجلسة",
+    "meeting_link": "سيتم مشاركة رابط الاجتماع قبل 15 دقيقة من الجلسة",
+    "reschedule_cancel": "يمكنك إعادة الجدولة أو الإلغاء حتى 24 ساعة قبل الموعد"
   },
   "categories": {
     "all": "جميع الفئات",
@@ -94,6 +110,30 @@
     "provider_intro": "تعرف على مدربك",
     "use_cases": "ما يمكنك تحقيقه بهذه المهارة",
     "see_use_cases": "اكتشف ما يمكنك تحقيقه"
+  },
+  "expertise": {
+    "title": "الخبرات"
+  },
+  "use_cases": {
+    "title": "حالات الاستخدام"
+  },
+  "reviews": {
+    "reviews": "تقييمات"
+  },
+  "currency": {
+    "omr": "ر.ع"
+  },
+  "booking": {
+    "ready_to_book": "هل أنت مستعد للحجز؟",
+    "start_learning": "ابدأ رحلة التعلم",
+    "per_session": "لكل جلسة"
+  },
+  "actions": {
+    "book_now": "احجز الآن",
+    "sign_in_to_book": "سجل الدخول للحجز"
+  },
+  "badges": {
+    "top_rated": "الأعلى تقييمًا"
   },
   "filters": {
     "category": "تصفية حسب الفئة",

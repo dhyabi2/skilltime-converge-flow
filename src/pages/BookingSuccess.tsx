@@ -12,6 +12,7 @@ const BookingSuccess = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation('bookings');
+  const { t: tCommon } = useTranslation('common');
   const checkmarkRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -73,8 +74,8 @@ const BookingSuccess = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-white to-mint-50 p-4 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-slate-800 mb-4">Loading...</h1>
-          <p className="text-slate-600">Redirecting to home...</p>
+          <h1 className="text-2xl font-bold text-slate-800 mb-4">{t('success.loading')}</h1>
+          <p className="text-slate-600">{t('success.redirecting')}</p>
         </div>
       </div>
     );
@@ -105,9 +106,9 @@ const BookingSuccess = () => {
             <CheckCircle className="w-12 h-12 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-slate-800 mb-2">
-            Booking Confirmed!
+            {t('success.title')}
           </h1>
-          <p className="text-slate-600">Your session has been successfully booked</p>
+          <p className="text-slate-600">{t('success.subtitle')}</p>
         </div>
 
         {/* Booking Details */}
@@ -115,7 +116,7 @@ const BookingSuccess = () => {
           <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
             <CardContent className="p-6">
               <h2 className="font-bold text-lg text-slate-800 mb-4">
-                Booking Details
+                {t('success.booking_details')}
               </h2>
               
               <div className="space-y-4">
@@ -126,7 +127,7 @@ const BookingSuccess = () => {
                   </div>
                   <div>
                     <p className="font-medium text-slate-800">{skill.title}</p>
-                    <p className="text-sm text-slate-600">with {skill.profiles?.name || 'Provider'}</p>
+                    <p className="text-sm text-slate-600">{t('service_card.with')} {skill.profiles?.name || t('service_card.provider')}</p>
                   </div>
                 </div>
 
@@ -137,7 +138,7 @@ const BookingSuccess = () => {
                   </div>
                   <div>
                     <p className="font-medium text-slate-800">{formattedDate}</p>
-                    <p className="text-sm text-slate-600">Session date</p>
+                    <p className="text-sm text-slate-600">{t('summary.session_date')}</p>
                   </div>
                 </div>
 
@@ -148,7 +149,7 @@ const BookingSuccess = () => {
                   </div>
                   <div>
                     <p className="font-medium text-slate-800">{formattedTime}</p>
-                    <p className="text-sm text-slate-600">{booking.duration} session</p>
+                    <p className="text-sm text-slate-600">{booking.duration} {t('summary.session')}</p>
                   </div>
                 </div>
               </div>
@@ -158,19 +159,19 @@ const BookingSuccess = () => {
           {/* Next Steps */}
           <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl">
             <CardContent className="p-6">
-              <h3 className="font-bold text-lg text-slate-800 mb-3">What's Next?</h3>
+              <h3 className="font-bold text-lg text-slate-800 mb-3">{t('success.whats_next')}</h3>
               <ul className="space-y-2 text-sm text-slate-600">
                 <li className="flex items-start space-x-2">
                   <span className="w-1.5 h-1.5 bg-soft-blue-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>You'll receive a confirmation email with session details</span>
+                  <span>{t('success.confirmation_email')}</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <span className="w-1.5 h-1.5 bg-soft-blue-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>Meeting link will be shared 15 minutes before the session</span>
+                  <span>{t('success.meeting_link')}</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <span className="w-1.5 h-1.5 bg-soft-blue-500 rounded-full mt-2 flex-shrink-0"></span>
-                  <span>You can reschedule or cancel up to 24 hours before</span>
+                  <span>{t('success.reschedule_policy')}</span>
                 </li>
               </ul>
             </CardContent>
@@ -183,7 +184,7 @@ const BookingSuccess = () => {
               className="w-full h-12 bg-gradient-to-r from-soft-blue-600 to-mint-600 hover:from-soft-blue-700 hover:to-mint-700 text-white font-semibold rounded-xl shadow-lg border-0"
             >
               <Eye className="w-4 h-4 mr-2" />
-              View My Bookings
+              {t('success.view_bookings')}
             </Button>
             <Button
               onClick={handleBackHome}
@@ -191,7 +192,7 @@ const BookingSuccess = () => {
               className="w-full h-12 bg-white/50 hover:bg-white/80 border-slate-200 text-slate-700 font-semibold rounded-xl"
             >
               <Home className="w-4 h-4 mr-2" />
-              Back to Home
+              {t('success.back_home')}
             </Button>
           </div>
         </div>

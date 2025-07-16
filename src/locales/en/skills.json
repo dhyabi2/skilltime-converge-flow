@@ -1,3 +1,4 @@
+
 {
   "discovery": {
     "title": "Discover Amazing Skills",
@@ -7,6 +8,21 @@
     "all_skills": "All Skills",
     "search_results": "Search results for",
     "featured_sections": "Featured Skills"
+  },
+  "detail": {
+    "error_not_found": "Skill not found",
+    "back": "Back",
+    "book_now": "Book Now",
+    "sign_in_to_book": "Sign In to Book",
+    "ready_to_book": "Ready to book?",
+    "start_learning": "Start your learning journey",
+    "per_session": "per session",
+    "session_date": "Session date",
+    "session": "session",
+    "what_next": "What's Next?",
+    "confirmation_email": "You'll receive a confirmation email with session details",
+    "meeting_link": "Meeting link will be shared 15 minutes before the session",
+    "reschedule_cancel": "You can reschedule or cancel up to 24 hours before"
   },
   "categories": {
     "all": "All Categories",
@@ -94,6 +110,30 @@
     "provider_intro": "Meet your instructor",
     "use_cases": "What you can achieve with this skill",
     "see_use_cases": "See what you can achieve"
+  },
+  "expertise": {
+    "title": "Expertise"
+  },
+  "use_cases": {
+    "title": "Use Cases"
+  },
+  "reviews": {
+    "reviews": "reviews"
+  },
+  "currency": {
+    "omr": "OMR"
+  },
+  "booking": {
+    "ready_to_book": "Ready to book?",
+    "start_learning": "Start your learning journey",
+    "per_session": "per session"
+  },
+  "actions": {
+    "book_now": "Book Now",
+    "sign_in_to_book": "Sign In to Book"
+  },
+  "badges": {
+    "top_rated": "Top Rated"
   },
   "filters": {
     "category": "Filter by category",

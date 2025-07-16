@@ -53,7 +53,7 @@
     "rating": "التقييم",
     "skills_count": "{{count}} مهارة",
     "results_count": "{{count}} نتيجة",
-    "currency": "ر.ع"
+    "loading": "جاري التحميل..."
   },
   "time": {
     "minutes": "دقائق",
@@ -76,5 +76,6 @@
     "close": "إغلاق",
     "language_en": "EN",
     "language_ar": "ع"
-  }
+  },
+  "currency": "ر.ع"
 }

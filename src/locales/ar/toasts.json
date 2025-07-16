@@ -1,0 +1,56 @@
+
+{
+  "success": {
+    "booking_confirmed": "تم تأكيد الحجز بنجاح!",
+    "booking_cancelled": "تم إلغاء الحجز بنجاح",
+    "booking_rescheduled": "تم إعادة جدولة الحجز بنجاح",
+    "profile_updated": "تم تحديث الملف الشخصي بنجاح",
+    "skill_created": "تم إنشاء المهارة بنجاح",
+    "skill_updated": "تم تحديث المهارة بنجاح",
+    "skill_deleted": "تم حذف المهارة بنجاح",
+    "review_submitted": "تم إرسال التقييم بنجاح",
+    "settings_saved": "تم حفظ الإعدادات بنجاح",
+    "file_uploaded": "تم رفع الملف بنجاح",
+    "changes_saved": "تم حفظ التغييرات بنجاح"
+  },
+  "error": {
+    "booking_failed": "فشل في تأكيد الحجز",
+    "booking_cancel_failed": "فشل في إلغاء الحجز",
+    "booking_reschedule_failed": "فشل في إعادة جدولة الحجز",
+    "profile_update_failed": "فشل في تحديث الملف الشخصي",
+    "skill_create_failed": "فشل في إنشاء المهارة",
+    "skill_update_failed": "فشل في تحديث المهارة",
+    "skill_delete_failed": "فشل في حذف المهارة",
+    "review_submit_failed": "فشل في إرسال التقييم",
+    "settings_save_failed": "فشل في حفظ الإعدادات",
+    "file_upload_failed": "فشل في رفع الملف",
+    "network_error": "حدث خطأ في الشبكة",
+    "something_went_wrong": "حدث خطأ ما",
+    "authentication_required": "المصادقة مطلوبة",
+    "permission_denied": "تم رفض الإذن",
+    "invalid_input": "المدخلات غير صحيحة",
+    "server_error": "حدث خطأ في الخادم"
+  },
+  "info": {
+    "loading": "جاري التحميل...",
+    "processing": "جاري المعالجة...",
+    "uploading": "جاري الرفع...",
+    "saving": "جاري الحفظ...",
+    "deleting": "جاري الحذف...",
+    "sending": "جاري الإرسال...",
+    "connecting": "جاري الاتصال...",
+    "redirecting": "جاري التوجيه...",
+    "please_wait": "يرجى الانتظار...",
+    "almost_done": "كاد أن ينتهي..."
+  },
+  "warning": {
+    "unsaved_changes": "لديك تغييرات غير محفوظة",
+    "confirm_delete": "هل أنت متأكد من أنك تريد حذف هذا؟",
+    "confirm_cancel": "هل أنت متأكد من أنك تريد الإلغاء؟",
+    "session_expiring": "جلستك على وشك الانتهاء",
+    "weak_password": "كلمة المرور ضعيفة جداً",
+    "file_too_large": "حجم الملف كبير جداً",
+    "invalid_file_type": "نوع الملف غير صحيح",
+    "connection_lost": "فقد الاتصال"
+  }
+}
