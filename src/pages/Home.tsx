@@ -154,7 +154,7 @@ const Home = () => {
                 onError={(e) => {
                   // Fallback to text if image fails to load
                   e.currentTarget.style.display = 'none';
-                  const fallback = e.currentTarget.nextElementSibling;
+                  const fallback = e.currentTarget.nextElementSibling as HTMLElement;
                   if (fallback) fallback.style.display = 'block';
                 }}
               />
