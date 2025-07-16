@@ -90,7 +90,7 @@ const RescheduleModal = ({ isOpen, onClose, booking, onRescheduleSuccess }: Resc
                 </div>
                 <div>
                   <p className="font-semibold text-slate-800 text-sm">{t('reschedule.current_booking')}</p>
-                  <p className="text-slate-600 text-xs">Tap to reschedule</p>
+                  <p className="text-slate-600 text-xs">{t('actions.reschedule')}</p>
                 </div>
               </div>
               

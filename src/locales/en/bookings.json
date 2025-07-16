@@ -15,6 +15,16 @@
     "loading": "Loading...",
     "redirecting": "Redirecting to home..."
   },
+  "reschedule": {
+    "title": "Reschedule Booking",
+    "current_booking": "Current Booking",
+    "select_new_date": "Select New Date",
+    "select_time": "Select Time",
+    "confirm_reschedule": "Confirm Reschedule",
+    "rescheduling": "Rescheduling...",
+    "notice": "Changes will be confirmed with both parties and a new confirmation will be sent",
+    "success": "Booking rescheduled successfully"
+  },
   "create": {
     "title": "Book a Session",
     "step_of": "Step {{current}} of {{total}}",
