@@ -1,5 +1,7 @@
 
 {
+  "title": "My Bookings",
+  "subtitle": "Manage your skill sessions",
   "create": {
     "title": "Book a Session",
     "step_of": "Step {{current}} of {{total}}",
@@ -18,6 +20,40 @@
     "error_message": "Something went wrong. Please try again.",
     "redirecting": "Redirecting to confirmation page"
   },
+  "tabs": {
+    "upcoming": "Upcoming",
+    "completed": "Completed"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "loading": "Loading...",
+    "no_upcoming": "No Upcoming Bookings",
+    "no_completed": "No Completed Bookings",
+    "no_upcoming_desc": "You don't have any upcoming sessions. Browse skills to book your first session.",
+    "no_completed_desc": "You haven't completed any sessions yet. Your session history will appear here."
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "reschedule": "Reschedule",
+    "contact": "Contact",
+    "message": "Message",
+    "back": "Go Back"
+  },
+  "service_card": {
+    "default_title": "Skill Session",
+    "with": "with",
+    "by": "by",
+    "provider": "Provider",
+    "student": "Student",
+    "per_hour": "per hour",
+    "per_session": "per session",
+    "duration_minutes": "{{count}} min",
+    "reviews_count": "{{count}} reviews",
+    "rating": "{{rating}} rating"
+  },
   "date_picker": {
     "select_date": "Select Date",
     "choose_date": "Choose your preferred date"
@@ -26,13 +62,6 @@
     "available_times": "Available Times",
     "select_time": "Select your preferred time",
     "no_slots": "No available time slots for this date"
-  },
-  "service_card": {
-    "per_hour": "per hour",
-    "per_session": "per session",
-    "duration_minutes": "{{count}} min",
-    "reviews_count": "{{count}} reviews",
-    "rating": "{{rating}} rating"
   },
   "summary": {
     "service": "Service",
@@ -60,8 +89,5 @@
   },
   "error": {
     "skill_not_found": "Skill not found"
-  },
-  "actions": {
-    "back": "Go Back"
   }
 }

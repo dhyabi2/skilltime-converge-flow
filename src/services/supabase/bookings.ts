@@ -7,137 +7,101 @@ type BookingInsert = Database['public']['Tables']['bookings']['Insert'];
 type BookingUpdate = Database['public']['Tables']['bookings']['Update'];
 
 export const bookingsService = {
-  async getAll(userId: string) {
-    const { data, error } = await supabase
-      .from('bookings')
-      .select(`
-        *,
-        skills!skill_id(title, image_url),
-        client:profiles!client_id(name, avatar, phone),
-        provider:profiles!provider_id(name, avatar, phone)
-      `)
-      .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
-      .order('booking_date', { ascending: false });
-
-    if (error) throw error;
-    return data || [];
-  },
-
   async getById(id: string) {
+    console.log('Fetching booking with ID:', id);
+    
     const { data, error } = await supabase
       .from('bookings')
       .select(`
         *,
-        skills!skill_id(title, description, image_url),
-        client:profiles!client_id(name, avatar, email, phone),
-        provider:profiles!provider_id(name, avatar, email, phone)
+        skills!skill_id(title, image_url, description),
+        client:profiles!client_id(name, phone, avatar),
+        provider:profiles!provider_id(name, phone, avatar)
       `)
       .eq('id', id)
       .single();
 
-    if (error) throw error;
-    return data;
-  },
+    console.log('Booking query result:', { data, error });
 
-  async getBookingById(id: string) {
-    return this.getById(id);
+    if (error) {
+      console.error('Error fetching booking:', error);
+      throw error;
+    }
+    
+    return data;
   },
 
   async create(booking: BookingInsert) {
+    console.log('Creating booking:', booking);
+    
     const { data, error } = await supabase
       .from('bookings')
-      .insert(booking)
+      .insert({
+        ...booking,
+        status: 'pending'
+      })
       .select(`
         *,
-        skills!skill_id(title, image_url),
-        client:profiles!client_id(name, phone),
-        provider:profiles!provider_id(name, phone)
+        skills!skill_id(title, image_url, description),
+        client:profiles!client_id(name, phone, avatar),
+        provider:profiles!provider_id(name, phone, avatar)
       `)
       .single();
 
-    if (error) throw error;
+    console.log('Booking creation result:', { data, error });
+
+    if (error) {
+      console.error('Error creating booking:', error);
+      throw error;
+    }
+    
     return data;
   },
 
-  async update(id: string, updates: BookingUpdate) {
-    const { data, error } = await supabase
-      .from('bookings')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-
-    if (error) throw error;
-    return data;
-  },
-
-  async updateStatus(id: string, status: 'pending' | 'confirmed' | 'completed' | 'cancelled') {
-    const { data, error } = await supabase
-      .from('bookings')
-      .update({ status, updated_at: new Date().toISOString() })
-      .eq('id', id)
-      .select()
-      .single();
-
-    if (error) throw error;
-    return data;
-  },
-
-  async updateBookingStatus(id: string, status: 'pending' | 'confirmed' | 'completed' | 'cancelled') {
-    return this.updateStatus(id, status);
-  },
-
-  async rescheduleBooking(id: string, newDate: string, newTime: string) {
+  async updateStatus(id: string, status: string) {
+    console.log('Updating booking status:', { id, status });
+    
     const { data, error } = await supabase
       .from('bookings')
       .update({ 
-        booking_date: newDate, 
-        booking_time: newTime,
-        status: 'pending',
+        status,
         updated_at: new Date().toISOString()
       })
       .eq('id', id)
       .select()
       .single();
 
-    if (error) throw error;
+    console.log('Booking status update result:', { data, error });
+
+    if (error) {
+      console.error('Error updating booking status:', error);
+      throw error;
+    }
+    
     return data;
   },
 
-  async getUpcoming(userId: string) {
-    const today = new Date().toISOString().split('T')[0];
+  async getUserBookings(userId: string) {
+    console.log('Fetching user bookings for:', userId);
     
     const { data, error } = await supabase
       .from('bookings')
       .select(`
         *,
-        skills!skill_id(title, image_url),
-        client:profiles!client_id(name, avatar, phone),
-        provider:profiles!provider_id(name, avatar, phone)
+        skills!skill_id(title, image_url, description),
+        client:profiles!client_id(name, phone, avatar),
+        provider:profiles!provider_id(name, phone, avatar)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
-      .gte('booking_date', today)
-      .in('status', ['pending', 'confirmed'])
       .order('booking_date', { ascending: true });
 
-    if (error) throw error;
-    return data || [];
-  },
+    console.log('User bookings result:', { data, error });
 
-  async getCompleted(userId: string) {
-    const { data, error } = await supabase
-      .from('bookings')
-      .select(`
-        *,
-        skills!skill_id(title, image_url),
-        client:profiles!client_id(name, avatar, phone),
-        provider:profiles!provider_id(name, avatar, phone)
-      `)
-      .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
-      .eq('status', 'completed')
-      .order('booking_date', { ascending: false });
-
-    if (error) throw error;
+    if (error) {
+      console.error('Error fetching user bookings:', error);
+      throw error;
+    }
+    
     return data || [];
   }
 };

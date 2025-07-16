@@ -12,6 +12,7 @@ const Bookings = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
   const [rescheduleModal, setRescheduleModal] = useState({ isOpen: false, booking: null });
   const { t } = useTranslation('bookings');
+  const { t: tCommon } = useTranslation('common');
 
   const { data: upcomingBookings = [], isLoading: upcomingLoading } = useUpcomingBookings();
   const { data: completedBookings = [], isLoading: completedLoading } = useCompletedBookings();
@@ -75,7 +76,7 @@ const Bookings = () => {
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-soft-blue-200 border-t-soft-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600 font-medium">{t('status.loading')}</p>
+          <p className="text-slate-600 font-medium">{tCommon('labels.loading')}</p>
         </div>
       </div>
     );
@@ -140,14 +141,14 @@ const Bookings = () => {
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="font-bold text-lg text-slate-800 mb-1">
-                            {booking.skills?.title || 'Skill Session'}
+                            {booking.skills?.title || t('service_card.default_title')}
                           </h3>
                           <div className="flex items-center gap-2 text-sm text-slate-600">
                             <User className="w-4 h-4" />
                             <span>
                               {activeTab === 'upcoming' 
-                                ? `with ${booking.provider?.name || 'Provider'}`
-                                : `by ${booking.client?.name || 'Student'}`
+                                ? `${t('service_card.with')} ${booking.provider?.name || t('service_card.provider')}`
+                                : `${t('service_card.by')} ${booking.client?.name || t('service_card.student')}`
                               }
                             </span>
                           </div>
@@ -176,7 +177,7 @@ const Bookings = () => {
                       {/* Price and Actions */}
                       <div className="flex items-center justify-between">
                         <div className="bg-gradient-to-r from-soft-blue-500 to-mint-500 bg-clip-text text-transparent">
-                          <span className="text-xl font-bold">{booking.price} OMR</span>
+                          <span className="text-xl font-bold">{booking.price} {tCommon('currency.omr')}</span>
                         </div>
                         
                         {activeTab === 'upcoming' && (booking.status === 'confirmed' || booking.status === 'pending') ? (

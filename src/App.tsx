@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { useRTL } from './hooks/useRTL';
 import { InstallPrompt } from './components/pwa/InstallPrompt';
 import { OfflineIndicator } from './components/pwa/OfflineIndicator';
-import { UpdateNotification } from './components/pwa/UpdateNotification';
 import AppShell from './components/core/AppShell';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
@@ -69,7 +68,6 @@ const AppContent = () => {
       {/* PWA Components */}
       <InstallPrompt />
       <OfflineIndicator />
-      <UpdateNotification />
     </div>
   );
 };
