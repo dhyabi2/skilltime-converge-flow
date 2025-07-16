@@ -1,0 +1,22 @@
+
+{
+  "loading": "Loading...",
+  "save": "Save",
+  "close": "Close",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "delete": "Delete",
+  "edit": "Edit",
+  "add": "Add",
+  "remove": "Remove",
+  "submit": "Submit",
+  "continue": "Continue",
+  "back": "Back",
+  "next": "Next",
+  "finish": "Finish",
+  "language_en": "EN",
+  "language_ar": "AR",
+  "yes": "Yes",
+  "no": "No",
+  "ok": "OK"
+}

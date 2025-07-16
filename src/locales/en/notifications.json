@@ -1,0 +1,12 @@
+
+{
+  "title": "Notifications",
+  "empty": "No notifications",
+  "mark_all_read": "Mark all as read",
+  "view_all": "View all",
+  "new_booking": "New booking request",
+  "booking_confirmed": "Booking confirmed",
+  "booking_cancelled": "Booking cancelled",
+  "skill_approved": "Skill approved",
+  "review_received": "New review received"
+}

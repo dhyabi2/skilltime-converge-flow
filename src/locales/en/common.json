@@ -1,5 +1,14 @@
 
 {
+  "app": {
+    "name": "SkillTime",
+    "description": "Where skills meet and opportunities flow"
+  },
+  "auth": {
+    "sign_out": "Sign Out",
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up"
+  },
   "loading": "Loading...",
   "error": "Error",
   "success": "Success",
@@ -51,7 +60,8 @@
   "labels": {
     "required": "Required",
     "optional": "Optional",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "language": "Language"
   },
   "messages": {
     "no_data": "No data available",

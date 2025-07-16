@@ -1,0 +1,15 @@
+
+{
+  "install": {
+    "title": "Install App",
+    "description": "Get a better experience with our app",
+    "button": "Install App"
+  },
+  "offline": {
+    "indicator": "You are offline"
+  },
+  "update": {
+    "available": "Update available",
+    "install": "Install update"
+  }
+}

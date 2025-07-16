@@ -1,0 +1,16 @@
+
+{
+  "title": "Reviews",
+  "write_review": "Write a Review",
+  "rating": "Rating",
+  "comment": "Comment",
+  "submit_review": "Submit Review",
+  "no_reviews": "No reviews yet",
+  "helpful": "Helpful",
+  "not_helpful": "Not helpful",
+  "provider_response": "Provider Response",
+  "verified_booking": "Verified booking",
+  "anonymous": "Anonymous",
+  "edit_review": "Edit Review",
+  "delete_review": "Delete Review"
+}

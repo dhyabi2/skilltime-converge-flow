@@ -25,6 +25,14 @@ import authEn from '../locales/en/auth.json';
 import skillsEn from '../locales/en/skills.json';
 import bookingsEn from '../locales/en/bookings.json';
 import profileEn from '../locales/en/profile.json';
+import createSkillEn from '../locales/en/create-skill.json';
+import reviewsEn from '../locales/en/reviews.json';
+import notificationsEn from '../locales/en/notifications.json';
+import searchEn from '../locales/en/search.json';
+import pwaEn from '../locales/en/pwa.json';
+import errorsEn from '../locales/en/errors.json';
+import navigationEn from '../locales/en/navigation.json';
+import uiEn from '../locales/en/ui.json';
 import discoveryEn from '../locales/en/discovery.json';
 
 const resources = {
@@ -50,45 +58,15 @@ const resources = {
     skills: skillsEn,
     bookings: bookingsEn,
     profile: profileEn,
+    'create-skill': createSkillEn,
+    reviews: reviewsEn,
+    notifications: notificationsEn,
+    search: searchEn,
+    pwa: pwaEn,
+    errors: errorsEn,
+    navigation: navigationEn,
+    ui: uiEn,
     discovery: discoveryEn,
-    // Create English versions for the new namespaces
-    notifications: {
-      title: "Notifications",
-      empty: "No notifications",
-      mark_all_read: "Mark all as read",
-      view_all: "View all"
-    },
-    search: {
-      placeholder: "Search for skills, providers, or categories",
-      no_results: "No results found"
-    },
-    pwa: {
-      install: {
-        title: "Install App",
-        description: "Get a better experience with our app",
-        button: "Install App"
-      },
-      offline: {
-        indicator: "You are offline"
-      }
-    },
-    errors: {
-      general: {
-        something_went_wrong: "Something went wrong"
-      }
-    },
-    navigation: {
-      home: "Home",
-      browse: "Browse",
-      flowchart: "App Flowchart"
-    },
-    ui: {
-      loading: "Loading...",
-      save: "Save",
-      close: "Close",
-      language_en: "EN",
-      language_ar: "ع"
-    }
   },
 };
 
@@ -98,7 +76,7 @@ i18n
   .init({
     resources,
     lng: 'ar', // Default language is Arabic
-    fallbackLng: 'en', // Changed fallback to English
+    fallbackLng: 'en', // Fallback to English
     debug: false,
     
     // Configure namespaces
@@ -112,6 +90,17 @@ i18n
     // RTL configuration
     react: {
       useSuspense: false,
+    },
+    
+    // Ensure proper fallback behavior
+    fallbackNS: 'common',
+    returnEmptyString: false,
+    returnNull: false,
+    
+    // Language detection options
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      caches: ['localStorage'],
     },
   });
 
