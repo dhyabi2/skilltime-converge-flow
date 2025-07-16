@@ -1,32 +1,17 @@
 
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 export const useRTL = () => {
-  const { i18n } = useTranslation();
   const [direction, setDirection] = useState<'ltr' | 'rtl'>('rtl');
+  const [language, setLanguage] = useState('ar');
   
   useEffect(() => {
-    // Set initial direction based on current language
-    const dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+    // Set initial direction based on language
+    const dir = language === 'ar' ? 'rtl' : 'ltr';
     setDirection(dir);
     document.documentElement.setAttribute('dir', dir);
-    document.documentElement.setAttribute('lang', i18n.language);
-    
-    // Listen for language changes
-    const handleLanguageChange = (lng: string) => {
-      const newDir = lng === 'ar' ? 'rtl' : 'ltr';
-      setDirection(newDir);
-      document.documentElement.setAttribute('dir', newDir);
-      document.documentElement.setAttribute('lang', lng);
-    };
-
-    i18n.on('languageChanged', handleLanguageChange);
-    
-    return () => {
-      i18n.off('languageChanged', handleLanguageChange);
-    };
-  }, [i18n]);
+    document.documentElement.setAttribute('lang', language);
+  }, [language]);
 
   return {
     isRTL: direction === 'rtl',

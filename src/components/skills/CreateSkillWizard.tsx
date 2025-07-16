@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { ArrowRight, ArrowLeft, Check, Sparkles, Wand2, Target, Clock, MapPin, Tag, Star, Zap } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 import CreateSkillStep1 from './wizard/CreateSkillStep1';
 import CreateSkillStep2 from './wizard/CreateSkillStep2';
 import CreateSkillStep3 from './wizard/CreateSkillStep3';
@@ -19,60 +18,59 @@ interface CreateSkillWizardProps {
   isSubmitting: boolean;
 }
 
+const steps = [
+  { 
+    id: 1, 
+    title: "What's Your Superpower?", 
+    subtitle: "Tell us about your amazing skill",
+    icon: Sparkles,
+    color: "from-mint-500 to-soft-blue-500",
+    emoji: "✨"
+  },
+  { 
+    id: 2, 
+    title: "Show Me the Magic", 
+    subtitle: "Set your price and logistics",
+    icon: Wand2,
+    color: "from-soft-blue-500 to-purple-500",
+    emoji: "💰"
+  },
+  { 
+    id: 3, 
+    title: "Pick Your Category", 
+    subtitle: "Help people find you easily",
+    icon: Tag,
+    color: "from-purple-500 to-pink-500",
+    emoji: "🏷️"
+  },
+  { 
+    id: 4, 
+    title: "Your Expertise", 
+    subtitle: "What makes you special?",
+    icon: Target,
+    color: "from-pink-500 to-red-500",
+    emoji: "🎯"
+  },
+  { 
+    id: 5, 
+    title: "When Are You Free?", 
+    subtitle: "Set your availability",
+    icon: Clock,
+    color: "from-red-500 to-orange-500",
+    emoji: "⏰"
+  }
+];
+
 const CreateSkillWizard: React.FC<CreateSkillWizardProps> = ({
   initialData,
   categories,
   onSubmit,
   isSubmitting
 }) => {
-  const { t } = useTranslation('create-skill');
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState(initialData);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [showPreview, setShowPreview] = useState(false);
-
-  const steps = [
-    { 
-      id: 1, 
-      title: "What's Your Superpower?", 
-      subtitle: "Tell us about your amazing skill",
-      icon: Sparkles,
-      color: "from-mint-500 to-soft-blue-500",
-      emoji: "✨"
-    },
-    { 
-      id: 2, 
-      title: "Show Me the Magic", 
-      subtitle: "Set your price and logistics",
-      icon: Wand2,
-      color: "from-soft-blue-500 to-purple-500",
-      emoji: "💰"
-    },
-    { 
-      id: 3, 
-      title: "Pick Your Category", 
-      subtitle: "Help people find you easily",
-      icon: Tag,
-      color: "from-purple-500 to-pink-500",
-      emoji: "🏷️"
-    },
-    { 
-      id: 4, 
-      title: "Your Expertise", 
-      subtitle: "What makes you special?",
-      icon: Target,
-      color: "from-pink-500 to-red-500",
-      emoji: "🎯"
-    },
-    { 
-      id: 5, 
-      title: "When Are You Free?", 
-      subtitle: "Set your availability",
-      icon: Clock,
-      color: "from-red-500 to-orange-500",
-      emoji: "⏰"
-    }
-  ];
 
   const progress = (currentStep / steps.length) * 100;
 
@@ -212,8 +210,8 @@ const CreateSkillWizard: React.FC<CreateSkillWizardProps> = ({
           {/* Progress bar */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-slate-600">{t('wizard.progress_text')}</span>
-              <span className="font-medium text-slate-800">{t('wizard.percent_complete', { percent: Math.round(progress) })}</span>
+              <span className="text-slate-600">Your progress</span>
+              <span className="font-medium text-slate-800">{Math.round(progress)}% complete</span>
             </div>
             <Progress value={progress} className="h-3 bg-gray-200">
               <div 
@@ -242,7 +240,7 @@ const CreateSkillWizard: React.FC<CreateSkillWizardProps> = ({
         {/* Motivational message */}
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-full border border-white/50">
           <Star className="w-4 h-4 text-yellow-500" />
-          <span className="text-sm text-slate-700">{t('wizard.motivational_message')}</span>
+          <span className="text-sm text-slate-700">You're doing amazing! Keep going 🚀</span>
         </div>
       </div>
 

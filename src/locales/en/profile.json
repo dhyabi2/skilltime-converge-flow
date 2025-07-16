@@ -89,51 +89,5 @@
     "delete_account": "Delete Account",
     "save_changes": "Save Changes",
     "saving": "Saving..."
-  },
-  "stats_detail_modal": {
-    "skills_overview": {
-      "title": "Skills Overview",
-      "personal_skills": "Personal Skills",
-      "marketplace_skills": "Marketplace Skills",
-      "skill_categories": "Skill Categories",
-      "personal": "Personal",
-      "no_skills_yet": "No skills added yet"
-    },
-    "bookings_analytics": {
-      "title": "Bookings Analytics",
-      "completed": "Completed",
-      "pending": "Pending",
-      "total": "Total",
-      "monthly_trend": "Monthly Trend",
-      "months": {
-        "jan": "Jan",
-        "feb": "Feb",
-        "mar": "Mar",
-        "apr": "Apr",
-        "may": "May",
-        "jun": "Jun",
-        "jul": "Jul",
-        "aug": "Aug",
-        "sep": "Sep",
-        "oct": "Oct",
-        "nov": "Nov",
-        "dec": "Dec"
-      }
-    },
-    "reviews_analysis": {
-      "title": "Reviews Analysis",
-      "total_reviews": "Total Reviews",
-      "average_rating": "Average Rating",
-      "rating_distribution": "Rating Distribution"
-    },
-    "rating_breakdown": {
-      "title": "Rating Breakdown",
-      "based_on_reviews": "Based on {count} reviews",
-      "performance_areas": "Performance Areas",
-      "communication": "Communication",
-      "quality": "Quality",
-      "timeliness": "Timeliness"
-    },
-    "no_data": "No data available"
   }
 }

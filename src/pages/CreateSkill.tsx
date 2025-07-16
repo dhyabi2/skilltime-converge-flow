@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { useCreateMySkill } from '@/hooks/useMySkills';
 import { useCategories } from '@/hooks/useCategories';
 import { skillAvailabilityService } from '@/services/supabase/skillAvailability';
@@ -21,7 +20,6 @@ interface TimeSlot {
 const CreateSkill = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { t } = useTranslation('create-skill');
   const createSkill = useCreateMySkill();
   const { data: categories = [] } = useCategories();
   const [showConfetti, setShowConfetti] = useState(false);

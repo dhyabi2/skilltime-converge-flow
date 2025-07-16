@@ -27,7 +27,7 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
     switch (type) {
       case 'skills':
         return {
-          title: t('stats_detail_modal.skills_overview.title'),
+          title: 'Skills Overview',
           icon: BarChart3,
           content: (
             <div className="space-y-4">
@@ -37,7 +37,7 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
                     <div className="text-2xl font-bold text-blue-600">
                       {profile.skills?.length || 0}
                     </div>
-                    <p className="text-sm text-gray-600">{t('stats_detail_modal.skills_overview.personal_skills')}</p>
+                    <p className="text-sm text-gray-600">Personal Skills</p>
                   </CardContent>
                 </Card>
                 <Card>
@@ -45,19 +45,19 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
                     <div className="text-2xl font-bold text-green-600">
                       {data?.length || 0}
                     </div>
-                    <p className="text-sm text-gray-600">{t('stats_detail_modal.skills_overview.marketplace_skills')}</p>
+                    <p className="text-sm text-gray-600">Marketplace Skills</p>
                   </CardContent>
                 </Card>
               </div>
               
               <div className="space-y-3">
-                <h3 className="font-semibold">{t('stats_detail_modal.skills_overview.skill_categories')}</h3>
+                <h3 className="font-semibold">Skill Categories</h3>
                 {profile.skills?.map((skill: string, index: number) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <span>{skill}</span>
-                    <span className="text-sm text-gray-500">{t('stats_detail_modal.skills_overview.personal')}</span>
+                    <span className="text-sm text-gray-500">Personal</span>
                   </div>
-                )) || <p className="text-gray-500">{t('stats_detail_modal.skills_overview.no_skills_yet')}</p>}
+                )) || <p className="text-gray-500">No skills added yet</p>}
               </div>
             </div>
           )
@@ -65,7 +65,7 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
 
       case 'bookings':
         return {
-          title: t('stats_detail_modal.bookings_analytics.title'),
+          title: 'Bookings Analytics',
           icon: Calendar,
           content: (
             <div className="space-y-4">
@@ -73,29 +73,29 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
                 <Card>
                   <CardContent className="p-4 text-center">
                     <div className="text-xl font-bold text-green-600">12</div>
-                    <p className="text-xs text-gray-600">{t('stats_detail_modal.bookings_analytics.completed')}</p>
+                    <p className="text-xs text-gray-600">Completed</p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="p-4 text-center">
                     <div className="text-xl font-bold text-yellow-600">3</div>
-                    <p className="text-xs text-gray-600">{t('stats_detail_modal.bookings_analytics.pending')}</p>
+                    <p className="text-xs text-gray-600">Pending</p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="p-4 text-center">
                     <div className="text-xl font-bold text-blue-600">15</div>
-                    <p className="text-xs text-gray-600">{t('stats_detail_modal.bookings_analytics.total')}</p>
+                    <p className="text-xs text-gray-600">Total</p>
                   </CardContent>
                 </Card>
               </div>
               
               <div>
-                <h3 className="font-semibold mb-3">{t('stats_detail_modal.bookings_analytics.monthly_trend')}</h3>
+                <h3 className="font-semibold mb-3">Monthly Trend</h3>
                 <div className="space-y-2">
-                  {['jan', 'feb', 'mar', 'apr', 'may'].map((month, index) => (
+                  {['Jan', 'Feb', 'Mar', 'Apr', 'May'].map((month, index) => (
                     <div key={month} className="flex items-center gap-3">
-                      <span className="w-8 text-sm">{t(`stats_detail_modal.bookings_analytics.months.${month}`)}</span>
+                      <span className="w-8 text-sm">{month}</span>
                       <Progress value={(index + 1) * 20} className="flex-1" />
                       <span className="text-sm text-gray-600">{index + 1}</span>
                     </div>
@@ -108,7 +108,7 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
 
       case 'reviews':
         return {
-          title: t('stats_detail_modal.reviews_analysis.title'),
+          title: 'Reviews Analysis',
           icon: Award,
           content: (
             <div className="space-y-4">
@@ -116,19 +116,19 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
                 <Card>
                   <CardContent className="p-4 text-center">
                     <div className="text-2xl font-bold text-purple-600">8</div>
-                    <p className="text-sm text-gray-600">{t('stats_detail_modal.reviews_analysis.total_reviews')}</p>
+                    <p className="text-sm text-gray-600">Total Reviews</p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardContent className="p-4 text-center">
                     <div className="text-2xl font-bold text-green-600">4.8</div>
-                    <p className="text-sm text-gray-600">{t('stats_detail_modal.reviews_analysis.average_rating')}</p>
+                    <p className="text-sm text-gray-600">Average Rating</p>
                   </CardContent>
                 </Card>
               </div>
               
               <div>
-                <h3 className="font-semibold mb-3">{t('stats_detail_modal.reviews_analysis.rating_distribution')}</h3>
+                <h3 className="font-semibold mb-3">Rating Distribution</h3>
                 <div className="space-y-2">
                   {[5, 4, 3, 2, 1].map((rating) => (
                     <div key={rating} className="flex items-center gap-3">
@@ -147,7 +147,7 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
 
       case 'rating':
         return {
-          title: t('stats_detail_modal.rating_breakdown.title'),
+          title: 'Rating Breakdown',
           icon: TrendingUp,
           content: (
             <div className="space-y-4">
@@ -156,29 +156,29 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
                 <div className="flex justify-center mb-2">
                   {'⭐'.repeat(5)}
                 </div>
-                <p className="text-gray-600">{t('stats_detail_modal.rating_breakdown.based_on_reviews', { count: 8 })}</p>
+                <p className="text-gray-600">Based on 8 reviews</p>
               </div>
               
               <div className="space-y-3">
-                <h3 className="font-semibold">{t('stats_detail_modal.rating_breakdown.performance_areas')}</h3>
+                <h3 className="font-semibold">Performance Areas</h3>
                 <div className="space-y-3">
                   <div>
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm">{t('stats_detail_modal.rating_breakdown.communication')}</span>
+                      <span className="text-sm">Communication</span>
                       <span className="text-sm">4.9/5</span>
                     </div>
                     <Progress value={98} />
                   </div>
                   <div>
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm">{t('stats_detail_modal.rating_breakdown.quality')}</span>
+                      <span className="text-sm">Quality</span>
                       <span className="text-sm">4.8/5</span>
                     </div>
                     <Progress value={96} />
                   </div>
                   <div>
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm">{t('stats_detail_modal.rating_breakdown.timeliness')}</span>
+                      <span className="text-sm">Timeliness</span>
                       <span className="text-sm">4.7/5</span>
                     </div>
                     <Progress value={94} />
@@ -190,11 +190,7 @@ const StatsDetailModal: React.FC<StatsDetailModalProps> = ({
         };
 
       default:
-        return { 
-          title: t('stats_detail_modal.no_data'), 
-          icon: BarChart3, 
-          content: <div>{t('stats_detail_modal.no_data')}</div> 
-        };
+        return { title: 'Details', icon: BarChart3, content: <div>No data available</div> };
     }
   };
 

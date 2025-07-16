@@ -1,14 +1,5 @@
 
 {
-  "app": {
-    "name": "SkillTime",
-    "description": "حيث تلتقي المهارات وتتدفق الفرص"
-  },
-  "auth": {
-    "sign_out": "تسجيل الخروج",
-    "sign_in": "تسجيل الدخول",
-    "sign_up": "إنشاء حساب"
-  },
   "loading": "جاري التحميل...",
   "error": "خطأ",
   "success": "نجح",
@@ -60,8 +51,7 @@
   "labels": {
     "required": "مطلوب",
     "optional": "اختياري",
-    "loading": "جاري التحميل...",
-    "language": "اللغة"
+    "loading": "جاري التحميل..."
   },
   "messages": {
     "no_data": "لا توجد بيانات متاحة",
