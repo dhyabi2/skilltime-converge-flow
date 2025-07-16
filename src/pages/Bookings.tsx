@@ -76,7 +76,7 @@ const Bookings = () => {
       <div className="min-h-screen bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-soft-blue-200 border-t-soft-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600 font-medium">{t('status.loading')}</p>
+          <p className="text-slate-600 font-medium">{tCommon('labels.loading')}</p>
         </div>
       </div>
     );

@@ -1,57 +1,122 @@
-
 {
-  "title": "Skills",
-  "subtitle": "Discover and book amazing skills",
+  "discovery": {
+    "title": "Discover Amazing Skills",
+    "subtitle": "Connect with talented professionals and learn new skills",
+    "browse_categories": "Browse Categories",
+    "top_rated": "Top Rated",
+    "all_skills": "All Skills",
+    "search_results": "Search results for",
+    "featured_sections": "Featured Skills"
+  },
   "categories": {
     "all": "All Categories",
-    "popular": "Popular"
+    "design": "Design",
+    "development": "Development",
+    "marketing": "Marketing",
+    "writing": "Writing",
+    "music": "Music",
+    "photography": "Photography",
+    "business": "Business",
+    "education": "Education",
+    "fitness": "Fitness",
+    "technology": "Technology",
+    "arts": "Arts",
+    "lifestyle": "Lifestyle"
+  },
+  "subcategories": {
+    "ui_ux": "UI/UX Design",
+    "graphic_design": "Graphic Design",
+    "logo_design": "Logo Design",
+    "web_design": "Web Design",
+    "frontend": "Frontend Development",
+    "backend": "Backend Development",
+    "mobile_apps": "Mobile Apps",
+    "fullstack": "Full Stack",
+    "digital_marketing": "Digital Marketing",
+    "social_media": "Social Media",
+    "seo": "SEO",
+    "content_marketing": "Content Marketing",
+    "copywriting": "Copywriting",
+    "content_writing": "Content Writing",
+    "technical_writing": "Technical Writing",
+    "creative_writing": "Creative Writing",
+    "music_production": "Music Production",
+    "mixing_mastering": "Mixing & Mastering",
+    "sound_design": "Sound Design",
+    "music_theory": "Music Theory",
+    "portrait": "Portrait Photography",
+    "product_photography": "Product Photography",
+    "event_photography": "Event Photography",
+    "photo_editing": "Photo Editing",
+    "consulting": "Business Consulting",
+    "finance": "Finance & Accounting",
+    "project_management": "Project Management",
+    "strategy": "Business Strategy",
+    "tutoring": "Personal Tutoring",
+    "course_creation": "Course Creation",
+    "language_teaching": "Language Teaching",
+    "skill_training": "Skill Training",
+    "personal_training": "Personal Training",
+    "yoga": "Yoga & Meditation",
+    "nutrition": "Nutrition Coaching",
+    "sports_coaching": "Sports Coaching",
+    "ai_ml": "AI & Machine Learning",
+    "cybersecurity": "Cybersecurity",
+    "cloud_computing": "Cloud Computing",
+    "data_science": "Data Science",
+    "painting": "Painting",
+    "digital_art": "Digital Art",
+    "sculpture": "Sculpture",
+    "illustration": "Illustration",
+    "cooking": "Cooking & Baking",
+    "gardening": "Gardening",
+    "home_organization": "Home Organization",
+    "fashion": "Fashion & Style"
+  },
+  "labels": {
+    "top_rated": "Top Rated",
+    "by": "by",
+    "skills": "skills",
+    "subcategories": "Subcategories"
+  },
+  "sections": {
+    "top_rated": "Top Rated",
+    "first_published": "First Skill Published",
+    "top_week": "Top Rating This Week",
+    "most_exchanges": "Most Exchanges in 7 Days"
+  },
+  "details": {
+    "about": "About this skill",
+    "expertise": "Expertise includes:",
+    "available_slots": "Available Time Slots",
+    "select_time": "Select a time",
+    "per_hour": "per hour",
+    "provider_intro": "Meet your instructor",
+    "use_cases": "What you can achieve with this skill",
+    "see_use_cases": "See what you can achieve"
   },
   "filters": {
-    "price_range": "Price Range",
-    "rating": "Rating",
-    "availability": "Availability"
+    "category": "Filter by category",
+    "subcategory": "Filter by subcategory",
+    "show_subcategories": "Show subcategories",
+    "hide_subcategories": "Hide subcategories"
   },
-  "sort": {
-    "newest": "Newest",
-    "oldest": "Oldest",
-    "price_low": "Price: Low to High",
-    "price_high": "Price: High to Low",
-    "rating": "Highest Rated"
+  "status": {
+    "loading": "Searching for skills...",
+    "not_found": "No skills found",
+    "not_found_desc": "Try adjusting your search terms or category filters",
+    "skills_found": "skills found",
+    "skill_not_found": "Skill not found"
   },
-  "card": {
-    "per_hour": "per hour",
-    "rating": "rating",
-    "reviews": "reviews",
-    "book_now": "Book Now"
-  },
-  "detail": {
-    "expertise": {
-      "title": "Expertise"
-    },
-    "use_cases": {
-      "title": "Use Cases"
-    },
-    "booking": {
-      "ready_to_book": "Ready to book?",
-      "start_learning": "Start your learning journey",
-      "per_session": "per session"
-    }
-  },
-  "badges": {
-    "top_rated": "Top Rated"
-  },
-  "reviews": {
-    "reviews": "reviews"
-  },
-  "actions": {
-    "book_now": "Book Now",
-    "sign_in_to_book": "Sign In to Book",
-    "back": "Back"
-  },
-  "error": {
-    "not_found": "Skill not found"
-  },
-  "currency": {
-    "omr": "OMR"
+  "filter_modal": {
+    "title": "Filters",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "max_price": "Max price",
+    "placeholder_category": "Select category",
+    "placeholder_subcategory": "Select subcategory",
+    "no_limit": "No limit",
+    "apply": "Apply",
+    "cancel": "Cancel"
   }
 }

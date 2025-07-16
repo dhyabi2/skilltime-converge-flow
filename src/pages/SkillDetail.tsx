@@ -135,7 +135,7 @@ const SkillDetail = () => {
               
               <div className="flex items-center gap-1 text-slate-600">
                 <User className="w-4 h-4" />
-                <span className="text-sm">{skill.profiles?.name || t('service_card.provider')}</span>
+                <span className="text-sm">{skill.profiles?.name || 'Provider'}</span>
               </div>
             </div>
 
@@ -165,7 +165,7 @@ const SkillDetail = () => {
         {skill.expertise && skill.expertise.length > 0 && (
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl mb-6">
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-3">{t('detail.expertise.title')}</h3>
+              <h3 className="text-lg font-semibold mb-3">{t('expertise.title')}</h3>
               <div className="flex flex-wrap gap-2">
                 {skill.expertise.map((item, index) => (
                   <Badge key={index} variant="secondary" className="bg-soft-blue-100 text-soft-blue-700">
@@ -181,7 +181,7 @@ const SkillDetail = () => {
         {skill.use_cases && skill.use_cases.length > 0 && (
           <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl mb-6">
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold mb-3">{t('detail.use_cases.title')}</h3>
+              <h3 className="text-lg font-semibold mb-3">{t('use_cases.title')}</h3>
               <div className="flex flex-wrap gap-2">
                 {skill.use_cases.map((useCase, index) => (
                   <Badge key={index} variant="outline" className="border-mint-300 text-mint-700">
@@ -199,12 +199,12 @@ const SkillDetail = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="text-lg font-semibold text-slate-800">{t('detail.booking.ready_to_book')}</p>
-                  <p className="text-sm text-slate-600">{t('detail.booking.start_learning')}</p>
+                  <p className="text-lg font-semibold text-slate-800">{t('booking.ready_to_book')}</p>
+                  <p className="text-sm text-slate-600">{t('booking.start_learning')}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-bold text-slate-800">{skill.price} {t('currency.omr')}</p>
-                  <p className="text-xs text-slate-600">{t('detail.booking.per_session')}</p>
+                  <p className="text-xs text-slate-600">{t('booking.per_session')}</p>
                 </div>
               </div>
               

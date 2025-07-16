@@ -1,93 +1,80 @@
 
 {
-  "loading": "جاري التحميل...",
-  "error": "خطأ",
-  "success": "نجح",
-  "cancel": "إلغاء",
-  "save": "حفظ",
-  "delete": "حذف",
-  "edit": "تحرير",
-  "create": "إنشاء",
-  "update": "تحديث",
-  "confirm": "تأكيد",
-  "back": "رجوع",
-  "next": "التالي",
-  "previous": "السابق",
-  "close": "إغلاق",
-  "open": "فتح",
-  "yes": "نعم",
-  "no": "لا",
-  "ok": "موافق",
-  "search": "بحث",
-  "filter": "تصفية",
-  "sort": "ترتيب",
-  "view": "عرض",
-  "share": "مشاركة",
-  "copy": "نسخ",
-  "copied": "تم النسخ!",
-  "email": "بريد إلكتروني",
-  "phone": "هاتف",
-  "address": "عنوان",
-  "name": "الاسم",
-  "password": "كلمة المرور",
-  "username": "اسم المستخدم",
-  "currency": {
-    "omr": "ر.ع",
-    "usd": "دولار أمريكي",
-    "eur": "يورو"
+  "app": {
+    "name": "وقت المهارات",
+    "welcome_title": "مرحباً بك في وقت المهارات!",
+    "welcome_message": "رحلتك لتعلم مهارات جديدة تبدأ من هنا. اكتشف الخبراء، استكشف الفئات، وأطلق إمكاناتك.",
+    "lets_start": "لنبدأ!"
   },
-  "time": {
-    "morning": "الصباح",
-    "afternoon": "بعد الظهر",
-    "evening": "المساء",
-    "night": "الليل",
-    "today": "اليوم",
-    "tomorrow": "غداً",
-    "yesterday": "أمس",
-    "week": "أسبوع",
-    "month": "شهر",
-    "year": "سنة"
+  "navigation": {
+    "home": "الرئيسية",
+    "browse": "تصفح",
+    "bookings": "الحجوزات",
+    "profile": "الملف الشخصي",
+    "notifications": "الإشعارات",
+    "my_skills": "مهاراتي",
+    "create_skill": "إضافة مهارة",
+    "search": "بحث",
+    "flowchart": "مخطط التطبيق"
+  },
+  "actions": {
+    "search": "بحث",
+    "filter": "تصفية",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "view": "عرض",
+    "close": "إغلاق",
+    "view_all": "عرض الكل",
+    "try_again": "حاول مرة أخرى"
+  },
+  "status": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "success": "نجح",
+    "no_results": "لا توجد نتائج"
+  },
+  "auth": {
+    "sign_in": "تسجيل الدخول",
+    "sign_out": "تسجيل الخروج",
+    "sign_up": "إنشاء حساب"
   },
   "labels": {
-    "required": "مطلوب",
-    "optional": "اختياري",
-    "loading": "جاري التحميل..."
+    "search_placeholder": "ابحث عن المهارات أو المقدمين أو الفئات...",
+    "language": "اللغة",
+    "member_since": "عضو منذ",
+    "edit_profile": "تعديل الملف الشخصي",
+    "by": "من قبل",
+    "per_session": "لكل جلسة",
+    "per_hour": "في الساعة",
+    "available": "متاح",
+    "unavailable": "غير متاح",
+    "rating": "التقييم",
+    "skills_count": "{{count}} مهارة",
+    "results_count": "{{count}} نتيجة",
+    "currency": "ر.ع"
   },
-  "messages": {
-    "no_data": "لا توجد بيانات متاحة",
-    "network_error": "خطأ في الشبكة. يرجى المحاولة مرة أخرى.",
-    "something_wrong": "حدث خطأ ما",
-    "try_again": "يرجى المحاولة مرة أخرى"
+  "time": {
+    "minutes": "دقائق",
+    "hours": "ساعات",
+    "days": "أيام",
+    "weeks": "أسابيع",
+    "months": "أشهر"
   },
-  "toasts": {
-    "success": {
-      "saved": "تم الحفظ بنجاح!",
-      "updated": "تم التحديث بنجاح!",
-      "deleted": "تم الحذف بنجاح!",
-      "created": "تم الإنشاء بنجاح!",
-      "sent": "تم الإرسال بنجاح!",
-      "copied": "تم النسخ إلى الحافظة!"
-    },
-    "error": {
-      "save_failed": "فشل في الحفظ",
-      "update_failed": "فشل في التحديث",
-      "delete_failed": "فشل في الحذف",
-      "create_failed": "فشل في الإنشاء",
-      "send_failed": "فشل في الإرسال",
-      "network_error": "حدث خطأ في الشبكة",
-      "something_wrong": "حدث خطأ ما",
-      "try_again": "يرجى المحاولة مرة أخرى لاحقاً"
-    },
-    "info": {
-      "loading": "جاري التحميل...",
-      "processing": "جاري المعالجة...",
-      "uploading": "جاري الرفع...",
-      "downloading": "جاري التحميل..."
-    },
-    "warning": {
-      "unsaved_changes": "لديك تغييرات غير محفوظة",
-      "confirm_delete": "هل أنت متأكد من أنك تريد الحذف؟",
-      "confirm_action": "هل أنت متأكد من أنك تريد المتابعة؟"
-    }
+  "buttons": {
+    "search": "بحث",
+    "filter": "تصفية",
+    "book_now": "احجز الآن",
+    "confirm": "تأكيد",
+    "reschedule": "إعادة جدولة",
+    "cancel_booking": "إلغاء الحجز"
+  },
+  "ui": {
+    "loading": "جاري التحميل...",
+    "save": "حفظ",
+    "close": "إغلاق",
+    "language_en": "EN",
+    "language_ar": "ع"
   }
 }

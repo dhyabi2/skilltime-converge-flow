@@ -1,93 +1,80 @@
 
 {
-  "loading": "Loading...",
-  "error": "Error",
-  "success": "Success",
-  "cancel": "Cancel",
-  "save": "Save",
-  "delete": "Delete",
-  "edit": "Edit",
-  "create": "Create",
-  "update": "Update",
-  "confirm": "Confirm",
-  "back": "Back",
-  "next": "Next",
-  "previous": "Previous",
-  "close": "Close",
-  "open": "Open",
-  "yes": "Yes",
-  "no": "No",
-  "ok": "OK",
-  "search": "Search",
-  "filter": "Filter",
-  "sort": "Sort",
-  "view": "View",
-  "share": "Share",
-  "copy": "Copy",
-  "copied": "Copied!",
-  "email": "Email",
-  "phone": "Phone",
-  "address": "Address",
-  "name": "Name",
-  "password": "Password",
-  "username": "Username",
-  "currency": {
-    "omr": "OMR",
-    "usd": "USD",
-    "eur": "EUR"
+  "app": {
+    "name": "SkillTime",
+    "welcome_title": "Welcome to SkillTime!",
+    "welcome_message": "Your journey to new skills starts here. Discover experts, explore categories, and unlock your potential.",
+    "lets_start": "Let's Start!"
   },
-  "time": {
-    "morning": "Morning",
-    "afternoon": "Afternoon",
-    "evening": "Evening",
-    "night": "Night",
-    "today": "Today",
-    "tomorrow": "Tomorrow",
-    "yesterday": "Yesterday",
-    "week": "Week",
-    "month": "Month",
-    "year": "Year"
+  "navigation": {
+    "home": "Home",
+    "browse": "Browse",
+    "bookings": "Bookings",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "my_skills": "My Skills",
+    "create_skill": "Add Skill",
+    "search": "Search",
+    "flowchart": "App Flowchart"
+  },
+  "actions": {
+    "search": "Search",
+    "filter": "Filter",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "close": "Close",
+    "view_all": "View All",
+    "try_again": "Try Again"
+  },
+  "status": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "no_results": "No results found"
+  },
+  "auth": {
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "sign_up": "Sign Up"
   },
   "labels": {
-    "required": "Required",
-    "optional": "Optional",
-    "loading": "Loading..."
+    "search_placeholder": "Search for skills, providers, or categories...",
+    "language": "Language",
+    "member_since": "Member since",
+    "edit_profile": "Edit Profile",
+    "by": "by",
+    "per_session": "per session",
+    "per_hour": "per hour",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "rating": "Rating",
+    "skills_count": "{{count}} skills",
+    "results_count": "{{count}} results",
+    "currency": "OMR"
   },
-  "messages": {
-    "no_data": "No data available",
-    "network_error": "Network error. Please try again.",
-    "something_wrong": "Something went wrong",
-    "try_again": "Please try again"
+  "time": {
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "months": "months"
   },
-  "toasts": {
-    "success": {
-      "saved": "Successfully saved!",
-      "updated": "Successfully updated!",
-      "deleted": "Successfully deleted!",
-      "created": "Successfully created!",
-      "sent": "Successfully sent!",
-      "copied": "Copied to clipboard!"
-    },
-    "error": {
-      "save_failed": "Failed to save",
-      "update_failed": "Failed to update",
-      "delete_failed": "Failed to delete",
-      "create_failed": "Failed to create",
-      "send_failed": "Failed to send",
-      "network_error": "Network error occurred",
-      "something_wrong": "Something went wrong",
-      "try_again": "Please try again later"
-    },
-    "info": {
-      "loading": "Loading...",
-      "processing": "Processing...",
-      "uploading": "Uploading...",
-      "downloading": "Downloading..."
-    },
-    "warning": {
-      "unsaved_changes": "You have unsaved changes",
-      "confirm_delete": "Are you sure you want to delete?",
-      "confirm_action": "Are you sure you want to continue?"
-    }
+  "buttons": {
+    "search": "Search",
+    "filter": "Filter",
+    "book_now": "Book Now",
+    "confirm": "Confirm",
+    "reschedule": "Reschedule",
+    "cancel_booking": "Cancel Booking"
+  },
+  "ui": {
+    "loading": "Loading...",
+    "save": "Save",
+    "close": "Close",
+    "language_en": "EN",
+    "language_ar": "ع"
   }
 }

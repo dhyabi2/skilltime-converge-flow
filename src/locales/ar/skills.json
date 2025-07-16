@@ -1,57 +1,122 @@
-
 {
-  "title": "المهارات",
-  "subtitle": "اكتشف واحجز مهارات مذهلة",
+  "discovery": {
+    "title": "اكتشف مهارات مذهلة",
+    "subtitle": "تواصل مع المحترفين الموهوبين وتعلم مهارات جديدة",
+    "browse_categories": "تصفح الفئات",
+    "top_rated": "الأعلى تقييمًا",
+    "all_skills": "جميع المهارات",
+    "search_results": "نتائج البحث عن",
+    "featured_sections": "المهارات المميزة"
+  },
   "categories": {
     "all": "جميع الفئات",
-    "popular": "الشائعة"
+    "design": "التصميم",
+    "development": "البرمجة",
+    "marketing": "التسويق",
+    "writing": "الكتابة",
+    "music": "الموسيقى",
+    "photography": "التصوير",
+    "business": "الأعمال",
+    "education": "التعليم",
+    "fitness": "اللياقة البدنية",
+    "technology": "التكنولوجيا",
+    "arts": "الفنون",
+    "lifestyle": "نمط الحياة"
+  },
+  "subcategories": {
+    "ui_ux": "تصميم واجهات المستخدم",
+    "graphic_design": "التصميم الجرافيكي",
+    "logo_design": "تصميم الشعارات",
+    "web_design": "تصميم المواقع",
+    "frontend": "البرمجة الأمامية",
+    "backend": "البرمجة الخلفية",
+    "mobile_apps": "تطبيقات الهاتف",
+    "fullstack": "البرمجة الشاملة",
+    "digital_marketing": "التسويق الرقمي",
+    "social_media": "وسائل التواصل الاجتماعي",
+    "seo": "تحسين محركات البحث",
+    "content_marketing": "تسويق المحتوى",
+    "copywriting": "كتابة النصوص الإعلانية",
+    "content_writing": "كتابة المحتوى",
+    "technical_writing": "الكتابة التقنية",
+    "creative_writing": "الكتابة الإبداعية",
+    "music_production": "إنتاج الموسيقى",
+    "mixing_mastering": "المزج والإتقان",
+    "sound_design": "تصميم الصوت",
+    "music_theory": "نظرية الموسيقى",
+    "portrait": "التصوير الشخصي",
+    "product_photography": "تصوير المنتجات",
+    "event_photography": "تصوير الفعاليات",
+    "photo_editing": "تحرير الصور",
+    "consulting": "الاستشارات التجارية",
+    "finance": "المالية والمحاسبة",
+    "project_management": "إدارة المشاريع",
+    "strategy": "الاستراتيجية التجارية",
+    "tutoring": "التدريس الخاص",
+    "course_creation": "إنشاء الدورات",
+    "language_teaching": "تعليم اللغات",
+    "skill_training": "تدريب المهارات",
+    "personal_training": "التدريب الشخصي",
+    "yoga": "اليوغا والتأمل",
+    "nutrition": "التدريب الغذائي",
+    "sports_coaching": "تدريب الرياضة",
+    "ai_ml": "الذكاء الاصطناعي وتعلم الآلة",
+    "cybersecurity": "الأمن السيبراني",
+    "cloud_computing": "الحوسبة السحابية",
+    "data_science": "علوم البيانات",
+    "painting": "الرسم",
+    "digital_art": "الفن الرقمي",
+    "sculpture": "النحت",
+    "illustration": "التوضيح",
+    "cooking": "الطبخ والخبز",
+    "gardening": "البستنة",
+    "home_organization": "تنظيم المنزل",
+    "fashion": "الموضة والأناقة"
+  },
+  "labels": {
+    "top_rated": "الأعلى تقييمًا",
+    "by": "من قبل",
+    "skills": "مهارة",
+    "subcategories": "الفئات الفرعية"
+  },
+  "sections": {
+    "top_rated": "الأعلى تقييمًا",
+    "first_published": "أول مهارة منشورة",
+    "top_week": "الأعلى تقييمًا هذا الأسبوع",
+    "most_exchanges": "الأكثر تبادلاً في 7 أيام"
+  },
+  "details": {
+    "about": "حول هذه المهارة",
+    "expertise": "الخبرات تشمل:",
+    "available_slots": "الأوقات المتاحة",
+    "select_time": "اختر وقتًا",
+    "per_hour": "في الساعة",
+    "provider_intro": "تعرف على مدربك",
+    "use_cases": "ما يمكنك تحقيقه بهذه المهارة",
+    "see_use_cases": "اكتشف ما يمكنك تحقيقه"
   },
   "filters": {
-    "price_range": "نطاق السعر",
-    "rating": "التقييم",
-    "availability": "التوفر"
+    "category": "تصفية حسب الفئة",
+    "subcategory": "تصفية حسب الفئة الفرعية",
+    "show_subcategories": "إظهار الفئات الفرعية",
+    "hide_subcategories": "إخفاء الفئات الفرعية"
   },
-  "sort": {
-    "newest": "الأحدث",
-    "oldest": "الأقدم",
-    "price_low": "السعر: من الأقل للأعلى",
-    "price_high": "السعر: من الأعلى للأقل",
-    "rating": "الأعلى تقييماً"
+  "status": {
+    "loading": "جاري البحث عن المهارات...",
+    "not_found": "لم توجد مهارات",
+    "not_found_desc": "حاول تعديل مصطلحات البحث أو مرشحات الفئة",
+    "skills_found": "مهارة موجودة",
+    "skill_not_found": "المهارة غير موجودة"
   },
-  "card": {
-    "per_hour": "في الساعة",
-    "rating": "تقييم",
-    "reviews": "تقييمات",
-    "book_now": "احجز الآن"
-  },
-  "detail": {
-    "expertise": {
-      "title": "الخبرة"
-    },
-    "use_cases": {
-      "title": "حالات الاستخدام"
-    },
-    "booking": {
-      "ready_to_book": "جاهز للحجز؟",
-      "start_learning": "ابدأ رحلة التعلم",
-      "per_session": "لكل جلسة"
-    }
-  },
-  "badges": {
-    "top_rated": "الأعلى تقييماً"
-  },
-  "reviews": {
-    "reviews": "تقييمات"
-  },
-  "actions": {
-    "book_now": "احجز الآن",
-    "sign_in_to_book": "سجل دخولك للحجز",
-    "back": "العودة"
-  },
-  "error": {
-    "not_found": "المهارة غير موجودة"
-  },
-  "currency": {
-    "omr": "ر.ع"
+  "filter_modal": {
+    "title": "المرشحات",
+    "category": "الفئة",
+    "subcategory": "الفئة الفرعية",
+    "max_price": "أقصى سعر",
+    "placeholder_category": "اختر فئة",
+    "placeholder_subcategory": "اختر فئة فرعية",
+    "no_limit": "بدون حد",
+    "apply": "تطبيق",
+    "cancel": "إلغاء"
   }
 }

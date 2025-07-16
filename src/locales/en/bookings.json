@@ -22,19 +22,6 @@
     "auth_required": "Authentication Required",
     "auth_message": "Please sign in to book this service"
   },
-  "success": {
-    "title": "Booking Confirmed!",
-    "subtitle": "Your session has been successfully booked",
-    "booking_details": "Booking Details",
-    "whats_next": "What's Next?",
-    "next_steps": {
-      "email": "You'll receive a confirmation email with session details",
-      "meeting_link": "Meeting link will be shared 15 minutes before the session",
-      "reschedule": "You can reschedule or cancel up to 24 hours before"
-    },
-    "view_bookings": "View My Bookings",
-    "back_home": "Back to Home"
-  },
   "tabs": {
     "upcoming": "Upcoming",
     "completed": "Completed"
