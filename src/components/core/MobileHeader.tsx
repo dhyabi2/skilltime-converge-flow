@@ -61,11 +61,28 @@ const MobileHeader = () => {
             )}
           </div>
           
-          {/* Center - App Name */}
-          <div className="flex-1 text-center">
-            <h1 className="text-lg font-bold text-slate-800 truncate">
-              {isProfilePage ? t('navigation.profile') : t('app.name')}
-            </h1>
+          {/* Center - Brand Logo */}
+          <div className="flex-1 flex justify-center">
+            {isProfilePage ? (
+              <h1 className="text-lg font-bold text-slate-800 truncate">
+                {t('navigation.profile')}
+              </h1>
+            ) : (
+              <img 
+                src="/brandlogo.png" 
+                alt="Brand Logo" 
+                className="h-8 w-auto max-w-[120px] object-contain"
+                onError={(e) => {
+                  // Fallback to text if image fails to load
+                  e.currentTarget.style.display = 'none';
+                  const fallback = e.currentTarget.nextElementSibling;
+                  if (fallback) fallback.style.display = 'block';
+                }}
+              />
+              <h1 className="text-lg font-bold text-slate-800 truncate hidden">
+                {t('app.name')}
+              </h1>
+            )}
           </div>
           
           {/* Right Side */}

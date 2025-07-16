@@ -143,12 +143,25 @@ const Home = () => {
       <SearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
       
       <div ref={containerRef} className="w-full px-3 sm:px-4 lg:px-6 space-y-4 sm:space-y-6 bg-gradient-to-br from-soft-blue-50 via-mint-50 to-soft-blue-100">
-        {/* Welcome Section */}
+        {/* Welcome Section with Brand Logo */}
         <div className="text-center py-4 sm:py-6">
           <div className="bg-gradient-to-r from-white/40 to-mint-100/50 backdrop-blur-sm rounded-2xl px-4 sm:px-6 py-4 sm:py-6 border border-white/30 shadow-sm max-w-md mx-auto">
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 font-cairo">
-              {t('discovery.title')}
-            </h2>
+            <div className="flex justify-center mb-3">
+              <img 
+                src="/brandlogo.png" 
+                alt="Brand Logo" 
+                className="h-12 w-auto max-w-[180px] object-contain"
+                onError={(e) => {
+                  // Fallback to text if image fails to load
+                  e.currentTarget.style.display = 'none';
+                  const fallback = e.currentTarget.nextElementSibling;
+                  if (fallback) fallback.style.display = 'block';
+                }}
+              />
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2 font-cairo hidden">
+                {t('discovery.title')}
+              </h2>
+            </div>
             <p className="text-sm sm:text-base text-slate-700 font-cairo">
               {t('discovery.subtitle')}
             </p>
