@@ -124,7 +124,14 @@ export const bookingsService = {
   },
 
   async getUpcoming(userId: string) {
-    console.log('Fetching upcoming bookings for:', userId);
+    console.log('Fetching upcoming bookings for user:', userId);
+    
+    // Get current date and time for comparison
+    const now = new Date();
+    const currentDate = now.toISOString().split('T')[0]; // YYYY-MM-DD format
+    const currentTime = now.toTimeString().split(' ')[0].substring(0, 5); // HH:MM format
+    
+    console.log('Current date:', currentDate, 'Current time:', currentTime);
     
     const { data, error } = await supabase
       .from('bookings')
@@ -136,10 +143,11 @@ export const bookingsService = {
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
       .in('status', ['pending', 'confirmed'])
-      .gte('booking_date', new Date().toISOString().split('T')[0])
-      .order('booking_date', { ascending: true });
+      .or(`booking_date.gt.${currentDate},and(booking_date.eq.${currentDate},booking_time.gt.${currentTime})`)
+      .order('booking_date', { ascending: true })
+      .order('booking_time', { ascending: true });
 
-    console.log('Upcoming bookings result:', { data, error });
+    console.log('Upcoming bookings query result:', { data, error, userId });
 
     if (error) {
       console.error('Error fetching upcoming bookings:', error);
@@ -150,7 +158,7 @@ export const bookingsService = {
   },
 
   async getCompleted(userId: string) {
-    console.log('Fetching completed bookings for:', userId);
+    console.log('Fetching completed bookings for user:', userId);
     
     const { data, error } = await supabase
       .from('bookings')
@@ -164,7 +172,7 @@ export const bookingsService = {
       .eq('status', 'completed')
       .order('booking_date', { ascending: false });
 
-    console.log('Completed bookings result:', { data, error });
+    console.log('Completed bookings query result:', { data, error, userId });
 
     if (error) {
       console.error('Error fetching completed bookings:', error);
@@ -205,7 +213,7 @@ export const bookingsService = {
   },
 
   async getUserBookings(userId: string) {
-    console.log('Fetching user bookings for:', userId);
+    console.log('Fetching all user bookings for:', userId);
     
     const { data, error } = await supabase
       .from('bookings')
@@ -216,9 +224,9 @@ export const bookingsService = {
         provider:profiles!provider_id(name, phone, avatar)
       `)
       .or(`client_id.eq.${userId},provider_id.eq.${userId}`)
-      .order('booking_date', { ascending: true });
+      .order('booking_date', { ascending: false });
 
-    console.log('User bookings result:', { data, error });
+    console.log('All user bookings result:', { data, error, userId });
 
     if (error) {
       console.error('Error fetching user bookings:', error);

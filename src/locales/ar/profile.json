@@ -44,6 +44,61 @@
     "no_badges": "لم تحصل على أوسمة بعد",
     "badges_subtitle": "اجمع الأوسمة وأنت تنمو! كل واحدة تحكي قصتك!"
   },
+  "stats_modal": {
+    "skills": {
+      "title": "نظرة عامة على المهارات",
+      "personal_skills": "المهارات الشخصية",
+      "marketplace_skills": "مهارات السوق",
+      "skill_categories": "فئات المهارات",
+      "personal": "شخصي",
+      "marketplace": "السوق",
+      "no_skills_added": "لم تتم إضافة مهارات بعد"
+    },
+    "bookings": {
+      "title": "تحليلات الحجوزات",
+      "completed": "مكتملة",
+      "pending": "قيد الانتظار",
+      "cancelled": "ملغية",
+      "total": "الإجمالي",
+      "monthly_trend": "الاتجاه الشهري",
+      "jan": "يناير",
+      "feb": "فبراير",
+      "mar": "مارس",
+      "apr": "أبريل",
+      "may": "مايو",
+      "jun": "يونيو",
+      "jul": "يوليو",
+      "aug": "أغسطس",
+      "sep": "سبتمبر",
+      "oct": "أكتوبر",
+      "nov": "نوفمبر",
+      "dec": "ديسمبر"
+    },
+    "reviews": {
+      "title": "تحليل التقييمات",
+      "total_reviews": "إجمالي التقييمات",
+      "average_rating": "متوسط التقييم",
+      "rating_distribution": "توزيع التقييمات",
+      "star": "⭐",
+      "stars": "نجوم"
+    },
+    "rating": {
+      "title": "تفصيل التقييم",
+      "based_on_reviews": "بناءً على {{count}} تقييم",
+      "performance_areas": "مجالات الأداء",
+      "communication": "التواصل",
+      "quality": "الجودة",
+      "timeliness": "الالتزام بالوقت",
+      "professionalism": "الاحترافية",
+      "value_for_money": "القيمة مقابل المال"
+    },
+    "common": {
+      "no_data_available": "لا توجد بيانات متاحة",
+      "loading": "جاري التحميل...",
+      "out_of": "من أصل",
+      "total_of": "إجمالي"
+    }
+  },
   "skills": {
     "title": "عرض مهاراتك",
     "subtitle": "أظهر للعالم ما أنت مذهل فيه!",
